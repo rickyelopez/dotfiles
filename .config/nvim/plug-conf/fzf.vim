@@ -17,7 +17,7 @@ nnoremap <leader>g :RG<CR>
 nnoremap <leader>t :Tags<CR>
 nnoremap <leader>m :Marks<CR>
 
-let g:fzf_tags_command = 'ctags -R'
+let g:fzf_tags_command = 'ctags -R --options=./.ctags'
 
 " Border color
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }

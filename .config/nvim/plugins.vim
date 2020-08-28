@@ -6,8 +6,13 @@ else
 	call plug#begin('~/vimfiles/plugged')
 endif
 
-Plug 'vim-python/python-syntax'
+
+" LSP
+Plug 'neoclide/coc.nvim', {'branch':'release'}
 Plug 'jackguo380/vim-lsp-cxx-highlight'
+" Plug 'vim-python/python-syntax'
+Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -21,7 +26,6 @@ Plug 'airblade/vim-rooter'
 Plug 'lyuts/vim-rtags'
 
 Plug 'vim-utils/vim-man'
-Plug 'neoclide/coc.nvim', {'branch':'release'}
 Plug 'mbbill/undotree'
 Plug 'preservim/nerdtree'
 Plug 'neomake/neomake'
