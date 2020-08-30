@@ -14,6 +14,8 @@ export ZSH="/home/intern/.oh-my-zsh"
 # set editor
 export EDITOR=nvim
 
+# set key repeat rate and delay
+xset r rate 200 25
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
