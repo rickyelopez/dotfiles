@@ -14,6 +14,7 @@ set nobackup
 set undodir=~/.vimfiles/undodir
 set undofile
 set incsearch
+set inccommand="split"
 set showmatch
 set clipboard=unnamedplus
 
@@ -28,37 +29,7 @@ set signcolumn=yes
 set colorcolumn=72
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
-if has('nvim')
-    " Neovim specific commands
-	call plug#begin(stdpath('data') . '/plugged')
-else
-    " Standard vim specific commands
-	call plug#begin('~/vimfiles/plugged')
-endif
-
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'morhetz/gruvbox'
-Plug 'jremmen/vim-ripgrep'
-Plug 'leafgarland/typescript-vim'
-Plug 'vim-utils/vim-man'
-Plug 'lyuts/vim-rtags'
-Plug 'https://github.com/kien/ctrlp.vim.git'
-Plug 'neoclide/coc.nvim', {'branch':'release'}
-Plug 'mbbill/undotree'
-Plug 'preservim/nerdtree'
-Plug 'Vimjas/vim-python-pep8-indent'
-Plug 'https://www.github.com/w0rp/ale'
-Plug 'vim-scripts/Arduino-syntax-file'
-Plug 'neomake/neomake'
-Plug 'tpope/vim-dispatch'
-Plug 'jiangmiao/auto-pairs'
-Plug 'vim-airline/vim-airline'
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-
-call plug#end()
-
+source /home/geralt/.config/nvim/plugins.vim
 
 autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif
 let g:plug_window = 'noautocmd vertical topleft new'
