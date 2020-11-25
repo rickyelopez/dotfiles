@@ -17,6 +17,10 @@ set incsearch
 set inccommand="split"
 set showmatch
 set clipboard=unnamedplus
+set scrolloff=10
+
+" set leader
+let mapleader = " "
 
 " coc defs
 set hidden
@@ -29,25 +33,13 @@ set signcolumn=yes
 set colorcolumn=72
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
-source /home/geralt/.config/nvim/plugins.vim
-
 autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif
 let g:plug_window = 'noautocmd vertical topleft new'
 
-colorscheme gruvbox
-set background=dark
 
-if executable('rg')
-	let g:rg_derive_root='true'
-endif
-
-let mapleader = " "
-let g:netrw_browse_split=2
-let g:netrw_winsize = 25
-
-let g:ctrlp_use_caching = 0
-
-let g:neomake_open_list = 2
+" if executable('rg')
+" 	let g:rg_derive_root='true'
+" endif
 
 " remap window navigation functions
 nnoremap <leader>h :wincmd h<CR>
@@ -60,40 +52,25 @@ map <leader>pv :NERDTreeToggle<CR>
 nnoremap <leader>ps :Rg<SPACE>
 
 " make functionality
-nnoremap <leader>b :exe 'Make'<bar>Copen<CR>
+" nnoremap <leader>b :exe 'Make'<bar>Copen<CR>
 nnoremap <leader>p :Copen<CR>
+let g:neomake_open_list = 2
 
-
-" coc maps
-nmap <leader>gd <Plug>(coc-definition)
-nmap <leader>gy <Plug>(coc-type-definition)
-nmap <leader>gi <Plug>(coc-implementation)
-nmap <leader>gr <Plug>(coc-references)
-nmap <leader>rn <Plug>(coc-rename)
-xmap <leader>f <Plug>(coc-format-selected)
-nmap <leader>f <Plug>(coc-format-selected)
 
 if has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
+	" Recently vim can merge signcolumn and number column into one
+	set signcolumn=number
 else
-  set signcolumn=yes
+	set signcolumn=yes
 endif
 
-" COC autocomplete menu settings
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
- 
 " Markdown Preview Bind
 nmap <C-m> <Plug>MarkdownPreviewToggle
+
+source $HOME/.config/nvim/plugins.vim
+source $HOME/.config/nvim/plug-conf/fzf.vim
+source $HOME/.config/nvim/plug-conf/coc.vim
+source $HOME/.config/nvim/plug-conf/airline.vim
+source $HOME/.config/nvim/plug-conf/theme.vim
+
