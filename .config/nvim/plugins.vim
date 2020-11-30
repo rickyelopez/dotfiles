@@ -30,17 +30,33 @@ Plug 'lyuts/vim-rtags'
 Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
 Plug 'preservim/nerdtree'
+
 Plug 'neomake/neomake'
 Plug 'jiangmiao/auto-pairs'
 
+" python
+Plug 'Vimjas/vim-python-pep8-indent'
+
+" syntax
+Plug 'vim-python/python-syntax'
+Plug 'jackguo380/vim-lsp-cxx-highlight'
+
+" airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+
+" linting
+Plug 'vim-syntastic/syntastic'
+
+" formatting
+Plug 'rhysd/vim-clang-format'
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 " color schemes
 Plug 'chriskempson/base16-vim'
 Plug 'folke/tokyonight.nvim' 
+Plug 'drewtempelmeyer/palenight.vim'
 
 " indent guides
 Plug 'lukas-reineke/indent-blankline.nvim'

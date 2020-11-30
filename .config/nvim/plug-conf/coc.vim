@@ -17,6 +17,13 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Fix autofix problem of current line
 nmap <leader>cf  <Plug>(coc-fix-current)
 
+nmap <C-b> :CocCommand python.execInTerminal<CR>
+nmap <A-o> :CocCommand clangd.switchSourceHeader<CR>
+
+" nnoremap <Leader>f :<C-u>ClangFormat<CR>
+
+" ctrl-space to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
 " COC autocomplete menu settings
 " Use CR for completion
