@@ -1,0 +1,15 @@
+{
+	"python.formatting.provider": "black",
+    "python.formatting.blackArgs": [
+        "--config", "/scratch/users/ricclopez/repos/firmware/libs/python/blackcfg.toml"
+    ],
+	"python.linting.enabled": true,
+	"python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs": [
+        "--rcfile",
+        "/scratch/users/ricclopez/repos/firmware/components/driveInverter/dival/component_metadata/.pylintrc"
+    ],
+    "python.envFile": "${workspaceFolder}/.vscode/.env",
+    "clangd.path": "/nfs_home/ricclopez/.config/coc/extensions/coc-clangd-data/install/11.0.0/clangd_11.0.0/bin/clangd",
+    "clangd.semanticHighlighting": true
+}

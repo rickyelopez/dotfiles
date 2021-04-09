@@ -13,7 +13,7 @@ let g:fzf_buffers_jump = 1
 
 map <C-p> :Files<CR>
 map <leader>b :Buffers<CR>
-nnoremap <leader>g :Rg<CR>
+nnoremap <leader>g :RG<CR>
 nnoremap <leader>t :Tags<CR>
 nnoremap <leader>m :Marks<CR>
 
@@ -22,8 +22,26 @@ let g:fzf_tags_command = 'ctags -R'
 " Border color
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
 
+
 let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
 let $FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/**'"
+
+let g:fzf_git_ignore = 1
+
+function! ToggleGitIgnore()
+	if g:fzf_git_ignore
+		let g:fzf_git_ignore = 0
+		let $FZF_DEFAULT_COMMAND = "rg --files --no-ignore --hidden --glob '!.git/**'"
+		echo "now ignoring .gitignore"
+	else
+		let g:fzf_git_ignore = 1
+		let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**'"
+		echo "now respecting .gitignore"
+	endif
+endfunction
+
+nmap <leader>fg :call ToggleGitIgnore()<CR>
+
 "-g '!{node_modules,.git}'
 
 " Customize fzf colors to match your color scheme
@@ -46,11 +64,11 @@ let g:fzf_colors = {
 command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--inline-info']}), <bang>0)
 
-
 " Get text in files with Rg
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   "rg --column --line-number --no-heading --color=always --smart-case --glob '!.git/**' ".shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
 
  " Make Ripgrep ONLY search file contents and not filenames
 command! -bang -nargs=* Rg
