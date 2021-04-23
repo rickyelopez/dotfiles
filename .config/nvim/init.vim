@@ -1,4 +1,4 @@
-if stridx("ci-dev", hostname()) == -1
+if stridx(hostname(), "ci-dev") == -1
 
     " if has("macunix")
     "   " fix python 2
@@ -73,8 +73,8 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 " Load supplemental configs
 source $HOME/.config/nvim/plugins.vim
 source $HOME/.config/nvim/plug-conf/theme.vim
-source $HOME/.config/nvim/plug-conf/coc.vim
 source $HOME/.config/nvim/plug-conf/ultisnips.vim
+source $HOME/.config/nvim/plug-conf/coc.vim
 source $HOME/.config/nvim/plug-conf/airline.vim
 source $HOME/.config/nvim/plug-conf/fzf.vim
 

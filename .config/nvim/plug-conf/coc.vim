@@ -8,12 +8,18 @@ xmap <leader>f <Plug>(coc-format)
 nmap <leader>f <Plug>(coc-format)
 
 " COC autocomplete menu settings
-inoremap <silent><expr> <TAB>
-	\ pumvisible() ? "\<C-n>" :
-    \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-	\ <SID>check_back_space() ? "\<TAB>" :
-	\ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" Use CR for completion
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" navigate with tab and shift+tab
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" inoremap <silent><expr> <TAB>
+" 	\ pumvisible() ? "\<C-n>" :
+"     " \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+" 	\ <SID>check_back_space() ? "\<TAB>" :
+" 	\ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 " coc-snippets
 let g:coc_snippet_next = '<tab>'
