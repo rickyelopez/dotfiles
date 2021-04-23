@@ -13,17 +13,17 @@ else
     let g:python3_host_prog = "/usr/bin/python"
 
     let g:clipboard = {
-          \   'name': 'tmux_clipboard',
-          \   'copy': {
-          \      '+': '/nfs_home/ricclopez/copypaste/pbcopy-remote',
-          \      '*': '/nfs_home/ricclopez/copypaste/pbcopy-remote',
-          \    },
-          \   'paste': {
-          \      '+': '/nfs_home/ricclopez/copypaste/pbpaste-remote',
-          \      '*': '/nfs_home/ricclopez/copypaste/pbpaste-remote',
-          \   },
-          \   'cache_enabled': 1,
-          \ }
+        \   'name': 'tmux_clipboard',
+        \   'copy': {
+        \      '+': '/nfs_home/ricclopez/copypaste/pbcopy-remote',
+        \      '*': '/nfs_home/ricclopez/copypaste/pbcopy-remote',
+        \    },
+        \   'paste': {
+        \      '+': '/nfs_home/ricclopez/copypaste/pbpaste-remote',
+        \      '*': '/nfs_home/ricclopez/copypaste/pbpaste-remote',
+        \   },
+        \   'cache_enabled': 1,
+        \ }
 
 endif
 
@@ -48,6 +48,7 @@ set undofile
 set showmatch
 set clipboard+=unnamedplus
 set scrolloff=10
+set termguicolors
 
 " searching
 set incsearch
@@ -78,13 +79,19 @@ source $HOME/.config/nvim/plug-conf/coc.vim
 source $HOME/.config/nvim/plug-conf/airline.vim
 source $HOME/.config/nvim/plug-conf/fzf.vim
 
+" bufferline setup
+lua << EOF
+  require("bufferline").setup{}
+EOF
 
 " close buffer without closing window
 nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
 
 " bind buffer switching
-nnoremap <S-Tab> :bn<CR>
-nnoremap <leader><S-Tab> :bp<CR>
+" nnoremap <S-Tab> :bn<CR>
+" nnoremap <leader><S-Tab> :bp<CR>
+nnoremap <S-Tab> :BufferLineCycleNext<CR>
+nnoremap <leader><S-Tab> :BufferLineCyclePrev<CR>
 
 " clear highligted search
 nnoremap <leader><space> :noh<CR>
@@ -130,4 +137,3 @@ nnoremap <leader>ws :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 " adjust c comments
 autocmd FileType c,cpp set commentstring=//\ %s
-
