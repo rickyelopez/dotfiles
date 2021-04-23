@@ -10,7 +10,7 @@ let g:python3_host_prog = "/usr/bin/python"
 "   let g:python_host_prog = "/usr/bin/python"
 " else
 "   let g:python3_host_prog='/usr/local/bin/python3'
-"   let g:python_host_prog='/usr/local/bin/python' 
+"   let g:python_host_prog='/usr/local/bin/python'
 " endif
 
 let g:clipboard = {
@@ -103,16 +103,22 @@ let g:neomake_open_list = 2
 nnoremap <S-Tab> :bn<CR>
 nnoremap <leader><S-Tab> :bp<CR>
 
-
 " Markdown Preview Bind
 nmap <leader>md <Plug>MarkdownPreviewToggle
 
 " DBC syntax
 au BufRead,BufNewFile *.dbc set filetype=dbc
 
+"Remove all trailing whitespace by pressing F5
+nnoremap <leader>ws :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+
+" adjust c comments
+autocmd FileType c,cpp set commentstring=//\ %s
+
 " Load supplemental configs
 source $HOME/.config/nvim/plugins.vim
 source $HOME/.config/nvim/plug-conf/fzf.vim
 source $HOME/.config/nvim/plug-conf/coc.vim
+source $HOME/.config/nvim/plug-conf/ultisnips.vim
 source $HOME/.config/nvim/plug-conf/airline.vim
 source $HOME/.config/nvim/plug-conf/theme.vim
