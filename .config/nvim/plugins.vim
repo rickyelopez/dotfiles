@@ -50,6 +50,9 @@ Plug 'Yggdroot/indentLine'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/nvim-bufferline.lua'
 
+" LSP Trouble
+Plug 'folke/lsp-trouble.nvim'
+
 " snippets
 " Plug 'SirVer/ultisnips'
 

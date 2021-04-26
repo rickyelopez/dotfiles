@@ -7,6 +7,17 @@ nmap <leader>rn <Plug>(coc-rename)
 xmap <leader>f <Plug>(coc-format)
 nmap <leader>f <Plug>(coc-format)
 
+" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Fix autofix problem of current line
+nmap <leader>cf  <Plug>(coc-fix-current)
+
+
 " COC autocomplete menu settings
 " Use CR for completion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
