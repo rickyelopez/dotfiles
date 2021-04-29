@@ -21,7 +21,9 @@ Plug 'tpope/vim-dispatch'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+
 Plug 'airblade/vim-rooter'
+Plug 'airblade/vim-gitgutter'
 
 Plug 'lyuts/vim-rtags'
 
@@ -38,6 +40,18 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 
 " color schemes
 Plug 'chriskempson/base16-vim'
+Plug 'folke/tokyonight.nvim' 
+
+" indent guides
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'Yggdroot/indentLine'
+
+" Buffer line
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'akinsho/nvim-bufferline.lua'
+
+" LSP Trouble
+Plug 'folke/lsp-trouble.nvim'
 
 " snippets
 " Plug 'SirVer/ultisnips'
