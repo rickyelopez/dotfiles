@@ -26,6 +26,9 @@ nnoremap <leader><space> :noh<CR>
 nnoremap <leader>pv :NERDTreeToggle<CR>
 nnoremap \ :NERDTreeFind<CR>
 
-"Remove all trailing wHitespace by pressing hotkey
+" Remove all trailing wHitespace by pressing hotkey
 nnoremap <leader>ws :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
+" scratchpad
+nnoremap <leader>sc :e ~/scratchpad.c<CR>
+nnoremap <leader>sp :e ~/scratchpad.py<CR>
