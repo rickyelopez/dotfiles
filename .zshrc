@@ -134,28 +134,18 @@ source $ZSH/oh-my-zsh.sh
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 
 
-# Aliases
-## Common Git Commands ##
-alias gs='git status'
-alias gc='git clean -dxf'
-alias gbd='f(){ git branch -D "$@" ; unset -f f;}; f'
-alias gbn='f(){ git checkout -b "$1" ; unset -f f;}; f'
-alias gbg='f(){ git branch | grep -E "$@" ; unset -f f;}; f'
-alias gfo='f(){ git fetch origin "$1":"$1" "$@" ; unset -f f;}; f'
-alias gco='f(){ git checkout "$1" ; unset -f f;}; f'
-alias gfco='f(){ gfo "$1" && gco "$1" ; unset -f f;}; f'
-alias gsq='f(){ git rebase -i HEAD~"$1" ; unset -f f;}; f'
-alias grb='f(){ git rebase "$1" ; unset -f f;}; f'
-alias grbo='f(){ grb origin/"$1" ; unset -f f;}; f'
-alias grc='git rebase --continue'
-alias gra='git rebase --abort'
-alias gcog='f(){ gco `gbg "$@"` ; unset -f f; }; f'
-alias gbdg='f(){ gbd `gbg "$@"` ; unset -f f; }; f'
-alias gpu='git push -u origin `git branch --show-current`'
-alias gpuf='git push -u origin `git branch --show-current` -f'
+if [ -f $HOME/.aliases ]; then
+    . $HOME/.aliases
+fi
 
-. $HOME/.priv_aliases
-. $HOME/.priv_vars
+if [ -f $HOME/.priv_aliases ]; then
+    . $HOME/.priv_aliases
+fi
+
+if [ -f $HOME/.priv_vars ]; then
+    . $HOME/.priv_vars
+fi
+
 
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"

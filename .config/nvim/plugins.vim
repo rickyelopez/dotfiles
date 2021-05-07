@@ -72,4 +72,7 @@ Plug 'folke/lsp-trouble.nvim'
 " snippets
 " Plug 'SirVer/ultisnips'
 
+" todo
+Plug 'aserebryakov/vim-todo-lists'
+
 call plug#end()
