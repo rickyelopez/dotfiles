@@ -2,9 +2,7 @@
     "python.formatting.provider": "black",
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
-    "python.envFile": "${workspaceFolder}/.git/.env",
     "clangd.semanticHighlighting": true,
-    "clangd.arguments": [],
     "diagnostic.locationlistUpdate": true,
-    "diagnostic.refreshOnInsertMode": true 
+    "diagnostic.refreshOnInsertMode": true
 }
