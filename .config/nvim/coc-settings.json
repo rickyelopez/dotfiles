@@ -2,7 +2,8 @@
     "python.formatting.provider": "black",
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
-    "clangd.semanticHighlighting": true,
     "diagnostic.locationlistUpdate": true,
-    "diagnostic.refreshOnInsertMode": true
+    "diagnostic.refreshOnInsertMode": true,
+    "clangd.semanticHighlighting": true,
+    "coc.preferences.semanticTokensHighlights": false 
 }
