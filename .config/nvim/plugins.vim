@@ -8,9 +8,13 @@ endif
 
 
 " LSP
-Plug 'neoclide/coc.nvim', {'branch':'release'}
+" Plug 'neoclide/coc.nvim', {'branch':'release'}
+Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
+" Plug 'jackguo380/vim-lsp-cxx-highlight'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'rhysd/vim-clang-format'
-Plug 'jackguo380/vim-lsp-cxx-highlight'
+" Merge conflicts
+Plug 'rhysd/conflict-marker.vim'
 " Plug 'vim-python/python-syntax'
 Plug 'Vimjas/vim-python-pep8-indent'
 " Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}

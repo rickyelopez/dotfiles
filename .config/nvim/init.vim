@@ -87,6 +87,7 @@ source $HOME/.config/nvim/plug-conf/coc.vim
 source $HOME/.config/nvim/plug-conf/airline.vim
 source $HOME/.config/nvim/plug-conf/fzf.vim
 source $HOME/.config/nvim/plug-conf/lsptrouble.vim
+source $HOME/.config/nvim/plug-conf/treesitter.vim
 
 
 let g:rooter_manual_only = 1
@@ -164,8 +165,11 @@ let g:clang_format#code_style = 'llvm'
 autocmd FileType c,cpp set commentstring=//\ %s
 
 " clang format
-let g:clang_format#command = "~/clang+llvm/bin/clang-format"
+let g:clang_format#command = "~/clang+llvm/bin/clang-format -style=$HOME/.config/clangd/.clang-config"
 
 " python root dir
 autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyrightconfig.json', 'pyproject.toml']
+
+" disable rooter
+let g:rooter_manual_only = 1
 
