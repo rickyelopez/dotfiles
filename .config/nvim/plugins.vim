@@ -12,7 +12,7 @@ Plug 'neoclide/coc.nvim', {'branch':'release'}
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 " Plug 'vim-python/python-syntax'
 Plug 'Vimjas/vim-python-pep8-indent'
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+" Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
