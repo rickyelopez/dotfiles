@@ -51,6 +51,13 @@ set scrolloff=10
 set termguicolors
 set updatetime=300
 
+" show whitespace and line break
+set list
+set listchars=tab:│\ ,trail:•,extends:❯,precedes:❮
+set shiftround
+" set linebreak
+" let &showbreak='↪ '
+
 " searching
 set incsearch
 set ignorecase
@@ -77,6 +84,8 @@ set signcolumn=yes
 set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
+" don't fold anything when opening files
+set foldlevel=99
 
 " Load supplemental configs
 source $HOME/.config/nvim/plugins.vim
@@ -87,6 +96,7 @@ source $HOME/.config/nvim/plug-conf/coc.vim
 source $HOME/.config/nvim/plug-conf/airline.vim
 source $HOME/.config/nvim/plug-conf/fzf.vim
 source $HOME/.config/nvim/plug-conf/lsptrouble.vim
+source $HOME/.config/nvim/plug-conf/treesitter.vim
 
 
 let g:rooter_manual_only = 1
@@ -162,3 +172,13 @@ let g:clang_format#code_style = 'llvm'
 
 " adjust c comments
 autocmd FileType c,cpp set commentstring=//\ %s
+
+" clang format
+let g:clang_format#command = "~/clang+llvm/bin/clang-format -style=$HOME/.config/clangd/.clang-config"
+
+" python root dir
+autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyrightconfig.json', 'pyproject.toml']
+
+" disable rooter
+let g:rooter_manual_only = 1
+

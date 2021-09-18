@@ -8,8 +8,14 @@ endif
 
 
 " LSP
-Plug 'neoclide/coc.nvim', {'branch':'release'}
-Plug 'jackguo380/vim-lsp-cxx-highlight'
+" Plug 'neoclide/coc.nvim', {'branch':'release'}
+Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
+" Plug 'jackguo380/vim-lsp-cxx-highlight'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
+Plug 'rhysd/vim-clang-format'
+" Merge conflicts
+Plug 'rhysd/conflict-marker.vim'
 " Plug 'vim-python/python-syntax'
 Plug 'Vimjas/vim-python-pep8-indent'
 " Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
@@ -18,6 +24,9 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dispatch'
+
+" git diff
+Plug 'sindrets/diffview.nvim'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
