@@ -18,7 +18,7 @@ Plug 'rhysd/vim-clang-format'
 Plug 'rhysd/conflict-marker.vim'
 " Plug 'vim-python/python-syntax'
 Plug 'Vimjas/vim-python-pep8-indent'
-" Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
