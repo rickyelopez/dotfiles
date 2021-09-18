@@ -16,9 +16,6 @@ Plug 'nvim-treesitter/playground'
 Plug 'rhysd/vim-clang-format'
 " Merge conflicts
 Plug 'rhysd/conflict-marker.vim'
-" Plug 'vim-python/python-syntax'
-Plug 'Vimjas/vim-python-pep8-indent'
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -45,17 +42,12 @@ Plug 'jiangmiao/auto-pairs'
 
 " python
 Plug 'Vimjas/vim-python-pep8-indent'
-
-" syntax
-Plug 'vim-python/python-syntax'
-Plug 'jackguo380/vim-lsp-cxx-highlight'
+" Plug 'vim-python/python-syntax'
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 " airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-
-" linting
-Plug 'vim-syntastic/syntastic'
 
 " formatting
 Plug 'rhysd/vim-clang-format'
