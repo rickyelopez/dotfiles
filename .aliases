@@ -1,5 +1,6 @@
 # Aliases
 ## Common Git Commands ##
+alias gb='git branch'
 alias gs='git status'
 alias gc='git clean -dxf'
 alias gbd='f(){ git branch -D "$@" ; unset -f f;}; f'

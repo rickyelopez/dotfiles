@@ -11,6 +11,8 @@ nmap <leader>f <Plug>(coc-format)
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
+nmap <A-o> :CocCommand clangd.switchSourceHeader<CR>
+
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
