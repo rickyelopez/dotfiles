@@ -20,6 +20,9 @@ export ZSH="$HOME/.oh-my-zsh"
 # set editor
 export EDITOR=nvim
 
+# set display for x
+export DISPLAY=localhost:0.0
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -126,13 +129,6 @@ source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# load autojump
-if [ "$(uname 2> /dev/null)" != "Linux" ]; then
-  [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
-  autoload -U compinit && compinit -u
-else
-  [[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
-fi
 
 # Tell Maven to use brew java instead of mac one
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
@@ -151,7 +147,21 @@ if [ -f $HOME/.priv_vars ]; then
 fi
 
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
+
+# load autojump
+if [ "$(uname 2> /dev/null)" != "Linux" ]; then
+  [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
+  autoload -U compinit && compinit -u
+else
+  [[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
+fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

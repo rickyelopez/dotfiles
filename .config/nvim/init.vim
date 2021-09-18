@@ -51,6 +51,13 @@ set scrolloff=10
 set termguicolors
 set updatetime=300
 
+" show whitespace and line break
+set list
+set listchars=tab:│\ ,trail:•,extends:❯,precedes:❮
+set shiftround
+" set linebreak
+" let &showbreak='↪ '
+
 " searching
 set incsearch
 set ignorecase
@@ -59,6 +66,12 @@ set inccommand=nosplit
 
 " map leader key to space
 let mapleader = " "
+
+" searching
+set ignorecase
+set smartcase
+set incsearch
+set inccommand=nosplit
 
 " coc defs
 set hidden
@@ -71,6 +84,8 @@ set signcolumn=yes
 set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
+" don't fold anything when opening files
+set foldlevel=99
 
 " Load supplemental configs
 source $HOME/.config/nvim/plugins.vim
@@ -81,6 +96,10 @@ source $HOME/.config/nvim/plug-conf/coc.vim
 source $HOME/.config/nvim/plug-conf/airline.vim
 source $HOME/.config/nvim/plug-conf/fzf.vim
 source $HOME/.config/nvim/plug-conf/lsptrouble.vim
+source $HOME/.config/nvim/plug-conf/treesitter.vim
+
+
+let g:rooter_manual_only = 1
 
 " bufferline setup
 lua << EOF
@@ -96,6 +115,13 @@ let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
 
+" close buffer without closing window
+nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
+
+"nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+map <leader>pv :NERDTreeToggle<CR>
+nnoremap <leader>ps :Rg<SPACE>
+
 " make functionality
 " nnoremap <leader>b :exe 'Make'<bar>Copen<CR>
 " nnoremap <leader>p :Copen<CR>
@@ -109,5 +135,50 @@ let g:python_highlight_all = 1
 " DBC syntax
 au BufRead,BufNewFile *.dbc set filetype=dbc
 
+" python syntax highlighting
+let g:python_highlight_all = 1
+"
+" c++ syntax highlighting
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+
+if has("patch-8.1.1564")
+	" Recently vim can merge signcolumn and number column into one
+	set signcolumn=number
+else
+	set signcolumn=yes
+endif
+
+" enable italics for palenight
+let g:palenight_terminal_italics=1
+
+if (has("termguicolors"))
+  set termguicolors
+endif
+
+" Markdown Preview Bind
+nmap <C-m> <Plug>MarkdownPreviewToggle
+
+
+" linting settings
+let g:syntastic_cpp_checkers = ['cpplint']
+let g:syntastic_c_checkers = ['cpplint']
+let g:syntastic_cpp_cpplint_exec = 'cpplint'
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:clang_format#code_style = 'llvm'
+
 " adjust c comments
 autocmd FileType c,cpp set commentstring=//\ %s
+
+" clang format
+let g:clang_format#command = "~/clang+llvm/bin/clang-format -style=$HOME/.config/clangd/.clang-config"
+
+" python root dir
+autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyrightconfig.json', 'pyproject.toml']
+
+" disable rooter
+let g:rooter_manual_only = 1
+

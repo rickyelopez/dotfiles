@@ -1,11 +1,17 @@
+#!/bin/bash
 # Aliases
+
+alias black='f(){ python3 -m black --config libs/python/blackcfg.toml $DIVAL_PATH/tests/"$1"; unset -f f;}; f'
+
 ## Common Git Commands ##
 alias gb='git branch'
 alias gs='git status'
 alias gc='git clean -dxf'
-alias gbd='f(){ git branch -D "$@" ; unset -f f;}; f'
-alias gbn='f(){ git checkout -b "$1" ; unset -f f;}; f'
+alias gl='f(){ git log "$@" ; unset -f f;}; f'
 alias gbg='f(){ git branch | grep -E "$@" ; unset -f f;}; f'
+alias glg='f(){ git log `gbg "$@"` ; unset -f f;}; f'
+alias gbd='f(){ git branch -D "$@" ; unset -f f;}; f'
+alias gbn='f(){ git checkout -b "$@" ; unset -f f;}; f'
 alias gfo='f(){ git fetch origin "$1":"$1" "$@" ; unset -f f;}; f'
 alias gco='f(){ git checkout "$1" ; unset -f f;}; f'
 alias gfco='f(){ gfo "$1" && gco "$1" ; unset -f f;}; f'
@@ -14,8 +20,10 @@ alias grb='f(){ git rebase "$1" ; unset -f f;}; f'
 alias grbo='f(){ grb origin/"$1" ; unset -f f;}; f'
 alias grc='git rebase --continue'
 alias gra='git rebase --abort'
-alias gsm='git submodule update --init --recursive components/driveInverter/. components/hvSystem/. components/vc/. components/bootloaders/. libs/. components/bodyControls/.'
-alias gsmf='git submodule update --init --recursive -f components/driveInverter/. components/hvSystem/. components/vc/. components/bootloaders/. libs/. components/bodyControls/.'
+alias gsm='git submodule update --init --recursive $SUBMODULES'
+alias gca='f(){ git commit --amend --reset-author "$@" ; unset -f f;}; f'
+alias gcan='gca --no-edit'
+alias gsmf='git submodule update --init --recursive -f $SUBMODULES'
 alias gcog='f(){ gco `gbg "$@"` ; unset -f f; }; f'
 alias gbdg='f(){ gbd `gbg "$@"` ; unset -f f; }; f'
 alias gpu='git push -u origin `git branch --show-current`'

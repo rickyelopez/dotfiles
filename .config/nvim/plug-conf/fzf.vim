@@ -32,10 +32,12 @@ function! ToggleGitIgnore()
 	if g:fzf_git_ignore
 		let g:fzf_git_ignore = 0
 		let $FZF_DEFAULT_COMMAND = "rg --files --no-ignore --hidden --glob '!.git/**'"
+        let g:command_fmt = "rg --no-ignore-vcs --column --line-number --no-heading --color=always --smart-case %s || true"
 		echo "now ignoring .gitignore"
 	else
 		let g:fzf_git_ignore = 1
 		let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**'"
+        let g:command_fmt = "rg --column --line-number --no-heading --color=always --smart-case %s || true"
 		echo "now respecting .gitignore"
 	endif
 endfunction
@@ -79,10 +81,11 @@ command! -bang -nargs=* Rg
   \   <bang>0)
 
 " Ripgrep advanced
+" --no-ignore-vcs 
 function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
-  let initial_command = printf(command_fmt, shellescape(a:query))
-  let reload_command = printf(command_fmt, '{q}')
+  let g:command_fmt = "rg --column --line-number --no-heading --color=always --smart-case %s || true"
+  let initial_command = printf(g:command_fmt, shellescape(a:query))
+  let reload_command = printf(g:command_fmt, '{q}')
   let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
   call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction

@@ -1,17 +1,18 @@
 " coc maps
-nmap <leader>gd <Plug>(coc-definition)
-nmap <leader>gy <Plug>(coc-type-definition)
-nmap <leader>gi <Plug>(coc-implementation)
-nmap <leader>gr <Plug>(coc-references)
+nmap gd <Plug>(coc-definition)
+nmap gy <Plug>(coc-type-definition)
+nmap gi <Plug>(coc-implementation)
+nmap gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
-xmap <leader>f <Plug>(coc-format)
+xmap <leader>f <Plug>(coc-format-selected)
 nmap <leader>f <Plug>(coc-format)
+nmap <leader>cr :CocRestart<CR>
 
 " Use `[c` and `]c` to navigate diagnostics
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
-nmap <A-o> :CocCommand clangd.switchSourceHeader<CR>
+nmap <leader>o :CocCommand<Space>clangd.switchSourceHeader<CR>
 
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -19,6 +20,13 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Fix autofix problem of current line
 nmap <leader>cf  <Plug>(coc-fix-current)
 
+nmap <C-b> :CocCommand python.execInTerminal<CR>
+nmap <A-o> :CocCommand clangd.switchSourceHeader<CR>
+
+" nnoremap <Leader>f :<C-u>ClangFormat<CR>
+
+" ctrl-space to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
 " COC autocomplete menu settings
 " Use CR for completion

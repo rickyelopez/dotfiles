@@ -25,6 +25,26 @@ snippet tv
 ${0:${VISUAL}} ? ${1:/* true val */} : ${2:/* false val */};
 endsnippet
 
+# conditional
+snippet if "if(condition){expression}" b
+if(${1:condition})
+{
+	${VISUAL}$0
+}
+endsnippet
+
+snippet ifel "if(condition){expression} else {expression}" b
+if(${1:condition})
+{
+	${VISUAL}
+}
+else
+{
+	${2:expression}$0
+}
+endsnippet
+
+
 # switch
 snippet switch
 switch (${1:/* variable */}) {
