@@ -12,6 +12,7 @@ endif
 Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
 " Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
 Plug 'rhysd/vim-clang-format'
 " Merge conflicts
 Plug 'rhysd/conflict-marker.vim'
