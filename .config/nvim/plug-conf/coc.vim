@@ -4,7 +4,7 @@ nmap gy <Plug>(coc-type-definition)
 nmap gi <Plug>(coc-implementation)
 nmap gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
-xmap <leader>f <Plug>(coc-format)
+xmap <leader>f <Plug>(coc-format-selected)
 nmap <leader>f <Plug>(coc-format)
 nmap <leader>cr :CocRestart<CR>
 

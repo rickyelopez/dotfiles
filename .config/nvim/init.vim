@@ -51,6 +51,13 @@ set scrolloff=10
 set termguicolors
 set updatetime=300
 
+" show whitespace and line break
+set list
+set listchars=tab:│\ ,trail:•,extends:❯,precedes:❮
+set shiftround
+" set linebreak
+" let &showbreak='↪ '
+
 " searching
 set incsearch
 set ignorecase
@@ -71,6 +78,8 @@ set signcolumn=yes
 set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
+" don't fold anything when opening files
+set foldlevel=99
 
 " Load supplemental configs
 source $HOME/.config/nvim/plugins.vim
