@@ -59,5 +59,6 @@ call coc#config("python.formatting.blackArgs", ["--config", $REPO_PATH . "/libs/
 call coc#config("python.linting.pylintArgs", ["--rcfile", $RCFILE])
 call coc#config("python.autoComplete.extraPaths", [$EXTRA_PATHS_1, $EXTRA_PATHS_2])
 call coc#config("clangd.path", $CLANGD_PATH)
+" call coc#config("clangd.arguments", ["-style=\"{`sed -e '/^\s*#.*$/d;/^\s*$/d' ~/.config/clangd/.clang-format | sed -z 's/\([^{:]\)\n/\1, /g; s/\([{:]\)\n/\1 /g; s/, }/}/g; s/, $/\n/'`}\""])
 
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
