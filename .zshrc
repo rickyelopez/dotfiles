@@ -131,7 +131,9 @@ source $ZSH/oh-my-zsh.sh
 
 
 # Tell Maven to use brew java instead of mac one
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+if [ -f /usr/libexec/java_home ]; then
+    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+fi
 
 
 if [ -f $HOME/.aliases ]; then

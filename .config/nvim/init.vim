@@ -1,13 +1,6 @@
 if stridx(hostname(), "ci-dev") == -1
-
-    " if has("macunix")
-    "   " fix python 2
-    "   let g:python_host_prog = "/usr/bin/python"
-    " else
-      let g:python3_host_prog='/usr/local/bin/python3'
-      let g:python_host_prog='/usr/local/bin/python' 
-    " endif
-
+    let g:python3_host_prog='/usr/bin/python3'
+    " let g:python_host_prog='/usr/bin/python2' 
 else
 
     let g:python3_host_prog = "/usr/bin/python"
