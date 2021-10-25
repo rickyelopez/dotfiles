@@ -12,7 +12,11 @@ confirm_branch () {
         return 1
     fi
 
-    read -p "You are about to $1 $branch. Continue? (y/n) " confirm 
+    if [ -n "$ZSH_VERSION" ]; then
+        read "?You are about to $1 $branch. Continue? (y/n) " confirm
+    else
+        read -p "You are about to $1 $branch. Continue? (y/n) " confirm 
+    fi
 
     if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]; then
         return 0
