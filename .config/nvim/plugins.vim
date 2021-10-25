@@ -70,8 +70,17 @@ Plug 'akinsho/nvim-bufferline.lua'
 " LSP Trouble
 Plug 'folke/lsp-trouble.nvim'
 
+" telescope
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
+
 " snippets
 " Plug 'SirVer/ultisnips'
+
+" mako
+Plug 'sophacles/vim-bundle-mako'
 
 " todo
 Plug 'aserebryakov/vim-todo-lists'

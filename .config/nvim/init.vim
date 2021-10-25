@@ -97,9 +97,8 @@ source $HOME/.config/nvim/plug-conf/airline.vim
 source $HOME/.config/nvim/plug-conf/fzf.vim
 source $HOME/.config/nvim/plug-conf/lsptrouble.vim
 source $HOME/.config/nvim/plug-conf/treesitter.vim
+source $HOME/.config/nvim/plug-conf/telescope.vim
 
-
-let g:rooter_manual_only = 1
 
 " bufferline setup
 lua << EOF
@@ -109,18 +108,15 @@ EOF
 " nerd tree config
 autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif
 let g:plug_window = 'noautocmd vertical topleft new'
+map <leader>pv :NERDTreeToggle<CR>
 
 " c++ syntax highlighting
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_class_decl_highlight = 1
+" let g:cpp_class_scope_highlight = 1
+" let g:cpp_member_variable_highlight = 1
+" let g:cpp_class_decl_highlight = 1
 
 " close buffer without closing window
 nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
-
-"nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
-map <leader>pv :NERDTreeToggle<CR>
-nnoremap <leader>ps :Rg<SPACE>
 
 " make functionality
 " nnoremap <leader>b :exe 'Make'<bar>Copen<CR>
@@ -137,11 +133,6 @@ au BufRead,BufNewFile *.dbc set filetype=dbc
 
 " python syntax highlighting
 let g:python_highlight_all = 1
-"
-" c++ syntax highlighting
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_class_decl_highlight = 1
 
 if has("patch-8.1.1564")
 	" Recently vim can merge signcolumn and number column into one
@@ -160,7 +151,6 @@ endif
 " Markdown Preview Bind
 nmap <C-m> <Plug>MarkdownPreviewToggle
 
-
 " linting settings
 let g:syntastic_cpp_checkers = ['cpplint']
 let g:syntastic_c_checkers = ['cpplint']
@@ -168,13 +158,8 @@ let g:syntastic_cpp_cpplint_exec = 'cpplint'
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-let g:clang_format#code_style = 'llvm'
-
 " adjust c comments
 autocmd FileType c,cpp set commentstring=//\ %s
-
-" clang format
-let g:clang_format#command = "~/clang+llvm/bin/clang-format -style=$HOME/.config/clangd/.clang-config"
 
 " python root dir
 autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyrightconfig.json', 'pyproject.toml']

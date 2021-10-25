@@ -14,6 +14,18 @@ nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
 nmap <leader>o :CocCommand<Space>clangd.switchSourceHeader<CR>
 
+" show documentation
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
@@ -22,6 +34,13 @@ nmap <leader>cf  <Plug>(coc-fix-current)
 
 nmap <C-b> :CocCommand python.execInTerminal<CR>
 nmap <A-o> :CocCommand clangd.switchSourceHeader<CR>
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
 
 " nnoremap <Leader>f :<C-u>ClangFormat<CR>
 
@@ -59,5 +78,6 @@ call coc#config("python.formatting.blackArgs", ["--config", $REPO_PATH . "/libs/
 call coc#config("python.linting.pylintArgs", ["--rcfile", $RCFILE])
 call coc#config("python.autoComplete.extraPaths", [$EXTRA_PATHS_1, $EXTRA_PATHS_2])
 call coc#config("clangd.path", $CLANGD_PATH)
+" call coc#config("clangd.arguments", ["-style=\"{`sed -e '/^\s*#.*$/d;/^\s*$/d' ~/.config/clangd/.clang-format | sed -z 's/\([^{:]\)\n/\1, /g; s/\([{:]\)\n/\1 /g; s/, }/}/g; s/, $/\n/'`}\""])
 
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
