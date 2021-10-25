@@ -97,6 +97,7 @@ source $HOME/.config/nvim/plug-conf/airline.vim
 source $HOME/.config/nvim/plug-conf/fzf.vim
 source $HOME/.config/nvim/plug-conf/lsptrouble.vim
 source $HOME/.config/nvim/plug-conf/treesitter.vim
+source $HOME/.config/nvim/plug-conf/telescope.vim
 
 
 " bufferline setup

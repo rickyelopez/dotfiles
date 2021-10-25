@@ -109,8 +109,28 @@ ${1:returnType} ${2:function_name}(void)
 }
 endsnippet
 
-# can
+## jcan
 snippet canrxs
 CANRXS(${1:source}, ${2:signalName}, signal)
 endsnippet
 
+## canio
+# set scale
+snippet sets
+#define set_${1:signal name}(m,b,n,s)    set_scale(m,b,n,s, ${2:value}, ${3:base}, ${4:offset})
+endsnippet
+
+# set value
+snippet setv
+#define set_${1:signal name}(m,b,n,s)    set_value(m,b,n,s, ${2:value})
+endsnippet
+
+# set raw
+snippet setr
+#define set_${1:signal name}(m,b,n,s)    set_value(m,b,n,s, ${2:value})
+endsnippet
+
+# set unsent
+snippet setu
+#define set_${1:signal name}(m,b,n,s)    unsent_signal(m)
+endsnippet
