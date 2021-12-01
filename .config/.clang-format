@@ -44,7 +44,7 @@ AllowAllParametersOfDeclarationOnNextLine: 'false'
 
 # Allows braced statements to be on a single line
 # e.g. if (eval) { return true; }
-AllowShortBlocksOnASingleLine: 'false'
+AllowShortBlocksOnASingleLine: 'true'
 
 # only merge functions defined inside a class, including empty ones
 # Other options include "empty" where onyl empty functions are inline
@@ -57,13 +57,13 @@ AllowShortFunctionsOnASingleLine: Inline
 # vs.
 # if (a)
 #     operation;
-AllowShortIfStatementsOnASingleLine: 'false'
+AllowShortIfStatementsOnASingleLine: 'true'
 
 # self-explanatory.
-AllowShortCaseLabelsOnASingleLine: 'false'
+AllowShortCaseLabelsOnASingleLine: 'true'
 
 # self-explanatory. for(;;) operation;
-AllowShortLoopsOnASingleLine: 'false'
+AllowShortLoopsOnASingleLine: 'true'
 
 # break long strings into multiple lines and then align the strings
 AlwaysBreakBeforeMultilineStrings: 'false'
@@ -128,7 +128,7 @@ ColumnLimit: '0'
 
 # stop clang from trying to format the special
 # Cube-generated starting and ending comments
-CommentPragmas: '^( #####(\#+))'
+CommentPragmas: '^(lint) | ^( #####(\#+))'
 
 # Either fits all the constructor call args onto one line
 # or each param gets their own line if they don't fit
@@ -219,7 +219,7 @@ SpaceBeforeParens: ControlStatements
 SpaceInEmptyParentheses: 'false'
 
 # number of spaces before c-style comments "//"
-SpacesBeforeTrailingComments: '1'
+SpacesBeforeTrailingComments: '4'
 
 # spaces inserted after < and before > in template argument lists
 SpacesInAngles: 'false'

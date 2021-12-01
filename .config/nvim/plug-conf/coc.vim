@@ -54,6 +54,7 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+
 " inoremap <silent><expr> <TAB>
 " 	\ pumvisible() ? "\<C-n>" :
 "     " \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
@@ -66,6 +67,7 @@ let g:coc_snippet_next = '<tab>'
 " Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 " Use <C-j> for select text for visual placeholder of snippet.
+" vmap <C-j> <Plug>(coc-snippets-select)
 vmap <C-j> <Plug>(coc-snippets-select)
 
 
@@ -81,3 +83,6 @@ call coc#config("clangd.path", $CLANGD_PATH)
 " call coc#config("clangd.arguments", ["-style=\"{`sed -e '/^\s*#.*$/d;/^\s*$/d' ~/.config/clangd/.clang-format | sed -z 's/\([^{:]\)\n/\1, /g; s/\([{:]\)\n/\1 /g; s/, }/}/g; s/, $/\n/'`}\""])
 
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+"
+"
+hi! link CocSem_comment TSComment

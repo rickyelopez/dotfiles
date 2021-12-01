@@ -92,12 +92,6 @@ source $HOME/.config/nvim/plug-conf/lsptrouble.vim
 source $HOME/.config/nvim/plug-conf/treesitter.vim
 source $HOME/.config/nvim/plug-conf/telescope.vim
 
-
-" bufferline setup
-lua << EOF
-  require("bufferline").setup{}
-EOF
-
 " nerd tree config
 autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif
 let g:plug_window = 'noautocmd vertical topleft new'
@@ -159,4 +153,9 @@ autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.ven
 
 " disable rooter
 let g:rooter_manual_only = 1
+
+
+lua << EOF
+  require("init")
+EOF
 
