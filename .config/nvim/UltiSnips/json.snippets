@@ -1,14 +1,14 @@
 # received sig
 snippet rx "name"
 {
-	"name": "${1:name}"
+	"name": "${VISUAL}$0"
 },
 endsnippet
 
 # value table entry
 snippet value "name"
 {
-	"name": "${1:name}",
+	"name": "${0:${VISUAL}}",
 	"entries": {
 		"${2:entry}": 0
 	}

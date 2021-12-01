@@ -13,38 +13,37 @@ let g:fzf_buffers_jump = 1
 
 map <C-p> :Files<CR>
 map <leader>b :Buffers<CR>
-nnoremap <leader>gg :RG<CR>
+nnoremap <leader>g :RG<CR>
 nnoremap <leader>t :Tags<CR>
 nnoremap <leader>m :Marks<CR>
 
 let g:fzf_tags_command = 'ctags -R --options=./.ctags'
 
 " Border color
-let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
+let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.9, 'height': 0.9,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
 
 
 let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
-let $FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git/**'"
+let $FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --glob '!.git/**'"
+let g:command_fmt = "rg --no-ignore-vcs --column --line-number --no-heading --color=always -g '!*.msr' -g '!*.gvl' -g '!*.map' --smart-case %s || true"
 
-let g:fzf_git_ignore = 1
+let g:fzf_git_ignore = 0
 
 function! ToggleGitIgnore()
 	if g:fzf_git_ignore
 		let g:fzf_git_ignore = 0
 		let $FZF_DEFAULT_COMMAND = "rg --files --no-ignore --hidden --glob '!.git/**'"
-        let g:command_fmt = "rg --no-ignore-vcs --column --line-number --no-heading --color=always --smart-case %s || true"
+        let g:command_fmt = "rg --no-ignore-vcs --column --line-number --no-heading --color=always -g '!*.msr' -g '!*.gvl' -g '!*.map' --smart-case %s || true"
 		echo "now ignoring .gitignore"
 	else
 		let g:fzf_git_ignore = 1
 		let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**'"
-        let g:command_fmt = "rg --column --line-number --no-heading --color=always --smart-case %s || true"
+        let g:command_fmt = "rg --column --line-number --no-heading --color=always -g '!*.msr' -g '!*.gvl' -g '!*.map' --smart-case %s || true"
 		echo "now respecting .gitignore"
 	endif
 endfunction
 
 nmap <leader>fg :call ToggleGitIgnore()<CR>
-
-"-g '!{node_modules,.git}'
 
 " Customize fzf colors to match your color scheme
 " let g:fzf_colors = {
@@ -66,24 +65,22 @@ nmap <leader>fg :call ToggleGitIgnore()<CR>
 command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--inline-info']}), <bang>0)
 
-" Get text in files with Rg
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   "rg --column --line-number --no-heading --color=always --smart-case --glob '!.git/**' ".shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
+" " Get text in files with Rg
+" command! -bang -nargs=* Rg
+"   \ call fzf#vim#grep(
+"   \   "rg --column --line-number --no-heading --color=always --smart-case --glob '!.git/**' ".shellescape(<q-args>), 1,
+"   \   fzf#vim#with_preview(), <bang>0)
 
- " Make Ripgrep ONLY search file contents and not filenames
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
-  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4.. -e'}, 'right:50%', '?'),
-  \   <bang>0)
+"  " Make Ripgrep ONLY search file contents and not filenames
+" command! -bang -nargs=* Rg
+"   \ call fzf#vim#grep(
+"   \   'rg --column --line-number --hidden --smart-case --no-heading --color=always '.shellescape(<q-args>), 1,
+"   \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+"   \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4.. -e'}, 'right:50%', '?'),
+"   \   <bang>0)
 
 " Ripgrep advanced
-" --no-ignore-vcs 
 function! RipgrepFzf(query, fullscreen)
-  let g:command_fmt = "rg --column --line-number --no-heading --color=always --smart-case %s || true"
   let initial_command = printf(g:command_fmt, shellescape(a:query))
   let reload_command = printf(g:command_fmt, '{q}')
   let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
