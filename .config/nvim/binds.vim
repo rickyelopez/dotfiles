@@ -7,6 +7,8 @@ nnoremap <leader>k :wincmd k<CR>
 " unmap Q
 nnoremap <silent> Q <nop>
 
+" source current file
+nnoremap <leader>r :so<space>%<CR>
 " delete doesn't overwrite main buffer
 nnoremap <leader>d "_d
 vnoremap <leader>d "_d

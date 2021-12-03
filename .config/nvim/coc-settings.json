@@ -5,5 +5,5 @@
     "diagnostic.locationlistUpdate": true,
     "diagnostic.refreshOnInsertMode": true,
     "clangd.semanticHighlighting": true,
-    "coc.preferences.semanticTokensHighlights": false 
+    "coc.preferences.semanticTokensHighlights": true
 }

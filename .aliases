@@ -35,7 +35,8 @@ alias gbc='git branch --show-current'
 alias gbg='f(){ git branch | grep -E "$@" ; unset -f f;}; f'
 
 # conflicts #
-alias gcf='git diff --name-only --diff-filter=U'
+alias gcl='git diff --name-only --diff-filter=U'
+alias gdc='git diff --check'
 
 # log #
 alias gl='f(){ git log "$@" ; unset -f f;}; f'
