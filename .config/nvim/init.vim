@@ -86,11 +86,12 @@ source $HOME/.config/nvim/binds.vim
 source $HOME/.config/nvim/plug-conf/theme.vim
 source $HOME/.config/nvim/plug-conf/ultisnips.vim
 source $HOME/.config/nvim/plug-conf/coc.vim
+source $HOME/.config/nvim/plug-conf/uncrustify.vim
 source $HOME/.config/nvim/plug-conf/airline.vim
 source $HOME/.config/nvim/plug-conf/fzf.vim
-source $HOME/.config/nvim/plug-conf/lsptrouble.vim
 source $HOME/.config/nvim/plug-conf/treesitter.vim
 source $HOME/.config/nvim/plug-conf/telescope.vim
+" source $HOME/.config/nvim/plug-conf/lsptrouble.vim
 
 " nerd tree config
 autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif
