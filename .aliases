@@ -41,6 +41,8 @@ alias gdc='git diff --check'
 # log #
 alias gl='f(){ git log "$@" ; unset -f f;}; f'
 alias glg='f(){ git log `gbg "$@"` ; unset -f f;}; f'
+alias glo='gl --oneline'
+alias glog='f(){ git log --oneline `gbg "$@"` ; unset -f f;}; f'
 
 # branching #
 alias gbn='f(){ git checkout -b "$@" ; unset -f f;}; f'
@@ -59,6 +61,11 @@ alias grb='f(){ git rebase "$1" ; unset -f f;}; f'
 alias grbo='f(){ grb origin/"$1" ; unset -f f;}; f'
 alias grc='git rebase --continue'
 alias gra='git rebase --abort'
+
+# cherry-picking #
+alias gcp='f(){ git cherry-pick "$@" ; unset -f f;}; f'
+alias gcpa='git cherry-pick --abort'
+alias gcpc='git cherry-pick --continue'
 
 # submodules #
 alias gsm='git submodule update --init --recursive $SUBMODULES'
