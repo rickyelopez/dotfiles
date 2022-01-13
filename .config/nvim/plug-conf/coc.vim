@@ -4,9 +4,12 @@ nmap gy <Plug>(coc-type-definition)
 nmap gi <Plug>(coc-implementation)
 nmap gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
-" xmap <leader>f <Plug>(coc-format-selected)
-" nmap <leader>f <Plug>(coc-format)
 nmap <leader>cr :CocRestart<CR>
+
+" autocmd FileType *\(cpp\|c\)\@<! xmap <leader>f <Plug>(coc-format-selected)
+" autocmd FileType *\(cpp\|c\)\@<! nmap <leader>f <Plug>(coc-format)
+xmap <leader>f <Plug>(coc-format-selected)
+nmap <leader>f <Plug>(coc-format)
 
 " Use `[c` and `]c` to navigate diagnostics
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
