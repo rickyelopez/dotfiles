@@ -3,7 +3,7 @@
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
     "diagnostic.locationlistUpdate": true,
-    "diagnostic.refreshOnInsertMode": true,
+    "diagnostic.refreshOnInsertMode": false,
     "clangd.semanticHighlighting": true,
     "coc.preferences.semanticTokensHighlights": true
 }

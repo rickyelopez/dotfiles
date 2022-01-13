@@ -57,6 +57,13 @@ require('bufferline').setup {
       },
       items = {
         {
+          name = "Configs",
+          highlight = {gui = "underline", guisp = "purple"}, -- Optional
+          matcher = function(buf) -- Mandatory
+            return buf.path:match('dotfiles') or buf.path:match('~/.config')
+          end,
+        },
+        {
           name = "DI",
           highlight = {gui = "underline", guisp = "green"}, -- Optional
           matcher = function(buf) -- Mandatory
@@ -65,9 +72,23 @@ require('bufferline').setup {
         },
         {
           name = "PM",
-          highlight = {gui = "undercurl", guisp = "cyan"},
+          highlight = {gui = "underline", guisp = "cyan"},
           matcher = function(buf)
             return buf.path:match('driveInverter/gen3/monitor')
+          end,
+        },
+        {
+          name = "DIVAL",
+          highlight = {gui = "underline", guisp = "orange"}, -- Optional
+          matcher = function(buf) -- Mandatory
+            return buf.path:match('dival')
+          end,
+        },
+        {
+          name = "DI Gen",
+          highlight = {gui = "underline", guisp = "green"}, -- Optional
+          matcher = function(buf) -- Mandatory
+            return buf.path:match('driveInverter')
           end,
         },
         {
