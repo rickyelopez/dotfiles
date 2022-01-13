@@ -10,10 +10,12 @@ endif
 " LSP
 " Plug 'neoclide/coc.nvim', {'branch':'release'}
 Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
+
 " Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
 Plug 'rhysd/vim-clang-format'
+
 " Merge conflicts
 Plug 'rhysd/conflict-marker.vim'
 
@@ -37,12 +39,10 @@ Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
 Plug 'preservim/nerdtree'
 
-Plug 'neomake/neomake'
 Plug 'jiangmiao/auto-pairs'
 
 " python
-Plug 'Vimjas/vim-python-pep8-indent'
-" Plug 'vim-python/python-syntax'
+" Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 " airline
@@ -50,7 +50,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " formatting
-" Plug 'rhysd/vim-clang-format'
 Plug 'cofyc/vim-uncrustify'
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
@@ -76,9 +75,6 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
-
-" snippets
-" Plug 'SirVer/ultisnips'
 
 " mako
 Plug 'sophacles/vim-bundle-mako'
