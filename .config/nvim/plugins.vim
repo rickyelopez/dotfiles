@@ -27,8 +27,9 @@ Plug 'tpope/vim-dispatch'
 " tmux clipboard
 Plug 'roxma/vim-tmux-clipboard'
 
-" git diff
+" git stuff
 Plug 'sindrets/diffview.nvim'
+Plug 'APZelos/blamer.nvim'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
