@@ -5,5 +5,6 @@
     "diagnostic.locationlistUpdate": true,
     "diagnostic.refreshOnInsertMode": false,
     "clangd.semanticHighlighting": true,
-    "coc.preferences.semanticTokensHighlights": true
+    "coc.preferences.semanticTokensHighlights": true,
+    "yaml.format.enable": true
 }

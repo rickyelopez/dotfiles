@@ -76,15 +76,21 @@ vmap <C-j> <Plug>(coc-snippets-select)
 
 function! s:check_back_space() abort
 	let col = col('.') - 1
-	return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 if !empty($BLACK_ARGS)
     call coc#config("python.formatting.blackArgs", ["--config", $REPO_PATH . "/libs/python/blackcfg.toml"])
 endif
 call coc#config("python.linting.pylintArgs", ["--rcfile", $RCFILE])
-call coc#config("python.autoComplete.extraPaths", [$EXTRA_PATHS_1, $EXTRA_PATHS_2])
+call coc#config("python.autoComplete.extraPaths", [$EXTRA_PATHS])
 call coc#config("clangd.path", $CLANGD_PATH)
+
+function! Update_compiledb(path)
+    let s:full_path = getcwd() . "/" . a:path
+    let g:tmp = s:full_path
+    call coc#config("clangd.compilationDatabasePath", s:full_path)
+endfunction
+
 " call coc#config("clangd.arguments", ["-style=\"{`sed -e '/^\s*#.*$/d;/^\s*$/d' ~/.config/clangd/.clang-format | sed -z 's/\([^{:]\)\n/\1, /g; s/\([{:]\)\n/\1 /g; s/, }/}/g; s/, $/\n/'`}\""])
 
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
