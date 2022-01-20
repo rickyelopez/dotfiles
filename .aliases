@@ -1,10 +1,17 @@
 #!/bin/bash
-# Aliases
 
-alias black='f(){ python3 -m black --config libs/python/blackcfg.toml $DIVAL_PATH/tests/"$1"; unset -f f;}; f'
 
-## Common Git Commands ##
+## Transferring builds from Dev machines ##
+alias build_transfer='f(){ python -m build_transfer "$@" ; unset -f f;}; f'
 
+
+################################################################################
+#                           Common Git Commands
+################################################################################
+
+#######################
+###### Helpers
+#######################
 # function to confirm operation
 confirm_branch () {
     branch=$(gbc 2>&1)
@@ -25,60 +32,110 @@ confirm_branch () {
     return 1
 }
 
-# Basics #
+
+#######################
+###### Basics
+#######################
 alias gb='git branch'
 alias gs='git status'
 alias gc='git clean -dxf'
 
-# branch finding #
+
+#######################
+###### Branching
+#######################
+# return current branch
 alias gbc='git branch --show-current'
+# grep for branches
 alias gbg='f(){ git branch | grep -E "$@" ; unset -f f;}; f'
-
-# conflicts #
-alias gcl='git diff --name-only --diff-filter=U'
-alias gdc='git diff --check'
-
-# log #
-alias gl='f(){ git log "$@" ; unset -f f;}; f'
-alias glg='f(){ git log `gbg "$@"` ; unset -f f;}; f'
-alias glo='gl --oneline'
-alias glog='f(){ git log --oneline `gbg "$@"` ; unset -f f;}; f'
-
-# branching #
+# make and checkout new branch
 alias gbn='f(){ git checkout -b "$@" ; unset -f f;}; f'
+# delete branch
 alias gbd='f(){ git branch -D "$@" ; unset -f f;}; f'
+# delete branch, grep branch name
 alias gbdg='f(){ gbd `gbg "$@"` ; unset -f f; }; f'
-
-# fetching and checking out #
+# fetch branch
 alias gfo='f(){ git fetch origin "$1":"$1" "$@" ; unset -f f;}; f'
+# checkout branch
 alias gco='f(){ git checkout "$1" ; unset -f f;}; f'
+# checkout branch, grep branch name
 alias gcog='f(){ gco `gbg "$@"` ; unset -f f; }; f'
+# fetch and checkout branch
 alias gfco='f(){ gfo "$1" && gco "$1" ; unset -f f;}; f'
 
-# rebasing #
+
+#######################
+###### Conflicts
+#######################
+# list conflicted files
+alias gcl='git diff --name-only --diff-filter=U'
+# check if there are any conflict markers left
+alias gdc='git diff --check'
+
+
+#######################
+###### Log
+#######################
+# open the log (current branch or other)
+alias gl='f(){ git log "$@" ; unset -f f;}; f'
+# open the log, grep for branch name
+alias glg='f(){ git log `gbg "$@"` ; unset -f f;}; f'
+# short log
+alias glo='gl --oneline'
+# short log, grep for branch name
+alias glog='f(){ git log --oneline `gbg "$@"` ; unset -f f;}; f'
+
+
+#######################
+###### Rebasing
+#######################
+# squash, pass in how far back to go
 alias gsq='f(){ git rebase -i HEAD~"$1" ; unset -f f;}; f'
+# rebase onto other branch
 alias grb='f(){ git rebase "$1" ; unset -f f;}; f'
+# rebase onto other branch from origin
 alias grbo='f(){ grb origin/"$1" ; unset -f f;}; f'
+# continue rebase
 alias grc='git rebase --continue'
+# abort rebase
 alias gra='git rebase --abort'
 
-# cherry-picking #
+
+#######################
+###### Rebasing
+#######################
+# cherry-pick
 alias gcp='f(){ git cherry-pick "$@" ; unset -f f;}; f'
+# continue cherry-pick
 alias gcpa='git cherry-pick --abort'
+# abort cherry-pick
 alias gcpc='git cherry-pick --continue'
 
-# submodules #
+
+#######################
+###### Submodules
+#######################
+# init all submodules defined in $SUBMODULES (defined elsewhere)
 alias gsm='git submodule update --init --recursive $SUBMODULES'
+# force init all submodules defined in $SUBMODULES (defined elsewhere)
 alias gsmf='git submodule update --init --recursive -f $SUBMODULES'
 
-# committing #
+
+#######################
+###### Committing
+#######################
+# amend commit, reset author
 alias gca='f(){ git commit --amend --reset-author "$@" ; unset -f f;}; f'
+# amend commit, reset author, don't edit commit msg
 alias gcan='gca --no-edit'
 
-# pushing #
-alias gpf='$(confirm_branch "force-push to") && git push -f'
-alias gpu='$(confirm_branch "push branch to origin") && git push -u origin `git branch --show-current`'
-alias gpuf='$(confirm_branch "force push branch to origin") && git push -u origin `git branch --show-current` -f'
 
-## Transferring builds from Dev machines ##
-alias build_transfer='f(){ python -m build_transfer "$@" ; unset -f f;}; f'
+#######################
+###### Pushing
+#######################
+# force push, confirm first
+alias gpf='$(confirm_branch "force-push to") && git push -f'
+# push branch to origin, confirm first
+alias gpu='$(confirm_branch "push branch to origin") && git push -u origin `git branch --show-current`'
+# force push branch to origin, confirm first
+alias gpuf='$(confirm_branch "force push branch to origin") && git push -u origin `git branch --show-current` -f'
