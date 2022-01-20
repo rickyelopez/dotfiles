@@ -137,22 +137,14 @@ if [ -f /usr/libexec/java_home ]; then
     export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 fi
 
+# source additional files if they exist
+[ -f $HOME/.aliases ] && source $HOME/.aliases
 
-if [ -f $HOME/.aliases ]; then
-    . $HOME/.aliases
-fi
+[ -f $HOME/.vars ] && source $HOME/.vars
 
-if [ -f $HOME/.vars ]; then
-    . $HOME/.vars
-fi
+[ -f $HOME/dotfiles_priv/.priv_vars ] && source $HOME/dotfiles_priv/.priv_vars
 
-if [ -f $HOME/.priv_aliases ]; then
-    . $HOME/.priv_aliases
-fi
-
-if [ -f $HOME/.priv_vars ]; then
-    . $HOME/.priv_vars
-fi
+[ -f $HOME/dotfiles_priv/.priv_aliases ] && source $HOME/dotfiles_priv/.priv_aliases
 
 
 if command -v pyenv 1>/dev/null 2>&1; then
