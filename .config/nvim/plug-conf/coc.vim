@@ -79,7 +79,9 @@ function! s:check_back_space() abort
 	return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-call coc#config("python.formatting.blackArgs", ["--config", $REPO_PATH . "/libs/python/blackcfg.toml"])
+if !empty($BLACK_ARGS)
+    call coc#config("python.formatting.blackArgs", ["--config", $REPO_PATH . "/libs/python/blackcfg.toml"])
+endif
 call coc#config("python.linting.pylintArgs", ["--rcfile", $RCFILE])
 call coc#config("python.autoComplete.extraPaths", [$EXTRA_PATHS_1, $EXTRA_PATHS_2])
 call coc#config("clangd.path", $CLANGD_PATH)
