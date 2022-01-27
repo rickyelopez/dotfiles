@@ -33,7 +33,7 @@ set hidden
 set noerrorbells
 set visualbell
 set t_vb=
-set tabstop=4 softtabstop=0 shiftwidth=4 expandtab smarttab
+set tabstop=4 softtabstop=0 shiftwidth=0 expandtab smarttab
 set smartindent
 set number
 set relativenumber
