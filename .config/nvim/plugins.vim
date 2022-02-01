@@ -54,7 +54,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " formatting
-Plug 'cofyc/vim-uncrustify'
+" Plug 'cofyc/vim-uncrustify'
+Plug 'embear/vim-uncrustify'
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 

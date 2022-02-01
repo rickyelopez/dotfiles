@@ -105,9 +105,6 @@ nmap <C-m> <Plug>MarkdownPreviewToggle
 " let g:syntastic_check_on_open = 1
 " let g:syntastic_check_on_wq = 0
 
-" use cpp comments in c files by default
-autocmd FileType c,cpp set commentstring=//\ %s
-
 " python root dir
 autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyrightconfig.json', 'pyproject.toml']
 
@@ -127,7 +124,10 @@ source $HOME/.config/nvim/plug-conf/treesitter.vim
 source $HOME/.config/nvim/plug-conf/telescope.vim
 source $HOME/.config/nvim/plug-conf/blamer.vim
 
+
 lua << EOF
   require("init")
 EOF
 
+" use cpp comments in c files by default
+autocmd FileType cpp,c set commentstring=//\ %s
