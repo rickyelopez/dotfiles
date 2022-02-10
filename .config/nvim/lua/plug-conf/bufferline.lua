@@ -105,6 +105,13 @@ require('bufferline').setup {
             return buf.path:match('generated.dbc')
           end,
         },
+        {
+          name = "HV",
+          highlight = {gui = "underline", guisp = "red"}, -- Optional
+          matcher = function(buf) -- Mandatory
+            return buf.path:match('hvSystem')
+          end,
+        },
       }
     }
   }
