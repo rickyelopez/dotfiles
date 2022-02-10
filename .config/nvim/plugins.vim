@@ -24,6 +24,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dispatch'
 
+" tmux clipboard
+Plug 'roxma/vim-tmux-clipboard'
+
 " git diff
 Plug 'sindrets/diffview.nvim'
 
@@ -33,7 +36,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter'
 Plug 'airblade/vim-gitgutter'
 
-Plug 'lyuts/vim-rtags'
+" Plug 'lyuts/vim-rtags'
 
 Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'

@@ -20,8 +20,10 @@ export ZSH="$HOME/.oh-my-zsh"
 # set editor
 export EDITOR=nvim
 
+export PATH=$PATH:$HOME/.local/bin
+
 # set display for x
-export DISPLAY=localhost:0.0
+# export DISPLAY=localhost:0.0
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -30,7 +32,7 @@ export DISPLAY=localhost:0.0
 if [ "$(uname 2> /dev/null)" != "Linux" ]; then
   source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
 else
-  source $HOME/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
+  source $HOME/.oh-my-zsh/themes/powerlevel10k/powerlevel10k.zsh-theme
 fi
 
 # Set list of themes to pick from when loading at random
@@ -138,6 +140,10 @@ fi
 
 if [ -f $HOME/.aliases ]; then
     . $HOME/.aliases
+fi
+
+if [ -f $HOME/.vars ]; then
+    . $HOME/.vars
 fi
 
 if [ -f $HOME/.priv_aliases ]; then
