@@ -1,24 +1,5 @@
-if stridx(hostname(), "ci-dev") == -1
-    let g:python3_host_prog='/usr/bin/python3'
-    " let g:python_host_prog='/usr/bin/python2' 
-else
-
-    let g:python3_host_prog = "/usr/bin/python"
-
-    let g:clipboard = {
-        \   'name': 'tmux_clipboard',
-        \   'copy': {
-        \      '+': '/nfs_home/ricclopez/copypaste/pbcopy-remote',
-        \      '*': '/nfs_home/ricclopez/copypaste/pbcopy-remote',
-        \    },
-        \   'paste': {
-        \      '+': '/nfs_home/ricclopez/copypaste/pbpaste-remote',
-        \      '*': '/nfs_home/ricclopez/copypaste/pbpaste-remote',
-        \   },
-        \   'cache_enabled': 1,
-        \ }
-
-endif
+" init.vim
+" Set VIM preferences
 
 syntax on
 
@@ -43,7 +24,6 @@ set nobackup
 set undodir=~/.vimfiles/undodir
 set undofile
 set showmatch
-set clipboard+=unnamedplus
 set scrolloff=10
 set termguicolors
 set updatetime=300
@@ -72,6 +52,26 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 " don't fold anything when opening files
 set foldlevel=99
+
+" session specific configs
+if !empty($SSH_TTY)
+    let g:clipboard = {
+        \   'name': 'tmux_clipboard',
+        \   'copy': {
+        \      '+': $HOME . '/copypaste/pbcopy-remote',
+        \      '*': $HOME . '/copypaste/pbcopy-remote',
+        \    },
+        \   'paste': {
+        \      '+': $HOME . '/copypaste/pbpaste-remote',
+        \      '*': $HOME . '/copypaste/pbpaste-remote',
+        \   },
+        \   'cache_enabled': 1,
+        \ }
+endif
+set clipboard+=unnamedplus
+
+" set python3 path
+let g:python3_host_prog='/usr/bin/python3'
 
 " nerd tree config
 autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif
@@ -105,9 +105,6 @@ nmap <C-m> <Plug>MarkdownPreviewToggle
 " let g:syntastic_check_on_open = 1
 " let g:syntastic_check_on_wq = 0
 
-" use cpp comments in c files by default
-autocmd FileType c,cpp set commentstring=//\ %s
-
 " python root dir
 autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyrightconfig.json', 'pyproject.toml']
 
@@ -125,8 +122,12 @@ source $HOME/.config/nvim/plug-conf/airline.vim
 source $HOME/.config/nvim/plug-conf/fzf.vim
 source $HOME/.config/nvim/plug-conf/treesitter.vim
 source $HOME/.config/nvim/plug-conf/telescope.vim
+source $HOME/.config/nvim/plug-conf/blamer.vim
+
 
 lua << EOF
   require("init")
 EOF
 
+" use cpp comments in c files by default
+autocmd FileType cpp,c set commentstring=//\ %s

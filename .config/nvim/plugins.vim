@@ -27,8 +27,9 @@ Plug 'tpope/vim-dispatch'
 " tmux clipboard
 Plug 'roxma/vim-tmux-clipboard'
 
-" git diff
+" git stuff
 Plug 'sindrets/diffview.nvim'
+Plug 'APZelos/blamer.nvim'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -54,6 +55,7 @@ Plug 'vim-airline/vim-airline-themes'
 
 " formatting
 Plug 'cofyc/vim-uncrustify'
+" Plug 'embear/vim-uncrustify'
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
