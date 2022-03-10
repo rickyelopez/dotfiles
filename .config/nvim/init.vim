@@ -89,9 +89,6 @@ let g:python_highlight_all = 1
 " DBC syntax
 au BufRead,BufNewFile *.dbc set filetype=dbc
 
-" python syntax highlighting
-let g:python_highlight_all = 1
-
 " enable italics for palenight
 let g:palenight_terminal_italics=1
 
@@ -104,9 +101,6 @@ nmap <C-m> <Plug>MarkdownPreviewToggle
 " let g:syntastic_cpp_cpplint_exec = 'cpplint'
 " let g:syntastic_check_on_open = 1
 " let g:syntastic_check_on_wq = 0
-
-" python root dir
-autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyrightconfig.json', 'pyproject.toml']
 
 " disable rooter
 let g:rooter_manual_only = 1
@@ -131,3 +125,9 @@ EOF
 
 " use cpp comments in c files by default
 autocmd FileType cpp,c set commentstring=//\ %s
+
+
+" Unmap meta
+silent! unmap <M-p>
+silent! unmap <M-n>
+silent! unmap <M-o>

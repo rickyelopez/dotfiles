@@ -4,7 +4,9 @@
     "python.linting.pylintEnabled": true,
     "diagnostic.locationlistUpdate": true,
     "diagnostic.refreshOnInsertMode": false,
-    "clangd.semanticHighlighting": true,
-    "coc.preferences.semanticTokensHighlights": true,
-    "yaml.format.enable": true
+    "yaml.format.enable": true,
+    "workspace.workspaceFolderCheckCwd": false,
+    "workspace.bottomUpFiletypes": ["python", "c", "cpp"],
+    "coc.preferences.bracketEnterImprove": true,
+    "semanticTokens.filetypes": ["*"]
 }
