@@ -20,15 +20,11 @@ vnoremap <leader>d "_d
 " Markdown Preview Bind
 nmap <leader>md <Plug>MarkdownPreviewToggle
 
-" Markdown Preview Bind
-nmap <C-m> <Plug>MarkdownPreviewToggle
 " close buffer without closing window
 " nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
-nnoremap <leader>q :bp<bar>bd #<CR>
+nnoremap <leader>q :b#<bar>bd #<CR>
 
 " bind buffer switching
-" nnoremap <S-Tab> :bn<CR>
-" nnoremap <leader><S-Tab> :bp<CR>
 nnoremap <S-Tab> :BufferLineCycleNext<CR>
 nnoremap <leader><S-Tab> :BufferLineCyclePrev<CR>
 " These commands will move the current buffer backwards or forwards in the bufferline
@@ -49,7 +45,7 @@ nnoremap <silent><leader>8 <Cmd>BufferLineGoToBuffer 8<CR>
 nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR>
 
 " clear highligted search
-nnoremap <leader><space> :noh<CR>
+nnoremap <silent><leader><space> :noh<CR>
 
 " nerdtree config
 nnoremap <leader>pv :NERDTreeToggle<CR>

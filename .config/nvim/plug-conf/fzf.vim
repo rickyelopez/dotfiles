@@ -22,23 +22,31 @@ let g:fzf_tags_command = 'ctags -R --options=./.ctags'
 " Border color
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.9, 'height': 0.9,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
 
-
+let g:fzf_cmd = "rg --files --hidden --glob '!.git/**' --glob '!*.pyc'"
 let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
-let $FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --glob '!.git/**'"
-let g:command_fmt = "rg --no-ignore-vcs --column --line-number --no-heading --color=always -g '!*.msr' -g '!*.gvl' -g '!*.map' --smart-case %s || true"
+let $FZF_DEFAULT_COMMAND = g:fzf_cmd . " --no-ignore"
+"
+" Ignored files
+let g:ignored_files = "-g '!*.msr' -g '!*.gvl' -g '!*.map' -g '!*.asm' -g '!*.pyc'"
+
+let g:grep_with_vcs = "rg --no-ignore-vcs --column --line-number --no-heading --color=always " . g:ignored_files . " --smart-case %s || true"
+let g:grep_no_vcs = "rg --column --line-number --no-heading --color=always " . g:ignored_files . " --smart-case %s || true"
+
+" include vcs by default
+let g:grep_cmd = g:grep_no_vcs
 
 let g:fzf_git_ignore = 0
 
 function! ToggleGitIgnore()
 	if g:fzf_git_ignore
 		let g:fzf_git_ignore = 0
-		let $FZF_DEFAULT_COMMAND = "rg --files --no-ignore --hidden --glob '!.git/**'"
-        let g:command_fmt = "rg --no-ignore-vcs --column --line-number --no-heading --color=always -g '!*.msr' -g '!*.gvl' -g '!*.map' --smart-case %s || true"
+		let $FZF_DEFAULT_COMMAND = g:fzf_cmd . " --no-ignore"
+        let g:grep_cmd = g:grep_with_vcs
 		echo "now ignoring .gitignore"
 	else
 		let g:fzf_git_ignore = 1
-		let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**'"
-        let g:command_fmt = "rg --column --line-number --no-heading --color=always -g '!*.msr' -g '!*.gvl' -g '!*.map' --smart-case %s || true"
+		let $FZF_DEFAULT_COMMAND = g:fzf_cmd
+        let g:grep_cmd = g:grep_no_vcs
 		echo "now respecting .gitignore"
 	endif
 endfunction
@@ -67,8 +75,8 @@ command! -bang -nargs=? -complete=dir Files
 
 " Ripgrep advanced
 function! RipgrepFzf(query, fullscreen)
-  let initial_command = printf(g:command_fmt, shellescape(a:query))
-  let reload_command = printf(g:command_fmt, '{q}')
+  let initial_command = printf(g:grep_cmd, shellescape(a:query))
+  let reload_command = printf(g:grep_cmd, '{q}')
   let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
   call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction

@@ -139,3 +139,9 @@ alias gpf='$(confirm_branch "force-push to") && git push -f'
 alias gpu='$(confirm_branch "push branch to origin") && git push -u origin `git branch --show-current`'
 # force push branch to origin, confirm first
 alias gpuf='$(confirm_branch "force push branch to origin") && git push -u origin `git branch --show-current` -f'
+
+
+#######################
+###### Misc
+#######################
+alias gsh='git rev-parse --short HEAD'
