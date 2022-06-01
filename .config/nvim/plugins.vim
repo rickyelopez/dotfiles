@@ -35,7 +35,6 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
-Plug 'preservim/nerdtree'
 
 Plug 'jiangmiao/auto-pairs'
 
@@ -74,6 +73,11 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
+
+" file browser
+" Plug 'preservim/nerdtree'
+Plug 'MunifTanjim/nui.nvim'
+Plug 'nvim-neo-tree/neo-tree.nvim'
 
 " mako
 Plug 'sophacles/vim-bundle-mako'

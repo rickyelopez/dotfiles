@@ -4,6 +4,9 @@
 ## Transferring builds from Dev machines ##
 alias build_transfer='f(){ python -m build_transfer "$@" ; unset -f f;}; f'
 
+## epoch_ms to timestamp
+alias ts='f(){ python3 -c "from datetime import datetime; print(datetime.fromtimestamp(${@}/1000 - (60*60*7)).strftime(\"%Y-%m-%d %H:%M:%S\"))" ; unset -f f;}; f'
+
 
 ################################################################################
 #                           Common Git Commands

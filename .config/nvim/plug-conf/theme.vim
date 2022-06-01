@@ -5,6 +5,9 @@ let base16colorspace=256  " Access colors present in 256 colorspace
 " colorscheme base16-material-palenight
 " colorscheme base16-solarized-dark
 " colorscheme palenight
+" enable italics for palenight
+" let g:palenight_terminal_italics=1
+
 
 " Example config in VimScript
 let g:tokyonight_style = "storm"

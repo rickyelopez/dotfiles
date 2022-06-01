@@ -15,7 +15,7 @@ set noerrorbells
 set visualbell
 set t_vb=
 set tabstop=4 softtabstop=0 shiftwidth=0 expandtab smarttab
-set smartindent
+set autoindent smartindent
 set number
 set relativenumber
 set nowrap
@@ -24,9 +24,12 @@ set nobackup
 set undodir=~/.vimfiles/undodir
 set undofile
 set showmatch
-set scrolloff=10
+set scrolloff=5
 set termguicolors
 set updatetime=300
+
+set nrformats+=alpha
+set formatoptions+=j
 
 " show whitespace and line break
 set list
@@ -45,9 +48,10 @@ set inccommand=nosplit
 set nowritebackup
 set cmdheight=2
 set shortmess+=c
-set signcolumn=number
+" set signcolumn=number
+set signcolumn=auto:2
 
-set colorcolumn=80
+set colorcolumn=120
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 " don't fold anything when opening files
@@ -76,7 +80,8 @@ let g:python3_host_prog='/usr/bin/python3'
 " nerd tree config
 autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif
 let g:plug_window = 'noautocmd vertical topleft new'
-map <leader>pv :NERDTreeToggle<CR>
+" commented out, switching to neo-tree
+" map <leader>pv :NERDTreeToggle<CR>
 
 " close buffer without closing window
 nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
@@ -89,18 +94,8 @@ let g:python_highlight_all = 1
 " DBC syntax
 au BufRead,BufNewFile *.dbc set filetype=dbc
 
-" enable italics for palenight
-let g:palenight_terminal_italics=1
-
 " Markdown Preview Bind
 nmap <C-m> <Plug>MarkdownPreviewToggle
-
-" linting settings
-" let g:syntastic_cpp_checkers = ['cpplint']
-" let g:syntastic_c_checkers = ['cpplint']
-" let g:syntastic_cpp_cpplint_exec = 'cpplint'
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
 
 " disable rooter
 let g:rooter_manual_only = 1
@@ -117,6 +112,16 @@ source $HOME/.config/nvim/plug-conf/fzf.vim
 source $HOME/.config/nvim/plug-conf/treesitter.vim
 source $HOME/.config/nvim/plug-conf/telescope.vim
 source $HOME/.config/nvim/plug-conf/blamer.vim
+source $HOME/.config/nvim/plug-conf/autopairs.vim
+
+
+" compilation database stuff
+function! Update_compiledb(path)
+    " let s:full_path = getcwd() . "/" . a:path
+    let s:full_path = "/scratch/users/ricclopez/repos/firmware/" . a:path
+    execute "!ln -fs " . s:full_path . " compile_commands.json"
+    " call coc#config("clangd.compilationDatabasePath", "/scratch/users/ricclopez/repos/firmware/compile_commands.json")
+endfunction
 
 
 lua << EOF
@@ -124,7 +129,7 @@ lua << EOF
 EOF
 
 " use cpp comments in c files by default
-autocmd FileType cpp,c set commentstring=//\ %s
+autocmd FileType \(cpp\|c\) set commentstring=//\ %s
 
 
 " Unmap meta
