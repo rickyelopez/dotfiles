@@ -1,7 +1,18 @@
 require('bufferline').setup {
   options = {
     close_command = "buffer #|bd %d",       -- can be a string | function, see "Mouse actions"
-    right_mouse_command = "buffer %d|bp|bd #", -- can be a string | function, see "Mouse actions"
+    right_mouse_command = function(buf)
+        local curr = vim.api.nvim_buf_get_name(0)
+        local other = vim.api.nvim_buf_get_name(buf)
+        if curr == other then
+            print("same")
+            vim.cmd("buffer "..buf.."|bp|bd #")
+        else
+            print("other")
+            vim.cmd("bd"..buf)
+        end
+        -- return "buffer %d|bp|bd #" -- can be a string | function, see "Mouse actions"
+    end,
     left_mouse_command = "buffer %d",    -- can be a string | function, see "Mouse actions"
     middle_mouse_command = nil,          -- can be a string | function, see "Mouse actions"
     --- name_formatter can be used to change the buffer's label in the bufferline.
