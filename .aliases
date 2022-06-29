@@ -4,6 +4,9 @@
 ## Transferring builds from Dev machines ##
 alias build_transfer='f(){ python -m build_transfer "$@" ; unset -f f;}; f'
 
+## epoch_ms to timestamp
+alias ts='f(){ python3 -c "from datetime import datetime; print(datetime.fromtimestamp(${@}/1000 - (60*60*7)).strftime(\"%Y-%m-%d %H:%M:%S\"))" ; unset -f f;}; f'
+
 
 ################################################################################
 #                           Common Git Commands
@@ -139,3 +142,9 @@ alias gpf='$(confirm_branch "force-push to") && git push -f'
 alias gpu='$(confirm_branch "push branch to origin") && git push -u origin `git branch --show-current`'
 # force push branch to origin, confirm first
 alias gpuf='$(confirm_branch "force push branch to origin") && git push -u origin `git branch --show-current` -f'
+
+
+#######################
+###### Misc
+#######################
+alias gsh='git rev-parse --short HEAD'

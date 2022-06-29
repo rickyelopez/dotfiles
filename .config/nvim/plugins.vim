@@ -8,16 +8,10 @@ endif
 
 
 " LSP
-" Plug 'neoclide/coc.nvim', {'branch':'release'}
 Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
 
-" Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
-Plug 'rhysd/vim-clang-format'
-
-" Merge conflicts
-Plug 'rhysd/conflict-marker.vim'
 
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -30,6 +24,8 @@ Plug 'roxma/vim-tmux-clipboard'
 " git stuff
 Plug 'sindrets/diffview.nvim'
 Plug 'APZelos/blamer.nvim'
+" Merge conflicts
+Plug 'rhysd/conflict-marker.vim'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -37,16 +33,12 @@ Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter'
 Plug 'airblade/vim-gitgutter'
 
-" Plug 'lyuts/vim-rtags'
-
 Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
-Plug 'preservim/nerdtree'
 
 Plug 'jiangmiao/auto-pairs'
 
 " python
-" Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 " airline
@@ -54,15 +46,16 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " formatting
-Plug 'cofyc/vim-uncrustify'
+" Plug 'cofyc/vim-uncrustify'
 " Plug 'embear/vim-uncrustify'
+Plug 'rickyelopez/vim-uncrustify'
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 " color schemes
 Plug 'chriskempson/base16-vim'
 Plug 'folke/tokyonight.nvim' 
-Plug 'drewtempelmeyer/palenight.vim'
+" Plug 'drewtempelmeyer/palenight.vim'
 
 " indent guides
 Plug 'lukas-reineke/indent-blankline.nvim'
@@ -81,10 +74,18 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
+" file browser
+" Plug 'preservim/nerdtree'
+Plug 'MunifTanjim/nui.nvim'
+Plug 'nvim-neo-tree/neo-tree.nvim'
+
 " mako
 Plug 'sophacles/vim-bundle-mako'
 
 " todo
 Plug 'aserebryakov/vim-todo-lists'
+
+" CSV handling
+Plug 'chrisbra/csv.vim'
 
 call plug#end()
