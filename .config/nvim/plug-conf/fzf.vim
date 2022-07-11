@@ -12,10 +12,10 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 let g:fzf_buffers_jump = 1
 
 map <C-p> :Files<CR>
-map <leader>b :Buffers<CR>
+" map <leader>b :Buffers<CR>
 nnoremap <leader>gg :RG<CR>
 " nnoremap <leader>t :Tags<CR>
-nnoremap <leader>m :Marks<CR>
+" nnoremap <leader>m :Marks<CR>
 
 let g:fzf_tags_command = 'ctags -R --options=./.ctags'
 
@@ -23,7 +23,7 @@ let g:fzf_tags_command = 'ctags -R --options=./.ctags'
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.9, 'height': 0.9,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
 
 " Ignored files
-let g:ignored_files = "-g '!.git/**' -g '!*.msr' -g '!*.gvl' -g '!*.map' -g '!*.asm' -g '!*.pyc' -g '!*.png' -g '!*.o' -g '!*.asms' -g '!*.asmss' -g '!*.c.html'"
+let g:ignored_files = "-g=\!.git/** -g=\!**/.cache/** -g=\!*.msr -g=\!*.gvl -g=\!*.map -g=\!*.asm -g=\!*.pyc -g=\!*.png -g=\!*.o -g=\!*.asms -g=\!*.asmss -g=\!*.c.html"
 
 let g:fzf_cmd = "rg --files --hidden " . g:ignored_files
 let $FZF_DEFAULT_OPTS = '--layout=reverse --inline-info'
