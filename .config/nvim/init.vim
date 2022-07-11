@@ -49,7 +49,7 @@ set nowritebackup
 set cmdheight=2
 set shortmess+=c
 " set signcolumn=number
-set signcolumn=auto:2
+set signcolumn=auto:2-3
 
 set colorcolumn=120
 highlight ColorColumn ctermbg=0 guibg=lightgrey
@@ -78,13 +78,8 @@ set clipboard+=unnamedplus
 let g:python3_host_prog='/usr/bin/python3'
 
 " nerd tree config
-autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif
+" autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif
 let g:plug_window = 'noautocmd vertical topleft new'
-" commented out, switching to neo-tree
-" map <leader>pv :NERDTreeToggle<CR>
-
-" close buffer without closing window
-nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
 
 " python config
 " au BufNewFile,BufRead *.py \
@@ -93,9 +88,6 @@ let g:python_highlight_all = 1
 
 " DBC syntax
 au BufRead,BufNewFile *.dbc set filetype=dbc
-
-" Markdown Preview Bind
-nmap <C-m> <Plug>MarkdownPreviewToggle
 
 " disable rooter
 let g:rooter_manual_only = 1
@@ -130,9 +122,3 @@ EOF
 
 " use cpp comments in c files by default
 autocmd FileType \(cpp\|c\) set commentstring=//\ %s
-
-
-" Unmap meta
-silent! unmap <M-p>
-silent! unmap <M-n>
-silent! unmap <M-o>

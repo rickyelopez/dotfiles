@@ -1,7 +1,6 @@
 " python root dir discovery
 autocmd FileType python let b:coc_root_patterns = ['pyproject.toml', 'pyrightconfig.json', '.git', 'env', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py']
 
-
 " coc maps
 nmap gd <Plug>(coc-definition)
 nmap gy <Plug>(coc-type-definition)
@@ -36,7 +35,7 @@ endfunction
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Autofix problem of current line
+" Autofix problem on current line
 nmap <leader>cf  <Plug>(coc-fix-current)
 
 nmap <C-b> :CocCommand python.execInTerminal<CR>

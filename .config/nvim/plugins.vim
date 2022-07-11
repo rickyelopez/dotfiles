@@ -1,11 +1,6 @@
 if has('nvim')
 	" Neovim specific commands
 	call plug#begin(stdpath('data') . '/plugged')
-else
-	" Standard vim specific commands
-	call plug#begin('~/vimfiles/plugged')
-endif
-
 
 " LSP
 Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
@@ -59,14 +54,14 @@ Plug 'folke/tokyonight.nvim'
 
 " indent guides
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'Yggdroot/indentLine'
+" Plug 'Yggdroot/indentLine'
 
 " Buffer line
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/nvim-bufferline.lua'
 
 " LSP Trouble
-Plug 'folke/lsp-trouble.nvim'
+" Plug 'folke/lsp-trouble.nvim'
 
 " telescope
 Plug 'nvim-lua/popup.nvim'
@@ -89,3 +84,5 @@ Plug 'aserebryakov/vim-todo-lists'
 Plug 'chrisbra/csv.vim'
 
 call plug#end()
+
+endif
