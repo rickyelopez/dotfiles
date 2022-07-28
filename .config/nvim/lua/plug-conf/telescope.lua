@@ -9,21 +9,53 @@ local previewers = require("telescope.previewers")
 require("telescope").setup({
     defaults = {
         file_sorter = require("telescope.sorters").get_fzy_sorter,
-        prompt_prefix = "",
+        prompt_prefix = "🔍 ",
         color_devicons = true,
 
         file_previewer = previewers.vim_buffer_cat.new,
         grep_previewer = previewers.vim_buffer_vimgrep.new,
         qflist_previewer = previewers.vim_buffer_qflist.new,
 
+        vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            "--hidden",
+            vim.g.ignored_files,
+        },
+
         mappings = {
             i = {
                 ["<C-j>"] = actions.move_selection_next,
                 ["<C-k>"] = actions.move_selection_previous,
-                ["<C-x>"] = false,
                 ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+                ["<C-u>"] = actions.results_scrolling_up,
+                ["<C-d>"] = actions.results_scrolling_down,
+                ["<PageUp>"] = actions.preview_scrolling_up,
+                ["<PageDown>"] = actions.preview_scrolling_down,
+            },
+            n = {
+                ["<C-j>"] = actions.move_selection_next,
+                ["<C-k>"] = actions.move_selection_previous,
+                ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+                ["<C-u>"] = actions.results_scrolling_up,
+                ["<C-d>"] = actions.results_scrolling_down,
+                ["<PageUp>"] = actions.preview_scrolling_up,
+                ["<PageDown>"] = actions.preview_scrolling_down,
             },
         },
+    },
+    pickers = {
+        -- live_grep = {
+        --     on_input_filter_cb = function(prompt)
+        --         -- replace space with .*
+        --         return { prompt = prompt:gsub("%s", ".*") }
+        --     end,
+        -- },
     },
     extensions = {
         fzy_native = {

@@ -114,7 +114,7 @@ require("neo-tree").setup({
             visible = true, -- when true, they will just be displayed differently than normal items
             hide_dotfiles = false,
             hide_gitignored = true,
-            hide_hidden = true, -- only works on Windows for hidden files/directories
+            hide_hidden = false, -- only works on Windows for hidden files/directories
             hide_by_name = {
                 --"node_modules"
             },
@@ -122,8 +122,8 @@ require("neo-tree").setup({
             --"*.meta"
             },
             never_show = { -- remains hidden even if visible is toggled to true
-            --".DS_Store",
-            --"thumbs.db"
+            ".DS_Store",
+            "thumbs.db"
             },
         },
         follow_current_file = false, -- This will find and focus the file in the active buffer every time the current file is changed while the tree is open.
@@ -132,7 +132,7 @@ require("neo-tree").setup({
         -- "open_default", -- netrw disabled, opening a directory opens neo-tree in whatever position is specified in window.position
         -- "open_current", -- netrw disabled, opening a directory opens within the window like netrw would, regardless of window.position
         -- "disabled",     -- netrw left alone, neo-tree does not handle opening dirs
-        use_libuv_file_watcher = false, -- This will use the OS level file watchers to detect changes instead of relying on nvim autocmd events.
+        use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes instead of relying on nvim autocmd events.
         window = {
             mappings = {
                 ["<bs>"] = "navigate_up",
@@ -150,7 +150,7 @@ require("neo-tree").setup({
     buffers = {
         follow_current_file = false, -- This will find and focus the file in the active buffer every
         -- time the current file is changed while the tree is open.
-        group_empty_dirs = true, -- when true, empty folders will be grouped together
+        group_empty_dirs = false, -- when true, empty folders will be grouped together
         show_unloaded = true,
         window = {
             mappings = {
