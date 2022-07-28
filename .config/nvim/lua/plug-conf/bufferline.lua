@@ -1,15 +1,14 @@
 require('bufferline').setup {
   options = {
-    close_command = "buffer #|bd %d",       -- can be a string | function, see "Mouse actions"
+    close_command = "buffer #|bw %d",       -- can be a string | function, see Mouse actions
     right_mouse_command = function(buf)
         local curr = vim.api.nvim_buf_get_name(0)
         local other = vim.api.nvim_buf_get_name(buf)
         if curr == other then
-            print("same")
-            vim.cmd("buffer "..buf.."|bp|bd #")
+            vim.cmd("buffer "..buf.."|bp|bw #")
         else
             print("other")
-            vim.cmd("bd"..buf)
+            vim.cmd("bw"..buf)
         end
         -- return "buffer %d|bp|bd #" -- can be a string | function, see "Mouse actions"
     end,

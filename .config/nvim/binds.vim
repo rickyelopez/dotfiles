@@ -22,7 +22,8 @@ nmap <leader>md <Plug>MarkdownPreviewToggle
 
 " close buffer without closing window
 " nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
-nnoremap <leader>q :b#<bar>bd #<CR>
+" nnoremap <leader>q :b#<bar>bw #<CR>
+nnoremap <leader>q :BufferLineCyclePrev<CR>:bw #<CR>
 
 " bind buffer switching
 nnoremap <S-Tab> :BufferLineCycleNext<CR>
@@ -48,8 +49,9 @@ nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR>
 nnoremap <silent><leader><space> :noh<CR>
 
 " nerdtree config
-nnoremap <leader>pv :NERDTreeToggle<CR>
-nnoremap \ :NERDTreeFind<CR>
+" commented out, switching to neo-tree
+" nnoremap <leader>pv :NERDTreeToggle<CR>
+" nnoremap \ :NERDTreeFind<CR>
 
 " Remove all trailing whitespace by pressing hotkey
 nnoremap <leader>ws :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
@@ -82,3 +84,9 @@ nnoremap / /\v
 vnoremap / /\v
 nnoremap ? ?\v
 vnoremap ? ?\v
+
+
+" Unmap meta
+silent! unmap <M-p>
+silent! unmap <M-n>
+silent! unmap <M-o>

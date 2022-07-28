@@ -1,7 +1,6 @@
 " python root dir discovery
 autocmd FileType python let b:coc_root_patterns = ['pyproject.toml', 'pyrightconfig.json', '.git', 'env', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py']
 
-
 " coc maps
 nmap gd <Plug>(coc-definition)
 nmap gy <Plug>(coc-type-definition)
@@ -36,7 +35,7 @@ endfunction
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Autofix problem of current line
+" Autofix problem on current line
 nmap <leader>cf  <Plug>(coc-fix-current)
 
 nmap <C-b> :CocCommand python.execInTerminal<CR>
@@ -77,7 +76,6 @@ function! s:check_back_space() abort
 endfunction
 
 
-
 if !empty($BLACK_ARGS)
     call coc#config("python.formatting.blackArgs", ["--config", $REPO_PATH . "/libs/python/blackcfg.toml"])
 endif
@@ -87,8 +85,9 @@ call coc#config("clangd.path", $CLANGD_PATH)
 
 function! Update_compiledb(path)
     let s:full_path = getcwd() . "/" . a:path
-    let g:tmp = s:full_path
-    call coc#config("clangd.compilationDatabasePath", s:full_path)
+    :silent exec "!ln -f -s " .. s:full_path
+    " call coc#config("clangd.compilationDatabasePath", s:full_path)
+    :silent exec "CocRestart"
 endfunction
 
 " highlight disabled codepaths in grey

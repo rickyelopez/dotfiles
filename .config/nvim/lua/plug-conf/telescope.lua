@@ -4,26 +4,58 @@ local action_state = require("telescope.actions.state")
 local conf = require("telescope.config").values
 local actions = require("telescope.actions")
 local themes = require('telescope.themes')
--- local previewers = require("telescope.previewers")
+local previewers = require("telescope.previewers")
 
 require("telescope").setup({
     defaults = {
         file_sorter = require("telescope.sorters").get_fzy_sorter,
-        prompt_prefix = "",
+        prompt_prefix = "🔍 ",
         color_devicons = true,
 
-        file_previewer = require("telescope.previewers").vim_buffer_cat.new,
-        grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
-        qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+        file_previewer = previewers.vim_buffer_cat.new,
+        grep_previewer = previewers.vim_buffer_vimgrep.new,
+        qflist_previewer = previewers.vim_buffer_qflist.new,
+
+        vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            "--hidden",
+            vim.g.ignored_files,
+        },
 
         mappings = {
             i = {
                 ["<C-j>"] = actions.move_selection_next,
                 ["<C-k>"] = actions.move_selection_previous,
-                ["<C-x>"] = false,
                 ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+                ["<C-u>"] = actions.results_scrolling_up,
+                ["<C-d>"] = actions.results_scrolling_down,
+                ["<PageUp>"] = actions.preview_scrolling_up,
+                ["<PageDown>"] = actions.preview_scrolling_down,
+            },
+            n = {
+                ["<C-j>"] = actions.move_selection_next,
+                ["<C-k>"] = actions.move_selection_previous,
+                ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+                ["<C-u>"] = actions.results_scrolling_up,
+                ["<C-d>"] = actions.results_scrolling_down,
+                ["<PageUp>"] = actions.preview_scrolling_up,
+                ["<PageDown>"] = actions.preview_scrolling_down,
             },
         },
+    },
+    pickers = {
+        -- live_grep = {
+        --     on_input_filter_cb = function(prompt)
+        --         -- replace space with .*
+        --         return { prompt = prompt:gsub("%s", ".*") }
+        --     end,
+        -- },
     },
     extensions = {
         fzy_native = {
@@ -38,6 +70,7 @@ require("telescope").load_extension("fzy_native")
 local MyFunctions = {
     search_dotfiles = function()
         require("telescope.builtin").find_files({
+            find_command = {"rg", "--files", "--hidden", "--no-ignore-vcs"},
             prompt_title = "< VimRC >",
             cwd = "$HOME/.config/nvim",
             hidden = true,
@@ -46,9 +79,9 @@ local MyFunctions = {
 
     select_compiledb = function(opts)
         opts = opts or {}
-        local find_command = { "rg", "--files", "--no-ignore-vcs", "--glob", "*compile_commands.json" }
-        pickers.new(themes.get_dropdown{}, {
-            prompt_title = "select compile_commands.json",
+        local find_command = { "rg", "--files", "--no-ignore-vcs", "-g", "*compile_commands.json" }
+        pickers.new(themes.get_dropdown{ layout_config = {width = 0.8} }, {
+            prompt_title = "Select compile_commands.json",
             finder = finders.new_oneshot_job(find_command, opts),
             sorter = conf.file_sorter(opts),
             attach_mappings = function(prompt_bufnr)

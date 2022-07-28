@@ -98,6 +98,8 @@ alias gsq='f(){ git rebase -i HEAD~"$1" ; unset -f f;}; f'
 alias grb='f(){ git rebase "$1" ; unset -f f;}; f'
 # rebase onto other branch from origin
 alias grbo='f(){ grb origin/"$1" ; unset -f f;}; f'
+# fetch and rebase
+alias gfrb='f(){ gfo origin/"$1" ; [ $? -eq 0 ] && grb origin/"$1" || echo "Fetch failed; exiting" ; unset -f f;}; f'
 # continue rebase
 alias grc='git rebase --continue'
 # abort rebase
