@@ -85,8 +85,7 @@ call coc#config("clangd.path", $CLANGD_PATH)
 
 function! Update_compiledb(path)
     let s:full_path = getcwd() . "/" . a:path
-    :silent exec "!ln -f -s " .. s:full_path
-    " call coc#config("clangd.compilationDatabasePath", s:full_path)
+    :silent exec "!ln -sf " .. s:full_path
     :silent exec "CocRestart"
 endfunction
 
