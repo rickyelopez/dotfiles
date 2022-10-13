@@ -1,12 +1,29 @@
 {
+    "coc.preferences.bracketEnterImprove": true,
+
+    "workspace.workspaceFolderCheckCwd": false,
+    "workspace.bottomUpFiletypes": [
+        "python"
+    ],
+
     "python.formatting.provider": "black",
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
+
     "diagnostic.locationlistUpdate": true,
     "diagnostic.refreshOnInsertMode": false,
+
     "yaml.format.enable": true,
-    "workspace.workspaceFolderCheckCwd": false,
-    "workspace.bottomUpFiletypes": ["python", "c", "cpp"],
-    "coc.preferences.bracketEnterImprove": true,
-    "semanticTokens.filetypes": ["*"]
+
+    "semanticTokens.filetypes": [
+        "*"
+    ],
+
+    "json.enable": true,
+    "json.trace.server": "off",
+    "json.schemaDownload.enable": true,
+    "json.format.enable": true,
+    "json.maxItemsComputed": 5000,
+    "json.schemas": [],
+    "json.execArgv": []
 }

@@ -90,3 +90,9 @@ vnoremap ? ?\v
 silent! unmap <M-p>
 silent! unmap <M-n>
 silent! unmap <M-o>
+
+" Hex read/write
+nnoremap <leader>hr :%!xxd<CR> :set filetype=xxd<CR>
+nnoremap <leader>hw :%!xxd -r<CR> :set binary<CR> :set filetype=<CR>
+
+command DiffOrig vert new | set buftype=nofile | read ++edit # | 0d_ | diffthis | wincmd p | diffthis

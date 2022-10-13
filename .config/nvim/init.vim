@@ -94,6 +94,7 @@ let g:rooter_manual_only = 1
 
 " Load supplemental configs
 source $HOME/.config/nvim/plugins.vim
+source $HOME/.config/nvim/utils.vim
 source $HOME/.config/nvim/binds.vim
 source $HOME/.config/nvim/plug-conf/theme.vim
 source $HOME/.config/nvim/plug-conf/ultisnips.vim
