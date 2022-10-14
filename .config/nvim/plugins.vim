@@ -83,6 +83,9 @@ Plug 'aserebryakov/vim-todo-lists'
 " CSV handling
 Plug 'chrisbra/csv.vim'
 
+" Rust
+Plug 'rust-lang/rust.vim'
+
 call plug#end()
 
 endif
