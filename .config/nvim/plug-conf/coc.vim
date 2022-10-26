@@ -90,4 +90,4 @@ function! Update_compiledb(path)
 endfunction
 
 " highlight disabled codepaths in grey
-hi! link CocSem_comment TSComment
+" hi! link CocSem_comment TSComment
