@@ -18,6 +18,7 @@ set tabstop=4 softtabstop=0 shiftwidth=0 expandtab smarttab
 set autoindent smartindent
 set number
 set relativenumber
+set cursorline
 set nowrap
 set noswapfile
 set nobackup
@@ -44,7 +45,6 @@ set ignorecase
 set smartcase
 set inccommand=nosplit
 
-" coc defs
 set nowritebackup
 set cmdheight=2
 set shortmess+=c
@@ -94,6 +94,7 @@ let g:rooter_manual_only = 1
 
 " Load supplemental configs
 source $HOME/.config/nvim/plugins.vim
+source $HOME/.config/nvim/utils.vim
 source $HOME/.config/nvim/binds.vim
 source $HOME/.config/nvim/plug-conf/theme.vim
 source $HOME/.config/nvim/plug-conf/ultisnips.vim
@@ -105,15 +106,6 @@ source $HOME/.config/nvim/plug-conf/treesitter.vim
 source $HOME/.config/nvim/plug-conf/telescope.vim
 source $HOME/.config/nvim/plug-conf/blamer.vim
 source $HOME/.config/nvim/plug-conf/autopairs.vim
-
-
-" compilation database stuff
-function! Update_compiledb(path)
-    " let s:full_path = getcwd() . "/" . a:path
-    let s:full_path = "/scratch/users/ricclopez/repos/firmware/" . a:path
-    execute "!ln -fs " . s:full_path . " compile_commands.json"
-    " call coc#config("clangd.compilationDatabasePath", "/scratch/users/ricclopez/repos/firmware/compile_commands.json")
-endfunction
 
 
 lua << EOF

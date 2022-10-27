@@ -46,6 +46,7 @@ require("telescope").setup({
                 ["<C-d>"] = actions.results_scrolling_down,
                 ["<PageUp>"] = actions.preview_scrolling_up,
                 ["<PageDown>"] = actions.preview_scrolling_down,
+                ["dd"] = actions.delete_buffer,
             },
         },
     },

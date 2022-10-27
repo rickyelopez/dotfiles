@@ -76,8 +76,8 @@ function! s:check_back_space() abort
 endfunction
 
 
-if !empty($BLACK_ARGS)
-    call coc#config("python.formatting.blackArgs", ["--config", $REPO_PATH . "/libs/python/blackcfg.toml"])
+if !empty($BLACKCFG)
+    call coc#config("python.formatting.blackArgs", ["--config", $BLACKCFG])
 endif
 call coc#config("python.linting.pylintArgs", ["--rcfile", $RCFILE])
 call coc#config("clangd.path", $CLANGD_PATH)
@@ -85,10 +85,9 @@ call coc#config("clangd.path", $CLANGD_PATH)
 
 function! Update_compiledb(path)
     let s:full_path = getcwd() . "/" . a:path
-    :silent exec "!ln -f -s " .. s:full_path
-    " call coc#config("clangd.compilationDatabasePath", s:full_path)
+    :silent exec "!ln -sf " .. s:full_path
     :silent exec "CocRestart"
 endfunction
 
 " highlight disabled codepaths in grey
-hi! link CocSem_comment TSComment
+" hi! link CocSem_comment TSComment
