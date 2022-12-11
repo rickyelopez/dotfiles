@@ -3,7 +3,30 @@ if has('nvim')
 	call plug#begin(stdpath('data') . '/plugged')
 
 " LSP
-Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
+" Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'neovim/nvim-lspconfig'
+
+Plug 'p00f/clangd_extensions.nvim'
+Plug 'theHamsta/nvim-semantic-tokens'
+" Plug 'jackguo380/vim-lsp-cxx-highlight'
+
+Plug 'jose-elias-alvarez/null-ls.nvim'
+
+" completion
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/nvim-cmp'
+
+" snippets
+" Plug 'SirVer/ultisnips'
+" Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
@@ -19,6 +42,7 @@ Plug 'roxma/vim-tmux-clipboard'
 " git stuff
 Plug 'sindrets/diffview.nvim'
 Plug 'APZelos/blamer.nvim'
+
 " Merge conflicts
 Plug 'rhysd/conflict-marker.vim'
 
@@ -26,7 +50,8 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 Plug 'airblade/vim-rooter'
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
+Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'vim-utils/vim-man'
 Plug 'mbbill/undotree'
@@ -41,8 +66,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " formatting
-" Plug 'cofyc/vim-uncrustify'
-" Plug 'embear/vim-uncrustify'
 Plug 'rickyelopez/vim-uncrustify'
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
@@ -60,6 +83,8 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/nvim-bufferline.lua'
 
+Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
+
 " LSP Trouble
 " Plug 'folke/lsp-trouble.nvim'
 
@@ -68,17 +93,12 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 " file browser
 " Plug 'preservim/nerdtree'
 Plug 'MunifTanjim/nui.nvim'
 Plug 'nvim-neo-tree/neo-tree.nvim'
-
-" mako
-Plug 'sophacles/vim-bundle-mako'
-
-" todo
-Plug 'aserebryakov/vim-todo-lists'
 
 " CSV handling
 Plug 'chrisbra/csv.vim'

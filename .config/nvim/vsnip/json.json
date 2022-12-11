@@ -1,0 +1,38 @@
+{
+    "snippet": {
+        "prefix": "snippet",
+        "body": [
+            "\"${1:name}\": {",
+            "\t\"prefix\": [\"${2:trigger}\"],",
+            "\t\"body\": [",
+            "\t\t\"${3:content}\"$4",
+            "\t]",
+            "}$0"
+        ]
+    },
+    "rx": {
+        "prefix": "rx",
+        "body": [
+            "{",
+            "\t\"name\": \"${1:name}\"",
+            "}$0"
+        ]
+    },
+    "value table": {
+        "prefix": "value",
+        "body": [
+            "\"name\": \"${1:name}\",",
+            "\"entries\": {",
+            "\t\"${2:entry}\": 0$3",
+            "}$0"
+        ]
+    },
+    "rx onBus": {
+        "prefix": ["onBus", "onbus"],
+        "body": [
+            "\"onBus\": [",
+            "\t\"${1:bus}\"",
+            "]$0"
+        ]
+    }
+}

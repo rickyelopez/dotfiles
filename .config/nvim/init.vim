@@ -28,13 +28,14 @@ set showmatch
 set scrolloff=5
 set termguicolors
 set updatetime=300
+set ttimeoutlen=10
 
 set nrformats+=alpha
 set formatoptions+=j
 
 " show whitespace and line break
 set list
-set listchars=tab:│\ ,trail:•,extends:❯,precedes:❮
+set listchars=tab:│\ ,trail:•,extends:❯,precedes:❮,tab:▷▷⋮
 set shiftround
 " set linebreak
 " let &showbreak='↪ '
@@ -49,10 +50,9 @@ set nowritebackup
 set cmdheight=2
 set shortmess+=c
 " set signcolumn=number
-set signcolumn=auto:2-3
+" set signcolumn=auto:3-6
 
 set colorcolumn=120
-highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 " don't fold anything when opening files
 set foldlevel=99
@@ -92,21 +92,26 @@ au BufRead,BufNewFile *.dbc set filetype=dbc
 " disable rooter
 let g:rooter_manual_only = 1
 
+let g:vsnip_snippet_dir = $HOME . '/.config/nvim/vsnip'
+
 " Load supplemental configs
 source $HOME/.config/nvim/plugins.vim
 source $HOME/.config/nvim/utils.vim
 source $HOME/.config/nvim/binds.vim
 source $HOME/.config/nvim/plug-conf/theme.vim
 source $HOME/.config/nvim/plug-conf/ultisnips.vim
-source $HOME/.config/nvim/plug-conf/coc.vim
+" source $HOME/.config/nvim/plug-conf/coc.vim
 source $HOME/.config/nvim/plug-conf/uncrustify.vim " load after coc so that format keybinds are set correctly
-source $HOME/.config/nvim/plug-conf/airline.vim
 source $HOME/.config/nvim/plug-conf/fzf.vim
-source $HOME/.config/nvim/plug-conf/treesitter.vim
-source $HOME/.config/nvim/plug-conf/telescope.vim
 source $HOME/.config/nvim/plug-conf/blamer.vim
 source $HOME/.config/nvim/plug-conf/autopairs.vim
 
+
+function! Update_compiledb(path)
+    let s:full_path = getcwd() . "/" . a:path
+    :silent exec "!ln -sf " .. s:full_path
+    :silent exec "LspRestart"
+endfunction
 
 lua << EOF
   require("init")
