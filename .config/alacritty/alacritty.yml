@@ -14,6 +14,12 @@ env:
   TERM: alacritty
 
 window:
+  # Background opacity
+  #
+  # Window opacity as a floating point number from `0.0` to `1.0`.
+  # The value `0.0` is completely transparent and `1.0` is opaque.
+  opacity: 0.9
+
   # Window dimensions (changes require restart)
   #
   # Specified in number of columns/lines, not pixels.
@@ -50,7 +56,7 @@ window:
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background, but no title bar buttons
-  decorations: none 
+  decorations: full
 
   # Startup Mode (changes require restart)
   #
@@ -61,7 +67,7 @@ window:
   #
   # Values for `startup_mode` (macOS only):
   #   - SimpleFullscreen
-  startup_mode: Maximized 
+  startup_mode: Windowed
 
   # Window title
   #title: Alacritty
@@ -103,26 +109,26 @@ font:
     style: Regular
 
   # Bold font face
-  # bold:
+  bold:
     # Font family
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
-    # family: monospace
+    family: "MesloLGS Nerd Font Mono"
 
     # The `style` can be specified to pick a specific face.
-    # style: Bold
+    style: Bold
 
   # Italic font face
-  # italic:
+  italic:
     # Font family
     #
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    # family: monospace
+    family: "MesloLGS Nerd Font Mono"
 
     # The `style` can be specified to pick a specific face.
-    # style: Italic
+    style: Italic
 
   # Bold italic font face
   # bold_italic:
@@ -136,7 +142,7 @@ font:
     # style: Bold Italic
 
   # Point size
-  size: 15.0
+  size: 9.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -306,12 +312,6 @@ font:
   #     args: ["Hello, World!"]
   #
   #command: None
-
-# Background opacity
-#
-# Window opacity as a floating point number from `0.0` to `1.0`.
-# The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 0.9
 
 #selection:
   #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"

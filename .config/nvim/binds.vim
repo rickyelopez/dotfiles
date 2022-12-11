@@ -1,98 +1,12 @@
-" remap window navigation functions
-nnoremap <leader>h :wincmd h<CR>
-nnoremap <leader>l :wincmd l<CR>
-nnoremap <leader>j :wincmd j<CR>
-nnoremap <leader>k :wincmd k<CR>
+nnoremap <leader>cr :LspRestart<CR>
 
-" unmap Q
-nnoremap <silent> Q <nop>
-
-" lsptrouble
-" nnoremap <leader>xx <cmd>TroubleToggle<cr>
-nnoremap <leader>xx <cmd>call coc#rpc#request('fillDiagnostics', [bufnr('%')])<CR><cmd>Trouble loclist<CR>`
-
-" source current file
-nnoremap <leader>so :so<space>%<CR>
-" delete doesn't overwrite main buffer
-nnoremap <leader>d "_d
-vnoremap <leader>d "_d
-
-" Markdown Preview Bind
-nmap <leader>md <Plug>MarkdownPreviewToggle
-
-" close buffer without closing window
-" nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
-" nnoremap <leader>q :b#<bar>bw #<CR>
-nnoremap <leader>q :BufferLineCyclePrev<CR>:bw #<CR>
-
-" bind buffer switching
-nnoremap <S-Tab> :BufferLineCycleNext<CR>
-nnoremap <leader><S-Tab> :BufferLineCyclePrev<CR>
-" These commands will move the current buffer backwards or forwards in the bufferline
-nnoremap <silent><leader><S-L> :BufferLineMoveNext<CR>
-nnoremap <silent><leader><S-H> :BufferLineMovePrev<CR>
-" buffer pick
-nnoremap <silent> gb :BufferLinePick<CR>
-" goto buffer
-
-nnoremap <silent><leader>1 <Cmd>BufferLineGoToBuffer 1<CR>
-nnoremap <silent><leader>2 <Cmd>BufferLineGoToBuffer 2<CR>
-nnoremap <silent><leader>3 <Cmd>BufferLineGoToBuffer 3<CR>
-nnoremap <silent><leader>4 <Cmd>BufferLineGoToBuffer 4<CR>
-nnoremap <silent><leader>5 <Cmd>BufferLineGoToBuffer 5<CR>
-nnoremap <silent><leader>6 <Cmd>BufferLineGoToBuffer 6<CR>
-nnoremap <silent><leader>7 <Cmd>BufferLineGoToBuffer 7<CR>
-nnoremap <silent><leader>8 <Cmd>BufferLineGoToBuffer 8<CR>
-nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR>
-
-" clear highligted search
-nnoremap <silent><leader><space> :noh<CR>
-
-" nerdtree config
-" commented out, switching to neo-tree
-" nnoremap <leader>pv :NERDTreeToggle<CR>
-" nnoremap \ :NERDTreeFind<CR>
-
-" Remove all trailing whitespace by pressing hotkey
-nnoremap <leader>ws :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
-
-" scratchpad
-nnoremap <leader>sc :e ~/scratchpad.c<CR>
-nnoremap <leader>sp :e ~/scratchpad.py<CR>
-
-nnoremap <S-q> <silent>
-
-" reselect block after indenting
-vnoremap < <gv
-vnoremap > >gv
-
-" make Y consistent with C and D
-nnoremap Y y$
-
-" autocenter
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
-nnoremap <silent> g* g*zz
-nnoremap <silent> g# g#zz
-nnoremap <silent> <C-o> <C-o>zz
-nnoremap <silent> <C-i> <C-i>zz
-
-" regex when searching or replacing
-nnoremap / /\v
-vnoremap / /\v
-nnoremap ? ?\v
-vnoremap ? ?\v
-
+" clangd
+nnoremap <leader>o :ClangdSwitchSourceHeader<CR>
 
 " Unmap meta
 silent! unmap <M-p>
 silent! unmap <M-n>
 silent! unmap <M-o>
-
-" Hex read/write
-nnoremap <leader>hr :%!xxd<CR> :set filetype=xxd<CR>
-nnoremap <leader>hw :%!xxd -r<CR> :set binary<CR> :set filetype=<CR>
+silent! unmap Q
 
 command DiffOrig vert new | set buftype=nofile | read ++edit # | 0d_ | diffthis | wincmd p | diffthis
