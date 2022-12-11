@@ -2,10 +2,10 @@
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 
 -- If you want icons for diagnostic errors, you'll need to define them somewhere:
-vim.fn.sign_define("DiagnosticSignError", {text = " ", texthl = "DiagnosticSignError"})
-vim.fn.sign_define("DiagnosticSignWarn", {text = " ", texthl = "DiagnosticSignWarn"})
-vim.fn.sign_define("DiagnosticSignInfo", {text = " ", texthl = "DiagnosticSignInfo"})
-vim.fn.sign_define("DiagnosticSignHint", {text = "", texthl = "DiagnosticSignHint"})
+vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
+vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
+vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
+vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
 
 vim.cmd([[nnoremap <leader>pv :Neotree<cr>]])
 vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
@@ -14,10 +14,12 @@ require("neo-tree").setup({
     close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
     popup_border_style = "rounded",
     enable_git_status = false,
-    enable_diagnostics = true,
+    enable_diagnostics = false,
+    enable_refresh_on_write = false,
+    sources = { "filesystem", },
     default_component_configs = {
         container = {
-            enable_character_fade = true
+            enable_character_fade = true,
         },
         indent = {
             indent_size = 2,
@@ -40,7 +42,7 @@ require("neo-tree").setup({
             -- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
             -- then these will never be used.
             default = "*",
-            highlight = "NeoTreeFileIcon"
+            highlight = "NeoTreeFileIcon",
         },
         modified = {
             symbol = "[+]",
@@ -54,17 +56,17 @@ require("neo-tree").setup({
         git_status = {
             symbols = {
                 -- Change type
-                added     = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
-                modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
-                deleted   = "✖",-- this can only be used in the git_status source
-                renamed   = "",-- this can only be used in the git_status source
+                added = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
+                modified = "", -- or "", but this is redundant info if you use git_status_colors on the name
+                deleted = "✖", -- this can only be used in the git_status source
+                renamed = "", -- this can only be used in the git_status source
                 -- Status type
                 untracked = "",
-                ignored   = "",
-                unstaged  = "",
-                staged    = "",
-                conflict  = "",
-            }
+                ignored = "",
+                unstaged = "",
+                staged = "",
+                conflict = "",
+            },
         },
     },
     window = {
@@ -92,8 +94,8 @@ require("neo-tree").setup({
                 "add",
                 -- some commands may take optional config options, see `:h neo-tree-mappings` for details
                 config = {
-                    show_path = "none" -- "none", "relative", "absolute"
-                }
+                    show_path = "relative", -- "none", "relative", "absolute"
+                },
             },
             ["A"] = "add_directory", -- also accepts the config.show_path option.
             ["d"] = "delete",
@@ -106,7 +108,7 @@ require("neo-tree").setup({
             ["q"] = "close_window",
             ["R"] = "refresh",
             ["?"] = "show_help",
-        }
+        },
     },
     nesting_rules = {},
     filesystem = {
@@ -119,11 +121,11 @@ require("neo-tree").setup({
                 --"node_modules"
             },
             hide_by_pattern = { -- uses glob style patterns
-            --"*.meta"
+                --"*.meta"
             },
             never_show = { -- remains hidden even if visible is toggled to true
-            ".DS_Store",
-            "thumbs.db"
+                ".DS_Store",
+                "thumbs.db",
             },
         },
         follow_current_file = false, -- This will find and focus the file in the active buffer every time the current file is changed while the tree is open.
@@ -132,7 +134,7 @@ require("neo-tree").setup({
         -- "open_default", -- netrw disabled, opening a directory opens neo-tree in whatever position is specified in window.position
         -- "open_current", -- netrw disabled, opening a directory opens within the window like netrw would, regardless of window.position
         -- "disabled",     -- netrw left alone, neo-tree does not handle opening dirs
-        use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes instead of relying on nvim autocmd events.
+        use_libuv_file_watcher = false, -- This will use the OS level file watchers to detect changes instead of relying on nvim autocmd events.
         window = {
             mappings = {
                 ["<bs>"] = "navigate_up",
@@ -144,8 +146,11 @@ require("neo-tree").setup({
                 ["<c-x>"] = "clear_filter",
                 ["[g"] = "prev_git_modified",
                 ["]g"] = "next_git_modified",
-            }
-        }
+            },
+            async_directory_scan = "always", -- "auto"   means refreshes are async, but it's synchronous when called from the Neotree commands.
+                                             -- "always" means directory scans are always async.
+                                             -- "never"  means directory scans are never async.
+        },
     },
     buffers = {
         follow_current_file = false, -- This will find and focus the file in the active buffer every
@@ -157,21 +162,21 @@ require("neo-tree").setup({
                 ["bd"] = "buffer_delete",
                 ["<bs>"] = "navigate_up",
                 ["."] = "set_root",
-            }
+            },
         },
     },
     git_status = {
         window = {
             position = "float",
             mappings = {
-                ["A"]  = "git_add_all",
+                ["A"] = "git_add_all",
                 ["gu"] = "git_unstage_file",
                 ["ga"] = "git_add_file",
                 ["gr"] = "git_revert_file",
                 ["gc"] = "git_commit",
                 ["gp"] = "git_push",
                 ["gg"] = "git_commit_and_push",
-            }
-        }
-    }
+            },
+        },
+    },
 })

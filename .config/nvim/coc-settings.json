@@ -1,5 +1,6 @@
 {
     "coc.preferences.bracketEnterImprove": true,
+    "suggest.noselect": true,
 
     "workspace.workspaceFolderCheckCwd": false,
     "workspace.bottomUpFiletypes": [
@@ -15,9 +16,7 @@
 
     "yaml.format.enable": true,
 
-    "semanticTokens.filetypes": [
-        "*"
-    ],
+    "semanticTokens.enable": true,
 
     "json.enable": true,
     "json.trace.server": "off",

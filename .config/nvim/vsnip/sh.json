@@ -1,0 +1,10 @@
+{
+    "function": {
+        "prefix": ["fun"],
+        "body": [
+            "${1:function name} ($2) {",
+            "\t$3",
+            "}$0"
+        ]
+    }
+}
