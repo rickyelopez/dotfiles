@@ -1,0 +1,139 @@
+{
+    "block comment": {
+        "prefix": "/*",
+        "body": [
+            "/*",
+            " * $1",
+            " */$0"
+        ]
+    },
+    "preproc define": {
+        "prefix": "def",
+        "body": [
+            "#define $1"
+        ]
+    },
+    "preproc_if": {
+        "prefix": "pif",
+        "body": [
+            "#if ${1:condition}",
+            "${2:action}",
+            "#endif$0"
+        ]
+    },
+    "preproc_else": {
+        "prefix": ["pelse"],
+        "body": [
+            "#else",
+            "$1"
+        ]
+    },
+    "preproc_elif": {
+        "prefix": ["pelif"],
+        "body": [
+            "#elif $1",
+            "$0"
+        ]
+    },
+    "ternary": {
+        "prefix": "tern",
+        "body": [
+            "(${1:condition}) ? (${2:true_val}) : (${3:false_val})$0"
+        ]
+    },
+    "if": {
+        "prefix": ["if"],
+        "body": [
+            "if (${1:condition})",
+            "{",
+            "\t${2:action}",
+            "}$0"
+        ]
+    },
+    "elif": {
+        "prefix": ["elif"],
+        "body": [
+            "}",
+            "else if (${1:condition})",
+            "{",
+            "\t${2:action}"
+        ]
+    },
+    "el": {
+        "prefix": ["el"],
+        "body": [
+            "}",
+            "else",
+            "{",
+            "\t${1:action}"
+        ]
+    },
+    "ifel": {
+        "prefix": ["ifel"],
+        "body": [
+            "if (${1:condition}) {",
+            "\t${2:action}",
+            "}",
+            "else",
+            "{",
+            "\t${3:else action}",
+            "}$0"
+        ]
+    },
+    "switch": {
+        "prefix": ["switch"],
+        "body": [
+            "switch ($1)",
+            "{",
+            "case $2:",
+            "\t$3",
+            "\tbreak;",
+            "}$0"
+        ]
+    },
+    "case": {
+        "prefix": ["case"],
+        "body": [
+            "case $1:",
+            "\t$2",
+            "\tbreak;$0"
+        ]
+    },
+    "for": {
+        "prefix": ["for"],
+        "body": [
+            "for (${1:type} ${2:iterator}; $2 ${3:condition}; ${4:increment})",
+            "{",
+            "\t$5",
+            "}$0"
+        ]
+    },
+    "void func": {
+        "prefix": ["vf"],
+        "body": [
+            "void $1 (void)",
+            "{",
+            "\t$2",
+            "}$0"
+        ]
+    },
+    "canrxs": {
+        "prefix": ["canrxs"],
+        "body": [
+            "CANRXS(${1:node}, ${2:signal}, signal)$0"
+        ]
+    },
+    "cantx set": {
+        "prefix": ["set"],
+        "body": [
+            "#define set_$1(m,b,n,s)\tset_${2|raw,scale,value|}(m,b,n,s, $3)"
+        ]
+    },
+    "cantx set unsent": {
+        "prefix": ["setu"],
+        "body": [
+            "#define set_$1(m,b,n,s)\tunsent_signal(m)"
+        ]
+    }
+
+}

@@ -1,12 +1,11 @@
 #!/bin/bash
 
-
-## Transferring builds from Dev machines ##
-alias build_transfer='f(){ python -m build_transfer "$@" ; unset -f f;}; f'
-
 ## epoch_ms to timestamp
-alias ts='f(){ python3 -c "from datetime import datetime; print(datetime.fromtimestamp(${@}/1000 - (60*60*7)).strftime(\"%Y-%m-%d %H:%M:%S\"))" ; unset -f f;}; f'
+# alias ts='f(){ python3 -c "from datetime import datetime; print(datetime.fromtimestamp(${@}/1000 - (60*60*7)).strftime(\"%Y-%m-%d %H:%M:%S\"))" ; unset -f f;}; f'
+ts () { python3 -c "from datetime import datetime; print(datetime.fromtimestamp(${1}/1000 - (60*60*7)).strftime(\"%Y-%m-%d %H:%M:%S\"))"; }
 
+## launch lazygit
+alias lg='lazygit'
 
 ################################################################################
 #                           Common Git Commands
@@ -18,7 +17,7 @@ alias ts='f(){ python3 -c "from datetime import datetime; print(datetime.fromtim
 # function to confirm operation
 confirm_branch () {
     branch=$(gbc 2>&1)
-    if [[ $? -ne 0 ]]; then
+    if [ $? -ne 0 ]; then
         return 1
     fi
 
@@ -50,21 +49,21 @@ alias gc='git clean -dxf'
 # return current branch
 alias gbc='git branch --show-current'
 # grep for branches
-alias gbg='f(){ git branch | grep -E "$@" ; unset -f f;}; f'
+gbg () { git branch | grep -E "$@"; }
 # make and checkout new branch
-alias gbn='f(){ git checkout -b "$@" ; unset -f f;}; f'
+alias gbn='git checkout -b'
 # delete branch
-alias gbd='f(){ git branch -D "$@" ; unset -f f;}; f'
+alias gbd='git branch -D'
 # delete branch, grep branch name
-alias gbdg='f(){ gbd `gbg "$@"` ; unset -f f; }; f'
+gbdg () { gbd $(gbg "$@"); }
 # fetch branch
-alias gfo='f(){ git fetch origin "$1":"$1" "$@" ; unset -f f;}; f'
+gfo () { branch=$1; shift; git fetch origin "$branch":"$branch" "$@"; }
 # checkout branch
-alias gco='f(){ git checkout "$1" ; unset -f f;}; f'
+alias gco='git checkout'
 # checkout branch, grep branch name
-alias gcog='f(){ gco `gbg "$@"` ; unset -f f; }; f'
+gcog () { local branch=$1; shift; gco $(gbg "$branch") "$@"; }
 # fetch and checkout branch
-alias gfco='f(){ gfo "$1" && gco "$1" ; unset -f f;}; f'
+gfco () { gfo "$1" && gco "$1"; }
 
 
 #######################
@@ -80,70 +79,101 @@ alias gdc='git diff --check'
 ###### Log
 #######################
 # open the log (current branch or other)
-alias gl='f(){ git log "$@" ; unset -f f;}; f'
+alias gl='git log'
 # open the log, grep for branch name
-alias glg='f(){ git log `gbg "$@"` ; unset -f f;}; f'
+# alias glg='f(){ git log `gbg "$@"` ; unset -f f;}; f'
+glg () {
+    local branch=$1
+    shift
+    gl $(gbg "$branch") "$@"
+}
 # short log
 alias glo='gl --oneline'
 # short log, grep for branch name
-alias glog='f(){ git log --oneline `gbg "$@"` ; unset -f f;}; f'
+# alias glog='f(){ git log --oneline `gbg "$@"` ; unset -f f;}; f'
+glog () {
+    local branch=$1
+    shift
+    glo $(gbg "$branch") "$@"
+}
 
 
 #######################
 ###### Rebasing
 #######################
+# rebase
+alias grb='git rebase'
 # squash, pass in how far back to go
-alias gsq='f(){ git rebase -i HEAD~"$1" ; unset -f f;}; f'
-# rebase onto other branch
-alias grb='f(){ git rebase "$1" ; unset -f f;}; f'
+# alias gsq='git rebase -i HEAD~'
+gsq () {
+    local back=$1
+    shift
+    git rebase -i HEAD~"$back" "$@"
+}
 # rebase onto other branch from origin
-alias grbo='f(){ grb origin/"$1" ; unset -f f;}; f'
+# alias grbo='f(){ grb origin/"$@" ; unset -f f;}; f'
+grbo () { local branch=$1; shift; grb origin/"$branch" "$@"; }
 # fetch and rebase
-alias gfrb='f(){ gfo origin/"$1" ; [ $? -eq 0 ] && grb origin/"$1" || echo "Fetch failed; exiting" ; unset -f f;}; f'
+# alias gfrb='f(){ gfo "$1" ; [ $? -eq 0 ] && grb "$1" || echo "Fetch failed; exiting" ; unset -f f;}; f'
+gfrb () { gfo "$1" || echo "Fetch failed; exiting" && grb "$1"; }
 # continue rebase
-alias grc='git rebase --continue'
+alias grc='grb --continue'
 # abort rebase
-alias gra='git rebase --abort'
+alias gra='grb --abort'
 
 
 #######################
-###### Rebasing
+###### Cherry-picking
 #######################
 # cherry-pick
-alias gcp='f(){ git cherry-pick "$@" ; unset -f f;}; f'
+alias gcp='git cherry-pick'
 # continue cherry-pick
-alias gcpa='git cherry-pick --abort'
+alias gcpa='gcp --abort'
 # abort cherry-pick
-alias gcpc='git cherry-pick --continue'
+alias gcpc='gcp --continue'
 
 
 #######################
 ###### Submodules
 #######################
 # init all submodules defined in $SUBMODULES (defined elsewhere)
-alias gsm='git submodule update --init --recursive $SUBMODULES'
+# alias gsm='git submodule update --init --recursive $SUBMODULES'
 # force init all submodules defined in $SUBMODULES (defined elsewhere)
-alias gsmf='git submodule update --init --recursive -f $SUBMODULES'
+# alias gsmf='git submodule update --init --recursive -f $SUBMODULES'
 
 
 #######################
 ###### Committing
 #######################
 # amend commit, reset author
-alias gca='f(){ git commit --amend --reset-author "$@" ; unset -f f;}; f'
+alias gca='git commit --amend'
 # amend commit, reset author, don't edit commit msg
 alias gcan='gca --no-edit'
+# add conflicted files
+alias gac='git add $(gcl)'
+# fixup commit
+gcf () {
+    local back=$1
+    shift
+    git commit --fixup HEAD~"$back" "$@"
+}
 
 
 #######################
 ###### Pushing
 #######################
 # force push, confirm first
-alias gpf='$(confirm_branch "force-push to") && git push -f'
+gpf () {
+    confirm_branch "force-push to" && git push -f || echo "cancelled"
+}
 # push branch to origin, confirm first
-alias gpu='$(confirm_branch "push branch to origin") && git push -u origin `git branch --show-current`'
+gpu () {
+    confirm_branch "push branch to origin" && git push -u origin $(gbc) || echo "cancelled"
+}
 # force push branch to origin, confirm first
-alias gpuf='$(confirm_branch "force push branch to origin") && git push -u origin `git branch --show-current` -f'
+gpuf () {
+    confirm_branch "force push branch to origin" && git push -u origin $(gbc) -f || echo "cancelled"
+}
 
 
 #######################

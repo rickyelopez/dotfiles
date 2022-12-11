@@ -1,14 +1,18 @@
-local pickers = require "telescope.pickers"
+local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
 local action_state = require("telescope.actions.state")
 local conf = require("telescope.config").values
 local actions = require("telescope.actions")
-local themes = require('telescope.themes')
+local themes = require("telescope.themes")
 local previewers = require("telescope.previewers")
+local builtin = require("telescope.builtin")
+
+local function toggle_git_ignore()
+    vim.fn.ToggleGitIgnore()
+end
 
 require("telescope").setup({
     defaults = {
-        file_sorter = require("telescope.sorters").get_fzy_sorter,
         prompt_prefix = "🔍 ",
         color_devicons = true,
 
@@ -25,7 +29,22 @@ require("telescope").setup({
             "--column",
             "--smart-case",
             "--hidden",
-            vim.g.ignored_files,
+            -- vim.g.ignored_files,
+        },
+        file_ignore_patterns = {
+            "%.git/",
+            "/%.cache/",
+            "%.msr",
+            "%.gvl",
+            "%.map",
+            "%.asm",
+            "%.asms",
+            "%.asmss",
+            "%.pyc",
+            "%.png",
+            "%.c%.html",
+            "%.compact%.json",
+            "%.json%.raw",
         },
 
         mappings = {
@@ -35,6 +54,9 @@ require("telescope").setup({
                 ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
                 ["<C-u>"] = actions.results_scrolling_up,
                 ["<C-d>"] = actions.results_scrolling_down,
+                ["<C-p>"] = actions.cycle_history_prev,
+                ["<C-n>"] = actions.cycle_history_next,
+                ["<C-f>"] = toggle_git_ignore,
                 ["<PageUp>"] = actions.preview_scrolling_up,
                 ["<PageDown>"] = actions.preview_scrolling_down,
             },
@@ -44,56 +66,140 @@ require("telescope").setup({
                 ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
                 ["<C-u>"] = actions.results_scrolling_up,
                 ["<C-d>"] = actions.results_scrolling_down,
+                ["<C-p>"] = actions.cycle_history_prev,
+                ["<C-n>"] = actions.cycle_history_next,
+                ["<C-f>"] = toggle_git_ignore,
                 ["<PageUp>"] = actions.preview_scrolling_up,
                 ["<PageDown>"] = actions.preview_scrolling_down,
+                ["dd"] = actions.delete_buffer,
             },
         },
     },
     pickers = {
-        -- live_grep = {
-        --     on_input_filter_cb = function(prompt)
-        --         -- replace space with .*
-        --         return { prompt = prompt:gsub("%s", ".*") }
-        --     end,
-        -- },
+        live_grep = {
+            path_display = {
+                shorten = {
+                    len = 4,
+                    exclude = { 2, 3, -1, -2 },
+                },
+            },
+        },
+        find_files = {
+            path_display = {
+                shorten = {
+                    len = 4,
+                    exclude = { 3, 4, -1, -2 },
+                },
+            },
+        },
     },
     extensions = {
-        fzy_native = {
-            override_generic_sorter = false,
+        fzf = {
+            fuzzy = true,
+            override_generic_sorter = true,
             override_file_sorter = true,
+            case_mode = "smart_case",
         },
     },
 })
 
-require("telescope").load_extension("fzy_native")
+require("telescope").load_extension("fzf")
 
-local MyFunctions = {
+local M = {
     search_dotfiles = function()
-        require("telescope.builtin").find_files({
-            find_command = {"rg", "--files", "--hidden", "--no-ignore-vcs"},
-            prompt_title = "< VimRC >",
-            cwd = "$HOME/.config/nvim",
+        builtin.find_files({
+            find_command = { "fd", "--hidden", "--type", "file", "-E", ".git" },
+            prompt_title = "< dotfiles >",
+            cwd = "$HOME",
+            search_dirs = { "$HOME/dotfiles", "$HOME/dotfiles_priv" },
             hidden = true,
         })
     end,
 
     select_compiledb = function(opts)
         opts = opts or {}
-        local find_command = { "rg", "--files", "--no-ignore-vcs", "-g", "*compile_commands.json" }
-        pickers.new(themes.get_dropdown{ layout_config = {width = 0.8} }, {
-            prompt_title = "Select compile_commands.json",
-            finder = finders.new_oneshot_job(find_command, opts),
-            sorter = conf.file_sorter(opts),
-            attach_mappings = function(prompt_bufnr)
-                actions.select_default:replace(function()
-                    local selection = action_state.get_selected_entry().value
-                    actions.close(prompt_bufnr)
-                    vim.fn.Update_compiledb(selection)
-                end)
-                return true
-            end,
-        }):find()
+        local find_command = { "fd", "--type", "file", "--no-ignore-vcs", "-g", "*compile_commands.json" }
+        pickers
+            .new(themes.get_dropdown({ layout_config = { width = 0.6 } }), {
+                prompt_title = "Select compile_commands.json",
+                finder = finders.new_oneshot_job(find_command, opts),
+                sorter = conf.file_sorter(opts),
+                attach_mappings = function(prompt_bufnr)
+                    actions.select_default:replace(function()
+                        local selection = action_state.get_selected_entry().value
+                        actions.close(prompt_bufnr)
+                        vim.fn.Update_compiledb(selection)
+                    end)
+                    return true
+                end,
+            })
+            :find()
     end,
 }
 
-return MyFunctions
+-- Keymaps
+local map = require("utils").map
+
+map("<leader>tg", function()
+    local additional_args = {}
+
+    -- local neotree_state = require("neo-tree.sources.manager").get_state("filesystem")
+    -- local curr_buf = vim.api.nvim_get_current_buf()
+    -- local buf = neotree_state.bufnr
+    -- local path = neotree_state.path
+    -- if buf == curr_buf then
+    --     additional_args = {"-g", path .. "/**/*"}
+    --     print(vim.inspect(additional_args))
+    -- end
+
+    return builtin.live_grep({
+        additional_args = function()
+            if vim.g.grep_ignore ~= "" then
+                table.insert(additional_args, "--no-ignore-vcs")
+            end
+            return additional_args
+        end,
+    })
+end)
+
+map("<leader>tp", function()
+    return builtin.find_files({
+        find_command = function()
+            local cmd = { "fd", "--hidden", "--type", "file" }
+            if vim.g.grep_ignore ~= "" then
+                table.insert(cmd, "--no-ignore-vcs")
+                return cmd
+            end
+            return cmd
+        end,
+    })
+end)
+
+map("<leader>bc", function()
+    return builtin.find_files({
+        find_command = { "fd", "--type", "file", "-g", "*build_configurations.xml" },
+    })
+end)
+
+map("<leader>gpd", function()
+    return builtin.live_grep({
+        additional_args = {
+            "-g",
+            vim.env.di .. "/**/*.py",
+            "-g",
+            vim.env.dig3 .. "/**/SConscript*",
+            "-g",
+            vim.env.dig3 .. "/**/SConstruct*",
+        },
+    })
+end)
+
+map("<leader>tw", builtin.grep_string)
+map("<leader>bf", builtin.buffers)
+map("<leader>vh", builtin.help_tags)
+map("<leader>m", builtin.marks)
+map("<leader>ts", builtin.treesitter)
+map("<leader>vrc", M.search_dotfiles)
+map("<leader>cc", M.select_compiledb)
+
+return M

@@ -14,6 +14,7 @@ let g:fzf_buffers_jump = 1
 map <C-p> :Files<CR>
 " map <leader>b :Buffers<CR>
 nnoremap <leader>gg :RG<CR>
+nnoremap <leader>gw :RGw<CR>
 " nnoremap <leader>t :Tags<CR>
 " nnoremap <leader>m :Marks<CR>
 
@@ -23,8 +24,8 @@ nnoremap <leader>gg :RG<CR>
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.9, 'height': 0.9,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
 
 " Ignored files
-let g:ignored_files    = "-g=\!.git/** -g=\!**/.cache/** -g=\!*.msr -g=\!*.gvl -g=\!*.map -g=\!*.asm -g=\!*.pyc -g=\!*.png -g=\!*.o -g=\!*.asms -g=\!*.asmss -g=\!*.c.html"
-let g:fd_ignored_files = "-E .git -E .cache -E *.msr -E *.gvl -E *.map -E *.asm -E *.pyc -E *.png -E *.o -E *.asms -E *.asmss -E *.c.html"
+let g:ignored_files    = "-g '!.git/**' -g '!**/.cache/**' -g '!*.msr' -g '!*.gvl' -g '!*.map' -g '!*.asm' -g '!*.pyc' -g '!*.png' -g '!*.o' -g '!*.asms' -g '!*.asmss' -g '!*.c.html' -g '!*.compact.json' -g '!*.json.raw'"
+let g:fd_ignored_files = "-E .git -E .cache -E *.msr -E *.gvl -E *.map -E *.asm -E *.pyc -E *.png -E *.o -E *.asms -E *.asmss -E *.c.html -E *.compact.json -E *.json.raw"
 
 let s:fzf_base_cmd = "fd --hidden --type file " . g:fd_ignored_files
 " let s:fzf_base_cmd = "rg --files --hidden " . g:ignored_files
@@ -86,6 +87,7 @@ function! RipgrepFzf(query, fullscreen)
 endfunction
 
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+command! RGw call RipgrepFzf(expand('<cword>'), 0)
 
 " Git grep
 command! -bang -nargs=* GGrep
