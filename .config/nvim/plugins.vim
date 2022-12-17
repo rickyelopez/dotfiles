@@ -107,6 +107,9 @@ Plug 'chrisbra/csv.vim'
 " mako handling
 Plug 'sophacles/vim-bundle-mako'
 
+" Rust
+Plug 'rust-lang/rust.vim'
+
 call plug#end()
 
 endif
