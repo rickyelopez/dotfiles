@@ -84,6 +84,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/nvim-bufferline.lua'
 
 Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
+Plug 'da-moon/telescope-toggleterm.nvim'
 
 " LSP Trouble
 " Plug 'folke/lsp-trouble.nvim'
@@ -102,6 +103,9 @@ Plug 'nvim-neo-tree/neo-tree.nvim'
 
 " CSV handling
 Plug 'chrisbra/csv.vim'
+
+" mako handling
+Plug 'sophacles/vim-bundle-mako'
 
 call plug#end()
 
