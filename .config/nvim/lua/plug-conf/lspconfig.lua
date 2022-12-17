@@ -25,6 +25,7 @@ local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
 vim.keymap.set("n", "[c", vim.diagnostic.goto_prev, opts)
 vim.keymap.set("n", "]c", vim.diagnostic.goto_next, opts)
+vim.keymap.set("n", "<leader>cr", "<cmd>LspRestart<CR>", opts)
 -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
 -- Use an on_attach function to only map the following keys
@@ -50,8 +51,11 @@ local on_attach = function(client, bufnr)
     vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
     vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
-    if client.name and client.name ~= "clangd" then
-        vim.keymap.set("n", "<space>f", function()
+    if client.name and client.name == "clangd" then
+        vim.keymap.set("n", "<leader>o", "<cmd>ClangdSwitchSourceHeader<CR>", bufopts)
+    else
+        -- don't define leader f in clangd
+        vim.keymap.set("n", "<leader>f", function()
             vim.lsp.buf.format({ async = true })
         end, bufopts)
     end
@@ -134,7 +138,7 @@ require("clangd_extensions").setup({
             only_current_line = false,
             -- Event which triggers a refersh of the inlay hints.
             -- You can make this "CursorMoved" or "CursorMoved,CursorMovedI" but
-            -- not that this may cause  higher CPU usage.
+            -- note that this may cause  higher CPU usage.
             -- This option is only respected when only_current_line and
             -- autoSetHints both are true.
             only_current_line_autocmd = "CursorHold",
@@ -147,11 +151,11 @@ require("clangd_extensions").setup({
             -- whether to align to the length of the longest line in the file
             max_len_align = false,
             -- padding from the left if max_len_align is true
-            max_len_align_padding = 1,
+            -- max_len_align_padding = 1,
             -- whether to align to the extreme right or not
             right_align = false,
             -- padding from the right if right_align is true
-            right_align_padding = 7,
+            -- right_align_padding = 7,
             -- The color of the hints
             highlight = "Comment",
             -- The highlight group priority for extmark

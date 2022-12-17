@@ -57,7 +57,7 @@ alias gbd='git branch -D'
 # delete branch, grep branch name
 gbdg () { gbd $(gbg "$@"); }
 # fetch branch
-gfo () { branch=$1; shift; git fetch origin "$branch":"$branch" "$@"; }
+gfo () { branch=$1; shift; git fetch --prune origin "$branch":"$branch" "$@"; }
 # checkout branch
 alias gco='git checkout'
 # checkout branch, grep branch name
