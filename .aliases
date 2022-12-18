@@ -57,6 +57,7 @@ alias gbd='git branch -D'
 # delete branch, grep branch name
 gbdg () { gbd $(gbg "$@"); }
 # fetch branch
+unalias gfo 2>/dev/null
 gfo () { branch=$1; shift; git fetch --prune origin "$branch":"$branch" "$@"; }
 # checkout branch
 alias gco='git checkout'
@@ -81,7 +82,7 @@ alias gdc='git diff --check'
 # open the log (current branch or other)
 alias gl='git log'
 # open the log, grep for branch name
-# alias glg='f(){ git log `gbg "$@"` ; unset -f f;}; f'
+unalias glg 2>/dev/null
 glg () {
     local branch=$1
     shift
@@ -90,7 +91,7 @@ glg () {
 # short log
 alias glo='gl --oneline'
 # short log, grep for branch name
-# alias glog='f(){ git log --oneline `gbg "$@"` ; unset -f f;}; f'
+unalias glog 2>/dev/null
 glog () {
     local branch=$1
     shift
@@ -111,7 +112,7 @@ gsq () {
     git rebase -i HEAD~"$back" "$@"
 }
 # rebase onto other branch from origin
-# alias grbo='f(){ grb origin/"$@" ; unset -f f;}; f'
+unalias grbo 2>/dev/null
 grbo () { local branch=$1; shift; grb origin/"$branch" "$@"; }
 # fetch and rebase
 # alias gfrb='f(){ gfo "$1" ; [ $? -eq 0 ] && grb "$1" || echo "Fetch failed; exiting" ; unset -f f;}; f'
@@ -152,6 +153,7 @@ alias gcan='gca --no-edit'
 # add conflicted files
 alias gac='git add $(gcl)'
 # fixup commit
+unalias gcf 2>/dev/null
 gcf () {
     local back=$1
     shift
@@ -163,10 +165,12 @@ gcf () {
 ###### Pushing
 #######################
 # force push, confirm first
+unalias gpf 2>/dev/null
 gpf () {
     confirm_branch "force-push to" && git push -f || echo "cancelled"
 }
 # push branch to origin, confirm first
+unalias gpu 2>/dev/null
 gpu () {
     confirm_branch "push branch to origin" && git push -u origin $(gbc) || echo "cancelled"
 }

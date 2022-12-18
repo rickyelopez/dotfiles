@@ -40,9 +40,9 @@ window:
   #
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
-  padding:
-    x: 6
-    y: 6
+  # padding:
+  #   x: 6
+  #   y: 6
 
   # Spread additional padding evenly around the terminal content.
   #dynamic_padding: false
@@ -56,7 +56,7 @@ window:
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background, but no title bar buttons
-  decorations: full
+  decorations: none
 
   # Startup Mode (changes require restart)
   #
@@ -67,7 +67,7 @@ window:
   #
   # Values for `startup_mode` (macOS only):
   #   - SimpleFullscreen
-  startup_mode: Windowed
+  startup_mode: Maximized
 
   # Window title
   #title: Alacritty
@@ -103,10 +103,10 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: "MesloLGS Nerd Font Mono"
+    family: "Blex Mono Nerd Font Mono"
 
     # The `style` can be specified to pick a specific face.
-    style: Regular
+    style: Medium
 
   # Bold font face
   bold:
@@ -131,7 +131,7 @@ font:
     style: Italic
 
   # Bold italic font face
-  # bold_italic:
+  bold_italic:
     # Font family
     #
     # If the bold italic family is not specified, it will fall back to the
@@ -139,10 +139,10 @@ font:
     # family: monospace
 
     # The `style` can be specified to pick a specific face.
-    # style: Bold Italic
+    style: Bold Italic
 
   # Point size
-  size: 9.0
+  size: 9.5
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -161,7 +161,7 @@ font:
   #
   # Thin strokes are suitable for retina displays, but for non-retina screens
   # it is recommended to set `use_thin_strokes` to `false`.
-  use_thin_strokes: true
+  use_thin_strokes: false
 
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: false
@@ -363,7 +363,7 @@ font:
 #  program: /bin/bash
 #  args:
 #    - --login
-shell:
+# shell:
   # program: /usr/bin/zsh
   # args:
   #   # - -l

@@ -1,4 +1,4 @@
-local commands = require("bufferline.commands")
+local cycle = require("bufferline").cycle
 
 local M = {}
 
