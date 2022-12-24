@@ -9,7 +9,7 @@ Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
 
 Plug 'p00f/clangd_extensions.nvim'
-Plug 'theHamsta/nvim-semantic-tokens'
+" Plug 'theHamsta/nvim-semantic-tokens'
 " Plug 'jackguo380/vim-lsp-cxx-highlight'
 
 Plug 'jose-elias-alvarez/null-ls.nvim'
