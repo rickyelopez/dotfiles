@@ -61,9 +61,6 @@ Plug 'jiangmiao/auto-pairs'
 " python
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
-" airline
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 
 " formatting
 Plug 'rickyelopez/vim-uncrustify'
