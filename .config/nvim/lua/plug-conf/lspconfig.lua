@@ -13,9 +13,9 @@ require("mason-lspconfig").setup({
     },
 })
 
-require("nvim-semantic-tokens").setup({
-    preset = "clangd",
-})
+-- require("nvim-semantic-tokens").setup({
+--     preset = "clangd",
+-- })
 
 local util = require("lspconfig.util")
 
@@ -63,15 +63,15 @@ local on_attach = function(client, bufnr)
     local caps = client.server_capabilities
     if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
         local augroup = vim.api.nvim_create_augroup("SemanticTokens", {})
-        vim.api.nvim_create_autocmd("TextChanged", {
+        vim.api.nvim_create_autocmd("BufEnter,CursorHold,InsertLeave", {
             group = augroup,
             buffer = bufnr,
             callback = function()
-                vim.lsp.buf.semantic_tokens_full()
+                vim.lsp.semantic_tokens.force_refresh(bufnr)
             end,
         })
         -- fire it first time on load as well
-        vim.lsp.buf.semantic_tokens_full()
+        vim.lsp.semantic_tokens.force_refresh(bufnr)
     end
 end
 

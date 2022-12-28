@@ -9,8 +9,6 @@ Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
 
 Plug 'p00f/clangd_extensions.nvim'
-Plug 'theHamsta/nvim-semantic-tokens'
-" Plug 'jackguo380/vim-lsp-cxx-highlight'
 
 Plug 'jose-elias-alvarez/null-ls.nvim'
 
@@ -23,8 +21,6 @@ Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/nvim-cmp'
 
 " snippets
-" Plug 'SirVer/ultisnips'
-" Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 
@@ -61,9 +57,9 @@ Plug 'jiangmiao/auto-pairs'
 " python
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
-" airline
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" lualine
+Plug 'RRethy/nvim-base16'
+Plug 'nvim-lualine/lualine.nvim'
 
 " formatting
 Plug 'rickyelopez/vim-uncrustify'
@@ -73,11 +69,9 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 " color schemes
 Plug 'chriskempson/base16-vim'
 Plug 'folke/tokyonight.nvim' 
-" Plug 'drewtempelmeyer/palenight.vim'
 
 " indent guides
 Plug 'lukas-reineke/indent-blankline.nvim'
-" Plug 'Yggdroot/indentLine'
 
 " Buffer line
 Plug 'kyazdani42/nvim-web-devicons'
@@ -97,7 +91,6 @@ Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 " file browser
-" Plug 'preservim/nerdtree'
 Plug 'MunifTanjim/nui.nvim'
 Plug 'nvim-neo-tree/neo-tree.nvim'
 

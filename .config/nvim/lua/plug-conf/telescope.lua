@@ -182,18 +182,23 @@ map("<leader>bc", function()
     })
 end)
 
-map("<leader>gpd", function()
-    return builtin.live_grep({
-        additional_args = {
-            "-g",
-            vim.env.di .. "/**/*.py",
-            "-g",
-            vim.env.dig3 .. "/**/SConscript*",
-            "-g",
-            vim.env.dig3 .. "/**/SConstruct*",
-        },
-    })
-end)
+vim.env.di = vim.env.di and vim.env.di or "~"
+vim.env.dig3 = vim.env.dig3 and vim.env.dig3 or "~"
+
+if vim.env.di and vim.env.dig3 then
+    map("<leader>gpd", function()
+        return builtin.live_grep({
+            additional_args = {
+                "-g",
+                vim.env.di .. "/**/*.py",
+                "-g",
+                vim.env.dig3 .. "/**/SConscript*",
+                "-g",
+                vim.env.dig3 .. "/**/SConstruct*",
+            },
+        })
+    end)
+end
 
 map("<leader>tw", builtin.grep_string)
 map("<leader>bf", builtin.buffers)
