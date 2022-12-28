@@ -139,7 +139,7 @@ M.close = function(buf)
         -- vim.fn.buffer(last)
         vim.api.nvim_exec(":buffer " .. last, false)
     elseif #vim.api.nvim_list_bufs() > 1 then
-        commands.cycle(-1)
+        cycle(-1)
     else
         local newBuf = vim.api.nvim_create_buf(true, false)
         vim.api.nvim_exec(":buffer " .. newBuf, false)

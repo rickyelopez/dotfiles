@@ -14,7 +14,7 @@ require("telescope-toggleterm").setup {
 }
 
 require("plug-conf.tokyonight")
-require("plug-conf.airline")
+require("plug-conf.lualine")
 
 
 -- require("utils")
