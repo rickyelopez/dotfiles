@@ -75,6 +75,13 @@ require("bufferline").setup({
                     end,
                 },
                 {
+                    name = "EGG",
+                    highlight = { gui = "undercurl", guisp = "pink" }, -- Optional
+                    matcher = function(buf) -- Mandatory
+                        return buf.path:match("components/egg")
+                    end,
+                },
+                {
                     name = "PM",
                     highlight = { gui = "undercurl", guisp = "cyan" },
                     matcher = function(buf)

@@ -1,7 +1,6 @@
 #!/bin/bash
 
 ## epoch_ms to timestamp
-# alias ts='f(){ python3 -c "from datetime import datetime; print(datetime.fromtimestamp(${@}/1000 - (60*60*7)).strftime(\"%Y-%m-%d %H:%M:%S\"))" ; unset -f f;}; f'
 ts () { python3 -c "from datetime import datetime; print(datetime.fromtimestamp(${1}/1000 - (60*60*7)).strftime(\"%Y-%m-%d %H:%M:%S\"))"; }
 
 ## launch lazygit
