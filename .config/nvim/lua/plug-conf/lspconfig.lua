@@ -10,6 +10,7 @@ require("mason-lspconfig").setup({
         "clangd",
         "vimls",
         "taplo",
+        "rust_analyzer"
     },
 })
 
