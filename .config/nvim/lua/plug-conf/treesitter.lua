@@ -1,5 +1,5 @@
 require("nvim-treesitter.configs").setup({
-    ensure_installed = { "yaml", "toml", "vim", "lua", "python", "help", "query", "cpp", "c" },
+    ensure_installed = { "yaml", "toml", "vim", "lua", "python", "help", "query", "cpp", "c", "rust" },
     highlight = {
         enable = true,
         -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
