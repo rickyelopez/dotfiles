@@ -1,3 +1,3 @@
 require('lualine').setup({
-    options = { theme = 'base16', globalsattus = true }
+    options = { theme = 'base16', globalstatus = true }
 })

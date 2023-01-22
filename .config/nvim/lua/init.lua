@@ -13,6 +13,10 @@ require("telescope-toggleterm").setup {
    },
 }
 
+-- if vim.env.BASE16_THEME and vim.g.colors_name ~= nil or vim.g.colors_name ~= "base16" .. vim.env.BASE16_THEME then
+--     vim.cmd[[colorscheme "base16-" . vim.env.BASE16_THEME]]
+-- end
+
 require("plug-conf.tokyonight")
 require("plug-conf.lualine")
 
