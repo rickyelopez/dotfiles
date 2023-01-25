@@ -3,8 +3,6 @@ gui:
     'last-built': '#11aaff'
     'develop': '#fcc603'
   showIcons: true
-services:
-  'github-fw.tesla.com': 'github:github-fw.tesla.com'
 customCommands:
   - key: 'y'
     context: 'localBranches'
