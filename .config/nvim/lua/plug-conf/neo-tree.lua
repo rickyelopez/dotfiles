@@ -23,7 +23,7 @@ require("neo-tree").setup({
         },
         indent = {
             indent_size = 2,
-            padding = 1, -- extra padding on left hand side
+            padding = 1,
             -- indent guides
             with_markers = true,
             indent_marker = "│",

@@ -1,0 +1,28 @@
+gui:
+  branchColors:
+    'last-built': '#11aaff'
+    'develop': '#fcc603'
+  showIcons: true
+services:
+  'github-fw.tesla.com': 'github:github-fw.tesla.com'
+customCommands:
+  - key: 'y'
+    context: 'localBranches'
+    description: 'Fetch a remote branch into a local branch'
+    loadingText: 'Fetching'
+    # subprocess: true
+    stream: true
+    # showOutput: true
+    prompts:
+      - type: 'menu'
+        title: 'What kind of branch is it?'
+        options:
+          - value: 'other'
+          - value: 'last-built/develop'
+          - value: 'develop'
+          - value: 'feature'
+          - value: 'factory'
+          - value: 'terminal'
+      - type: 'input'
+        title: 'Branch name?'
+    command: 'git fetch origin {{if eq (index .PromptResponses 0) "other"}}{{index .PromptResponses 1}}:{{index .PromptResponses 1}}{{else}}{{index .PromptResponses 0}}/{{index .PromptResponses 1}}:{{index .PromptResponses 0}}/{{index .PromptResponses 1}}{{end}}'
