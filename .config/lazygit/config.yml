@@ -1,16 +1,35 @@
 gui:
   branchColors:
-    'last-built': '#11aaff'
+    'last-built': '#1a823e'
     'develop': '#fcc603'
+    'terminal': '#912033'
   showIcons: true
+keybinding:
+  branches:
+    forceCheckoutBranch: null
+    fastForward: null
 customCommands:
-  - key: 'y'
+  - key: 'f'
+    context: 'localBranches'
+    description: 'Fetch (or pull) the currently selected branch from its upstream'
+    loadingText: 'Fetching'
+    stream: true
+    command: 'git {{if eq .CheckedOutBranch.Name .SelectedLocalBranch.Name}} pull --rebase {{else}} fetch {{end}} origin {{.SelectedLocalBranch.Name}}:{{.SelectedLocalBranch.Name}}'
+  - key: 'F'
+    context: 'localBranches'
+    description: 'Force fetch the currently selected branch from its upstream'
+    loadingText: 'Fetching'
+    # stream: true
+    prompts:
+      - type: 'confirm'
+        body: 'Are you sure you want to force fetch branch {{.SelectedLocalBranch.Name}}'
+    command: '{{if not (eq .CheckedOutBranch.Name .SelectedLocalBranch.Name)}} git fetch origin {{.SelectedLocalBranch.Name}}:{{.SelectedLocalBranch.Name}} -f {{else}} echo "Cannot force fetch currently checked out branch. Use \"f\" instead" {{end}}'
+    showOutput: true
+  - key: '<c-f>'
     context: 'localBranches'
     description: 'Fetch a remote branch into a local branch'
     loadingText: 'Fetching'
-    # subprocess: true
     stream: true
-    # showOutput: true
     prompts:
       - type: 'menu'
         title: 'What kind of branch is it?'
@@ -23,4 +42,7 @@ customCommands:
           - value: 'terminal'
       - type: 'input'
         title: 'Branch name?'
+        initialValue: '{{index .PromptResponses 0}}'
     command: 'git fetch origin {{if eq (index .PromptResponses 0) "other"}}{{index .PromptResponses 1}}:{{index .PromptResponses 1}}{{else}}{{index .PromptResponses 0}}/{{index .PromptResponses 1}}:{{index .PromptResponses 0}}/{{index .PromptResponses 1}}{{end}}'
+    # subprocess: true
+    # showOutput: true
