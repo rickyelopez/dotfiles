@@ -4,6 +4,8 @@ require("toggleterm").setup({
         border = "curved",
     },
     direction = "float",
+    persist_mode = true,
+    auto_scroll = false,
 })
 
 local Terminal = require("toggleterm.terminal").Terminal
@@ -13,8 +15,9 @@ local lazygit = Terminal:new({
     hidden = true,
     direction = "float",
     on_open = function(term)
-        vim.api.nvim_buf_set_keymap(term.bufnr, "t", "q", [[<nop>]], { noremap = true, silent = true })
-        vim.api.nvim_buf_set_keymap(term.bufnr, "t", [[<C-\>]], [[<C-\><C-n><cmd>close<CR>]], { noremap = true, silent = true })
+        vim.api.nvim_buf_set_keymap(term.bufnr, "t", "q", "q", { noremap = true, silent = true })
+        vim.api.nvim_buf_set_keymap(term.bufnr, "t", [[<C-\>]], [[<cmd>close<CR>]], { noremap = true, silent = true })
+        -- vim.api.nvim_buf_set_keymap(term.bufnr, "t", [[<C-\>]], [[<C-\><C-n><cmd>close<CR>]], { noremap = true, silent = true })
         -- vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
         -- vim.api.nvim_buf_set_keymap(term.bufnr, 't', 'q', [[<C-\><C-n>]], { noremap = true, silent = true })
     end,
@@ -22,7 +25,7 @@ local lazygit = Terminal:new({
 
 
 function _G.set_terminal_keymaps()
-  local opts = {buffer = 0}
+  -- local opts = {buffer = 0}
   -- vim.keymap.set('t', 'q', [[<C-\><C-n>]], opts)
   -- vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
   -- vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
@@ -39,12 +42,8 @@ vim.cmd('autocmd! TermOpen term://*toggleterm#* lua set_terminal_keymaps()')
 
 local M = {}
 
-M.lazygitToggle = function()
-    lazygit:toggle()
-end
-
 local map = require("utils").map
 
-map("<leader>tl", M.lazygitToggle)
+map("<leader>tl", function() lazygit:toggle() end)
 
 return M
