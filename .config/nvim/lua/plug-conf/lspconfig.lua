@@ -56,7 +56,7 @@ local on_attach = function(client, bufnr)
         vim.keymap.set("n", "<leader>o", "<cmd>ClangdSwitchSourceHeader<CR>", bufopts)
     else
         -- don't define leader f in clangd
-        vim.keymap.set("n", "<leader>f", function()
+        vim.keymap.set({"n", "v"}, "<leader>f", function()
             vim.lsp.buf.format({ async = true })
         end, bufopts)
     end

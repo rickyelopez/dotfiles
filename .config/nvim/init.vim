@@ -9,26 +9,32 @@ let mapleader = " "
 " add mouse support
 set mouse=a
 
-" general config
+" allow buffer switching
 set hidden
-set noerrorbells
-set visualbell
-set t_vb=
+" remove bell
+set noerrorbells visualbell t_vb=
+" setup tabbing
 set tabstop=4 softtabstop=0 shiftwidth=0 expandtab smarttab
 set autoindent smartindent
-set number
-set relativenumber
+
 set cursorline
 set nowrap
 set noswapfile
 set nobackup
+set nowritebackup
 set undodir=~/.vimfiles/undodir
 set undofile
 set showmatch
 set scrolloff=5
 set termguicolors
+
+" make things more responsive
 set updatetime=300
 set ttimeoutlen=10
+
+" command bar
+set cmdheight=2
+set shortmess+=c
 
 set nrformats+=alpha
 set formatoptions+=j
@@ -46,19 +52,20 @@ set ignorecase
 set smartcase
 set inccommand=nosplit
 
-set nowritebackup
-set cmdheight=2
-set shortmess+=c
+" setup number column
+set number relativenumber
 " set signcolumn=number
-" set signcolumn=auto:3-6
+" set signcolumn=auto:3
+set signcolumn=yes
 
+" set column at line length limit
 set colorcolumn=120
 
 " don't fold anything when opening files
 set foldlevel=99
 
 " session specific configs
-if !empty($SSH_TTY)
+if filereadable($HOME . "/copypaste/pbcopy-remote")
     let g:clipboard = {
         \   'name': 'tmux_clipboard',
         \   'copy': {
@@ -97,10 +104,7 @@ let g:vsnip_snippet_dir = $HOME . '/.config/nvim/vsnip'
 " Load supplemental configs
 source $HOME/.config/nvim/plugins.vim
 source $HOME/.config/nvim/utils.vim
-" source $HOME/.config/nvim/binds.vim
-source $HOME/.config/nvim/plug-conf/ultisnips.vim
-" source $HOME/.config/nvim/plug-conf/coc.vim
-source $HOME/.config/nvim/plug-conf/uncrustify.vim " load after coc so that format keybinds are set correctly
+source $HOME/.config/nvim/plug-conf/uncrustify.vim
 source $HOME/.config/nvim/plug-conf/fzf.vim
 source $HOME/.config/nvim/plug-conf/blamer.vim
 source $HOME/.config/nvim/plug-conf/autopairs.vim
@@ -109,7 +113,7 @@ source $HOME/.config/nvim/plug-conf/autopairs.vim
 function! Update_compiledb(path)
     let s:full_path = getcwd() . "/" . a:path
     :silent exec "!ln -sf " .. s:full_path
-    :silent exec "LspRestart"
+    :silent exec "LspRestart clangd"
 endfunction
 
 lua << EOF
