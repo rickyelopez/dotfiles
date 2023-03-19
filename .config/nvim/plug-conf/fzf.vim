@@ -24,8 +24,8 @@ nnoremap <leader>gw :RGw<CR>
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.9, 'height': 0.9,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
 
 " Ignored files
-let g:ignored_files    = "-g '!.git/**' -g '!**/.cache/**' -g '!*.msr' -g '!*.gvl' -g '!*.map' -g '!*.asm' -g '!*.pyc' -g '!*.png' -g '!*.o' -g '!*.asms' -g '!*.asmss' -g '!*.c.html' -g '!*.compact.json' -g '!*.json.raw'"
-let g:fd_ignored_files = "-E .git -E .cache -E .msr -E .gvl -E .map -E .asm -E .pyc -E .png -E .o -E .asms -E .asmss -E .c.html -E .compact.json -E .json.raw"
+let g:ignored_files    = "-g '!.git/**' -g '!**/.cache/**' -g '!*.msr' -g '!*.gvl' -g '!*.map' -g '!*.asm' -g '!*.pyc' -g '!*.png' -g '!*.o' -g '!*.asms' -g '!*.asmss' -g '!*.c.html' -g '!*.compact.json' -g '!*.json.raw' -g '!*.html'"
+let g:fd_ignored_files = "-E .git -E .cache -E .msr -E .gvl -E .map -E .asm -E .pyc -E .png -E .o -E .asms -E .asmss -E .c.html -E .compact.json -E .json.raw -E .html"
 
 let s:fzf_base_cmd = "fd --hidden --type file " . g:fd_ignored_files
 " let s:fzf_base_cmd = "rg --files --hidden " . g:ignored_files
@@ -39,22 +39,22 @@ let s:grep_suffix = " %s"
 let g:fzf_git_ignore = 1
 
 function! ToggleGitIgnore()
-	if g:fzf_git_ignore
-		let g:fzf_git_ignore = 0
-		let $FZF_DEFAULT_COMMAND = s:fzf_base_cmd . " --no-ignore-vcs"
+    if g:fzf_git_ignore
+        let g:fzf_git_ignore = 0
+        let $FZF_DEFAULT_COMMAND = s:fzf_base_cmd . " --no-ignore-vcs"
         let g:grep_ignore = " --no-ignore-vcs"
-		echo "now ignoring .gitignore"
-	else
-		let g:fzf_git_ignore = 1
-		let $FZF_DEFAULT_COMMAND = s:fzf_base_cmd
+        echo "now ignoring .gitignore"
+    else
+        let g:fzf_git_ignore = 1
+        let $FZF_DEFAULT_COMMAND = s:fzf_base_cmd
         let g:grep_ignore = ""
-		echo "now respecting .gitignore"
-	endif
+        echo "now respecting .gitignore"
+    endif
 
     let s:grep_cmd = s:grep_base_cmd . g:grep_ignore . s:grep_suffix
 endfunction
 
-call ToggleGitIgnore()
+silent call ToggleGitIgnore()
 
 nmap <leader>fg :call ToggleGitIgnore()<CR>
 
