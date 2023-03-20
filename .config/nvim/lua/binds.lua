@@ -54,3 +54,6 @@ map("<M-p>", "")
 map("<M-n>", "")
 map("<M-o>", "")
 map("Q", "")
+
+-- toggle blamer
+map("<leader>gb", "<CMD>BlamerToggle<CR>")

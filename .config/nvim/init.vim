@@ -104,16 +104,16 @@ let g:vsnip_snippet_dir = $HOME . '/.config/nvim/vsnip'
 " Load supplemental configs
 source $HOME/.config/nvim/plugins.vim
 source $HOME/.config/nvim/utils.vim
-source $HOME/.config/nvim/plug-conf/uncrustify.vim
+" source $HOME/.config/nvim/plug-conf/uncrustify.vim
 source $HOME/.config/nvim/plug-conf/fzf.vim
-source $HOME/.config/nvim/plug-conf/blamer.vim
-source $HOME/.config/nvim/plug-conf/autopairs.vim
+" source $HOME/.config/nvim/plug-conf/blamer.vim
+" source $HOME/.config/nvim/plug-conf/autopairs.vim
 
 
 function! Update_compiledb(path)
     let s:full_path = getcwd() . "/" . a:path
     :silent exec "!ln -sf " .. s:full_path
-    :silent exec "LspRestart clangd"
+    " :silent exec "LspRestart clangd"
 endfunction
 
 lua << EOF

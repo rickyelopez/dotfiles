@@ -1,9 +1,3 @@
-# Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/"
-[ -n "$PS1" ] && \
-    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-        source "$BASE16_SHELL/profile_helper.sh"
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -16,11 +10,6 @@ fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-
-# set editor
-export EDITOR=nvim
-
-export PATH=$PATH:$HOME/.local/bin
 
 # set display for x
 # export DISPLAY=localhost:0.0
@@ -109,24 +98,9 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -138,14 +112,8 @@ if [ -f /usr/libexec/java_home ]; then
 fi
 
 # source additional files if they exist
-[ -f $HOME/.aliases ] && source $HOME/.aliases
-
-[ -f $HOME/.vars ] && source $HOME/.vars
-
-[ -f $HOME/dotfiles_priv/.priv_vars ] && source $HOME/dotfiles_priv/.priv_vars
-
-[ -f $HOME/dotfiles_priv/.priv_aliases ] && source $HOME/dotfiles_priv/.priv_aliases
-
+[ -f $HOME/dotfiles/.vars ] && source $HOME/dotfiles/.vars
+[ -f $HOME/dotfiles/.aliases ] && source $HOME/dotfiles/.aliases
 
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
@@ -159,13 +127,9 @@ else
   [[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
 fi
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
 [ -f /usr/share/fzf/shell/key-bindings.zsh ] && source /usr/share/fzf/shell/key-bindings.zsh
-
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-export PATH=$PATH:$HOME/.cargo/bin
-

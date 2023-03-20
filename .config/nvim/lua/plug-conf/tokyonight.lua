@@ -34,15 +34,19 @@ require("tokyonight").setup({
 
 vim.cmd[[colorscheme tokyonight]]
 
-vim.api.nvim_set_hl(0, "ColorColumn", {cterm=NONE, bg = "#00005f"})
+vim.api.nvim_set_hl(0, "ColorColumn", {bg = "#00005f"})
 vim.api.nvim_set_hl(0, "LineNr", {fg = "lightyellow"})
 
 -- -- tokens
--- vim.api.nvim_set_hl(0, "LspInactiveCode", {link = "@comment"})
-vim.api.nvim_set_hl(0, "LspComment", {link = "@comment"})
-vim.api.nvim_set_hl(0, "LspFileVariable", {link = "Bold"})
-vim.api.nvim_set_hl(0, "LspReadonlyVariable", {link = "Underlined"})
-vim.api.nvim_set_hl(0, "LspParameter", {link = "@parameter"})
+vim.api.nvim_set_hl(0, "@lsp.type.comment", {link = "@comment"})
+vim.api.nvim_set_hl(0, "@lsp.typemod.variable.fileScope", {link = "Bold"})
+vim.api.nvim_set_hl(0, "@lsp.typemod.variable.readonly", {link = "Underlined"})
+vim.api.nvim_set_hl(0, "@lsp.typemod.variable.functionScope", {fg = "#468a6d"})
+vim.api.nvim_set_hl(0, "@lsp.typemod.variable.globalScope", {fg = "#b9675d"})
+
+-- vim.api.nvim_set_hl(0, "LspComment", {link = "@comment"})
+-- vim.api.nvim_set_hl(0, "LspReadonlyVariable", {link = "Underlined"})
+-- vim.api.nvim_set_hl(0, "LspParameter", {link = "@parameter"})
 -- vim.api.nvim_set_hl(0, "LspReadonlyClass", {link = "@comment"})
 -- vim.api.nvim_set_hl(0, "LspReadonlyStatic", {link = "@comment"})
 -- vim.api.nvim_set_hl(0, "LspVariable", {link = "@variable"})
