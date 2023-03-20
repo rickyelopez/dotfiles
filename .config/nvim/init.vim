@@ -102,7 +102,7 @@ let g:rooter_manual_only = 1
 let g:vsnip_snippet_dir = $HOME . '/.config/nvim/vsnip'
 
 " Load supplemental configs
-source $HOME/.config/nvim/plugins.vim
+" source $HOME/.config/nvim/plugins.vim
 source $HOME/.config/nvim/utils.vim
 " source $HOME/.config/nvim/plug-conf/uncrustify.vim
 source $HOME/.config/nvim/plug-conf/fzf.vim

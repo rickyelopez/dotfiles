@@ -1,3 +1,5 @@
+require("plugins")
+
 require("plug-conf.autopairs")
 require("plug-conf.blamer")
 require("plug-conf.uncrustify")
