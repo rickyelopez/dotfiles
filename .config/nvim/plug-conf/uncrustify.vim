@@ -1,5 +1,5 @@
 
-let g:uncrustify_config_file = $HOME . "/.config/uncrustify2.cfg"
+let g:uncrustify_config_file = $HOME . "/.config/uncrustify.cfg"
 " let g:uncrustify_debug = 1
 
 autocmd FileType \(cpp\|c\) noremap <buffer> <leader>f :Uncrustify<CR>

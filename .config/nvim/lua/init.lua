@@ -1,3 +1,8 @@
+require("plugins")
+
+require("plug-conf.autopairs")
+require("plug-conf.blamer")
+require("plug-conf.uncrustify")
 require("plug-conf.telescope")
 require("plug-conf.bufferline")
 require("plug-conf.neo-tree")

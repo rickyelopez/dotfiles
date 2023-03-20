@@ -183,3 +183,7 @@ gpuf () {
 ###### Misc
 #######################
 alias gsh='git rev-parse --short HEAD'
+
+
+# source private alises if it exists
+[ -f "$HOME/dotfiles_priv/.priv_aliases" ] && source "$HOME/dotfiles_priv/.priv_aliases"
