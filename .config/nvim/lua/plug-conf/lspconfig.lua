@@ -4,13 +4,13 @@ require("mason-lspconfig").setup({
     ensure_installed = {
         "jsonls",
         "yamlls",
-        "sumneko_lua",
+        "lua_ls",
         "bashls",
         "pyright",
         "clangd",
         "vimls",
         "taplo",
-        "rust_analyzer"
+        "rust_analyzer",
     },
 })
 
@@ -56,7 +56,7 @@ local on_attach = function(client, bufnr)
         vim.keymap.set("n", "<leader>o", "<cmd>ClangdSwitchSourceHeader<CR>", bufopts)
     else
         -- don't define leader f in clangd
-        vim.keymap.set({"n", "v"}, "<leader>f", function()
+        vim.keymap.set({ "n", "v" }, "<leader>f", function()
             vim.lsp.buf.format({ async = true })
         end, bufopts)
     end
@@ -94,8 +94,8 @@ require("mason-lspconfig").setup_handlers({
             capabilities = capabilities,
         })
     end,
-    ["sumneko_lua"] = function()
-        require("lspconfig")["sumneko_lua"].setup({
+    ["lua_ls"] = function()
+        require("lspconfig")["lua_ls"].setup({
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
@@ -119,6 +119,18 @@ require("mason-lspconfig").setup_handlers({
             flags = lsp_flags,
             capabilities = capabilities,
             root_dir = util.root_pattern(unpack({ "pyproject.toml" })),
+        })
+    end,
+    ["yamlls"] = function()
+        require("lspconfig")["yamlls"].setup({
+            on_attach = on_attach,
+            flags = lsp_flags,
+            capabilities = capabilities,
+            settings = {
+                yaml = {
+                    keyOrdering = false,
+                },
+            },
         })
     end,
 })
