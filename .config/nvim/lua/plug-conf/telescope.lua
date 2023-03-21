@@ -109,7 +109,7 @@ require("telescope").load_extension("toggleterm")
 local M = {
     search_dotfiles = function()
         builtin.find_files({
-            find_command = { "fd", "--hidden", "--type", "file", "-E", ".git" },
+            find_command = { "fd", "--hidden", "--type", "file", "-E", ".git", "-E", ".config/base16-shell" },
             prompt_title = "< dotfiles >",
             cwd = "$HOME",
             search_dirs = { "$HOME/dotfiles", "$HOME/dotfiles_priv" },
