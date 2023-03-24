@@ -2,7 +2,7 @@
 
 
 -- set python3 path
-vim.g.python3_host_prog='/usr/bin/python3'
+-- vim.g.python3_host_prog='/usr/bin/python3'
 
 -- nerd tree config
 -- autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif
