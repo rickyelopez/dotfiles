@@ -1,5 +1,8 @@
 require("lualine").setup({
-    options = { theme = "base16", globalstatus = true },
+    options = {
+        -- theme = "base16",
+        globalstatus = true
+    },
     sections = {
         lualine_c = {
             {
