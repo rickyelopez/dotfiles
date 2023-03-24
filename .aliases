@@ -6,6 +6,15 @@ ts () { python3 -c "from datetime import datetime; print(datetime.fromtimestamp(
 ## launch lazygit
 alias lg='lazygit'
 
+## activate python env from path or in current directory if not path given
+activate () {
+    if [ "$#" -eq 0 ]; then
+        [ -f ./env/bin/activate ] && source ./env/bin/activate
+    else
+        [ -f "$1"/bin/activate ] && source "$1"/bin/activate
+    fi
+}
+
 ################################################################################
 #                           Common Git Commands
 ################################################################################
