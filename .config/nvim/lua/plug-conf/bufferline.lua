@@ -2,7 +2,35 @@ local cycle = require("bufferline").cycle
 
 local M = {}
 
+local contrast_color = "#363955"
+local selected_color = "#243622"
+-- "#222436",
+
 require("bufferline").setup({
+    highlights = {
+        fill = {
+            bg = contrast_color,
+        },
+        buffer_selected = {
+            bg = selected_color,
+        },
+        info_selected = {
+            bg = selected_color,
+        },
+        info_diagnostic_selected = {
+            bg = selected_color,
+        },
+        separator = {
+            fg = contrast_color,
+        },
+        separator_visible = {
+            fg = contrast_color,
+        },
+        separator_selected = {
+            fg = contrast_color,
+            bg = selected_color,
+        }
+    },
     options = {
         close_command = M.close,
         right_mouse_command = M.close,
@@ -23,7 +51,7 @@ require("bufferline").setup({
         persist_buffer_sort = true,
         enforce_regular_tabs = false,
         sort_by = "relative_directory",
-        separator_style = "thick",
+        separator_style = "slant",
         groups = {
             options = {
                 toggle_hidden_on_enter = true,
@@ -31,7 +59,7 @@ require("bufferline").setup({
             items = {
                 {
                     name = "Configs",
-                    highlight = { guisp = "purple" },
+                    -- highlight = { foreground = "purple" },
                     priority = 1,
                     matcher = function(buf)
                         return buf.path:match("dotfiles") or buf.path:match("%.config")
@@ -39,7 +67,7 @@ require("bufferline").setup({
                 },
                 {
                     name = "DI",
-                    highlight = { guisp = "green" },
+                    -- highlight = { foreground = "green" },
                     priority = 2,
                     matcher = function(buf)
                         return buf.path:match(vim.env.dig3 .. "/controller")
@@ -47,14 +75,14 @@ require("bufferline").setup({
                 },
                 {
                     name = "EGG",
-                    highlight = { guisp = "pink" },
+                    -- highlight = { foreground = "pink" },
                     matcher = function(buf)
                         return buf.path:match("components/egg")
                     end,
                 },
                 {
                     name = "PM",
-                    highlight = { guisp = "cyan" },
+                    -- highlight = { foreground = "cyan" },
                     priority = 3,
                     matcher = function(buf)
                         return buf.path:match(vim.env.dig3 .. "/monitor")
@@ -62,35 +90,35 @@ require("bufferline").setup({
                 },
                 {
                     name = "DIVAL",
-                    highlight = { guisp = "orange" },
+                    -- highlight = { foreground = "orange" },
                     matcher = function(buf)
                         return buf.path:match("dival")
                     end,
                 },
                 {
                     name = "CAN",
-                    highlight = { guisp = "yellow" },
+                    -- highlight = { foreground = "yellow" },
                     matcher = function(buf)
                         return buf.path:match("can.requirements")
                     end,
                 },
                 {
                     name = "DBC",
-                    highlight = { guisp = "orange" },
+                    -- highlight = { foreground = "orange" },
                     matcher = function(buf)
                         return buf.path:match("generated.dbc")
                     end,
                 },
                 {
                     name = "HV",
-                    highlight = { guisp = "red" },
+                    -- highlight = { foreground = "red" },
                     matcher = function(buf)
                         return buf.path:match("hvSystem")
                     end,
                 },
                 {
                     name = "DI Gen",
-                    highlight = { guisp = "green" },
+                    -- highlight = { foreground = "green" },
                     matcher = function(buf)
                         return buf.path:match("driveInverter")
                     end,
