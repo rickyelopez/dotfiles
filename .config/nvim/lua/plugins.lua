@@ -38,6 +38,7 @@ return require("packer").startup({
 
         use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
         use("nvim-treesitter/playground")
+        use("nvim-treesitter/nvim-treesitter-context")
 
         use("tpope/vim-commentary")
         use("tpope/vim-fugitive")

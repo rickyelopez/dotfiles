@@ -2,15 +2,15 @@ require("mason").setup()
 require("mason-lspconfig").setup({
     automatic_installation = { exclude = { "clangd" } },
     ensure_installed = {
-        "jsonls",
-        "yamlls",
-        "lua_ls",
         "bashls",
-        "pyright",
         "clangd",
-        "vimls",
-        "taplo",
+        "jsonls",
+        "lua_ls",
+        "pyright",
         "rust_analyzer",
+        "taplo",
+        "vimls",
+        "yamlls",
     },
 })
 
