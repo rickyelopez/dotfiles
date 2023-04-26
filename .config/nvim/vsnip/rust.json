@@ -1,0 +1,15 @@
+{
+    "derive": {
+        "prefix": "derive",
+        "body": [
+            "#[derive($1)]"
+        ]
+    },
+    "allow": {
+        "prefix": "allow",
+        "body": [
+            "#[allow($1)]"
+        ]
+    }
+}
+
