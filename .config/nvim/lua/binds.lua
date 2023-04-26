@@ -6,6 +6,12 @@ map("<leader>j", "<CMD>wincmd j<CR>")
 map("<leader>k", "<CMD>wincmd k<CR>")
 map("<leader>l", "<CMD>wincmd l<CR>")
 
+-- resize windows
+map("<C-Left>", "5<C-w><")
+map("<C-Down>", "5<C-w>-")
+map("<C-Up>", "5<C-w>+")
+map("<C-Right>", "5<C-w>>")
+
 -- autocenter after these operations that move the cursor
 map("n", "nzz")
 map("N", "Nzz")
