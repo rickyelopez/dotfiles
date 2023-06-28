@@ -68,7 +68,8 @@ vim.api.nvim_exec(
 function! Update_compiledb(path)
     let s:full_path = getcwd() . "/" . a:path
     :silent exec "!ln -sf " .. s:full_path
-    " :silent exec "LspRestart clangd"
+    :silent exec "LspStop clangd"
+    :silent exec "LspStart clangd"
 endfunction
 ]],
 false

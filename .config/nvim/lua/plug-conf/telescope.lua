@@ -179,28 +179,26 @@ end)
 vim.env.di = vim.env.di and vim.env.di or "~"
 vim.env.dig3 = vim.env.dig3 and vim.env.dig3 or "~"
 
-if vim.env.di and vim.env.dig3 then
-    map("<leader>bc", function()
-        return builtin.find_files({
-            find_command = { "fd", "--type", "file", "-p", "-g", vim.env.REPO_PATH .. "/**/build_configurations.xml" },
-        })
-    end)
+map("<leader>bc", function()
+    return builtin.find_files({
+        find_command = { "fd", "--type", "file", "-p", "-g", vim.env.REPO_PATH .. "/**/build_configurations.xml" },
+    })
+end)
 
-    map("<leader>gpd", function()
-        return builtin.grep_string({
-            additional_args = {
-                "-g",
-                vim.env.di .. "/shared/**/*.py",
-                "-g",
-                vim.env.dig3 .. "/**/builders/*.py",
-                "-g",
-                vim.env.dig3 .. "/**/SConscript*",
-                "-g",
-                vim.env.dig3 .. "/**/SConstruct*",
-            },
-        })
-    end)
-end
+map("<leader>gpd", function()
+    return builtin.grep_string({
+        additional_args = {
+            "-g",
+            vim.env.di .. "/shared/**/*.py",
+            "-g",
+            vim.env.dig3 .. "/**/builders/*.py",
+            "-g",
+            vim.env.dig3 .. "/**/SConscript*",
+            "-g",
+            vim.env.dig3 .. "/**/SConstruct*",
+        },
+    })
+end)
 
 map("<leader>tw", builtin.grep_string)
 map("<leader>bf", builtin.buffers)

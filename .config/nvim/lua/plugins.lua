@@ -80,7 +80,10 @@ return require("packer").startup({
 
         -- color schemes
         use("chriskempson/base16-vim")
+        use("norcalli/nvim-colorizer.lua")
         use("folke/tokyonight.nvim")
+        use("rebelot/kanagawa.nvim")
+
 
         -- indent guides
         use("lukas-reineke/indent-blankline.nvim")
