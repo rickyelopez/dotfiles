@@ -26,6 +26,7 @@ customCommands:
         options:
           - value: 'other'
           - value: 'last-built/develop'
+          - value: 'last-built'
           - value: 'develop'
           - value: 'feature'
           - value: 'factory'
@@ -42,6 +43,7 @@ gui:
     'last-built': '#1a823e'
     'terminal': '#912033'
   showIcons: true
+  autoFetch: false
 keybinding:
   branches:
     fastForward: null
