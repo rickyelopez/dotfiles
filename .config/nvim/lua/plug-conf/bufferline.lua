@@ -59,68 +59,73 @@ require("bufferline").setup({
             items = {
                 {
                     name = "Configs",
-                    -- highlight = { foreground = "purple" },
                     priority = 1,
                     matcher = function(buf)
                         return buf.path:match("dotfiles") or buf.path:match("%.config")
                     end,
                 },
                 {
+                    name = "DB",
+                    priority = 3,
+                    matcher = function(buf)
+                        return buf.path:match(vim.env.di .. "/DB")
+                    end,
+                },
+                {
                     name = "DI",
-                    -- highlight = { foreground = "green" },
+                    priority = 4,
+                    matcher = function(buf)
+                        return buf.path:match(vim.env.dig3 .. "/controller") or buf.path:match(vim.env.di .. "/DI")
+                    end,
+                },
+                {
+                    name = "PM",
+                    priority = 5,
+                    matcher = function(buf)
+                        return buf.path:match(vim.env.dig3 .. "/monitor") or buf.path:match(vim.env.di .. "/PM")
+                    end,
+                },
+                {
+                    name = "DIVAL",
+                    priority = 6,
+                    matcher = function(buf)
+                        return buf.path:match(vim.env.di .. "/dival")
+                    end,
+                },
+                {
+                    name = "DI Gen",
                     priority = 2,
                     matcher = function(buf)
-                        return buf.path:match(vim.env.dig3 .. "/controller")
+                        return buf.path:match(vim.env.di) and not (
+                            buf.path:match(vim.env.di .. "/DB") or
+                            buf.path:match(vim.env.dig3 .. "/controller") or buf.path:match(vim.env.di .. "/DI") or
+                            buf.path:match(vim.env.dig3 .. "/monitor") or buf.path:match(vim.env.di .. "/PM") or
+                            buf.path:match(vim.env.di .. "/dival")
+                            )
                     end,
                 },
                 {
                     name = "EGG",
-                    -- highlight = { foreground = "pink" },
                     matcher = function(buf)
                         return buf.path:match("components/egg")
                     end,
                 },
                 {
-                    name = "PM",
-                    -- highlight = { foreground = "cyan" },
-                    priority = 3,
-                    matcher = function(buf)
-                        return buf.path:match(vim.env.dig3 .. "/monitor")
-                    end,
-                },
-                {
-                    name = "DIVAL",
-                    -- highlight = { foreground = "orange" },
-                    matcher = function(buf)
-                        return buf.path:match("dival")
-                    end,
-                },
-                {
                     name = "CAN",
-                    -- highlight = { foreground = "yellow" },
                     matcher = function(buf)
                         return buf.path:match("can.requirements")
                     end,
                 },
                 {
                     name = "DBC",
-                    -- highlight = { foreground = "orange" },
                     matcher = function(buf)
                         return buf.path:match("generated.dbc")
                     end,
                 },
                 {
                     name = "HV",
-                    -- highlight = { foreground = "red" },
                     matcher = function(buf)
                         return buf.path:match("hvSystem")
-                    end,
-                },
-                {
-                    name = "DI Gen",
-                    -- highlight = { foreground = "green" },
-                    matcher = function(buf)
-                        return buf.path:match("driveInverter")
                     end,
                 },
             },
