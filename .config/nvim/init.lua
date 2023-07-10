@@ -71,6 +71,20 @@ vim.opt.foldlevel = 99
 
 -- clipboard
 vim.opt.clipboard = "unnamedplus"
+-- if (vim.env.SSH_TTY ~= nil) then
+local function copy(lines, _)
+    require('osc52').copy(table.concat(lines, '\n'))
+end
+
+local function paste()
+    return {vim.fn.split(vim.fn.getreg(''), '\n'), vim.fn.getregtype('')}
+end
+
+vim.g.clipboard = {
+    name = 'osc52',
+    copy = {['+'] = copy, ['*'] = copy},
+    paste = {['+'] = paste, ['*'] = paste},
+}
 
 -- source leftover .vim file that I don't feel like converting
 vim.api.nvim_exec([[ source $HOME/.config/nvim/plug-conf/fzf.vim ]], false)

@@ -16,6 +16,8 @@ return require("packer").startup({
         use("wbthomason/packer.nvim")
         use("lewis6991/impatient.nvim")
 
+        use('ojroques/nvim-osc52')
+
         use("williamboman/mason.nvim")
         use("williamboman/mason-lspconfig.nvim")
         use("neovim/nvim-lspconfig")
