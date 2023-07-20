@@ -14,10 +14,6 @@ require("mason-lspconfig").setup({
     },
 })
 
--- require("nvim-semantic-tokens").setup({
---     preset = "clangd",
--- })
-
 local util = require("lspconfig.util")
 
 -- Mappings.
@@ -26,7 +22,7 @@ local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
 vim.keymap.set("n", "[c", vim.diagnostic.goto_prev, opts)
 vim.keymap.set("n", "]c", vim.diagnostic.goto_next, opts)
-vim.keymap.set("n", "<leader>cr", "<cmd>LspRestart clangd<CR>", opts)
+-- vim.keymap.set("n", "<leader>cr", "<cmd>LspRestart clangd<CR>", opts)
 -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
 -- Use an on_attach function to only map the following keys
@@ -80,8 +76,18 @@ local lsp_flags = {
     -- This is the default in Nvim 0.7+
     debounce_text_changes = 150,
 }
-
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+
+local jcan_ls, err = pcall(require, "jcan_ls")
+if not err and jcan_ls then
+    require("lspconfig.configs")["jcan_ls"] = jcan_ls
+    require("lspconfig")["jcan_ls"].setup({
+        on_attach = on_attach,
+        flags = lsp_flags,
+        capabilities = capabilities,
+    })
+end
 
 require("mason-lspconfig").setup_handlers({
     -- The first entry (without a key) will be the default handler

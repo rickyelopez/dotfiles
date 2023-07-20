@@ -16,6 +16,8 @@ return require("packer").startup({
         use("wbthomason/packer.nvim")
         use("lewis6991/impatient.nvim")
 
+        use('ojroques/nvim-osc52')
+
         use("williamboman/mason.nvim")
         use("williamboman/mason-lspconfig.nvim")
         use("neovim/nvim-lspconfig")
@@ -36,21 +38,21 @@ return require("packer").startup({
         use("hrsh7th/vim-vsnip")
         use("hrsh7th/vim-vsnip-integ")
 
+        -- treesitter
         use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
         use("nvim-treesitter/playground")
         use("nvim-treesitter/nvim-treesitter-context")
 
+        -- tpope plugins
         use("tpope/vim-commentary")
         use("tpope/vim-fugitive")
         use("tpope/vim-surround")
         use("tpope/vim-dispatch")
 
-        -- tmux clipboard
-        -- use("roxma/vim-tmux-clipboard")
-
-        -- git stuff
+        -- git plugins
         use("sindrets/diffview.nvim")
         use("APZelos/blamer.nvim")
+        use("lewis6991/gitsigns.nvim")
 
         -- Merge conflicts
         use("rhysd/conflict-marker.vim")
@@ -61,7 +63,6 @@ return require("packer").startup({
         })
 
         use("airblade/vim-rooter")
-        use("lewis6991/gitsigns.nvim")
 
         use("vim-utils/vim-man")
         use("mbbill/undotree")
@@ -80,7 +81,10 @@ return require("packer").startup({
 
         -- color schemes
         use("chriskempson/base16-vim")
+        use("norcalli/nvim-colorizer.lua")
         use("folke/tokyonight.nvim")
+        use("rebelot/kanagawa.nvim")
+
 
         -- indent guides
         use("lukas-reineke/indent-blankline.nvim")
@@ -89,6 +93,7 @@ return require("packer").startup({
         use("kyazdani42/nvim-web-devicons")
         use("akinsho/nvim-bufferline.lua")
 
+        -- toggleterm
         use({ "akinsho/toggleterm.nvim", tag = "*" })
         use("da-moon/telescope-toggleterm.nvim")
 
@@ -117,6 +122,12 @@ return require("packer").startup({
 
         -- Rust
         use("rust-lang/rust.vim")
+
+        -- plugins from dotfiles_priv
+        local privPlugins, err = pcall(require, "lua-priv.plugins")
+        if not err and privPlugins then
+            privPlugins.loadPrivPlugins(use)
+        end
 
         -- Automatically set up your configuration after cloning packer.nvim
         -- Put this at the end after all plugins

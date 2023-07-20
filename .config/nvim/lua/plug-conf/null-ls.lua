@@ -10,6 +10,6 @@ require("null-ls").setup({
         null_ls.builtins.formatting.stylua,
         null_ls.builtins.formatting.black.with(black_config),
         null_ls.builtins.formatting.uncrustify,
-        null_ls.builtins.formatting.yamlfmt,
+        -- null_ls.builtins.formatting.yamlfmt,
     },
 })

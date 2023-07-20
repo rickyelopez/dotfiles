@@ -25,6 +25,9 @@ require("telescope-toggleterm").setup({
 -- end
 
 require("plug-conf.tokyonight")
+-- require("plug-conf.kanagawa")
 require("plug-conf.lualine")
 
 require("plug-conf.misc")
+
+require("colorizer").setup()
