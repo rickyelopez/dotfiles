@@ -43,11 +43,12 @@ return {
     vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#00005f" })
     vim.api.nvim_set_hl(0, "LineNr", { fg = "lightyellow" })
 
-    -- -- tokens
+    -- tokens
     vim.api.nvim_set_hl(0, "@lsp.type.comment", { link = "@comment" })
     vim.api.nvim_set_hl(0, "@lsp.typemod.variable.fileScope", { link = "Bold" })
     vim.api.nvim_set_hl(0, "@lsp.typemod.variable.readonly", { link = "Underlined" })
     vim.api.nvim_set_hl(0, "@lsp.typemod.variable.functionScope", { fg = "#468a6d" })
+    vim.api.nvim_set_hl(0, "@lsp.typemod.variable.local", {fg = "#468a6d"})
     vim.api.nvim_set_hl(0, "@lsp.typemod.variable.globalScope", { fg = "#b9675d" })
   end,
 }
