@@ -79,14 +79,9 @@ local lsp_flags = {
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 
-local jcan_ls, err = pcall(require, "jcan_ls")
-if not err and jcan_ls then
-    require("lspconfig.configs")["jcan_ls"] = jcan_ls
-    require("lspconfig")["jcan_ls"].setup({
-        on_attach = on_attach,
-        flags = lsp_flags,
-        capabilities = capabilities,
-    })
+local ok, priv_lsp = pcall(require, "lua-priv.lspconfig")
+if ok and priv_lsp then
+    priv_lsp.setup(on_attach, lsp_flags, capabilities)
 end
 
 require("mason-lspconfig").setup_handlers({
