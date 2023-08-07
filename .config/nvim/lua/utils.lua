@@ -19,6 +19,14 @@ M.tablePrint = function(o)
    end
 end
 
+M.addToRTP = function(opts)
+    if type(opts) == 'table' then
+        for path in opts do
+            vim.opt.runtimepath:append("," .. path)
+        end
+    end
+end
+
 
 -- should probably port these to pure lua at some point
 vim.api.nvim_exec(

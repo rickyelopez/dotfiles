@@ -124,9 +124,9 @@ return require("packer").startup({
         use("rust-lang/rust.vim")
 
         -- plugins from dotfiles_priv
-        local privPlugins, err = pcall(require, "lua-priv.plugins")
-        if not err and privPlugins then
-            privPlugins.loadPrivPlugins(use)
+        local ok, privPlugins = pcall(require, "lua-priv.plugins")
+        if ok and privPlugins then
+            use(privPlugins)
         end
 
         -- Automatically set up your configuration after cloning packer.nvim
