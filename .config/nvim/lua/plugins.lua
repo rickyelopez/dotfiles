@@ -77,7 +77,8 @@ return require("packer").startup({
         use("nvim-lualine/lualine.nvim")
 
         -- formatting
-        use("rickyelopez/vim-uncrustify")
+        -- use("rickyelopez/vim-uncrustify")
+        use("rickyelopez/uncrustify.nvim")
 
         -- color schemes
         use("chriskempson/base16-vim")
