@@ -1,0 +1,38 @@
+use_nerdfont = true
+volnorm = true
+
+[keybindings]
+"gg" = "move top"
+"Shift+g" = "move bottom"
+"Ctrl+u" = "move up 5"
+"Ctrl+d" = "move down 5"
+"w" = "seek +5s"
+"b" = "seek -5s"
+"Esc" = "back"
+
+"Shift+j" = "shift down 1"
+"Shift+k" = "shift up 1"
+
+"Shift+b" = "noop"
+"Shift+f" = "noop"
+"Shift+Down" = "noop"
+"Shift+Up" = "noop"
+
+"Ctrl+p" = "noop"
+"Ctrl+a" = "noop"
+"Ctrl+e" = "noop"
+"Ctrl+n" = "noop"
+
+"Backspace" = "noop"
+"f" = "noop"
+
+"Up" = "noop"
+"Down" = "noop"
+"Left" = "noop"
+"Right" = "noop"
+
+"End" = "noop"
+"Home" = "noop"
+"PageDown" = "noop"
+"PageUp" = "noop"
+
