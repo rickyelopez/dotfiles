@@ -9,5 +9,6 @@ null_ls.setup({
     formatting.stylua,
     formatting.black.with(black_config),
     formatting.yamlfmt,
+    formatting.rustfmt,
   },
 })
