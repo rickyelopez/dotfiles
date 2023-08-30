@@ -1,4 +1,34 @@
 customCommands:
+  - key: 'c'
+    context: 'remotes'
+    description: 'Prune remote branches'
+    loadingText: 'Pruning'
+    stream: true
+    command: 'git remote prune {{.SelectedRemote.Name}}'
+  - key: 'D'
+    context: 'localBranches'
+    description: 'Delete branch from remote'
+    loadingText: 'Deleting'
+    stream: true
+    prompts:
+      - type: "input"
+        key: 'Remote'
+        title: 'Which origin to delete from:'
+        initialValue: 'origin'
+        suggestions:
+          preset: 'remotes'
+      - type: 'confirm'
+        body: 'Are you sure you want to delete branch "{{.SelectedLocalBranch.Name}}" from remote "{{.Form.Remote}}"? This action cannot be reverted.'
+    command: 'git push -u {{.Form.Remote}} :{{.SelectedLocalBranch.Name}}'
+  - key: 'D'
+    context: 'remoteBranches'
+    description: 'Delete branch from remote'
+    loadingText: 'Deleting'
+    stream: true
+    prompts:
+      - type: 'confirm'
+        body: 'Are you sure you want to delete branch "{{.SelectedRemoteBranch.Name}}" from remote "{{.SelectedRemote.Name}}"? This action cannot be reverted.'
+    command: 'git push -u {{.SelectedRemote.Name}} :{{.SelectedRemoteBranch.Name}}'
   - key: 'f'
     context: 'localBranches'
     description: 'Fetch (or pull) the currently selected branch from its upstream'

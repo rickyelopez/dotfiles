@@ -4,6 +4,7 @@ require("lualine").setup({
         globalstatus = true
     },
     sections = {
+        lualine_b = {},
         lualine_c = {
             {
                 "filename",

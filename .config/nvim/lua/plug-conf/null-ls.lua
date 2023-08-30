@@ -1,15 +1,14 @@
 local null_ls = require("null-ls")
+local formatting = null_ls.builtins.formatting
 
-local black_config = {}
-if vim.fn.expand("$BLACK_CFG") then
-    black_config = {"--config", vim.fn.expand("$BLACK_CFG")}
-end
+local black_config = vim.env.BLACK_CFG and { "--config", vim.env.BLACK_CFG } or {}
 
-require("null-ls").setup({
-    sources = {
-        null_ls.builtins.formatting.stylua,
-        null_ls.builtins.formatting.black.with(black_config),
-        null_ls.builtins.formatting.uncrustify,
-        null_ls.builtins.formatting.yamlfmt,
-    },
+null_ls.setup({
+  debug = true,
+  sources = {
+    formatting.stylua,
+    formatting.black.with(black_config),
+    formatting.yamlfmt,
+    formatting.rustfmt,
+  },
 })

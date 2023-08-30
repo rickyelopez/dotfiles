@@ -48,10 +48,11 @@ local on_attach = function(client, bufnr)
     vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
     vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
-    if client.name and client.name == "clangd" then
+
+    if client.name == "clangd" then
         vim.keymap.set("n", "<leader>o", "<cmd>ClangdSwitchSourceHeader<CR>", bufopts)
+        vim.keymap.set({ "n", "v" }, "<leader>f", require("uncrustify").format, bufopts)
     else
-        -- don't define leader f in clangd
         vim.keymap.set({ "n", "v" }, "<leader>f", function()
             vim.lsp.buf.format({ async = true })
         end, bufopts)
@@ -77,7 +78,6 @@ local lsp_flags = {
     debounce_text_changes = 150,
 }
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
 
 local ok, priv_lsp = pcall(require, "lua-priv.lspconfig")
 if ok and priv_lsp then
