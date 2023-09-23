@@ -99,7 +99,7 @@ return require("packer").startup({
         use("da-moon/telescope-toggleterm.nvim")
 
         -- LSP Trouble
-        -- use 'folke/lsp-trouble.nvim'
+        -- use("folke/lsp-trouble.nvim")
 
         -- this needs to be fixed if I want it
         -- use 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
