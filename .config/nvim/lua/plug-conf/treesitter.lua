@@ -4,7 +4,6 @@ require("nvim-treesitter.configs").setup({
         "c",
         "cpp",
         "css",
-        "vimdoc",
         "html",
         "javascript",
         "lua",
@@ -15,6 +14,7 @@ require("nvim-treesitter.configs").setup({
         "toml",
         "typescript",
         "vim",
+        "vimdoc",
         "yaml",
     },
     highlight = {

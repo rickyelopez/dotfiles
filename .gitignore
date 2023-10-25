@@ -2,3 +2,4 @@
 .config/lazygit/state.yml
 .config/nvim/plugin
 .DS_Store
+lazy-lock.json
