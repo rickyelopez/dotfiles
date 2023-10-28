@@ -51,15 +51,8 @@ map("<leader>hw", "<CMD>%!xxd -r<CR><CMD>set binary<CR><CMD>filetype=<CR>")
 map("<leader>spc", "<CMD>e ~/scratchpad.c<CR>")
 map("<leader>spp", "<CMD>e ~/scratchpad.py<CR>")
 
--- start markdown preview
-map("<leader>md", "<Plug>MarkdownPreviewToggle")
-
-
 -- Unmap annoying binds
 map("<M-p>", "")
 map("<M-n>", "")
 map("<M-o>", "")
 map("Q", "")
-
--- toggle blamer
-map("<leader>gb", "<CMD>BlamerToggle<CR>")

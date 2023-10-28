@@ -4,6 +4,10 @@ vim.cmd([[syntax on]]) -- enable syntax highlighting
 
 vim.g.mapleader = " " -- set leader key to space
 
+-- disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 vim.opt.mouse = "a" -- enable mouse support
 vim.opt.hidden = true -- enable buffer switching
 
@@ -99,8 +103,26 @@ if vim.g.neovide then
     vim.g.neovide_cursor_vfx_mode = "torpedo"
 end
 
+-- semshi setting
+-- should technically be in a plug-conf file but meh
+vim.g.python_highlight_all = 1
+
+
 -- plugins
-require("plug-conf")
+require("plugins")
 
 require("utils")
 require("binds")
+
+
+-- enable dbc syntax highlighting
+vim.api.nvim_create_autocmd("BufRead,BufNewFile", {
+    pattern = {"*.dbc"},
+    command = "set filetype=dbc",
+})
+
+-- use cpp comment style in c files and cpp files
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = {"cpp", "c"},
+    command = [[set commentstring=//\ %s]],
+})
