@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Required parameters:
+# @raycast.schemaVersion 1
+# @raycast.title Clear Notifications
+# @raycast.mode compact
+
+# Optional parameters:
+# @raycast.icon 🤖
+
+killall NotificationCenter
