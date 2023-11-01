@@ -1,0 +1,46 @@
+#!/bin/bash
+
+yabai -m config debug_output on
+
+# bsp or float (default: float)
+yabai -m config layout bsp
+
+# set padding
+yabai -m config top_padding    5
+yabai -m config bottom_padding 5
+yabai -m config left_padding   5
+yabai -m config right_padding  5
+yabai -m config window_gap     5
+
+# turn on to make windows always occupy the same amount of space
+yabai -m config auto_balance on
+
+# Floating point value between 0 and 1 (default: 0.5)
+# 0.5 means new window will occupy half the space
+yabai -m config split_ratio 0.5
+
+# configure how the windows should be split
+yabai -m config split_type auto
+
+# set mouse interaction modifier key (default: fn)
+yabai -m config mouse_modifier alt
+
+# set modifier + left-click drag to move window (default: move)
+yabai -m config mouse_action1 move
+
+# set modifier + right-click drag to resize window (default: resize)
+yabai -m config mouse_action2 resize
+
+# set focus follows mouse mode (default: off, options: off, autoraise, autofocus)
+yabai -m config focus_follows_mouse off
+
+# set mouse follows focus mode (default: off)
+yabai -m config mouse_follows_focus off
+
+yabai -m rule --add app="Microsoft Teams" manage=off
+yabai -m rule --add app="Finder" manage=off
+yabai -m rule --add app="Microsoft Outlook" manage=off
+yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^Parallels Desktop$" manage=off
+yabai -m rule --add app="^Ferdium$" manage=off
+yabai -m rule --add app="^Zscaler$" manage=off
