@@ -13,6 +13,10 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+
+-- plugins from dotfiles_priv
+local _, privPlugins = pcall(require, "lua-priv.plugins")
+
 require("lazy").setup({
   -- color schemes
   require("plug-conf.tokyonight"),
@@ -73,10 +77,5 @@ require("lazy").setup({
   "rickyelopez/uncrustify.nvim",
   -- "rickyelopez/vim-uncrustify",
 
-
-  -- -- plugins from dotfiles_priv
-  -- local ok, privPlugins = pcall(require, "lua-priv.plugins")
-  -- if ok and privPlugins then
-  --     use(privPlugins)
-  -- end
+  privPlugins,
 })
