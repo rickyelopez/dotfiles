@@ -43,6 +43,9 @@ return {
         git_ignored = false,
         dotfiles = false,
       },
+      git = {
+        enable = false,
+       }
     })
   end,
 }
