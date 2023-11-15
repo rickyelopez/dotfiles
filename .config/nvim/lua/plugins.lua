@@ -31,6 +31,7 @@ require("lazy").setup({
   require("plug-conf.null-ls"),
   require("plug-conf.lualine"),
   require("plug-conf.autopairs"),
+  require("plug-conf.rainbow_csv"),
 
   -- git plugins
   require("plug-conf.blamer"),
@@ -64,13 +65,13 @@ require("lazy").setup({
   { "tpope/vim-fugitive", enabled = false },
   { "tpope/vim-dispatch", enabled = false },
   { "norcalli/nvim-colorizer.lua", config = true, priority = 1 },
+  { "chrisbra/csv.vim", enabled = false },
   "tpope/vim-commentary",
   "tpope/vim-surround",
   "ojroques/nvim-osc52",
   "airblade/vim-rooter",
   "mbbill/undotree",
   "lukas-reineke/indent-blankline.nvim",
-  "chrisbra/csv.vim",
   "sophacles/vim-bundle-mako",
   "rust-lang/rust.vim",
   "p00f/clangd_extensions.nvim",
