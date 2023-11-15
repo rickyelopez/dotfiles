@@ -66,7 +66,7 @@ return {
       local caps = client.server_capabilities
       if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
         local augroup = vim.api.nvim_create_augroup("SemanticTokens", {})
-        vim.api.nvim_create_autocmd("BufEnter,CursorHold,InsertLeave", {
+        vim.api.nvim_create_autocmd({"BufEnter", "CursorHold", "InsertLeave"}, {
           group = augroup,
           buffer = bufnr,
           callback = function()

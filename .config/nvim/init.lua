@@ -116,13 +116,13 @@ require("binds")
 
 
 -- enable dbc syntax highlighting
-vim.api.nvim_create_autocmd("BufRead,BufNewFile", {
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     pattern = {"*.dbc"},
     command = "set filetype=dbc",
 })
 
 -- use cpp comment style in c files and cpp files
-vim.api.nvim_create_autocmd("FileType", {
+vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = {"cpp", "c"},
     command = [[set commentstring=//\ %s]],
 })

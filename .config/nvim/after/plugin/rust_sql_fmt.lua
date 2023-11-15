@@ -106,7 +106,7 @@ vim.api.nvim_create_user_command("SqlMagic", function()
 end, {})
 
 -- local group = vim.api.nvim_create_augroup("rust-sql-fmt", { clear = true })
--- vim.api.nvim_create_autocmd("BufWritePre", {
+-- vim.api.nvim_create_autocmd({"BufWritePre"}, {
 --   group = group,
 --   pattern = "*.rs",
 --   callback = function()
