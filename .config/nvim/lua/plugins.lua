@@ -15,7 +15,10 @@ vim.opt.rtp:prepend(lazypath)
 
 
 -- plugins from dotfiles_priv
-local _, privPlugins = pcall(require, "lua-priv.plugins")
+local ok, privPlugins = pcall(require, "lua-priv.plugins")
+if not ok or not privPlugins then
+    privPlugins = {}
+end
 
 require("lazy").setup({
   -- color schemes
