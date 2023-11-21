@@ -12,6 +12,11 @@ map("<C-Down>", "5<C-w>-")
 map("<C-Up>", "5<C-w>+")
 map("<C-Right>", "5<C-w>>")
 
+
+-- move lines and correct indent in visual mode
+map("<c-j>", ":m '>+1<CR>gv=gv", { "v" })
+map("<c-k>", ":m '<-2<CR>gv=gv", { "v" })
+
 -- autocenter after these operations that move the cursor
 map("n", "nzz")
 map("N", "Nzz")
