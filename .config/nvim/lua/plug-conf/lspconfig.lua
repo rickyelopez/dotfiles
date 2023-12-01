@@ -3,6 +3,8 @@ return {
   dependencies = {
     { "williamboman/mason.nvim", config = true },
     "neovim/nvim-lspconfig",
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    "folke/neodev.nvim",
   },
   config = function()
     -- require("mason").setup()
@@ -19,6 +21,19 @@ return {
         "vimls",
         "yamlls",
       },
+    })
+
+    require("mason-tool-installer").setup({
+      ensure_installed = {
+        "black",
+        "shellcheck",
+        "stylua",
+        "yamlfmt",
+      },
+      auto_update = false,
+      run_on_start = true,
+      start_delay = 3000, -- 3 second delay at startup
+      debounce_hours = 5, -- at least 5 hours between attempts to install/update
     })
 
     local util = require("lspconfig.util")
@@ -59,14 +74,15 @@ return {
         vim.keymap.set({ "n", "v" }, "<leader>f", require("uncrustify").format, bufopts)
       else
         vim.keymap.set({ "n", "v" }, "<leader>f", function()
-          vim.lsp.buf.format({ async = true })
+          -- vim.lsp.buf.format({ async = true })
+          require("conform").format({ async = true, lsp_fallback = "always" })
         end, bufopts)
       end
 
       local caps = client.server_capabilities
       if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
         local augroup = vim.api.nvim_create_augroup("SemanticTokens", {})
-        vim.api.nvim_create_autocmd({"BufEnter", "CursorHold", "InsertLeave"}, {
+        vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
           group = augroup,
           buffer = bufnr,
           callback = function()
@@ -111,9 +127,15 @@ return {
                 -- Get the language server to recognize the `vim` global
                 globals = { "vim" },
               },
-              -- Do not send telemetry data containing a randomized but unique identifier
               telemetry = {
                 enable = false,
+              },
+              format = {
+                enable = false,
+                defaultConfig = {
+                  indent_style = "space",
+                  indent_size = "2",
+                },
               },
             },
           },
