@@ -13,34 +13,16 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-
 -- plugins from dotfiles_priv
 local ok, privPlugins = pcall(require, "lua-priv.plugins")
 if not ok or not privPlugins then
-    privPlugins = {}
+  privPlugins = {}
 end
 
 require("lazy").setup({
-  -- color schemes
-  require("plug-conf.tokyonight"),
-  -- require("plug-conf.kanagawa"),
-  require("plug-conf.lspconfig"),
-  require("plug-conf.cmp"),
-  require("plug-conf.treesitter"),
-  require("plug-conf.toggleterm"),
-  require("plug-conf.telescope"),
-  require("plug-conf.nvim-tree"),
-  require("plug-conf.bufferline"),
-  require("plug-conf.null-ls"),
-  require("plug-conf.lualine"),
-  require("plug-conf.autopairs"),
-  require("plug-conf.rainbow_csv"),
+  { import = "plug-conf" },
 
-  -- git plugins
-  require("plug-conf.blamer"),
-  require("plug-conf.gitsigns"),
-  { "sindrets/diffview.nvim", dependencies = { "kyazdani42/nvim-web-devicons" } },
-  "rhysd/conflict-marker.vim",
+  { "folke/neodev.nvim", opts = {} },
 
   {
     "junegunn/fzf.vim",
@@ -58,21 +40,20 @@ require("lazy").setup({
       vim.fn["mkdp#util#install"]()
     end,
     config = function()
-        local map = require("utils").map
-        -- start markdown preview
-        map("<leader>md", "<Plug>MarkdownPreviewToggle")
-    end
+      local map = require("utils").map
+      -- start markdown preview
+      map("<leader>md", "<Plug>MarkdownPreviewToggle")
+    end,
   },
 
-  -- misc
   { "tpope/vim-fugitive", enabled = false },
   { "tpope/vim-dispatch", enabled = false },
   { "norcalli/nvim-colorizer.lua", config = true, priority = 1 },
   { "chrisbra/csv.vim", enabled = false },
+  { "airblade/vim-rooter", enabled = false },
   "tpope/vim-commentary",
   "tpope/vim-surround",
   "ojroques/nvim-osc52",
-  "airblade/vim-rooter",
   "mbbill/undotree",
   "lukas-reineke/indent-blankline.nvim",
   "sophacles/vim-bundle-mako",

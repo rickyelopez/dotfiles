@@ -26,15 +26,18 @@ return {
     require("nvim-tree").setup({
       on_attach = on_attach,
       sort_by = "case_sensitive",
+      -- sync_root_with_cwd = true,
       actions = {
         change_dir = {
           enable = true,
-          global = false,
-          -- restrict_above_cwd = false,
+          global = true,
         },
       },
       view = {
-        width = 30,
+        width = {
+          min = 30,
+          max = 50,
+        },
       },
       renderer = {
         group_empty = true,
