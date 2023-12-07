@@ -44,3 +44,5 @@ yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^Parallels Desktop$" manage=off
 yabai -m rule --add app="^Ferdium$" manage=off
 yabai -m rule --add app="^Zscaler$" manage=off
+yabai -m rule --add title="ncspot" manage=off
+yabai -m rule --add app="Spotify" manage=off
