@@ -67,6 +67,7 @@ configuration {
 /*  display-filebrowser: ;*/
 /*  kb-primary-paste: "Control+V,Shift+Insert";*/
 /*  kb-secondary-paste: "Control+v,Insert";*/
+ kb-secondary-copy: "";
 /*  kb-clear-line: "Control+w";*/
  kb-move-front: "Control+i";
  kb-move-end: "Control+4";
