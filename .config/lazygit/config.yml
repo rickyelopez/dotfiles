@@ -66,14 +66,14 @@ customCommands:
         initialValue: '{{if ne (index .PromptResponses 0) "other"}}{{index .PromptResponses 0}}/{{end}}'
     command: 'git fetch origin {{index .PromptResponses 1}}:{{index .PromptResponses 1}}'
 gui:
-  autoFetch: false
   branchColors:
     'develop': '#fcc603'
     'last-built': '#1a823e'
     'terminal': '#912033'
-  showIcons: true
+  nerdFontsVersion: '3'
 git:
   overrideGpg: true
+  autoFetch: false
 keybinding:
   branches:
     fastForward: null
@@ -82,4 +82,3 @@ os:
   edit: 'NVIM_LISTEN_ADDRESS=~/.local/state/nvim/nvimsocket nvr --remote-wait-silent {{filename}}'
   editAtLine: 'NVIM_LISTEN_ADDRESS=~/.local/state/nvim/nvimsocket nvr --remote-wait-silent +{{line}} {{filename}}'
   editInTerminal: false
-nerdFrontsVersion: '3'

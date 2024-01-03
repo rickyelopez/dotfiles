@@ -2,6 +2,8 @@
 [ -f $HOME/dotfiles/.vars ] && source $HOME/dotfiles/.vars
 [ -f $HOME/dotfiles/.aliases ] && source $HOME/dotfiles/.aliases
 
+pokemon-colorscripts --no-title -s -r
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -22,11 +24,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-if [ "$(uname 2> /dev/null)" != "Linux" ]; then
-  source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
-else
-  source $HOME/.oh-my-zsh/themes/powerlevel10k/powerlevel10k.zsh-theme
-fi
+export ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -87,11 +85,12 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-if [ "$(uname 2> /dev/null)" != "Linux" ]; then
-  plugins=()
-else
-  plugins=()
-fi
+plugins=(
+  git
+  dnf
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -130,6 +129,7 @@ if [ "$(uname 2> /dev/null)" != "Linux" ]; then
 fi
 
 [ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
+[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 [ -f /usr/share/fzf/shell/key-bindings.zsh ] && source /usr/share/fzf/shell/key-bindings.zsh
 [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
 
