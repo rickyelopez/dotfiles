@@ -1,0 +1,30 @@
+[env]
+TERM = "alacritty"
+
+[font]
+size = 10
+
+[font.bold]
+style = "Bold"
+
+[font.bold_italic]
+style = "Bold Italic"
+
+[font.italic]
+style = "Italic"
+
+[font.normal]
+family = "Blex Mono Nerd Font Mono"
+style = "Medium"
+
+[scrolling]
+history = 10000
+
+[window]
+decorations = "none"
+opacity = 0.9
+startup_mode = "Maximized"
+
+[window.padding]
+x = 3
+y = 3

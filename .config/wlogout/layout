@@ -1,6 +1,6 @@
 {
     "label" : "lock",
-    "action" : "swaylock",
+    "action" : "swaylock & disown",
     "text" : "Lock"
 }
 
@@ -18,7 +18,7 @@
 
 {
     "label" : "suspend",
-    "action" : "swaylock -f && systemctl suspend",
+    "action" : "swaylock & disown && systemctl suspend",
     "text" : "Suspend"
 }
 
