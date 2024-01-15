@@ -1,0 +1,7 @@
+#!/bin/bash
+
+batsignal -b -e \
+    -f 95 -F "Battery full.\nYou should disconnect the charger" \
+    -w 20 -W "Warning: Battery low!" \
+    -c 15 -C "Warning: Battery critical!" \
+    -d 10 -D "swaylock & disown && systemctl suspend"

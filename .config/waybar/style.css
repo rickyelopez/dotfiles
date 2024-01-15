@@ -1,10 +1,13 @@
 * {
     border: none;
     border-radius: 0;
+    box-shadow: none;
+    text-shadow: none;
     font-family: "Blex Mono Nerd Font Mono";
     font-weight: bold;
     font-size: 16px;
     min-height: 0;
+    margin-top: 1px;
 }
 
 window#waybar {
@@ -25,10 +28,142 @@ tooltip label{
     color: #cdd6f4;
 }
 
-#workspaces button {
-    padding: 5px;
-    color: #313244;
+/* member */
+#clock,
+#cpu,
+#custom-lock,
+#custom-quit,
+#custom-reboot,
+#custom-power,
+#disk,
+#fan_speeds,
+#group_settable,
+#group_stats,
+#memory,
+#mpris,
+#network,
+#tray,
+#window,
+#workspaces {
+    background: #1e1e2e;
+    opacity: 0.8;
+    padding: 0 10px;
+}
+
+
+/* left */
+#clock,
+#cpu,
+#custom-quit,
+#custom-lock,
+#fan_speeds,
+#group_settable,
+#group_stats,
+#mpris,
+#tray,
+#window,
+#workspaces {
+    margin-left: 5px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+/* right */
+#custom-lock,
+#custom-power,
+#clock,
+#disk,
+#fan_speeds,
+#group_settable,
+#group_stats,
+#memory,
+#mpris,
+#tray,
+#window,
+#workspaces {
     margin-right: 5px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+/* grouped */
+#backlight {
+    margin-right: 2px;
+    margin-left: 0;
+}
+
+#pulseaudio.microphone {
+    margin-right: 9px;
+    margin-left: 10px;
+}
+
+#fan_speeds,
+#group_settable,
+#group_stats {
+    padding: 0;
+}
+
+#temperature {
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: black;
+    }
+}
+
+#battery.warning:not(.plugged) {
+    color: white;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#battery {
+    margin-left: 5px;
+    margin-right: 10px;
+    color: #a6e3a1;
+}
+
+#custom-fan_speed {
+    font-size: 28px;
+}
+
+#custom-fan_speed.fan1 {
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+#custom-fan_speed.fan2 {
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+#custom-power {
+    margin-right: 0;
+}
+
+#pulseaudio {
+    color: #89b4fa;
+}
+
+#pulseaudio.microphone {
+    color: #cba6f7;
+}
+
+#temperature.critical {
+    color: #e92d4d;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    padding-bottom: 1px;
+    color: #313244;
 }
 
 #workspaces button.active {
@@ -38,97 +173,14 @@ tooltip label{
 #workspaces button.focused {
     color: #a6adc8;
     background: #eba0ac;
-    border-radius: 10px;
 }
 
 #workspaces button.urgent {
     color: #11111b;
     background: #a6e3a1;
-    border-radius: 10px;
 }
 
 #workspaces button:hover {
     background: #11111b;
     color: #cdd6f4;
-    border-radius: 10px;
-}
-
-/* member */
-#custom-lock_screen,
-#custom-power_btn,
-#window,
-#clock,
-#cpu,
-#disk,
-#memory,
-#battery,
-#pulseaudio,
-#network,
-#tray,
-#temperature,
-#workspaces,
-#backlight {
-    background: #1e1e2e;
-    opacity: 0.8;
-    padding: 0px 10px;
-    margin: 3px 0px;
-    margin-top: 2px;
-    border: 0px;
-}
-
-
-/* left */
-#clock,
-#temperature,
-#backlight,
-#workspaces,
-#cpu {
-    border-radius: 10px 0px 0px 10px;
-}
-
-/* right */
-#custom-lock_screen,
-#workspaces,
-#pulseaudio.microphone,
-#battery,
-#memory,
-#disk {
-    border-radius: 0px 10px 10px 0px;
-    margin-right: 10px;
-}
-
-#tray {
-    border-radius: 10px 10px 10px 10px;
-}
-
-#temperature.critical {
-    color: #e92d4d;
-}
-
-#workspaces {
-    padding-right: 0px;
-    padding-left: 5px;
-}
-
-#window {
-    border-radius: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
-#pulseaudio {
-    color: #89b4fa;
-    border-left: 0px;
-    border-right: 0px;
-}
-
-#pulseaudio.microphone {
-    color: #cba6f7;
-    border-left: 0px;
-    border-right: 0px;
-}
-
-#battery {
-    color: #a6e3a1;
-    border-left: 0px;
 }

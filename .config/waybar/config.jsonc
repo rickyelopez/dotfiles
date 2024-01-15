@@ -1,7 +1,6 @@
 {
     "layer": "top",
     "position": "top",
-    // "mode": "dock",
     "exclusive": true,
     "passthrough": false,
     "gtk-layer-shell": true,
@@ -9,38 +8,99 @@
     "modules-left": [
         "cpu",
         "memory",
-        // "disk"
-        "wlr/workspaces",
+        "hyprland/workspaces",
         "hyprland/window"
     ],
     "modules-center": [
-        "clock",
-        "custom/power_btn",
-        "custom/lock_screen"
+        "clock"
     ],
     "modules-right": [
-        "temperature",
-        "battery",
-        "backlight",
-        "pulseaudio",
-        "pulseaudio#microphone",
-        "tray"
+        "mpris",
+        "group/fan_speeds",
+        "group/group_stats",
+        "group/group_settable",
+        "tray",
+        "group/group_power"
     ],
-    "wlr/workspaces": {
+    "group/group_power": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 500,
+            "children-class": "power-children",
+            "transition-left-to-right": false
+        },
+        "modules": [
+            "custom/lock",
+            "custom/quit",
+            "custom/reboot",
+            "custom/power"
+        ]
+    },
+    "group/group_settable": {
+        "orientation": "horizontal",
+        "modules": [
+            "backlight",
+            "pulseaudio",
+            "pulseaudio#microphone"
+        ]
+
+    },
+    "group/group_stats": {
+        "orientation": "horizontal",
+        "modules": [
+            "temperature",
+            "battery"
+        ]
+
+    },
+    "group/fan_speeds": {
+        "orientation": "horizontal",
+        "modules": [
+            "custom/fan_speed#fan1",
+            "custom/fan_speed#fan2"
+        ]
+
+    },
+    "custom/quit": {
+        "format": "󰗼",
+        "tooltip": false,
+        "on-click": "hyprctl dispatch exit 0"
+    },
+    "custom/reboot": {
+        "format": "󰜉",
+        "tooltip": false,
+        "on-click": "reboot"
+    },
+    "custom/lock": {
+        "format": "󰍁",
+        "tooltip": false,
+        "on-click": "swaylock & disown"
+    },
+    "custom/power": {
+        "format": "",
+        "tooltip": false,
+        "on-click": "shutdown now"
+    },
+    "mpris": {
+        "format": "{status_icon} {dynamic}",
+        "interval": 1,
+        "player": "ncspot",
+        "status-icons": {
+            "playing": "▶",
+            "paused": "⏸"
+        },
+        "dynamic-len": 20,
+        "tooltip-format": " {title} /  {artist} / 󰀥 {album}"
+    },
+    "hyprland/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
         "on-click": "activate",
-        "persistent_workspaces": {
+        "persistent-workspaces": {
             "1": [],
             "2": [],
             "3": [],
-            "4": [],
-            "5": [],
-            "6": [],
-            "7": [],
-            "8": [],
-            "9": [],
-            "10": []
+            "4": []
         }
     },
     "hyprland/window": {
@@ -50,14 +110,6 @@
         "interval": 10,
         "format": " {usage}%",
         "max-length": 10,
-        "on-click": "alacritty --title btop -e sh -c 'btop'"
-    },
-    "disk": {
-        "interval": 30,
-        "format": "󰋊 {percentage_used}%",
-        "path": "/",
-        "tooltip": true,
-        "tooltip-format": "HDD - {used} used out of {total} on {path} ({percentage_used}%)",
         "on-click": "alacritty --title btop -e sh -c 'btop'"
     },
     "memory": {
@@ -93,29 +145,55 @@
             "on-click-right": "mode"
         }
     },
-    "custom/power_btn": {
-        "format": "",
-        "on-click": "sh -c '(sleep 0.5s; wlogout --protocol layer-shell)' & disown",
-        "tooltip": false
+    "custom/fan_speed#fan1": {
+        "exec": "$HOME/.config/waybar/scripts/fanspeed.sh hwmon3 fan1_input",
+        "return-type": "json",
+        "interval": 2,
+        "format": "{icon}",
+        "format-icons": [
+            "󰠝",
+            "󱑭",
+            "󱑮"
+        ]
     },
-    "custom/lock_screen": {
-        "format": "",
-        "on-click": "sh -c '(sleep 0.5s; swaylock)' & disown",
-        "tooltip": false
+    "custom/fan_speed#fan2": {
+        "exec": "$HOME/.config/waybar/scripts/fanspeed.sh hwmon3 fan2_input",
+        "return-type": "json",
+        "interval": 2,
+        "format": "{icon}",
+        "format-icons": [
+            "󰠝",
+            "󱑭",
+            "󱑮"
+        ]
     },
     "backlight": {
         "device": "intel_backlight",
         "format": "{icon} {percent}%",
         "format-icons": [
-            "",
-            "",
-            ""
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
         ],
         "on-scroll-up": "brightnessctl set 1%+",
-        "on-scroll-down": "brightnessctl set 1%-",
-        "min-length": 6
+        "on-scroll-down": "brightnessctl --min-value=1 set 1%-",
+        "min-length": 6,
+        "tooltip": false
     },
     "battery": {
+        "interval": 5,
         "states": {
             "good": 95,
             "warning": 30,
@@ -126,22 +204,22 @@
         "format-plugged": " {capacity}%",
         "format-alt": "{time} {icon}",
         "format-icons": [
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
+            "󰂎",
+            "󰁺",
+            "󰁻",
+            "󰁼",
+            "󰁽",
+            "󰁾",
+            "󰁿",
+            "󰂀",
+            "󰂁",
+            "󰂂",
+            "󰁹"
         ]
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",
-        "format-muted": "",
+        "format-muted": "󰖁 {volume}%",
         "on-click": "pamixer -t",
         "on-click-right": "pavucontrol",
         "on-scroll-up": "pamixer -i 5",
@@ -163,8 +241,8 @@
     },
     "pulseaudio#microphone": {
         "format": "{format_source}",
-        "format-source": " {volume}%",
-        "format-source-muted": "",
+        "format-source": "󰍬 {volume}%",
+        "format-source-muted": " {volume}%",
         "on-click": "pamixer --default-source -t",
         "on-click-right": "pavucontrol",
         "on-scroll-up": "pamixer --default-source -i 5",
@@ -173,9 +251,16 @@
     },
     "temperature": {
         "thermal-zone": 1,
-        "format": " {temperatureC}°C",
-        "critical-threshold": 70,
-        "format-critical": " {temperatureC}°C",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "format": "{icon} {temperatureC}°C",
+        "critical-threshold": 75,
+        "format-critical": " {temperatureC}°C!",
         "on-click": "alacritty --title btop -e sh -c 'btop'"
     }
 }
