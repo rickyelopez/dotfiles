@@ -7,7 +7,6 @@ return {
     "folke/neodev.nvim",
   },
   config = function()
-    -- require("mason").setup()
     require("mason-lspconfig").setup({
       automatic_installation = { exclude = { "clangd" } },
       ensure_installed = {
@@ -51,7 +50,7 @@ return {
     -- after the language server attaches to the current buffer
     local on_attach = function(client, bufnr)
       -- Enable completion triggered by <c-x><c-o>
-      vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+      vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
 
       local bufopts = { noremap = true, silent = true, buffer = bufnr }
       vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
@@ -74,7 +73,6 @@ return {
         vim.keymap.set({ "n", "v" }, "<leader>f", require("uncrustify").format, bufopts)
       else
         vim.keymap.set({ "n", "v" }, "<leader>f", function()
-          -- vim.lsp.buf.format({ async = true })
           require("conform").format({ async = true, lsp_fallback = "always" })
         end, bufopts)
       end
@@ -94,10 +92,7 @@ return {
       end
     end
 
-    local lsp_flags = {
-      -- This is the default in Nvim 0.7+
-      debounce_text_changes = 150,
-    }
+    local lsp_flags = {}
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
     local ok, priv_lsp = pcall(require, "lua-priv.lspconfig")
