@@ -14,6 +14,7 @@ return {
         python = { "black" },
         yaml = { "yamlfmt" },
         rust = { "rustfmt" },
+        xml = { "xmlformat" },
       },
     })
   end,
