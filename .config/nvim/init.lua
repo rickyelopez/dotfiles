@@ -75,7 +75,7 @@ vim.opt.foldlevel = 99
 
 -- clipboard
 vim.opt.clipboard = "unnamedplus"
--- if (vim.env.SSH_TTY ~= nil) then
+
 local function copy(lines, _)
   require("osc52").copy(table.concat(lines, "\n"))
 end
@@ -91,7 +91,7 @@ vim.g.clipboard = {
 }
 
 -- source leftover .vim file that I don't feel like converting
-vim.api.nvim_exec([[ source $HOME/.config/nvim/plug-conf/fzf.vim ]], false)
+vim.api.nvim_exec2([[ source $HOME/.config/nvim/plug-conf/fzf.vim ]], { output = false })
 
 -- neovide settings
 if vim.g.neovide then
