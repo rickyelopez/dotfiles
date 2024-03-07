@@ -1,5 +1,7 @@
 return {
-  "akinsho/nvim-bufferline.lua",
+  "akinsho/bufferline.nvim",
+  -- "git@github.com:rickyelopez/bufferline.nvim",
+  -- branch = "user/rl/groupDuplicates",
   dependencies = { "kyazdani42/nvim-web-devicons" },
   config = function()
     local cycle = require("bufferline").cycle
@@ -56,6 +58,7 @@ return {
         enforce_regular_tabs = false,
         sort_by = "relative_directory",
         separator_style = "slant",
+        duplicates_across_groups = false,
         groups = {
           options = {
             toggle_hidden_on_enter = true,
