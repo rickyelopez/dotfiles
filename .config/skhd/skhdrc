@@ -160,3 +160,10 @@ alt - v : yabai -m window --toggle float --grid 4:4:1:1:2:2
 # alt - p : yabai -m window --toggle sticky --toggle topmost --toggle pip
 
 # cmd - e : open /System/Library/CoreServices/Finder.app
+
+
+
+# media keys bound to ncspot
+play : echo "playpause" | nc -U ~/.cache/ncspot/ncspot.sock
+next : echo "next" | nc -U ~/.cache/ncspot/ncspot.sock
+previous : echo "previous" | nc -U ~/.cache/ncspot/ncspot.sock

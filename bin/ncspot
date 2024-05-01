@@ -1,2 +1,19 @@
 #!/bin/bash
-/usr/bin/alacritty --title ncspot -e sh -c 'ncspot'
+
+# Required parameters:
+# @raycast.schemaVersion 1
+# @raycast.title ncspot
+# @raycast.mode compact
+
+# Optional parameters:
+# @raycast.icon 🤖
+
+# Documentation:
+# @raycast.description launch ncspot
+
+if [ $(uname) = "Darwin" ]; then
+    alacritty --title ncspot -e sh -c 'ncspot'
+else
+    /usr/bin/alacritty --title ncspot -e sh -c 'ncspot'
+fi
+
