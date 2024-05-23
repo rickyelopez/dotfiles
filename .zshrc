@@ -2,7 +2,18 @@
 [ -f $HOME/dotfiles/.vars ] && source $HOME/dotfiles/.vars
 [ -f $HOME/dotfiles/.aliases ] && source $HOME/dotfiles/.aliases
 
-pokemon-colorscripts --no-title -s -r
+# load antidote/plugins
+zsh_plugins=${ZDOTDIR:-$HOME}/.zsh_plugins
+if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
+    (
+    source ~/.antidote/antidote.zsh
+    antidote bundle <${zsh_plugins}.txt >${zsh_plugins}.zsh
+    )
+fi
+
+source ${zsh_plugins}.zsh
+
+[[ -x pokemon-colorscripts ]] && pokemon-colorscripts --no-title -s -r
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -88,8 +99,8 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(
   git
   dnf
-  zsh-autosuggestions
-  zsh-syntax-highlighting
+  # zsh-autosuggestions
+  # zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
