@@ -1,23 +1,36 @@
+local api = vim.api
 local M = {}
 
 M.map = function(lhs, rhs, modes, opts)
-    modes = modes or {"n"}
-    opts = opts or { noremap = true, silent = true }
-    vim.keymap.set(modes, lhs, rhs, opts)
+  modes = modes or { "n" }
+  opts = opts or { noremap = true, silent = true }
+  vim.keymap.set(modes, lhs, rhs, opts)
 end
 
 M.addToRTP = function(opts)
-    if type(opts) == 'table' then
-        for path in opts do
-            vim.opt.runtimepath:append("," .. path)
-        end
+  if type(opts) == "table" then
+    for path in opts do
+      vim.opt.runtimepath:append("," .. path)
     end
+  end
 end
 
+M.listValidBuffers = function()
+  local bufs = vim.api.nvim_list_bufs()
+  local validBufs = {}
+
+  for _, buf in ipairs(bufs) do
+    if vim.fn.buflisted(buf) == 1 then
+      table.insert(validBufs, buf)
+    end
+  end
+
+  return validBufs
+end
 
 -- should probably port these to pure lua at some point
-vim.api.nvim_exec(
-[[
+api.nvim_exec(
+  [[
 function! HighlightRepeats() range
   let lineCounts = {}
   let lineNum = a:firstline
@@ -39,11 +52,11 @@ endfunction
 command! -range=% HighlightRepeats <line1>,<line2>call HighlightRepeats()
 command! ClearRepeats :syn<space>clear<space>Repeat
 ]],
-false
+  false
 )
 
-vim.api.nvim_exec(
-[[
+api.nvim_exec(
+  [[
 function! SynStack ()
     for i1 in synstack(line("."), col("."))
         let i2 = synIDtrans(i1)
@@ -54,12 +67,11 @@ function! SynStack ()
 endfunction
 map gm :call SynStack()<CR>
 ]],
-false
+  false
 )
 
-
-vim.api.nvim_exec(
-[[
+api.nvim_exec(
+  [[
 function! Update_compiledb(path)
     let s:full_path = getcwd() . "/" . a:path
     :silent exec "!ln -sf " .. s:full_path
@@ -67,7 +79,7 @@ function! Update_compiledb(path)
     :silent exec "LspStart clangd"
 endfunction
 ]],
-false
+  false
 )
 
 return M

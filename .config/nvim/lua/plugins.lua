@@ -29,7 +29,7 @@ require("lazy").setup({
     dependencies = { "junegunn/fzf", build = ":call fzf#install()" },
   },
 
-  { "numirias/semshi", build = ":UpdateRemotePlugins" },
+  -- { "numirias/semshi", build = ":UpdateRemotePlugins" },
 
   {
     "iamcco/markdown-preview.nvim",

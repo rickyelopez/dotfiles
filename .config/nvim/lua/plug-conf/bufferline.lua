@@ -5,38 +5,13 @@ return {
   dependencies = { "kyazdani42/nvim-web-devicons" },
   config = function()
     local cycle = require("bufferline").cycle
+    local move = require("bufferline").move
+    local pick = require("bufferline").pick
+    local utils = require("utils")
 
     local M = {}
 
-    -- local contrast_color = "#363955"
-    -- local selected_color = "#243622"
-    -- "#222436",
-
     require("bufferline").setup({
-      -- highlights = {
-      --   fill = {
-      --     bg = contrast_color,
-      --   },
-      --   buffer_selected = {
-      --     bg = selected_color,
-      --   },
-      --   info_selected = {
-      --     bg = selected_color,
-      --   },
-      --   info_diagnostic_selected = {
-      --     bg = selected_color,
-      --   },
-      --   separator = {
-      --     fg = contrast_color,
-      --   },
-      --   separator_visible = {
-      --     fg = contrast_color,
-      --   },
-      --   separator_selected = {
-      --     fg = contrast_color,
-      --     bg = selected_color,
-      --   },
-      -- },
       options = {
         close_command = M.close,
         right_mouse_command = M.close,
@@ -71,100 +46,31 @@ return {
                 return buf.path:match("dotfiles") or buf.path:match("%.config")
               end,
             },
-            {
-              name = "DB",
-              priority = 3,
-              matcher = function(buf)
-                return buf.path:match(vim.env.di .. "/DB")
-              end,
-            },
-            {
-              name = "DI",
-              priority = 4,
-              matcher = function(buf)
-                return buf.path:match(vim.env.dig3 .. "/controller") or buf.path:match(vim.env.di .. "/DI")
-              end,
-            },
-            {
-              name = "PM",
-              priority = 5,
-              matcher = function(buf)
-                return buf.path:match(vim.env.dig3 .. "/monitor") or buf.path:match(vim.env.di .. "/PM")
-              end,
-            },
-            {
-              name = "DIVAL",
-              priority = 6,
-              matcher = function(buf)
-                return buf.path:match(vim.env.di .. "/dival")
-              end,
-            },
-            {
-              name = "DI Gen",
-              priority = 2,
-              matcher = function(buf)
-                return buf.path:match(vim.env.di)
-                  and not (
-                    buf.path:match(vim.env.di .. "/DB")
-                    or buf.path:match(vim.env.dig3 .. "/controller")
-                    or buf.path:match(vim.env.di .. "/DI")
-                    or buf.path:match(vim.env.dig3 .. "/monitor")
-                    or buf.path:match(vim.env.di .. "/PM")
-                    or buf.path:match(vim.env.di .. "/dival")
-                  )
-              end,
-            },
-            {
-              name = "EGG",
-              matcher = function(buf)
-                return buf.path:match("components/egg")
-              end,
-            },
-            {
-              name = "CAN",
-              matcher = function(buf)
-                return buf.path:match("can.requirements")
-              end,
-            },
-            {
-              name = "DBC",
-              matcher = function(buf)
-                return buf.path:match("generated.dbc")
-              end,
-            },
-            {
-              name = "HV",
-              matcher = function(buf)
-                return buf.path:match("hvSystem")
-              end,
-            },
           },
         },
       },
     })
 
+    --- @param buf integer buffer number, or 0 for current buffer
     M.close = function(buf)
       if buf == 0 then
-        buf = vim.api.nvim_get_current_buf()
+        buf = vim.fn.bufnr("%")
       end
-      local current = vim.api.nvim_buf_get_name(0)
-      local arg = vim.api.nvim_buf_get_name(buf)
 
       -- if closing a buffer we don't have selected, there are no issues
-      if current ~= arg then
+      if buf ~= vim.api.nvim_get_current_buf() then
         vim.api.nvim_buf_delete(buf, {})
         return
       end
 
       local last = vim.fn.bufnr("#")
       if vim.api.nvim_buf_is_valid(last) then
-        -- vim.fn.buffer(last)
-        vim.api.nvim_exec(":buffer " .. last, false)
-      elseif #vim.api.nvim_list_bufs() > 1 then
+        vim.api.nvim_set_current_buf(last)
+      elseif #utils.listValidBuffers() > 1 then
         cycle(-1)
       else
         local newBuf = vim.api.nvim_create_buf(true, false)
-        vim.api.nvim_exec(":buffer " .. newBuf, false)
+        vim.api.nvim_set_current_buf(newBuf)
       end
       vim.api.nvim_buf_delete(buf, {})
     end
@@ -175,10 +81,10 @@ return {
     map("<leader>q", function()
       M.close(0)
     end)
-    map("<S-Tab>", "<CMD>BufferLineCycleNext<CR>")
-    map("<leader><S-Tab>", "<CMD>BufferLineCyclePrev<CR>")
-    map("<leader><S-L>", "<CMD>BufferLineMoveNext<CR>")
-    map("<leader><S-H>", "<CMD>BufferLineMovePrev<CR>")
-    map("gb", "<CMD>BufferLinePick<CR>")
+    map("<S-Tab>", function() cycle(1) end)
+    map("<leader><S-Tab>", function() cycle(-1) end)
+    map("<leader><S-L>", function() move(1) end)
+    map("<leader><S-H>", function() move(-1) end)
+    map("gb", pick)
   end,
 }
