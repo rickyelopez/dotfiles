@@ -93,7 +93,7 @@ return {
     end
 
     local lsp_flags = {}
-    local capabilities = require("cmp_nvim_lsp").default_capabilities()
+    local capabilities = require("cmp_nvim_lsp").default_capabilities({ preselectSupport = false })
 
     local ok, priv_lsp = pcall(require, "lua-priv.lspconfig")
     if ok and priv_lsp then

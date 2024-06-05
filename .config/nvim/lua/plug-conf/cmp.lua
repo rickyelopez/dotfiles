@@ -1,6 +1,8 @@
 return {
   "hrsh7th/nvim-cmp",
   dependencies = {
+    -- icons
+    "onsails/lspkind.nvim",
     -- snippets
     "hrsh7th/vim-vsnip",
     "hrsh7th/vim-vsnip-integ",
@@ -43,29 +45,36 @@ return {
         -- documentation = cmp.config.window.bordered(),
       },
       mapping = cmp.mapping.preset.insert({
+        ["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ["<C-Space>"] = cmp.mapping.complete(),
+        -- ["<Esc>"] = cmp.mapping.close(),
+        ["<C-e>"] = cmp.mapping.abort(),
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-Space>"] = cmp.mapping.complete(),
-        ["<C-e>"] = cmp.mapping.abort(),
-        ["<CR>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
-          elseif vim.fn["vsnip#available"](1) == 1 then
-            feedkey("<Plug>(vsnip-expand-or-jump)", "")
-          elseif has_words_before() then
-            cmp.complete()
+          -- elseif vim.fn["vsnip#ava,ilable"](1) == 1 then
+          --   feedkey("<Plug>(vsnip-expand-or-jump)", "")
+          -- elseif has_words_before() then
+          --   cmp.complete()
           else
-            fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+            fallback()
           end
-        end, { "i", "s" }),
-        ["<S-Tab>"] = cmp.mapping(function()
+        end
+        -- , { "i", "s" }
+        ),
+        ["<S-Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()
           elseif vim.fn["vsnip#jumpable"](-1) == 1 then
             feedkey("<Plug>(vsnip-jump-prev)", "")
+          else
+            fallback()
           end
-        end, { "i", "s" }),
+        end
+        -- , { "i", "s" }
+        ),
         ["<C-j>"] = cmp.mapping(function(fallback)
           if vim.fn["vsnip#available"](1) == 1 then
             feedkey("<Plug>(vsnip-expand-or-jump)", "")
@@ -82,25 +91,47 @@ return {
         end, { "i", "s" }),
       }),
       sources = cmp.config.sources({
-        { name = "nvim_lsp", priority = 100 },
-        { name = "vsnip", priority = 50 }, -- For vsnip users.
+        { name = "vsnip" }, -- For vsnip users.
+        { name = "nvim_lsp" },
         -- { name = 'luasnip' }, -- For luasnip users.
         -- { name = 'ultisnips' }, -- For ultisnips users.
         -- { name = 'snippy' }, -- For snippy users.
-        { name = "buffer", priority = 25 },
-        { name = "path", priority = 25 },
+        { name = "buffer" },
+        { name = "path" },
       }),
+      completion = {
+        keyword_length = 1,
+        completeopt = "menu,menuone,noselect,noinsert,preview",
+      },
       sorting = {
+        priority_weight = 2,
         comparators = {
           cmp.config.compare.offset,
           cmp.config.compare.exact,
+          cmp.config.compare.score,
           cmp.config.compare.recently_used,
           require("clangd_extensions.cmp_scores"),
+          cmp.config.compare.locality,
           cmp.config.compare.kind,
-          cmp.config.compare.sort_text,
+          -- cmp.config.compare.sort_text,
           cmp.config.compare.length,
           cmp.config.compare.order,
         },
+      },
+      formatting = {
+        format = require("lspkind").cmp_format({
+          mode = "symbol_text",
+          menu = {
+            nvim_lsp = "[LSP]",
+            -- ultisnips = "[US]",
+            vsnip = "[Snip]",
+            -- nvim_lua = "[Lua]",
+            path = "[Path]",
+            buffer = "[Buffer]",
+            -- emoji = "[Emoji]",
+            -- omni = "[Omni]",
+          },
+        }),
       },
     })
 

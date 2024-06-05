@@ -8,6 +8,11 @@ return {
             return vim.env.BLACK_CFG and { "--config", vim.env.BLACK_CFG } or {}
           end,
         },
+        -- rustfmt = {
+        --   options = {
+        --     default_edition = "2021",
+        --   },
+        -- },
       },
       formatters_by_ft = {
         lua = { "stylua" },
