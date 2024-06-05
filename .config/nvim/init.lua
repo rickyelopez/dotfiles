@@ -43,7 +43,7 @@ vim.opt.ttimeoutlen = 10
 
 -- command window settings
 vim.opt.cmdheight = 2
-vim.opt.shortmess = vim.opt.shortmess + "c"
+vim.opt.shortmess:append("c")
 
 vim.opt.nrformats = vim.opt.nrformats + "alpha"
 vim.opt.formatoptions = vim.opt.formatoptions + "j"
