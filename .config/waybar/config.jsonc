@@ -125,7 +125,7 @@
         "spacing": 10
     },
     "clock": {
-        "format": "{: %I:%M %p  %Y/%m/%d}",
+        "format": " {:%I:%M %p  %Y/%m/%d}",
         "calendar": {
             "mode": "year",
             "mode-mon-col": 3,
