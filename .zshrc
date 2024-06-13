@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 # source additional files if they exist
 [ -f $HOME/dotfiles/.vars ] && source $HOME/dotfiles/.vars
 [ -f $HOME/dotfiles/.aliases ] && source $HOME/dotfiles/.aliases
@@ -102,6 +104,9 @@ plugins=(
   # zsh-autosuggestions
   # zsh-syntax-highlighting
 )
+
+# Don't define aliaes from the git plugin
+zstyle ':omz:plugins:git' aliases no
 
 source $ZSH/oh-my-zsh.sh
 
