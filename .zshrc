@@ -130,9 +130,13 @@ if [ -f /usr/libexec/java_home ]; then
     export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 fi
 
-if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init --path)"
-    eval "$(pyenv init -)"
+PYENV_ROOT="$HOME/.pyenv"
+if [[ -x $PYENV_ROOT/bin/pyenv ]]; then
+    export PYENV_ROOT
+    export PATH="$PYENV_ROOT/bin:$PATH"
+
+    # eval "$(pyenv init --path)"
+    # eval "$(pyenv init -)"
 fi
 
 # load autojump
