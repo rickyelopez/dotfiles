@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 # source additional files if they exist
 [ -f $HOME/dotfiles/.vars ] && source $HOME/dotfiles/.vars
 [ -f $HOME/dotfiles/.aliases ] && source $HOME/dotfiles/.aliases
@@ -103,6 +105,9 @@ plugins=(
   # zsh-syntax-highlighting
 )
 
+# Don't define aliaes from the git plugin
+zstyle ':omz:plugins:git' aliases no
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -125,9 +130,13 @@ if [ -f /usr/libexec/java_home ]; then
     export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 fi
 
-if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init --path)"
-    eval "$(pyenv init -)"
+PYENV_ROOT="$HOME/.pyenv"
+if [[ -x $PYENV_ROOT/bin/pyenv ]]; then
+    export PYENV_ROOT
+    export PATH="$PYENV_ROOT/bin:$PATH"
+
+    # eval "$(pyenv init --path)"
+    # eval "$(pyenv init -)"
 fi
 
 # load autojump
