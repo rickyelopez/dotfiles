@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/zsh
 
 ## epoch_ms to timestamp
 ts () { python3 -c "from datetime import datetime; print(datetime.fromtimestamp(${1}/1000 - (60*60*7)).strftime(\"%Y-%m-%d %H:%M:%S\"))"; }
@@ -14,6 +14,14 @@ activate () {
         [ -f "$1"/bin/activate ] && source "$1"/bin/activate
     fi
 }
+
+# use this cmd to open lf and cd into whatever directory it is in when it exits
+if command -v lf &> /dev/null; then
+    lfcd () {
+        # `command` is needed in case `lfcd` is aliased to `lf`
+        cd "$(command lf -print-last-dir "$@")"
+    }
+fi
 
 ################################################################################
 #                           Common Git Commands
@@ -196,3 +204,4 @@ alias gsh='git rev-parse --short HEAD'
 
 # source private alises if it exists
 [ -f "$HOME/dotfiles_priv/.priv_aliases" ] && source "$HOME/dotfiles_priv/.priv_aliases"
+
