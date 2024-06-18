@@ -26,8 +26,8 @@ return {
         end,
       })
 
-      local ranger = Terminal:new({
-        cmd = "ranger",
+      local lf = Terminal:new({
+        cmd = "lf",
         count = 11,
         hidden = true,
         direction = "float",
@@ -62,7 +62,7 @@ return {
       end)
 
       map("<leader>tr", function()
-        ranger:toggle()
+        lf:toggle()
       end)
     end,
   },
