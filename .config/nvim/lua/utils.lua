@@ -7,14 +7,6 @@ M.map = function(lhs, rhs, modes, opts)
   vim.keymap.set(modes, lhs, rhs, opts)
 end
 
-M.addToRTP = function(opts)
-  if type(opts) == "table" then
-    for path in opts do
-      vim.opt.runtimepath:append("," .. path)
-    end
-  end
-end
-
 M.listValidBuffers = function()
   local bufs = vim.api.nvim_list_bufs()
   local validBufs = {}
