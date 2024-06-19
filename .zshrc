@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/zsh
 
 # uncomment to profile startup
 # also uncomment the `zprof` call at the end of this file
