@@ -8,8 +8,6 @@ endif
 
 Plug 'vim-python/python-syntax'
 Plug 'jackguo380/vim-lsp-cxx-highlight'
-Plug 'vim-scripts/Arduino-syntax-file'
-
 
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -35,7 +33,9 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 " color schemes
-Plug 'morhetz/gruvbox'
 Plug 'chriskempson/base16-vim'
+
+" snippets
+Plug 'SirVer/ultisnips'
 
 call plug#end()
