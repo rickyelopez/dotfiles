@@ -20,6 +20,7 @@ vim.opt.visualbell = true
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 0
 vim.opt.shiftwidth = 0
+vim.opt.shiftround = true
 vim.opt.expandtab = true
 vim.opt.smarttab = true
 -- vim.opt.autoindent = true
@@ -33,7 +34,6 @@ vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.undodir = vim.fn.expand("$HOME") .. "/.vimfiles/undodir"
 vim.opt.undofile = true
-vim.opt.showmatch = true
 vim.opt.scrolloff = 5
 vim.opt.termguicolors = true
 
@@ -42,19 +42,18 @@ vim.opt.updatetime = 300
 vim.opt.ttimeoutlen = 10
 
 -- command window settings
-vim.opt.cmdheight = 2
+vim.opt.cmdheight = 1
 vim.opt.shortmess:append("c")
-
-vim.opt.nrformats = vim.opt.nrformats + "alpha"
-vim.opt.formatoptions = vim.opt.formatoptions + "j"
 
 -- show whitespace, tabs, line break, etc.
 vim.opt.list = true
-vim.opt.listchars = [[tab:│\ ,trail:•,extends:❯,precedes:❮,tab:▷▷⋮]]
-vim.opt.shiftround = true
+-- note that tab is in here twice. Pretty sure that means that the second one is the one that actually gets used
+-- leaving it in until that much is confirmed
+vim.opt.listchars = {tab = "| ", trail = "•", extends = "❯", precedes = "❮", tab = "▷▷⋮"}
 vim.o.showbreak = "↪ "
 
 -- searching settings
+vim.opt.showmatch = true
 vim.opt.incsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -90,8 +89,9 @@ vim.g.clipboard = {
   paste = { ["+"] = paste, ["*"] = paste },
 }
 
--- source leftover .vim file that I don't feel like converting
-vim.api.nvim_exec2([[ source $HOME/.config/nvim/plug-conf/fzf.vim ]], { output = false })
+-- misc
+vim.opt.nrformats:append("alpha")
+vim.o.formatoptions = "cro/qan1jp"
 
 -- neovide settings
 if vim.g.neovide then
@@ -101,10 +101,6 @@ if vim.g.neovide then
   vim.g.neovide_transparency = 0.8
   vim.g.neovide_cursor_vfx_mode = "torpedo"
 end
-
--- semshi setting
--- should technically be in a plug-conf file but meh
-vim.g.python_highlight_all = 1
 
 -- plugins
 require("plugins")

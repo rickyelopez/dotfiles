@@ -26,10 +26,17 @@ require("lazy").setup({
 
   {
     "junegunn/fzf.vim",
-    dependencies = { "junegunn/fzf", build = ":call fzf#install()" },
+    dependencies = { "junegunn/fzf", build = "./install --bin" },
   },
 
-  -- { "numirias/semshi", build = ":UpdateRemotePlugins" },
+  {
+    "numirias/semshi",
+    enabled = false,
+    build = ":UpdateRemotePlugins",
+    config = function()
+      vim.g.python_highlight_all = 1
+    end,
+  },
 
   {
     "iamcco/markdown-preview.nvim",
