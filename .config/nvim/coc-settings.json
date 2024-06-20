@@ -4,5 +4,7 @@
     "python.linting.pylintEnabled": true,
     "python.envFile": "${workspaceFolder}/.git/.env",
     "clangd.semanticHighlighting": true,
-    "clangd.arguments": []
+    "clangd.arguments": [],
+    "diagnostic.locationlistUpdate": true,
+    "diagnostic.refreshOnInsertMode": true 
 }

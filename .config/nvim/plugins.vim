@@ -9,6 +9,7 @@ endif
 
 " LSP
 Plug 'neoclide/coc.nvim', {'branch':'release'}
+Plug 'rhysd/vim-clang-format'
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 " Plug 'vim-python/python-syntax'
 Plug 'Vimjas/vim-python-pep8-indent'
@@ -18,6 +19,9 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dispatch'
+
+" git diff
+Plug 'sindrets/diffview.nvim'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'

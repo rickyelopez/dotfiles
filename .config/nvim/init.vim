@@ -162,3 +162,7 @@ let g:clang_format#code_style = 'llvm'
 
 " adjust c comments
 autocmd FileType c,cpp set commentstring=//\ %s
+
+" clang format
+let g:clang_format#command = "~/clang+llvm/bin/clang-format"
+
