@@ -107,6 +107,9 @@ nnoremap <leader><S-Tab> :bp<CR>
 " Markdown Preview Bind
 nmap <leader>md <Plug>MarkdownPreviewToggle
 
+" DBC syntax
+au BufRead,BufNewFile *.dbc set filetype=dbc
+
 " Load supplemental configs
 source $HOME/.config/nvim/plugins.vim
 source $HOME/.config/nvim/plug-conf/fzf.vim
