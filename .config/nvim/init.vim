@@ -74,8 +74,12 @@ endif
 " close buffer without closing window
 nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
 
+" clear highligted search
+nnoremap <leader><space> :noh<CR>
+
 " nerdtree config
-map <leader>pv :NERDTreeToggle<CR>
+nnoremap <leader>pv :NERDTreeToggle<CR>
+nnoremap \ :NERDTreeFind<CR>
 autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif
 let g:plug_window = 'noautocmd vertical topleft new'
 
@@ -103,6 +107,7 @@ nnoremap <leader><S-Tab> :bp<CR>
 " Markdown Preview Bind
 nmap <leader>md <Plug>MarkdownPreviewToggle
 
+" Load supplemental configs
 source $HOME/.config/nvim/plugins.vim
 source $HOME/.config/nvim/plug-conf/fzf.vim
 source $HOME/.config/nvim/plug-conf/coc.vim
