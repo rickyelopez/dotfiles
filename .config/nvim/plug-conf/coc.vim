@@ -4,8 +4,8 @@ nmap <leader>gy <Plug>(coc-type-definition)
 nmap <leader>gi <Plug>(coc-implementation)
 nmap <leader>gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
-xmap <leader>f <Plug>(coc-format-selected)
-nmap <leader>f <Plug>(coc-format-selected)
+xmap <leader>f <Plug>(coc-format)
+nmap <leader>f <Plug>(coc-format)
 
 " COC autocomplete menu settings
 inoremap <silent><expr> <TAB>
