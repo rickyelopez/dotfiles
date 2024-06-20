@@ -1,3 +1,4 @@
+#!/bin/bash
 # Aliases
 
 alias black='f(){ python3 -m black --config libs/python/blackcfg.toml $DIVAL_PATH/tests/"$1"; unset -f f;}; f'

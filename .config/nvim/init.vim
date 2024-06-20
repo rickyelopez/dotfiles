@@ -166,3 +166,6 @@ autocmd FileType c,cpp set commentstring=//\ %s
 " clang format
 let g:clang_format#command = "~/clang+llvm/bin/clang-format"
 
+" python root dir
+autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyrightconfig.json', 'pyproject.toml']
+
