@@ -13,7 +13,7 @@ return {
     "hrsh7th/cmp-path",
   },
   config = function()
-    vim.opt.completeopt = "menu,menuone,noinsert,preview"
+    vim.opt.completeopt = "menu,menuone,noinsert,noselect,preview"
 
     local cmp = require("cmp")
 
@@ -25,7 +25,7 @@ return {
         end,
       },
       mapping = cmp.mapping.preset.insert({
-        ["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = false }), -- Set `select` to `false` to only confirm explicitly selected items.
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.close(),
         -- ["<Esc>"] = cmp.mapping.abort(),
@@ -42,7 +42,7 @@ return {
       }),
       completion = {
         keyword_length = 1,
-        completeopt = "menu,menuone,noinsert,preview",
+        completeopt = "menu,menuone,noinsert,noselect,preview",
       },
       sorting = {
         priority_weight = 2,
