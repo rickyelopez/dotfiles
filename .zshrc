@@ -139,7 +139,8 @@ fi
 # [[ "$(uname 2> /dev/null)" != "Linux" ]] && autoload -U compinit && compinit -u
 
 # set up fzf zsh integration
-if [ command fzf 2>/dev/null ]; then
+if hash fzf 2>/dev/null; then
+    # note: this requires a relatively new version of fzf to work
     source <(fzf --zsh)
 fi
 

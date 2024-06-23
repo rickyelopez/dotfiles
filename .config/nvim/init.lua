@@ -91,7 +91,7 @@ vim.g.clipboard = {
 
 -- misc
 vim.opt.nrformats:append("alpha")
-vim.o.formatoptions = "cro/qan1jp"
+vim.o.formatoptions = "cro/qn1jp"
 
 -- neovide settings
 if vim.g.neovide then
