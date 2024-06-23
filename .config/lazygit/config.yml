@@ -79,6 +79,6 @@ keybinding:
         fastForward: <disabled>
         forceCheckoutBranch: <disabled>
 os:
-    edit: 'NVIM_LISTEN_ADDRESS=~/.local/state/nvim/nvimsocket nvr --remote-wait-silent {{filename}}'
-    editAtLine: 'NVIM_LISTEN_ADDRESS=~/.local/state/nvim/nvimsocket nvr --remote-wait-silent +{{line}} {{filename}}'
+    edit: 'NVIM_LISTEN_ADDRESS=~/.local/state/nvim/nvimsocket nvr --remote-silent {{filename}}'
+    editAtLine: 'NVIM_LISTEN_ADDRESS=~/.local/state/nvim/nvimsocket nvr --remote-silent +{{line}} {{filename}}'
     editInTerminal: false
