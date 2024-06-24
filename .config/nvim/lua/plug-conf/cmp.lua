@@ -28,7 +28,10 @@ return {
         ["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = false }), -- Set `select` to `false` to only confirm explicitly selected items.
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.close(),
-        -- ["<Esc>"] = cmp.mapping.abort(),
+        ["<Esc>"] = function()
+          cmp.mapping.abort()
+          vim.cmd("stopinsert")
+        end,
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
