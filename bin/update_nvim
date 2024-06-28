@@ -1,0 +1,75 @@
+#!/bin/bash
+
+set -euo pipefail
+
+if [[ $# -gt 1 ]]; then
+    echo "Only one argument (release version) is supported"
+    exit 1
+fi
+
+OS=$(uname)
+ARCH=$(uname -p)
+
+RELEASE="nightly"
+if [[ $# -eq 1 ]] && [[ "$1" =~ v[0-9]+\.[0-9]+\.[0-9]+ ]]; then
+    RELEASE="$1"
+fi
+
+case $OS in
+    Darwin)
+        OS="macos"
+        ;;
+    Linux)
+        OS="linux"
+        ;;
+    *)
+        echo "Unknown architecture!"
+        exit 1
+        ;;
+esac
+
+case $ARCH in
+    arm)
+        ARCH="-arm64"
+        ;;
+    *)
+        if [[ "$OS" = "macos" ]]; then
+            ARCH="-x86_64"
+        else
+            ARCH="64"
+        fi
+        ;;
+esac
+
+set -x
+
+DL_FILE="nvim-${OS}${ARCH}"
+DL_EXT="tar.gz"
+DL_URL="https://github.com/neovim/neovim/releases/download/${RELEASE}/${DL_FILE}.${DL_EXT}"
+
+TMP_DIR=$(mktemp -d)
+
+pushd "$TMP_DIR"
+
+# download latest nightly
+wget "${DL_URL}"
+
+# untar it
+tar -xf "${DL_FILE}.${DL_EXT}"
+
+#### install it
+cd /opt
+
+# delete existing backup if any
+[ -d "nvim-bak" ] && sudo rm -rf "nvim-bak"
+
+# backup current nvim version
+[ -d "nvim" ] && sudo mv nvim nvim-bak
+
+# install new version
+sudo mv "$TMP_DIR/$DL_FILE" ./nvim
+
+# delete tmp dir
+rm -rf "$TMP_DIR"
+
+trap popd EXIT
