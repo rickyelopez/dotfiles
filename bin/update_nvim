@@ -50,6 +50,7 @@ DL_URL="https://github.com/neovim/neovim/releases/download/${RELEASE}/${DL_FILE}
 TMP_DIR=$(mktemp -d)
 
 pushd "$TMP_DIR"
+trap popd EXIT
 
 # download latest nightly
 wget "${DL_URL}"
@@ -71,5 +72,3 @@ sudo mv "$TMP_DIR/$DL_FILE" ./nvim
 
 # delete tmp dir
 rm -rf "$TMP_DIR"
-
-trap popd EXIT
