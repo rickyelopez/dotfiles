@@ -2,7 +2,7 @@ return {
   "akinsho/bufferline.nvim",
   -- "git@github.com:rickyelopez/bufferline.nvim",
   -- branch = "user/rl/groupDuplicates",
-  dependencies = { "kyazdani42/nvim-web-devicons" },
+  dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
     local cycle = require("bufferline").cycle
     local move = require("bufferline").move
