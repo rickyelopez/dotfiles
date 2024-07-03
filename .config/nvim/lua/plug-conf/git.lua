@@ -1,6 +1,6 @@
 return {
   "rhysd/conflict-marker.vim",
-  { "sindrets/diffview.nvim", dependencies = { "kyazdani42/nvim-web-devicons" } },
+  { "sindrets/diffview.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
   {
     "lewis6991/gitsigns.nvim",
     config = function()
