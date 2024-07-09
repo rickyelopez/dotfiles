@@ -5,6 +5,7 @@
 # zmodload zsh/zprof
 
 # source additional files if they exist
+[[ -f $HOME/dotfiles_priv/.privrc ]] && source $HOME/dotfiles_priv/.privrc ]]
 [[ -f $HOME/dotfiles/.vars ]] && source $HOME/dotfiles/.vars
 [[ -f $HOME/dotfiles/.aliases ]] && source $HOME/dotfiles/.aliases
 
