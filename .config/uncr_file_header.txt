@@ -1,4 +1,0 @@
-/**
- * < File name here >
- * < Describe module here >
- */
