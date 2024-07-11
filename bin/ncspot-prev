@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Required parameters:
+# @raycast.schemaVersion 1
+# @raycast.title Previous Song
+# @raycast.mode silent
+
+# Optional parameters:
+# @raycast.icon ⏪
+
+# Documentation:
+# @raycast.description Tell ncspot to play the previous song in the queue
+
+echo "previous" | nc -U /tmp/ncspot/ncspot.sock &>/dev/null

@@ -3,17 +3,16 @@
 # Required parameters:
 # @raycast.schemaVersion 1
 # @raycast.title ncspot
-# @raycast.mode compact
+# @raycast.mode silent
 
 # Optional parameters:
-# @raycast.icon 🤖
+# @raycast.icon ../../dotfiles/assets/ncspot.svg
 
 # Documentation:
 # @raycast.description launch ncspot
 
-if [ $(uname) = "Darwin" ]; then
-    alacritty --title ncspot -e sh -c 'ncspot'
+if [[ "$(uname)" = "Darwin" ]]; then
+    XDG_RUNTIME_DIR=/tmp alacritty --title "ncspot" -o "window.startup_mode='Windowed'" -o "window.dimensions.lines=40" -o "window.dimensions.columns=150" -e sh -c "/opt/ncspot"
 else
     /usr/bin/alacritty --title ncspot -e sh -c 'ncspot'
 fi
-
