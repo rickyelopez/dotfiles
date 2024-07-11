@@ -164,6 +164,6 @@ alt - v : yabai -m window --toggle float --grid 4:4:1:1:2:2
 
 
 # media keys bound to ncspot
-play : echo "playpause" | nc -U ~/.cache/ncspot/ncspot.sock
-next : echo "next" | nc -U ~/.cache/ncspot/ncspot.sock
-previous : echo "previous" | nc -U ~/.cache/ncspot/ncspot.sock
+play : echo "playpause" | nc -U /tmp/ncspot/ncspot.sock &>/dev/null && echo "play/pause"
+next : echo "next" | nc -U /tmp/ncspot/ncspot.sock &>/dev/null && echo "next"
+previous : echo "previous" | nc -U /tmp/ncspot/ncspot.sock &>/dev/null && echo "previous"

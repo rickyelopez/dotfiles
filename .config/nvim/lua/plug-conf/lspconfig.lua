@@ -44,7 +44,6 @@ return {
       vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
       vim.keymap.set("n", "[c", vim.diagnostic.goto_prev, opts)
       vim.keymap.set("n", "]c", vim.diagnostic.goto_next, opts)
-      -- vim.keymap.set("n", "<leader>cr", "<cmd>LspRestart clangd<CR>", opts)
       -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
       -- Use an on_attach function to only map the following keys
@@ -81,7 +80,7 @@ return {
         local caps = client.server_capabilities
         if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
           local augroup = vim.api.nvim_create_augroup("SemanticTokens", {})
-          vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+          vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
             group = augroup,
             buffer = bufnr,
             callback = function()

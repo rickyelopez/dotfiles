@@ -15,11 +15,13 @@ return {
         -- },
       },
       formatters_by_ft = {
+        bzl = { "buildifier" },
         lua = { "stylua" },
         python = { "black" },
-        yaml = { "yamlfmt" },
         rust = { "rustfmt" },
+        sh = { "shfmt" },
         xml = { "xmlformat" },
+        yaml = { "yamlfmt" },
       },
     })
   end,
