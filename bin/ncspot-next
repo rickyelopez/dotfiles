@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Required parameters:
+# @raycast.schemaVersion 1
+# @raycast.title Next Song
+# @raycast.mode silent
+
+# Optional parameters:
+# @raycast.icon ⏩
+
+# Documentation:
+# @raycast.description Tell ncspot to play the next song in the queue
+
+echo "next" | nc -U /tmp/ncspot/ncspot.sock &>/dev/null
