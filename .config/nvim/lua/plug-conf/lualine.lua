@@ -7,6 +7,7 @@ return {
         -- theme = "base16",
         globalstatus = true,
       },
+      extensions = { "fzf", "lazy", "man", "mason", "nvim-tree", "oil", "toggleterm" },
       sections = {
         lualine_b = {},
         lualine_c = {
