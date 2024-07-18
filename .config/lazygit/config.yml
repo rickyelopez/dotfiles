@@ -55,11 +55,9 @@ customCommands:
           title: 'What kind of branch is it?'
           options:
             - value: 'other'
-            - value: 'last-built/develop'
             - value: 'last-built'
             - value: 'develop'
             - value: 'feature'
-            - value: 'factory'
             - value: 'terminal'
         - type: 'input'
           title: 'Branch name?'
@@ -78,6 +76,8 @@ keybinding:
     branches:
         fastForward: <disabled>
         forceCheckoutBranch: <disabled>
+    files:
+      toggleStagedAll: <disabled>
 os:
     edit: 'NVIM_LISTEN_ADDRESS=~/.local/state/nvim/nvimsocket nvr --remote-silent {{filename}}'
     editAtLine: 'NVIM_LISTEN_ADDRESS=~/.local/state/nvim/nvimsocket nvr --remote-silent +{{line}} {{filename}}'
