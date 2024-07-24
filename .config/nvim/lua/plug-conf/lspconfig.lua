@@ -37,14 +37,21 @@ return {
       })
 
       local util = require("lspconfig.util")
+      local map = require("utils").map
 
       -- Mappings.
       -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-      local opts = { noremap = true, silent = true }
-      vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
-      vim.keymap.set("n", "[c", vim.diagnostic.goto_prev, opts)
-      vim.keymap.set("n", "]c", vim.diagnostic.goto_next, opts)
-      -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
+      local function opts(desc, bufnr)
+        local opt = { desc = "lspconfig: " .. desc, noremap = true, silent = true, nowait = true }
+        if bufnr then
+          opt.buffer = bufnr
+        end
+        return opt
+      end
+
+      map("<space>e", vim.diagnostic.open_float, { "n" }, opts("Show diagnostics"))
+      -- map("<space>q", vim.diagnostic.setloclist, opts("Show diagnostics in loclist"))
 
       -- Use an on_attach function to only map the following keys
       -- after the language server attaches to the current buffer
@@ -52,29 +59,33 @@ return {
         -- Enable completion triggered by <c-x><c-o>
         vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
 
-        local bufopts = { noremap = true, silent = true, buffer = bufnr }
-        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-        vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-        vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
-        vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-        vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
-        vim.keymap.set("n", "<space>wl", function()
+        map("gD", vim.lsp.buf.declaration, { "n" }, opts("Goto declaration", bufnr))
+        map("gd", vim.lsp.buf.definition, { "n" }, opts("Goto definition", bufnr))
+        map("gi", vim.lsp.buf.implementation, { "n" }, opts("Goto implementation", bufnr))
+        map("gr", vim.lsp.buf.references, { "n" }, opts("Show references", bufnr))
+        map("K", vim.lsp.buf.hover, { "n" }, opts("Show hover", bufnr))
+        map("<C-k>", vim.lsp.buf.signature_help, { "n" }, opts("Show signature", bufnr))
+        map("<space>wa", vim.lsp.buf.add_workspace_folder, { "n" }, opts("Add folder to workspace", bufnr))
+        map("<space>wr", vim.lsp.buf.remove_workspace_folder, { "n" }, opts("Remove folder from workspace", bufnr))
+        map("<space>wl", function()
           print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end, bufopts)
-        vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
-        vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
-        vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
+        end, { "n" }, opts("List workspace folders", bufnr))
+        map("<space>D", vim.lsp.buf.type_definition, { "n" }, opts("Goto type definition", bufnr))
+        map("<space>rn", vim.lsp.buf.rename, { "n" }, opts("Rename symbol", bufnr))
+        map("<space>ca", vim.lsp.buf.code_action, { "n" }, opts("Show code actions", bufnr))
 
         if client.name == "clangd" then
-          vim.keymap.set("n", "<leader>o", "<cmd>ClangdSwitchSourceHeader<CR>", bufopts)
-          vim.keymap.set({ "n", "v" }, "<leader>f", require("uncrustify").format, bufopts)
+          map("<leader>o", "<cmd>ClangdSwitchSourceHeader<CR>", { "n" }, opts("Switch source-header", bufnr))
+          map(
+            "<leader>f",
+            require("uncrustify").format,
+            { "n", "v" },
+            opts("Format file/selection with uncrustify", bufnr)
+          )
         else
-          vim.keymap.set({ "n", "v" }, "<leader>f", function()
+          map("<leader>f", function()
             require("conform").format({ async = true, lsp_fallback = "always" })
-          end, bufopts)
+          end, { "n", "v" }, opts("Format file/selection", bufnr))
         end
 
         local caps = client.server_capabilities

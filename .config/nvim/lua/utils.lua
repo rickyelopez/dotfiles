@@ -1,6 +1,11 @@
 local api = vim.api
 local M = {}
 
+--- Add a keymap with default mode set to "n"
+--- @param lhs string the keymap
+--- @param rhs string|function action to perform
+--- @param modes string|table? modes for this bind. Defaults to { "n" }
+--- @param opts vim.keymap.set.Opts?
 M.map = function(lhs, rhs, modes, opts)
   modes = modes or { "n" }
   opts = opts or { noremap = true, silent = true }
