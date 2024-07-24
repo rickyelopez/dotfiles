@@ -5,8 +5,14 @@ return {
     local map = require("utils").map
     local api = require("nvim-tree.api")
 
-    map("<leader>pv", api.tree.focus)
-    map([[\]], function() api.tree.find_file(); api.tree.focus() end)
+    local function opts(desc)
+      return { desc = "nvim-tree: " .. desc, noremap = true, silent = true, nowait = true }
+    end
+
+    map("<leader>pv", api.tree.focus, { "n" }, opts("Focus"))
+    map([[\]], function()
+      api.tree.find_file({ open = true, focus = true })
+    end, { "n" }, opts("Find file"))
 
     local function on_attach(bufnr)
       local function opts(desc)
@@ -17,10 +23,10 @@ return {
       api.config.mappings.default_on_attach(bufnr)
 
       -- custom mappings
-      vim.keymap.set("n", "<BS>", api.tree.change_root_to_parent, opts("Up"))
-      vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
-      vim.keymap.set("n", ".", api.tree.change_root_to_node, opts("CD"))
-      vim.keymap.set("n", "C", api.node.navigate.parent_close, opts("Collapse"))
+      map("<BS>", api.tree.change_root_to_parent, { "n" }, opts("Up"))
+      map("?", api.tree.toggle_help, { "n" }, opts("Help"))
+      map(".", api.tree.change_root_to_node, { "n" }, opts("CD"))
+      map("C", api.node.navigate.parent_close, { "n" }, opts("Collapse"))
     end
 
     require("nvim-tree").setup({
@@ -42,13 +48,16 @@ return {
       renderer = {
         group_empty = true,
       },
+      filesystem_watchers = {
+        enable = false,
+      },
       filters = {
         git_ignored = false,
         dotfiles = false,
       },
       git = {
         enable = false,
-       }
+      },
     })
   end,
 }

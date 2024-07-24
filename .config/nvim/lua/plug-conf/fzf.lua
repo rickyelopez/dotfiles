@@ -39,7 +39,6 @@ return {
       fzf_lua.register_ui_select()
 
       fzf_lua.setup({
-        git_icons = false,
         winopts = {
           height = 0.9, -- window height
           width = 0.9, -- window width
@@ -48,10 +47,19 @@ return {
             horizontal = "right:50%", -- right|left:size
           },
         },
+        keymap = {
+          fzf = {
+            ["ctrl-u"] = "page-up",
+            ["ctrl-d"] = "page-down",
+          },
+        },
         files = {
+          git_icons = false,
           toggle_ignore_flag = "--no-ignore " .. fd_ignore,
         },
         grep = {
+          git_icons = false,
+          rg_opts = "--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
           toggle_ignore_flag = "--no-ignore " .. rg_ignore,
           actions = {
             ["ctrl-g"] = { actions.toggle_ignore },
@@ -63,7 +71,7 @@ return {
       map("<leader>gg", fzf_lua.live_grep)
       map("<leader>gw", fzf_lua.grep_cword) -- in normal mode, search word under cursor
       map("<leader>gw", fzf_lua.grep_visual, { "v" }) -- in visual mode, search the selection
-      map("<leader>gr", fzf_lua.resume) -- in visual mode, search the selection
+      map("<leader>gr", fzf_lua.resume) -- resume previous grep/fd search
     end,
   },
 }

@@ -2,6 +2,11 @@ return {
   "nvim-lualine/lualine.nvim",
   dependencies = "RRethy/nvim-base16",
   config = function()
+    local function progress_lines()
+      local cur = vim.fn.line(".")
+      local total = vim.fn.line("$")
+      return "" .. cur .. "/" .. total
+    end
     require("lualine").setup({
       options = {
         -- theme = "base16",
@@ -16,6 +21,9 @@ return {
             file_status = true, -- displays file status (readonly status, modified status)
             path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
           },
+        },
+        lualine_y = {
+          progress_lines
         },
       },
     })
