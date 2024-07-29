@@ -7,7 +7,12 @@ return {
       local map = require("utils").map
       local gitsigns = require("gitsigns")
 
-      map("<leader>gb", gitsigns.toggle_current_line_blame)
+      local function opts(desc)
+        return { desc = "git.lua: " .. desc, noremap = true, silent = true, nowait = true }
+      end
+
+      map("<leader>gb", gitsigns.toggle_current_line_blame, { "n" }, opts("Toggle current line blame"))
+      map("<leader>gB", gitsigns.blame, { "n" }, opts("Toggle whole-file blame"))
 
       vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { fg = "lightgrey" })
 

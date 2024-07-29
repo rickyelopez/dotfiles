@@ -24,8 +24,8 @@ map("*", "*zz")
 map("#", "#zz")
 map("g*", "g*zz")
 map("g#", "g#zz")
-map("<C-o>", "<C-o>zz")
-map("<C-i>", "<C-i>zz")
+-- map("<C-o>", "<C-o>zz")
+-- map("<C-i>", "<C-i>zz")
 
 -- make Y consistent with C and D
 map("Y", "y$")
