@@ -42,6 +42,7 @@ return {
       local function set_terminal_keymaps()
         local opts = { noremap = true, silent = true }
         vim.api.nvim_buf_set_keymap(0, "t", "<Esc>", [[<Cmd>stopinsert<CR>]], opts)
+        vim.api.nvim_buf_set_keymap(0, "n", "gf", [[<C-w>gF]], opts)
         -- vim.api.nvim_buf_set_keymap(0, "t", "<Esc>", [[<C-\><C-n>]], opts)
         -- vim.api.nvim_buf_set_keymap(0, "t", "jk", [[<C-\><C-n>]], opts)
         -- vim.api.nvim_buf_set_keymap(0, "t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
