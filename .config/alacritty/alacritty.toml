@@ -24,7 +24,9 @@ history = 10000
 decorations = "none"
 opacity = 0.9
 startup_mode = "Maximized"
+dynamic_padding = true
+blur = true
 
 [window.padding]
-x = 3
-y = 3
+x = 2
+y = 2
