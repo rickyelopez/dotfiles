@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/usr/bin/bash
 
 ## epoch_ms to timestamp
 ts () { python3 -c "from datetime import datetime; print(datetime.fromtimestamp(${1}/1000 - (60*60*7)).strftime(\"%Y-%m-%d %H:%M:%S\"))"; }
@@ -19,7 +19,7 @@ activate () {
 if command -v lf &> /dev/null; then
     lfcd () {
         # `command` is needed in case `lfcd` is aliased to `lf`
-        cd "$(command lf -print-last-dir "$@")"
+        cd "$(command lf -print-last-dir "$@")" || return
     }
 fi
 
