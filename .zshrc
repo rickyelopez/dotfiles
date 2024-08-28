@@ -4,11 +4,6 @@
 # also uncomment the `zprof` call at the end of this file
 # zmodload zsh/zprof
 
-# source additional files if they exist
-[[ -f $HOME/dotfiles_priv/.privrc ]] && source $HOME/dotfiles_priv/.privrc ]]
-[[ -f $HOME/dotfiles/.vars ]] && source $HOME/dotfiles/.vars
-[[ -f $HOME/dotfiles/.aliases ]] && source $HOME/dotfiles/.aliases
-
 # load antidote/plugins
 zsh_plugins=${ZDOTDIR:-$HOME}/.zsh_plugins
 if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
@@ -19,6 +14,14 @@ if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
 fi
 
 source ${zsh_plugins}.zsh
+
+# source additional files if they exist
+[[ -f $HOME/dotfiles_priv/.privrc ]] && source $HOME/dotfiles_priv/.privrc ]]
+[[ -f $HOME/dotfiles/.vars ]] && source $HOME/dotfiles/.vars
+[[ -f $HOME/dotfiles/.aliases ]] && source $HOME/dotfiles/.aliases
+
+# load nix zsh if it exists
+[[ -s "$HOME/.nix-profile/home-path/etc/profile.d/hm-session-vars.sh" ]] && source "$HOME/.nix-profile/home-path/etc/profile.d/hm-session-vars.sh"
 
 [[ -x pokemon-colorscripts ]] && pokemon-colorscripts --no-title -s -r
 
@@ -73,7 +76,9 @@ if [[ -x $PYENV_ROOT/bin/pyenv ]]; then
     # eval "$(pyenv init -)"
 fi
 
-if [[ -s "$HOME/.autojump/etc/profile.d/autojump.sh" ]]; then
+if [[ -s "$HOME/.nix-profile/home-path/etc/profile.d/autojump.sh" ]]; then
+    source "$HOME/.nix-profile/home-path/etc/profile.d/autojump.sh"
+elif [[ -s "$HOME/.autojump/etc/profile.d/autojump.sh" ]]; then
     source "$HOME/.autojump/etc/profile.d/autojump.sh" 
 elif [[ -s "/etc/profile.d/autojump.sh" ]]; then
     source "/etc/profile.d/autojump.sh" 
@@ -84,7 +89,8 @@ elif [[ -s "/opt/homebrew/etc/profile.d/autojump.sh" ]]; then
 fi
 
 
-[[ "$(uname 2> /dev/null)" != "Linux" ]] && autoload -U compinit && compinit -u
+# disabled because it makes startup take longer and it seems like omz already does this
+# [[ "$(uname 2> /dev/null)" != "Linux" ]] && autoload -U compinit && compinit -u
 
 # set up fzf zsh integration
 if hash fzf 2>/dev/null; then
