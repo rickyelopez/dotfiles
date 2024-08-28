@@ -11,6 +11,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    wezterm = {
+      url = "github:rickyelopez/wezterm/rl/outputApp?dir=nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

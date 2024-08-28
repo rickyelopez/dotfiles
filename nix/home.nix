@@ -38,4 +38,8 @@
     home-manager.enable = true;
     autojump.enable = true;
   };
+
+  imports = [
+    ./modules/wezterm.nix
+  ];
 }
