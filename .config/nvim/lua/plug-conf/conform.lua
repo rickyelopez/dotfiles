@@ -8,6 +8,9 @@ return {
             return vim.env.BLACK_CFG and { "--config", vim.env.BLACK_CFG } or {}
           end,
         },
+        ["nixpkgs-fmt"] = {
+          command = "nixpkgs-fmt",
+        }
         -- rustfmt = {
         --   options = {
         --     default_edition = "2021",
@@ -22,6 +25,7 @@ return {
         sh = { "shfmt" },
         xml = { "xmlformat" },
         yaml = { "yamlfmt" },
+        nix = { "nixpkgs-fmt" },
       },
     })
   end,
