@@ -9,6 +9,7 @@
     packages = with pkgs; [
       bat
       bazelisk
+      delta
       fd
       ffmpeg
       fzf

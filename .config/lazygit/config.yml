@@ -72,6 +72,9 @@ gui:
 git:
     overrideGpg: true
     autoFetch: false
+    paging:
+      colorArg: always
+      pager: delta --dark --paging=never
 keybinding:
     branches:
         fastForward: <disabled>
