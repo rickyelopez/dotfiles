@@ -38,6 +38,12 @@
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
     autojump.enable = true;
+    gh = {
+      enable = true;
+      extensions = [
+        pkgs.gh-dash
+      ];
+    };
   };
 
   imports = [
