@@ -12,7 +12,7 @@
     (nerdfonts.override { fonts = [ "IBMPlexMono" ]; })
   ];
 
-  programs.zsh.enable = true;
+  # programs.zsh.enable = true;
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
@@ -38,25 +38,18 @@
 
     brews = [
       # "bazelisk"
-      # "ffmpeg"
       "gdal"
       # "git-lfs"
       # "htop"
       "iproute2mac"
-      # "k9s"
       "libgit2"
       "opencv"
       "openjdk"
       "portaudio"
-      # "rsync"
       "pam-reattach"
       "skhd"
-      # "socat"
       # "cmacrae/formulae/spacebar"
       "tcl-tk"
-      # "util-linux"
-      # "watch"
-      # "wget"
       "zlib"
     ];
 
@@ -81,14 +74,7 @@
     hostPlatform = "aarch64-darwin";
   };
 
-  nix = {
-    package = pkgs.nix;
-    useDaemon = true;
-    settings = {
-      trusted-users = [ "ricky.lopez" ];
-      cores = 8;
-    };
-  };
+  nix.settings.trusted-users = [ "ricky.lopez" ];
 
   security.pam.enableSudoTouchIdAuth = true;
 
@@ -104,28 +90,50 @@
     '';
 
     defaults = {
+      # customize settings that not supported by nix-darwin directly
+      # Incomplete list of macOS `defaults` commands :
+      #   https://github.com/yannbertrand/macos-defaults
       NSGlobalDomain = {
-        # AppleKeyboardUIMode = 3;
+        # _HIHideMenuBar = true;
         AppleInterfaceStyle = "Dark";
         AppleShowAllExtensions = true;
-        # NSAutomaticWindowAnimationsEnabled = false;
-        # NSNavPanelExpandedStateForSaveMode = true;
-        # NSNavPanelExpandedStateForSaveMode2 = true;
+
+        AppleKeyboardUIMode = 3; # Mode 3 enables full keyboard control.
+        ApplePressAndHoldEnabled = true; # enable press and hold
+        # sets how long it takes before held key starts repeating.
+        InitialKeyRepeat = 15; # normal minimum is 15 (225 ms), maximum is 120 (1800 ms)
+        # sets how fast it repeats once it starts.
+        KeyRepeat = 2; # minimum is 2 (30 ms), maximum is 120 (1800 ms)
+
+        "com.apple.swipescrolldirection" = false; # natural scrolling (default: true)
         # "com.apple.keyboard.fnState" = true;
-        # _HIHideMenuBar = true;
         # "com.apple.mouse.tapBehavior" = 1;
         # "com.apple.sound.beep.volume" = 0.0;
         # "com.apple.sound.beep.feedback" = 0;
-        # ApplePressAndHoldEnabled = false;
+        # "com.apple.sound.beep.feedback" = 0; # disable beep sound when pressing volume up/down key
+
+        NSAutomaticCapitalizationEnabled = false; # disable auto capitalization
+        NSAutomaticDashSubstitutionEnabled = false; # disable auto dash substitution
+        NSAutomaticPeriodSubstitutionEnabled = false; # disable auto period substitution
+        NSAutomaticQuoteSubstitutionEnabled = false; # disable auto quote substitution
+        NSAutomaticSpellingCorrectionEnabled = false; # disable auto spelling correction
+        NSNavPanelExpandedStateForSaveMode = true; # expand save panel by default
+        NSNavPanelExpandedStateForSaveMode2 = true;
+        NSAutomaticWindowAnimationsEnabled = false;
       };
 
       CustomUserPreferences = {
+        ".GlobalPreferences" = {
+          # automatically switch to a new space when switching to the application
+          AppleSpacesSwitchOnActivate = true;
+        };
+
         "com.apple.finder" = {
           # ShowExternalHardDrivesOnDesktop = false;
           # ShowHardDrivesOnDesktop = false;
           ShowMountedServersOnDesktop = true;
           ShowRemovableMediaOnDesktop = true;
-          # _FXSortFoldersFirst = true;
+          _FXSortFoldersFirst = true;
           # When performing a search, search the current folder by default
           FXDefaultSearchScope = "SCcf";
         };
@@ -160,9 +168,11 @@
         };
 
         finder = {
+          _FXShowPosixPathInTitle = true;
           AppleShowAllExtensions = true;
-          ShowPathbar = true;
           FXEnableExtensionChangeWarning = false;
+          ShowPathbar = true;
+          ShowStatusBar = true;
         };
 
         # keyboard = {

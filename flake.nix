@@ -29,6 +29,7 @@
         "DTQ4WX0376" = darwin.lib.darwinSystem {
           specialArgs = { inherit self; inherit home; };
           modules = [
+            ./nix/modules/nix-core.nix
             ./nix/modules/darwin.nix
             home-manager.darwinModules.home-manager
             {

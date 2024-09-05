@@ -44,6 +44,7 @@
         pkgs.gh-dash
       ];
     };
+    # zsh.enable = true;
   };
 
   imports = [
