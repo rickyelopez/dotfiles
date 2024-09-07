@@ -1,4 +1,4 @@
-{ pkgs, home, ... }:
+{ pkgs, home, user, ... }:
 let
   inherit (pkgs) stdenv;
 in
@@ -7,7 +7,7 @@ in
     # don't change
     stateVersion = "24.05";
 
-    username = "ricky.lopez";
+    username = user;
     homeDirectory = home;
 
     packages = with pkgs; [
