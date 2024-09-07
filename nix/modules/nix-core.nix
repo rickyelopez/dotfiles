@@ -18,6 +18,7 @@
     settings = {
       auto-optimise-store = false;
       warn-dirty = false;
+      trusted-users = [ "ricky.lopez" "ricclopez" "intern" ];
     };
   };
 }
