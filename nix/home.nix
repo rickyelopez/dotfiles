@@ -1,14 +1,14 @@
-{ pkgs, home, ... }: {
+{ pkgs, home, user, ... }: {
   home = {
     # don't change
     stateVersion = "24.05";
 
-    username = "ricky.lopez";
+    username = user;
     homeDirectory = home;
 
     packages = with pkgs; [
       bat
-      bazelisk
+      # bazelisk
       delta
       fd
       ffmpeg
@@ -16,10 +16,10 @@
       git-lfs
       htop
       jq
-      k9s
+      # k9s
       lazygit
       mutagen
-      obsidian
+      # obsidian
       # portaudio
       ripgrep
       rsync

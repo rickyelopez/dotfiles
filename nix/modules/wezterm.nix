@@ -14,6 +14,6 @@
 
   programs.wezterm = {
     enable = true;
-    package = inputs.wezterm.packages.aarch64-darwin.default;
+    # package = inputs.wezterm.packages.aarch64-darwin.default;
   };
 }

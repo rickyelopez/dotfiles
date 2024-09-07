@@ -74,8 +74,6 @@
     hostPlatform = "aarch64-darwin";
   };
 
-  nix.settings.trusted-users = [ "ricky.lopez" ];
-
   security.pam.enableSudoTouchIdAuth = true;
 
   system = {

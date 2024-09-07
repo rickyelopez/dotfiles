@@ -25,30 +25,53 @@
     , ...
     }:
     {
-      darwinConfigurations = let home = "/Users/ricky.lopez"; in {
-        "DTQ4WX0376" = darwin.lib.darwinSystem {
-          specialArgs = { inherit self; inherit home; };
-          modules = [
-            ./nix/modules/nix-core.nix
-            ./nix/modules/darwin.nix
-            home-manager.darwinModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users."ricky.lopez" = import ./nix/home.nix;
+      darwinConfigurations =
+        let
+          user = "ricky.lopez";
+          home = "/Users/${user}";
+        in
+        {
+          "DTQ4WX0376" = darwin.lib.darwinSystem {
+            specialArgs = { inherit self; inherit home; };
+            modules = [
+                ./nix/modules/nix-core.nix
+              ./nix/modules/darwin.nix
+              home-manager.darwinModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users."${user}" = import ./nix/home.nix;
 
-              # Optionally, use home-manager.extraSpecialArgs to pass
-              # arguments to home.nix
-              home-manager.extraSpecialArgs = {
-                inherit inputs;
-                inherit home;
-              };
-            }
-          ];
+                home-manager.extraSpecialArgs = {
+                  inherit inputs;
+                  inherit home;
+                };
+              }
+            ];
+          };
         };
-      };
 
       # Expose the package set, including overlays, for convenience.
       darwinPackages = self.darwinConfigurations."DTQ4WX0376".pkgs;
+
+      defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
+      homeConfigurations =
+        let
+          user = "ricclopez";
+          home = "/home/${user}";
+        in
+        {
+          ricclopez = home-manager.lib.homeManagerConfiguration {
+            pkgs = import nixpkgs { system = "x86_64-linux"; };
+
+            extraSpecialArgs = {
+              inherit user;
+              inherit home;
+              inherit inputs;
+            };
+
+            modules = [ ./nix/home.nix ];
+          };
+        };
     };
 }
