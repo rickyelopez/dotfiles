@@ -62,7 +62,7 @@
           home = "/home/${user}";
         in
         {
-          ricclopez = home-manager.lib.homeManagerConfiguration {
+          "${user}" = home-manager.lib.homeManagerConfiguration {
             pkgs = import nixpkgs { system = "x86_64-linux"; };
 
             extraSpecialArgs = {
@@ -72,8 +72,8 @@
             };
 
             modules = [
-            ./nix/modules/nix-core.nix
-            ./nix/home.nix
+              ./nix/modules/nix-core.nix
+              ./nix/home.nix
             ];
           };
         };
