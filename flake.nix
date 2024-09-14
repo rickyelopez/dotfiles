@@ -34,7 +34,7 @@
           "DTQ4WX0376" = darwin.lib.darwinSystem {
             specialArgs = { inherit self; inherit home; };
             modules = [
-                ./nix/modules/nix-core.nix
+              ./nix/modules/nix-core.nix
               ./nix/modules/darwin.nix
               home-manager.darwinModules.home-manager
               {
@@ -61,7 +61,7 @@
           home = "/home/${user}";
         in
         {
-          ricclopez = home-manager.lib.homeManagerConfiguration {
+          "${user}" = home-manager.lib.homeManagerConfiguration {
             pkgs = import nixpkgs { system = "x86_64-linux"; };
 
             extraSpecialArgs = {
@@ -70,7 +70,11 @@
               inherit inputs;
             };
 
-            modules = [ ./nix/home.nix ];
+            modules = [
+              ./nix/modules/nix-core.nix
+              ./nix/home.nix
+            ];
+
           };
         };
     };

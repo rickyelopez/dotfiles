@@ -1,4 +1,7 @@
 { self, pkgs, home, ... }: {
+  nix = {
+    useDaemon = true;
+  };
   services = {
     nix-daemon.enable = true;
     activate-system.enable = true;
@@ -7,10 +10,6 @@
   users.users."ricky.lopez" = {
     home = home;
   };
-
-  fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "IBMPlexMono" ]; })
-  ];
 
   # programs.zsh.enable = true;
 

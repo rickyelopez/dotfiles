@@ -1,7 +1,6 @@
 { pkgs, lib, ... }: {
   nix = {
     package = pkgs.nix;
-    useDaemon = true;
     # settings = {
     #   cores = 8;
     # };

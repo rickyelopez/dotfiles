@@ -31,8 +31,15 @@
       wget
       yazi
       yq
+      (nerdfonts.override { fonts = [ "IBMPlexMono" "Noto" ]; })
     ];
   };
+
+  fonts.fontconfig.enable = true;
+
+  # I think this is necessary because the file must exist in order to enable
+  # experimental features before this flake can build
+  xdg.configFile."nix/nix.conf".enable = false;
 
   programs = {
     # Let Home Manager install and manage itself.
