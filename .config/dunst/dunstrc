@@ -194,7 +194,7 @@
     max_icon_size = 32
 
     # Paths to default icons.
-    icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+    icon_path = /usr/share/icons/breeze-dark/devices/status/16/:/usr/share/icons/breeze-dark/devices/status/16/
 
     ### History ###
 
@@ -254,11 +254,14 @@
     # * none: Don't do anything.
     # * do_action: If the notification has exactly one action, or one is marked as default,
     #              invoke it. If there are multiple and no default, open the context menu.
+    # * open_url: If the notification has exactly one url, open it. If there are multiple ones, open the context menu.
+    # * context: Open context menu for the notification.
+    # * context_all: Open context menu for all notifications.
     # * close_current: Close current notification.
     # * close_all: Close all notifications.
     # These values can be strung together for each mouse event, and
     # will be executed in sequence.
-    mouse_left_click = do_action, close_current
+    mouse_left_click = context
     mouse_right_click = close_current
     mouse_middle_click = close_all
 
