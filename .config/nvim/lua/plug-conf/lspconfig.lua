@@ -15,6 +15,7 @@ return {
           "clangd",
           "jsonls",
           "lua_ls",
+          "nil_ls",
           "pyright",
           "rust_analyzer",
           "taplo",
@@ -26,6 +27,7 @@ return {
       require("mason-tool-installer").setup({
         ensure_installed = {
           "black",
+          "nixpkgs-fmt",
           "shellcheck",
           "stylua",
           "yamlfmt",
