@@ -1,0 +1,5 @@
+[plugin]
+deps = [{ use = "yazi-rs/plugins:chmod", rev = "d9bfa0b" }, { use = "yazi-rs/plugins:smart-filter", rev = "d9bfa0b" }]
+
+[flavor]
+deps = []
