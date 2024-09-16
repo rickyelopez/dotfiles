@@ -50,10 +50,9 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Which plugins would you like to load?
 plugins=(
   git
-  dnf
 )
 
-# Don't define aliaes from the git plugin
+# Don't define aliases from the git plugin
 zstyle ':omz:plugins:git' aliases no
 
 source $ZSH/oh-my-zsh.sh
