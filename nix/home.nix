@@ -1,4 +1,8 @@
-{ pkgs, home, ... }: {
+{ pkgs, home, ... }:
+let
+  inherit (pkgs) stdenv;
+in
+{
   home = {
     # don't change
     stateVersion = "24.05";
@@ -8,7 +12,6 @@
 
     packages = with pkgs; [
       bat
-      bazelisk
       delta
       fd
       ffmpeg
@@ -16,21 +19,29 @@
       git-lfs
       htop
       jq
-      k9s
       lazygit
       mutagen
-      obsidian
       # portaudio
       ripgrep
       rsync
       socat
       sshpass
       tmux
-      util-linux
       watch
       wget
       yazi
       yq
+    ]
+    # packages for mac only
+    ++ lib.lists.optionals stdenv.isDarwin [
+      k9s
+      bazelisk
+      obsidian
+      util-linux
+    ]
+    # packages for linux only
+    ++ lib.lists.optionals stdenv.isLinux [
+      vlc
     ];
   };
 
@@ -44,10 +55,10 @@
         pkgs.gh-dash
       ];
     };
-    # zsh.enable = true;
   };
 
   imports = [
     ./modules/wezterm.nix
+    # ./modules/zsh.nix
   ];
 }

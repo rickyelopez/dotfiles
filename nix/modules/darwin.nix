@@ -12,7 +12,7 @@
     (nerdfonts.override { fonts = [ "IBMPlexMono" ]; })
   ];
 
-  # programs.zsh.enable = true;
+  programs.zsh.enable = true;
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
@@ -23,7 +23,7 @@
   homebrew = {
     enable = true;
     onActivation = {
-      autoUpdate = true;
+      autoUpdate = false;
       upgrade = true;
       cleanup = "zap";
     };
@@ -37,10 +37,7 @@
     ];
 
     brews = [
-      # "bazelisk"
       "gdal"
-      # "git-lfs"
-      # "htop"
       "iproute2mac"
       "libgit2"
       "opencv"
@@ -55,7 +52,9 @@
 
     casks = [
       "bluesnooze"
+      "caffeine"
       "karabiner-elements"
+      "vlc"
     ];
 
     masApps = { };
