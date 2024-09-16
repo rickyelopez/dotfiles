@@ -63,6 +63,13 @@ in
         pkgs.gh-dash
       ];
     };
+    # kitty = {
+    #     enable = true;
+    #     font = {
+    #         name = "Blex Mono Nerd Font Mono";
+    #         size = 11.0;
+    #     };
+    # };
   };
 
   imports = [
