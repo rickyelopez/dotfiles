@@ -30,9 +30,9 @@ return {
         on_open = set_tui_keymaps,
       })
 
-      local lf = Terminal:new({
+      local file_browser = Terminal:new({
         display_name = "File Explorer",
-        cmd = "lf",
+        cmd = "yazi",
         count = 11,
         hidden = true,
         direction = "float",
@@ -65,8 +65,8 @@ return {
         lazygit:toggle()
       end)
 
-      map("<leader>tr", function()
-        lf:toggle()
+      map("<leader>tf", function()
+        file_browser:toggle()
       end)
     end,
   },
