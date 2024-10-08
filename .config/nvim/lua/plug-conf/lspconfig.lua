@@ -56,13 +56,16 @@ return {
       -- Use an on_attach function to only map the following keys
       -- after the language server attaches to the current buffer
       local on_attach = function(client, bufnr)
+        local trouble = require("trouble")
         -- Enable completion triggered by <c-x><c-o>
         vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
 
         map("gD", vim.lsp.buf.declaration, { "n" }, opts("Goto declaration", bufnr))
         map("gd", vim.lsp.buf.definition, { "n" }, opts("Goto definition", bufnr))
         map("gi", vim.lsp.buf.implementation, { "n" }, opts("Goto implementation", bufnr))
-        map("gr", vim.lsp.buf.references, { "n" }, opts("Show references", bufnr))
+        map("gr", function()
+          trouble.open({ mode = "lsp_references", focus = true })
+        end, { "n" }, opts("Show references", bufnr))
         map("K", vim.lsp.buf.hover, { "n" }, opts("Show hover", bufnr))
         map("<C-k>", vim.lsp.buf.signature_help, { "n" }, opts("Show signature", bufnr))
         map("<space>wa", vim.lsp.buf.add_workspace_folder, { "n" }, opts("Add folder to workspace", bufnr))
@@ -153,6 +156,24 @@ return {
             flags = lsp_flags,
             capabilities = capabilities,
             root_dir = util.root_pattern(unpack({ "pyproject.toml" })),
+          })
+        end,
+        ["rust_analyzer"] = function()
+          require("lspconfig")["rust_analyzer"].setup({
+            on_attach = on_attach,
+            flags = lsp_flags,
+            capabilities = capabilities,
+            cmd = { "ra-multiplex" },
+            settings = {
+              ["rust-analyzer"] = {
+                -- files = {
+                --   watcher = "server"
+                -- },
+                check = {
+                  workspace = false,
+                },
+              },
+            },
           })
         end,
         ["yamlls"] = function()
