@@ -37,6 +37,7 @@
     ];
 
     brews = [
+      "ccache"
       "gdal"
       "iproute2mac"
       "libgit2"

@@ -18,6 +18,7 @@ in
       fzf
       git-lfs
       htop
+      just
       jq
       lazygit
       mutagen
