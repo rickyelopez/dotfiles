@@ -4,6 +4,8 @@
     activate-system.enable = true;
   };
 
+  nix.useDaemon = true;
+
   users.users."ricky.lopez" = {
     home = home;
   };

@@ -1,7 +1,6 @@
 { pkgs, lib, ... }: {
   nix = {
     package = pkgs.nix;
-    useDaemon = true;
     # settings = {
     #   cores = 8;
     # };
@@ -16,9 +15,9 @@
     #   https://github.com/NixOS/nix/issues/7273
     # "error: cannot link '/nix/store/.tmp-link-xxxxx-xxxxx' to '/nix/store/.links/xxxx': File exists"
     settings = {
+      experimental-features = [ "nix-command" "flakes" ];
       auto-optimise-store = false;
       warn-dirty = false;
-      trusted-users = [ "ricky.lopez" "ricclopez" "intern" ];
     };
   };
 }
