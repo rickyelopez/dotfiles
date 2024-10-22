@@ -20,8 +20,12 @@ source ${zsh_plugins}.zsh
 [[ -f $HOME/dotfiles/.vars ]] && source $HOME/dotfiles/.vars
 [[ -f $HOME/dotfiles/.aliases ]] && source $HOME/dotfiles/.aliases
 
+
+export TERMINFO_DIRS="$HOME/.nix-profile/share/terminfo:$HOME/.nix-profile/home-path/share/terminfo"
+
 # load nix zsh if it exists
 [[ -s "$HOME/.nix-profile/home-path/etc/profile.d/hm-session-vars.sh" ]] && source "$HOME/.nix-profile/home-path/etc/profile.d/hm-session-vars.sh"
+[[ -s "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]] && source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 
 [[ -x pokemon-colorscripts ]] && pokemon-colorscripts --no-title -s -r
 
