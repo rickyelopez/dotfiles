@@ -29,6 +29,7 @@ return {
           "black",
           "nixpkgs-fmt",
           "shellcheck",
+          "shfmt",
           "stylua",
           "yamlfmt",
         },

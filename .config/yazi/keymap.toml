@@ -7,3 +7,13 @@ desc = "Smart filter"
 on   = [ "c", "m" ]
 run  = "plugin chmod"
 desc = "Chmod on selected files"
+
+[[manager.prepend_keymap]]
+on   = [ "c", "f" ]
+run  = "plugin flatten"
+desc = "Flatten selected dirs"
+
+[[manager.prepend_keymap]]
+on   = "p"
+run  = "plugin --sync smart-paste"
+desc = "Paste into the hovered directory or CWD"
