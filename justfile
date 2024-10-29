@@ -8,3 +8,6 @@ switch:
 
 bootstrap:
   nix run --experimental-features 'nix-command flakes' ~/dotfiles -- switch --experimental-features 'nix-command flakes' --flake ~/dotfiles
+
+update:
+  cd ~/dotfiles && nix flake update
