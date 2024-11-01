@@ -10,7 +10,7 @@ return {
         },
         ["nixpkgs-fmt"] = {
           command = "nixpkgs-fmt",
-        }
+        },
         -- rustfmt = {
         --   options = {
         --     default_edition = "2021",
@@ -19,6 +19,7 @@ return {
       },
       formatters_by_ft = {
         bzl = { "buildifier" },
+        cpp = { "clang-format" }, -- note that c and cpp are different here, c uses `uncrustify`, configured in lspconfig.lua
         lua = { "stylua" },
         python = { "black" },
         rust = { "rustfmt" },

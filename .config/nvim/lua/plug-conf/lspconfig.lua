@@ -79,18 +79,21 @@ return {
         map("<space>rn", vim.lsp.buf.rename, { "n" }, opts("Rename symbol", bufnr))
         map("<space>ca", vim.lsp.buf.code_action, { "n" }, opts("Show code actions", bufnr))
 
+        -- only use uncrustify for c files
+        -- this is a hack since work uses clang-format, but work also only uses cpp so this is fine for now
+        if vim.api.nvim_buf_call(bufnr, function() return vim.bo.filetype end) == "c" then
+        -- if true then
+          local fmt = require("uncrustify").format
+          map("<leader>f", fmt, { "n", "v" }, opts("Format file/selection with uncrustify", bufnr))
+        else
+          local fmt = require("conform").format
+          map("<leader>f", function()
+            fmt({ async = true, lsp_fallback = "always" })
+          end, { "n", "v" }, opts("Format file/selection", bufnr))
+        end
+
         if client.name == "clangd" then
           map("<leader>o", "<cmd>ClangdSwitchSourceHeader<CR>", { "n" }, opts("Switch source-header", bufnr))
-          map(
-            "<leader>f",
-            require("uncrustify").format,
-            { "n", "v" },
-            opts("Format file/selection with uncrustify", bufnr)
-          )
-        else
-          map("<leader>f", function()
-            require("conform").format({ async = true, lsp_fallback = "always" })
-          end, { "n", "v" }, opts("Format file/selection", bufnr))
         end
 
         local caps = client.server_capabilities
