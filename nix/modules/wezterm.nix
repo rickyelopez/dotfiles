@@ -1,4 +1,4 @@
-{ config, home, ... }: {
+{ config, home, inputs, ... }: {
   home = {
     sessionVariables = { TERM = "wezterm"; };
     # activation.removeExistingWeztermConfig = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
