@@ -23,6 +23,9 @@ if command -v lf &> /dev/null; then
     }
 fi
 
+# ninja build and filter compdb
+alias compdb="ninja -C out all_apps -t compdb | jq '[ .[] | select(.command | contains(\"bad_toolchain\")|not) ]' > compile_commands.json"
+
 ################################################################################
 #                           Common Git Commands
 ################################################################################
@@ -66,7 +69,7 @@ alias gc='git clean -dxf'
 alias gbc='git branch --show-current'
 # grep for branches
 gbg () { git branch | grep -E "$@"; }
-# make and checkout new branch
+# make and checkout new brallanch
 alias gbn='git checkout -b'
 # delete branch
 alias gbd='git branch -D'
