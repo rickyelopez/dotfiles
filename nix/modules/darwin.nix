@@ -1,7 +1,6 @@
 { self, pkgs, home, ... }: {
   services = {
     nix-daemon.enable = true;
-    activate-system.enable = true;
   };
 
   nix.useDaemon = true;
