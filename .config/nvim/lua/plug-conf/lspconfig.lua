@@ -157,6 +157,22 @@ return {
             },
           })
         end,
+        ["nil_ls"] = function()
+          require("lspconfig")["nil_ls"].setup({
+            on_attach = on_attach,
+            flags = lsp_flags,
+            capabilities = capabilities,
+            settings = {
+              ["nil"] = {
+                nix = {
+                  flake = {
+                    autoArchive = true,
+                  },
+                },
+              },
+            },
+          })
+        end,
         ["pyright"] = function()
           require("lspconfig")["pyright"].setup({
             on_attach = on_attach,
