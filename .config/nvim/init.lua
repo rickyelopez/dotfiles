@@ -125,3 +125,5 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "lua" },
   command = [[set sw=2 ts=2]],
 })
+
+require("server").start("~/.local/state/nvim/nvimsocket")
