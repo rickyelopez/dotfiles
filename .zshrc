@@ -36,10 +36,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# If you come from bash you might have to change your $PATH.
-export PATH="$HOME/bin:/usr/local/bin:$PATH"
-
-# Path to your oh-my-zsh installation.
+# oh-my-zsh installation dir
 export ZSH="$HOME/.oh-my-zsh"
 
 # update without prompting
@@ -82,9 +79,9 @@ fi
 if [[ -s "$HOME/.nix-profile/home-path/etc/profile.d/autojump.sh" ]]; then
     source "$HOME/.nix-profile/home-path/etc/profile.d/autojump.sh"
 elif [[ -s "$HOME/.autojump/etc/profile.d/autojump.sh" ]]; then
-    source "$HOME/.autojump/etc/profile.d/autojump.sh" 
+    source "$HOME/.autojump/etc/profile.d/autojump.sh"
 elif [[ -s "/etc/profile.d/autojump.sh" ]]; then
-    source "/etc/profile.d/autojump.sh" 
+    source "/etc/profile.d/autojump.sh"
 elif [[ -s "/usr/share/autojump/autojump.sh" ]]; then
     source "/usr/share/autojump/autojump.sh"
 elif [[ -s "/opt/homebrew/etc/profile.d/autojump.sh" ]]; then

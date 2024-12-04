@@ -32,7 +32,7 @@ vim.opt.wrap = false
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.writebackup = false
-vim.opt.undodir = vim.fn.expand("$HOME") .. "/.vimfiles/undodir"
+vim.opt.undodir = vim.fn.expand("~/.vimfiles/undodir")
 vim.opt.undofile = true
 vim.opt.scrolloff = 5
 vim.opt.termguicolors = true
@@ -49,7 +49,7 @@ vim.opt.shortmess:append("c")
 vim.opt.list = true
 -- note that tab is in here twice. Pretty sure that means that the second one is the one that actually gets used
 -- leaving it in until that much is confirmed
-vim.opt.listchars = {tab = "| ", trail = "•", extends = "❯", precedes = "❮", tab = "▷▷⋮"}
+vim.opt.listchars = { tab = "| ", trail = "•", extends = "❯", precedes = "❮", tab = "▷▷⋮" }
 vim.o.showbreak = "↪ "
 
 -- searching settings
