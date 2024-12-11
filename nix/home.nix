@@ -48,12 +48,15 @@ in
     ];
 
     file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
+      # hammerspoon
       ".hammerspoon/init.lua".source = mkLink "${home}/dotfiles/.hammerspoon/init.lua";
+      ".hammerspoon/.luarc.json".source = mkLink "${home}/dotfiles/.hammerspoon/.luarc.json";
       ".hammerspoon/modules".source = mkLink "${home}/dotfiles/.hammerspoon/modules";
       ".hammerspoon/Spoons/SpoonInstall.spoon".source = pkgs.fetchzip {
         url = "https://github.com/Hammerspoon/Spoons/raw/master/Spoons/SpoonInstall.spoon.zip";
         hash = "sha256-3f0d4znNuwZPyqKHbZZDlZ3gsuaiobhHPsefGIcpCSE=";
       };
+
     };
 
   };

@@ -4,4 +4,5 @@
 hs.loadSpoon("SpoonInstall")
 
 spoon.SpoonInstall.use_syncinstall = true
+spoon.SpoonInstall:andUse("EmmyLua")
 spoon.SpoonInstall:andUse("MouseFollowsFocus", { start = true })
