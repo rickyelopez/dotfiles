@@ -1,4 +1,4 @@
-{ pkgs, home, user, ... }:
+{ pkgs, home, user, config, ... }:
 let
   inherit (pkgs) stdenv;
 in
@@ -46,13 +46,27 @@ in
       vlc
       (nerdfonts.override { fonts = [ "IBMPlexMono" "Noto" ]; })
     ];
+
+    file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
+      ".hammerspoon/init.lua".source = mkLink "${home}/dotfiles/.hammerspoon/init.lua";
+      ".hammerspoon/modules".source = mkLink "${home}/dotfiles/.hammerspoon/modules";
+      ".hammerspoon/Spoons/SpoonInstall.spoon".source = pkgs.fetchzip {
+        url = "https://github.com/Hammerspoon/Spoons/raw/master/Spoons/SpoonInstall.spoon.zip";
+        hash = "sha256-3f0d4znNuwZPyqKHbZZDlZ3gsuaiobhHPsefGIcpCSE=";
+      };
+    };
+
   };
 
   fonts.fontconfig.enable = true;
 
-  # I think this is necessary because the file must exist in order to enable
-  # experimental features before this flake can build
-  xdg.configFile."nix/nix.conf".enable = false;
+  xdg = {
+    configFile = {
+      # I think this is necessary because the file must exist in order to enable
+      # experimental features before this flake can build
+      "nix/nix.conf".enable = false;
+    };
+  };
 
   programs = {
     # Let Home Manager install and manage itself.

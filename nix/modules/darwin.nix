@@ -56,6 +56,7 @@
       "bluesnooze"
       "caffeine"
       "foxitreader"
+      "hammerspoon"
       "karabiner-elements"
       "vlc"
     ];
