@@ -178,7 +178,7 @@ return {
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
-            root_dir = util.root_pattern(unpack({ "pyproject.toml" })),
+            root_dir = util.root_pattern("pyproject.toml"),
           })
         end,
         ["rust_analyzer"] = function()
@@ -189,9 +189,9 @@ return {
             cmd = { "ra-multiplex" },
             settings = {
               ["rust-analyzer"] = {
-                -- files = {
-                --   watcher = "server"
-                -- },
+                files = {
+                  watcher = "server",
+                },
                 check = {
                   workspace = false,
                 },
