@@ -13,6 +13,7 @@ in
     packages = with pkgs; [
       bat
       delta
+      direnv
       fd
       ffmpeg
       fzf

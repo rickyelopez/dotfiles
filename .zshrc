@@ -103,6 +103,10 @@ if hash fx 2>/dev/null; then
     source <(fx --comp zsh)
 fi
 
+if hash direnv 2>/dev/null; then
+    eval "$(direnv hook zsh)"
+fi
+
 export NVM_DIR="$HOME/.nvm"
 function load_nvm() {
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
