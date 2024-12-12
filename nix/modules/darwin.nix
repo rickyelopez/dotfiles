@@ -30,11 +30,12 @@
     };
 
     taps = [
+      # "cmacrae/formulae"
       "derailed/k9s"
       "homebrew/services"
       "koekeishiya/formulae"
       "mutagen-io/mutagen"
-      "cmacrae/formulae"
+      "nikitabobko/tap"
     ];
 
     brews = [
@@ -53,6 +54,7 @@
     ];
 
     casks = [
+      "aerospace"
       "bluesnooze"
       "caffeine"
       "foxitreader"

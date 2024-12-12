@@ -83,13 +83,13 @@
 # shift + alt - l : yabai -m window --swap north
 
 # move managed window
-shift + alt - h : yabai -m window --swap west
-shift + alt - j : yabai -m window --swap south
-shift + alt - k : yabai -m window --swap north
-shift + alt - l : yabai -m window --swap east
+# shift + alt - h : yabai -m window --swap west
+# shift + alt - j : yabai -m window --swap south
+# shift + alt - k : yabai -m window --swap north
+# shift + alt - l : yabai -m window --swap east
 
 # balance size of windows
-shift + alt - 0 : yabai -m space --balance
+# shift + alt - 0 : yabai -m space --balance
 
 # make floating window fill screen
 # shift + alt - up     : yabai -m window --grid 1:1:0:0:1:1
@@ -132,29 +132,29 @@ shift + alt - 0 : yabai -m space --balance
 # shift + ctrl - s : yabai -m window --move rel:0:20
 
 # move focus between windows
-alt - h : yabai -m window --focus prev
-alt - l : yabai -m window --focus next
+# alt - h : yabai -m window --focus prev
+# alt - l : yabai -m window --focus next
 
 # move focus between displays
-ctrl - h : yabai -m display --focus prev
-ctrl - l : yabai -m display --focus next
+# ctrl - h : yabai -m display --focus prev
+# ctrl - l : yabai -m display --focus next
 
 # change window size
-shift + cmd - l : yabai -m window --resize right:50:0
-shift + cmd - h : yabai -m window --resize left:-50:0
+# shift + cmd - l : yabai -m window --resize right:50:0
+# shift + cmd - h : yabai -m window --resize left:-50:0
 
 # set insertion point in focused container
 # ctrl + alt - h : yabai -m window --insert west
 
 # toggle window zoom
 # alt - d : yabai -m window --toggle zoom-parent
-alt - z : yabai -m window --toggle zoom-fullscreen
+# alt - z : yabai -m window --toggle zoom-fullscreen
 
 # toggle window split type
-alt - e : yabai -m window --toggle split
+# alt - e : yabai -m window --toggle split
 
 # float / unfloat window and center on screen
-alt - v : yabai -m window --toggle float --grid 4:4:1:1:2:2
+# alt - v : yabai -m window --toggle float --grid 4:4:1:1:2:2
 
 # toggle sticky(+float), topmost, picture-in-picture
 # alt - p : yabai -m window --toggle sticky --toggle topmost --toggle pip
