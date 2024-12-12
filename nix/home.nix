@@ -48,6 +48,9 @@ in
     ];
 
     file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
+      # general
+      ".config/yazi".source = mkLink "${home}/dotfiles/.config/yazi/";
+
       # hammerspoon
       ".hammerspoon/init.lua".source = mkLink "${home}/dotfiles/.hammerspoon/init.lua";
       ".hammerspoon/.luarc.json".source = mkLink "${home}/dotfiles/.hammerspoon/.luarc.json";
