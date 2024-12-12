@@ -121,6 +121,7 @@
         NSNavPanelExpandedStateForSaveMode = true; # expand save panel by default
         NSNavPanelExpandedStateForSaveMode2 = true;
         NSAutomaticWindowAnimationsEnabled = false;
+        NSWindowShouldDragOnGesture = true; # move window by dragging while holding Ctrl + Cmd
       };
 
       CustomUserPreferences = {
