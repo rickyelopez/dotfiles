@@ -1,4 +1,4 @@
-{ pkgs, home, user, config, ... }:
+{ pkgs, home, user, config, lib, ... }:
 let
   inherit (pkgs) stdenv;
 in
@@ -48,20 +48,21 @@ in
     ];
 
     file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
-      # general
       ".config/yazi".source = mkLink "${home}/dotfiles/.config/yazi/";
-
-      # hammerspoon
+    }
+    // lib.attrsets.optionalAttrs stdenv.isDarwin {
       ".hammerspoon/init.lua".source = mkLink "${home}/dotfiles/.hammerspoon/init.lua";
       ".hammerspoon/.luarc.json".source = mkLink "${home}/dotfiles/.hammerspoon/.luarc.json";
       ".hammerspoon/modules".source = mkLink "${home}/dotfiles/.hammerspoon/modules";
-      ".hammerspoon/Spoons/SpoonInstall.spoon".source = pkgs.fetchzip {
-        url = "https://github.com/Hammerspoon/Spoons/raw/master/Spoons/SpoonInstall.spoon.zip";
-        hash = "sha256-3f0d4znNuwZPyqKHbZZDlZ3gsuaiobhHPsefGIcpCSE=";
+      ".hammerspoon/Spoons/SpoonInstall.spoon" = {
+        source = pkgs.fetchzip {
+          url = "https://github.com/Hammerspoon/Spoons/raw/master/Spoons/SpoonInstall.spoon.zip";
+          hash = "sha256-3f0d4znNuwZPyqKHbZZDlZ3gsuaiobhHPsefGIcpCSE=";
+        };
       };
 
+      ".config/aerospace".source = mkLink "${home}/dotfiles/.config/aerospace/";
     };
-
   };
 
   fonts.fontconfig.enable = true;
