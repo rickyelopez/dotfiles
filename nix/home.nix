@@ -48,7 +48,9 @@ in
     ];
 
     file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
-      ".config/yazi".source = mkLink "${home}/dotfiles/.config/yazi/";
+      ".config/yazi/keymap.toml".source = mkLink "${home}/dotfiles/.config/yazi/keymap.toml";
+      ".config/yazi/package.toml".source = mkLink "${home}/dotfiles/.config/yazi/package.toml";
+      ".config/yazi/yazi.toml".source = mkLink "${home}/dotfiles/.config/yazi/yazi.toml";
     }
     // lib.attrsets.optionalAttrs stdenv.isDarwin {
       ".hammerspoon/init.lua".source = mkLink "${home}/dotfiles/.hammerspoon/init.lua";
