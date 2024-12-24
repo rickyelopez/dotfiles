@@ -43,8 +43,10 @@ in
     ]
     # packages for linux only
     ++ lib.lists.optionals stdenv.isLinux [
+      ferdium
       vlc
-      (nerdfonts.override { fonts = [ "IBMPlexMono" "Noto" ]; })
+      pkgs.nerd-fonts.blex-mono
+      pkgs.nerd-fonts.noto
     ];
 
     file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
