@@ -1,6 +1,6 @@
 { config, home, inputs, ... }: {
   home = {
-    sessionVariables = { TERM = "wezterm"; };
+    # sessionVariables = { TERM = "wezterm"; };
     # activation.removeExistingWeztermConfig = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
     #   rm -f ~/.config/wezterm/wezterm.lua
     # '';

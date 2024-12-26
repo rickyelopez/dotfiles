@@ -43,10 +43,11 @@ in
     ]
     # packages for linux only
     ++ lib.lists.optionals stdenv.isLinux [
+      calibre
       ferdium
       vlc
-      pkgs.nerd-fonts.blex-mono
-      pkgs.nerd-fonts.noto
+      nerd-fonts.blex-mono
+      nerd-fonts.noto
     ];
 
     file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
