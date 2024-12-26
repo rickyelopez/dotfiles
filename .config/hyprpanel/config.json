@@ -1,0 +1,70 @@
+{
+  "bar.customModules.updates.pollingInterval": 1440000,
+  "theme.font.size": "1.0rem",
+  "terminal": "alacritty",
+  "menus.clock.weather.enabled": false,
+  "menus.dashboard.powermenu.logout": "uwsm stop",
+  "bar.customModules.scrollSpeed": 4,
+  "theme.bar.menus.monochrome": false,
+  "menus.power.lowBatteryNotification": true,
+  "menus.dashboard.stats.enable_gpu": true,
+  "menus.dashboard.shortcuts.enabled": false,
+  "menus.dashboard.directories.enabled": false,
+  "theme.bar.outer_spacing": "0.2em",
+  "bar.network.label": false,
+  "bar.notifications.show_total": true,
+  "bar.customModules.cpuTemp.sensor": "/sys/class/hwmon/hwmon4/temp1_input",
+  "bar.customModules.netstat.networkInterface": "wlan0",
+  "bar.layouts": {
+    "0": {
+      "left": [
+        "dashboard",
+        "workspaces",
+        "windowtitle"
+      ],
+      "middle": [
+        "media"
+      ],
+      "right": [
+        "volume",
+        "network",
+        "bluetooth",
+        "battery",
+        "cputemp",
+        "systray",
+        "clock",
+        "notifications"
+      ]
+    },
+    "1": {
+      "left": [
+        "dashboard",
+        "workspaces",
+        "windowtitle"
+      ],
+      "middle": [
+        "media"
+      ],
+      "right": [
+        "volume",
+        "clock",
+        "notifications"
+      ]
+    },
+    "2": {
+      "left": [
+        "dashboard",
+        "workspaces",
+        "windowtitle"
+      ],
+      "middle": [
+        "media"
+      ],
+      "right": [
+        "volume",
+        "clock",
+        "notifications"
+      ]
+    }
+  }
+}
