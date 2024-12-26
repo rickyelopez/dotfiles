@@ -19,6 +19,7 @@ configuration {
     // hover-select:               true;
     window-format:              "{w} · {c} · {t}";
     // dpi:                        1;
+    run-command:                "uwsm app -- {cmd}";
 
     timeout {
         action: "kb-cancel";
@@ -29,7 +30,6 @@ configuration {
         directories-first: true;
         sorting-method:    "name";
     }
-
 }
 
 /* @import "~/.config/rofi/theme-dark.rasi" */
