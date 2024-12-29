@@ -1,4 +1,4 @@
-{ pkgs, home, user, config, lib, ... }:
+{ pkgs, inputs, home, user, config, lib, ... }:
 let
   inherit (pkgs) stdenv;
 in
@@ -12,23 +12,31 @@ in
 
     packages = with pkgs; [
       bat
+      cmake
       delta
       direnv
       fd
       ffmpeg
       fzf
+      ghostty
+      git
       git-lfs
       htop
       just
       jq
       lazygit
+      gcc
+      gnumake
+      lsof
       mutagen
-      # portaudio
+      obsidian
       ripgrep
       rsync
       socat
       sshpass
       tmux
+      unzip
+      vim
       watch
       wget
       yazi
@@ -38,22 +46,28 @@ in
     ++ lib.lists.optionals stdenv.isDarwin [
       k9s
       bazelisk
-      obsidian
       util-linux
     ]
     # packages for linux only
     ++ lib.lists.optionals stdenv.isLinux [
-      calibre
-      ferdium
-      vlc
+      rustup
       nerd-fonts.blex-mono
       nerd-fonts.noto
     ];
 
     file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
+      ".antidote".source = mkLink "${home}/dotfiles/.antidote";
+      ".config/ghostty".source = mkLink "${home}/dotfiles/.config/ghostty";
+      ".config/lazygit/config.yml".source = mkLink "${home}/dotfiles/.config/lazygit/config.yml";
+      ".config/nvim".source = mkLink "${home}/dotfiles/.config/nvim";
+      ".config/stylua".source = mkLink "${home}/dotfiles/.config/stylua";
+      ".config/tmux".source = mkLink "${home}/dotfiles/.config/tmux";
       ".config/yazi/keymap.toml".source = mkLink "${home}/dotfiles/.config/yazi/keymap.toml";
       ".config/yazi/package.toml".source = mkLink "${home}/dotfiles/.config/yazi/package.toml";
       ".config/yazi/yazi.toml".source = mkLink "${home}/dotfiles/.config/yazi/yazi.toml";
+      ".p10k.zsh".source = mkLink "${home}/dotfiles/.p10k.zsh";
+      ".zsh_plugins.txt".source = mkLink "${home}/dotfiles/.zsh_plugins.txt";
+      ".zshrc".source = mkLink "${home}/dotfiles/.zshrc";
     }
     // lib.attrsets.optionalAttrs stdenv.isDarwin {
       ".hammerspoon/init.lua".source = mkLink "${home}/dotfiles/.hammerspoon/init.lua";
@@ -96,17 +110,21 @@ in
         pkgs.gh-dash
       ];
     };
-    # kitty = {
-    #     enable = true;
-    #     font = {
-    #         name = "Blex Mono Nerd Font Mono";
-    #         size = 11.0;
-    #     };
-    # };
+    neovim = {
+      enable = true;
+      package = inputs.neovim-nightly.packages.${pkgs.system}.default;
+    };
+    kitty = {
+      enable = true;
+      font = {
+        name = "Blex Mono Nerd Font Mono";
+        size = 11.0;
+      };
+    };
   };
 
   imports = [
-    ./modules/wezterm.nix
-    # ./modules/zsh.nix
+    # ./modules/wezterm.nix
+    ./modules/zsh.nix
   ];
 }
