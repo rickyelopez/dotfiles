@@ -11,10 +11,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    wezterm = {
-      url = "github:wez/wezterm?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -53,7 +49,7 @@
         expedition = import ./nix/hosts/expedition { inherit nixpkgs; inherit inputs; };
       };
       darwinConfigurations = {
-        "Ricky-Lopez-DTQ4WX0376" = import ./nix/hosts/workMac { inherit nixpkgs; inherit inputs; };
+        "Ricky-Lopez-DTQ4WX0376" = import ./nix/hosts/workMac { inherit self; inherit nixpkgs; inherit inputs; };
       };
 
       # Expose the package set, including overlays, for convenience.

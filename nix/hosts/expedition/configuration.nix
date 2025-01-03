@@ -172,11 +172,6 @@ MAXPWM=hwmon6/pwm2=192 hwmon6/pwm1=192";
     };
     hyprlock.enable = true;
 
-    # intentionally separate from the entry in home.nix
-    neovim = {
-      defaultEditor = true;
-    };
-
     thunar = {
       enable = true;
       plugins = with pkgs.xfce; [
