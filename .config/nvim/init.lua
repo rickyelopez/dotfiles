@@ -108,6 +108,8 @@ require("plugins")
 require("utils")
 require("binds")
 
+require("server").start("~/.local/state/nvim/nvimsocket")
+
 -- enable dbc syntax highlighting
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = { "*.dbc" },
@@ -126,4 +128,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   command = [[set sw=2 ts=2]],
 })
 
-require("server").start("~/.local/state/nvim/nvimsocket")
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "ZIP_BUILD" },
+  command = [[set ft=python]],
+})
