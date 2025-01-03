@@ -21,12 +21,6 @@ source ${zsh_plugins}.zsh
 [[ -f $HOME/dotfiles/.aliases ]] && source $HOME/dotfiles/.aliases
 
 
-export TERMINFO_DIRS="$HOME/.nix-profile/share/terminfo:$HOME/.nix-profile/home-path/share/terminfo"
-
-# load nix zsh if it exists
-[[ -s "$HOME/.nix-profile/home-path/etc/profile.d/hm-session-vars.sh" ]] && source "$HOME/.nix-profile/home-path/etc/profile.d/hm-session-vars.sh"
-[[ -s "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]] && source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-
 [[ -x pokemon-colorscripts ]] && pokemon-colorscripts --no-title -s -r
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -35,9 +29,6 @@ export TERMINFO_DIRS="$HOME/.nix-profile/share/terminfo:$HOME/.nix-profile/home-
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
-# oh-my-zsh installation dir
-export ZSH="$HOME/.oh-my-zsh"
 
 # update without prompting
 DISABLE_UPDATE_PROMPT="true"
@@ -55,8 +46,6 @@ plugins=(
 
 # Don't define aliases from the git plugin
 zstyle ':omz:plugins:git' aliases no
-
-source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
