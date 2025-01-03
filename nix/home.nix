@@ -1,11 +1,7 @@
 { pkgs, inputs, home, user, config, lib, ... }:
-let
-  inherit (pkgs) stdenv;
-in
 {
   home = {
-    # don't change
-    stateVersion = "24.05";
+    stateVersion = "24.05"; # don't change
 
     username = user;
     homeDirectory = home;
@@ -18,7 +14,6 @@ in
       fd
       ffmpeg
       fzf
-      ghostty
       git
       git-lfs
       htop
@@ -29,6 +24,8 @@ in
       gnumake
       lsof
       mutagen
+      nerd-fonts.blex-mono
+      nerd-fonts.noto
       obsidian
       ripgrep
       rsync
@@ -42,17 +39,9 @@ in
       yazi
       yq
     ]
-    # packages for mac only
-    ++ lib.lists.optionals stdenv.isDarwin [
-      k9s
-      bazelisk
-      util-linux
-    ]
     # packages for linux only
-    ++ lib.lists.optionals stdenv.isLinux [
+    ++ lib.lists.optionals pkgs.stdenv.isLinux [
       rustup
-      nerd-fonts.blex-mono
-      nerd-fonts.noto
     ];
 
     file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
@@ -68,25 +57,6 @@ in
       ".p10k.zsh".source = mkLink "${home}/dotfiles/.p10k.zsh";
       ".zsh_plugins.txt".source = mkLink "${home}/dotfiles/.zsh_plugins.txt";
       ".zshrc".source = mkLink "${home}/dotfiles/.zshrc";
-    }
-    // lib.attrsets.optionalAttrs stdenv.isDarwin {
-      ".hammerspoon/init.lua".source = mkLink "${home}/dotfiles/.hammerspoon/init.lua";
-      ".hammerspoon/.luarc.json".source = mkLink "${home}/dotfiles/.hammerspoon/.luarc.json";
-      ".hammerspoon/modules".source = mkLink "${home}/dotfiles/.hammerspoon/modules";
-      ".hammerspoon/Spoons/SpoonInstall.spoon" = {
-        source = pkgs.fetchzip {
-          url = "https://github.com/Hammerspoon/Spoons/raw/master/Spoons/SpoonInstall.spoon.zip";
-          hash = "sha256-3f0d4znNuwZPyqKHbZZDlZ3gsuaiobhHPsefGIcpCSE=";
-        };
-      };
-      ".hammerspoon/Spoons/Swipe.spoon" = {
-        source = pkgs.fetchzip {
-          url = "https://github.com/mogenson/Swipe.spoon/archive/c56520507d98e663ae0e1228e41cac690557d4aa.zip";
-          hash = "";
-        };
-      };
-
-      ".config/aerospace".source = mkLink "${home}/dotfiles/.config/aerospace/";
     };
   };
 
@@ -113,6 +83,7 @@ in
     neovim = {
       enable = true;
       package = inputs.neovim-nightly.packages.${pkgs.system}.default;
+      defaultEditor = true;
     };
     kitty = {
       enable = true;
@@ -124,7 +95,7 @@ in
   };
 
   imports = [
-    # ./modules/wezterm.nix
+    ./modules/wezterm.nix
     ./modules/zsh.nix
   ];
 }

@@ -5,6 +5,7 @@
       brave
       calibre
       ferdium
+      ghostty
       rofi
       vlc
     ];

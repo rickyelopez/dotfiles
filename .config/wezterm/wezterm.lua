@@ -18,4 +18,10 @@ config.window_padding = {
   bottom = 0,
 }
 
+config.front_end = "WebGpu"
+config.set_environment_variables = {
+  TERMINFO_DIRS = "~/.nix-profile/share/terminfo",
+}
+config.term = "wezterm"
+
 return config
