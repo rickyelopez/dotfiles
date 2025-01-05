@@ -16,35 +16,36 @@
 
   hardware.fancontrol = {
     enable = true;
-    config = "
-DEVPATH=hwmon6=devices/platform/dell_smm_hwmon hwmon2=devices/platform/coretemp.0
+    config = ''
+      DEVPATH=hwmon6=devices/platform/dell_smm_hwmon hwmon2=devices/platform/coretemp.0
 
-DEVNAME=hwmon6=dell_smm hwmon2=coretemp
+      DEVNAME=hwmon6=dell_smm hwmon2=coretemp
 
-FCTEMPS=hwmon6/pwm1=hwmon2/temp1_input hwmon6/pwm2=hwmon2/temp1_input
+      FCTEMPS=hwmon6/pwm1=hwmon2/temp1_input hwmon6/pwm2=hwmon2/temp1_input
 
-FCFANS=hwmon6/pwm1=hwmon6/fan1_input hwmon6/pwm2=hwmon6/fan2_input
+      FCFANS=hwmon6/pwm1=hwmon6/fan1_input hwmon6/pwm2=hwmon6/fan2_input
 
-INTERVAL=1
-AVERAGE=hwmon6/pwm2=15 hwmon6/pwm1=10
+      INTERVAL=1
+      AVERAGE=hwmon6/pwm2=15 hwmon6/pwm1=10
 
-# the following values are in degC
-# MINTEMP: The temperature below which the fan gets switched to minimum speed
-# MAXTEMP: The temperature over which the fan gets switched to maximum speed
-MINTEMP=hwmon6/pwm2=60 hwmon6/pwm1=60
-MAXTEMP=hwmon6/pwm2=70 hwmon6/pwm1=70
+      # the following values are in degC
+      # MINTEMP: The temperature below which the fan gets switched to minimum speed
+      # MAXTEMP: The temperature over which the fan gets switched to maximum speed
+      MINTEMP=hwmon6/pwm2=60 hwmon6/pwm1=60
+      MAXTEMP=hwmon6/pwm2=70 hwmon6/pwm1=70
 
-# the following values are in PWM (0-255)
-# MINSTART: sets the minimum speed at which the fan begins spinning. You should use a safe value to be sure
-#    it works, even when the fan gets old
-# MINSTOP: The minimum speed at which the fan still spins. Use a safe value here too
-# MINPWM: The PWM value to use when the temperature is below MINTEMP. Typically, this will be either 0 if it
-#     is OK for the fan to plain stop, or the same value as MINSTOP if you don't want the fan to ever stop.
-#     If this value isn't defined, it defaults to 0 (stopped fan)
-MINSTART=hwmon6/pwm2=64 hwmon6/pwm1=64
-MINSTOP=hwmon6/pwm2=64 hwmon6/pwm1=64
-MINPWM=hwmon6/pwm2=64 hwmon6/pwm1=64
-MAXPWM=hwmon6/pwm2=192 hwmon6/pwm1=192";
+      # the following values are in PWM (0-255)
+      # MINSTART: sets the minimum speed at which the fan begins spinning. You should use a safe value to be sure
+      #    it works, even when the fan gets old
+      # MINSTOP: The minimum speed at which the fan still spins. Use a safe value here too
+      # MINPWM: The PWM value to use when the temperature is below MINTEMP. Typically, this will be either 0 if it
+      #     is OK for the fan to plain stop, or the same value as MINSTOP if you don't want the fan to ever stop.
+      #     If this value isn't defined, it defaults to 0 (stopped fan)
+      MINSTART=hwmon6/pwm2=64 hwmon6/pwm1=64
+      MINSTOP=hwmon6/pwm2=64 hwmon6/pwm1=64
+      MINPWM=hwmon6/pwm2=64 hwmon6/pwm1=64
+      MAXPWM=hwmon6/pwm2=192 hwmon6/pwm1=192
+    '';
   };
 
   hardware.bluetooth = {
@@ -147,7 +148,9 @@ MAXPWM=hwmon6/pwm2=192 hwmon6/pwm1=192";
 
   environment.systemPackages = with pkgs; [
     brightnessctl
+    feh
     ffmpegthumbnailer
+    gedit
     gpustat
     grim
     inputs.hyprpolkitagent.packages.${pkgs.system}.default
@@ -159,6 +162,8 @@ MAXPWM=hwmon6/pwm2=192 hwmon6/pwm1=192";
     nodejs_23
     pamixer
     pavucontrol
+    qalculate-gtk
+    rustdesk
     slurp
     swappy
   ];
@@ -167,8 +172,8 @@ MAXPWM=hwmon6/pwm2=192 hwmon6/pwm1=192";
     hyprland = {
       enable = true;
       withUWSM = true;
-      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-      portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+      portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
     };
     hyprlock.enable = true;
 
@@ -183,6 +188,7 @@ MAXPWM=hwmon6/pwm2=192 hwmon6/pwm1=192";
     xfconf.enable = true;
 
     zsh.enable = true;
+    steam.enable = true;
   };
 
   services.blueman.enable = true;
@@ -229,7 +235,9 @@ MAXPWM=hwmon6/pwm2=192 hwmon6/pwm1=192";
   # };
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [
+    8080 # calibre
+  ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
