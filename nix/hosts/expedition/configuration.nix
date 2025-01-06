@@ -162,10 +162,12 @@
     nodejs_23
     pamixer
     pavucontrol
+    pkg-config
     qalculate-gtk
     rustdesk
     slurp
     swappy
+    usbutils
   ];
 
   programs = {
@@ -175,7 +177,10 @@
       package = inputs.hyprland.packages.${pkgs.system}.hyprland;
       portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
     };
-    hyprlock.enable = true;
+    hyprlock = {
+      enable = true;
+      package = inputs.hyprlock.packages.${pkgs.system}.hyprlock;
+    };
 
     thunar = {
       enable = true;
@@ -202,6 +207,7 @@
   services.tumbler.enable = true;
   services.gnome.gnome-keyring.enable = true;
   services.power-profiles-daemon.enable = true;
+  services.logind.lidSwitch = "ignore"; # disable lid switch, we handle it in hyprland
 
 
   # Select locale properties.

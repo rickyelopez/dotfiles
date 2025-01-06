@@ -23,9 +23,11 @@
       gcc
       gnumake
       lsof
+      meson
       mutagen
       nerd-fonts.blex-mono
       nerd-fonts.noto
+      ninja
       obsidian
       ripgrep
       rsync
