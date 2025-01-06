@@ -12,7 +12,9 @@
 
     file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
       ".config/Kvantum".source = mkLink "${home}/dotfiles/.config/Kvantum";
-      ".config/hypr".source = mkLink "${home}/dotfiles/.config/hypr";
+      ".config/hypr/hyprland.conf".source = mkLink "${home}/dotfiles/.config/hypr/hyprland.conf";
+      ".config/hypr/hyprlock.conf".source = mkLink "${home}/dotfiles/.config/hypr/hyprlock.conf";
+      ".config/hypr/scripts".source = mkLink "${home}/dotfiles/.config/hypr/scripts";
       ".config/qt5ct".source = mkLink "${home}/dotfiles/.config/qt5ct";
       ".config/qt6ct".source = mkLink "${home}/dotfiles/.config/qt6ct";
       ".config/rofi".source = mkLink "${home}/dotfiles/.config/rofi";
@@ -103,6 +105,25 @@
             "right" = [ "volume" "clock" "notifications" ];
           };
         };
+      };
+    };
+  };
+
+  services = {
+    hyprpaper = {
+      enable = true;
+      package = inputs.hyprpaper.packages.${pkgs.system}.hyprpaper;
+      settings = {
+        preload =
+          [
+            "~/Nextcloud/Media/Wallpapers/1643793713226.jpg"
+            "~/Nextcloud/Media/Wallpapers/1694344616904955.jpg"
+            "~/Nextcloud/Media/Wallpapers/Dog Watcher.jpg"
+          ];
+
+        wallpaper = [
+          ",~/Nextcloud/Media/Wallpapers/1643793713226.jpg"
+        ];
       };
     };
   };
