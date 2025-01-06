@@ -7,8 +7,6 @@
       util-linux
     ];
     file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
-      ".config/aerospace".source = mkLink "${home}/dotfiles/.config/aerospace/";
-
       ".hammerspoon/init.lua".source = mkLink "${home}/dotfiles/.hammerspoon/init.lua";
       ".hammerspoon/.luarc.json".source = mkLink "${home}/dotfiles/.hammerspoon/.luarc.json";
       ".hammerspoon/modules".source = mkLink "${home}/dotfiles/.hammerspoon/modules";

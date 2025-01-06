@@ -64,7 +64,6 @@
     ];
 
     casks = [
-      "aerospace"
       "bluesnooze"
       "caffeine"
       "foxitreader"
@@ -197,5 +196,8 @@
       };
     };
   };
+  imports = [
+    ../../modules/nix-darwin/aerospace.nix
+  ];
 }
 

@@ -1077,14 +1077,12 @@
         "hyprpolkitagent": "hyprpolkitagent",
         "madness": "madness",
         "neovim-nightly": "neovim-nightly",
-        "nixpkgs": "nixpkgs_2",
-        "wezterm": "wezterm"
+        "nixpkgs": "nixpkgs_2"
       }
     },
     "rust-overlay": {
       "inputs": {
         "nixpkgs": [
-          "wezterm",
           "nixpkgs"
         ]
       },

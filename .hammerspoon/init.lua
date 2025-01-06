@@ -9,7 +9,8 @@ spoon.SpoonInstall:andUse("EmmyLua")
 
 Swipe = hs.loadSpoon("Swipe")
 
-local AEROSPACE = "/opt/homebrew/bin/aerospace"
+-- local AEROSPACE = "/opt/homebrew/bin/aerospace"
+local AEROSPACE = "/run/current-system/sw/bin/aerospace"
 
 local aerospaceExec = function(cmd)
   os.execute("nohup " .. AEROSPACE .. " " .. cmd .. " &")
