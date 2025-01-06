@@ -95,6 +95,7 @@
   };
 
   imports = [
+    ./modules/alacritty.nix
     ./modules/wezterm.nix
     ./modules/zsh.nix
   ];
