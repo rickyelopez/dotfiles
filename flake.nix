@@ -63,27 +63,9 @@
       # Expose the package set, including overlays, for convenience.
       darwinPackages = self.darwinConfigurations."Ricky-Lopez-DTQ4WX0376".pkgs;
 
-      # defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
-      # homeConfigurations =
-      #   let
-      #     user = "ricclopez";
-      #     home = "/home/${user}";
-      #   in
-      #   {
-      #     "${user}" = home-manager.lib.homeManagerConfiguration {
-      #       pkgs = import nixpkgs { system = "x86_64-linux"; };
-
-      #       extraSpecialArgs = {
-      #         inherit user;
-      #         inherit home;
-      #         inherit inputs;
-      #       };
-
-      #       modules = [
-      #         ./nix/modules/nix-core.nix
-      #         ./nix/home.nix
-      #       ];
-      #     };
-      #   };
+      defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
+      homeConfigurations = {
+        "ricclopez@donnager" = import ./nix/hosts/donnager { inherit self nixpkgs inputs; };
+      };
     };
 }
