@@ -9,6 +9,7 @@
     packages = with pkgs; [
       bat
       bear
+      bitwarden-cli
       cmake
       delta
       fd
@@ -45,7 +46,9 @@
     ]
     # packages for linux only
     ++ lib.lists.optionals pkgs.stdenv.isLinux [
+      ouch
       rustup
+      trash-cli
     ];
 
     file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
