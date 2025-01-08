@@ -23,7 +23,7 @@ vim.opt.shiftwidth = 0
 vim.opt.shiftround = true
 vim.opt.expandtab = true
 vim.opt.smarttab = true
--- vim.opt.autoindent = true
+vim.opt.autoindent = true
 -- vim.opt.smartindent = true
 
 -- self-explanatory settings
@@ -125,7 +125,13 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 -- settings for lua
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "lua" },
-  command = [[set sw=2 ts=2]],
+  command = [[set tabstop=2]],
+})
+
+-- settings for verilog
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "verilog" },
+  command = [[set tabstop=2]],
 })
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {

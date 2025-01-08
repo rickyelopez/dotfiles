@@ -21,6 +21,7 @@ return {
           "taplo",
           "vimls",
           "yamlls",
+          "zls",
         },
       })
 
