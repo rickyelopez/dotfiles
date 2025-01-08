@@ -8,6 +8,7 @@
 
     packages = with pkgs; [
       bat
+      bitwarden-cli
       cmake
       delta
       fd
