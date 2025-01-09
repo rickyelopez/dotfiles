@@ -39,6 +39,52 @@
       # Fallback value (if you omit the key): on-focused-monitor-changed = []
       on-focused-monitor-changed = [ "move-mouse monitor-lazy-center" ];
 
+      on-window-detected = [
+        {
+          "if" = {
+            app-id = "com.brave.Browser";
+            # app-name-regex-substring = "settings";
+            window-title-regex-substring = "bitwarden";
+            # workspace = "workspace-name";
+            # during-aerospace-startup = true;
+          };
+          # check-further-callbacks = true;
+          run = [ "layout floating" ];
+        }
+
+        {
+          "if" = {
+            app-id = "com.mitchellh.ghostty";
+            during-aerospace-startup = true;
+          };
+          run = "move-node-to-workspace 1";
+        }
+
+        {
+          "if" = {
+            app-id = "com.brave.Browser";
+            during-aerospace-startup = true;
+          };
+          run = "move-node-to-workspace 2";
+        }
+
+        {
+          "if" = {
+            app-id = "com.tinyspeck.slackmacgap";
+            during-aerospace-startup = true;
+          };
+          run = "move-node-to-workspace 3";
+        }
+
+        {
+          "if" = {
+            app-id = "org.ferdium.ferdium-app";
+            during-aerospace-startup = true;
+          };
+          run = "move-node-to-workspace 4";
+        }
+      ];
+
       # You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
       # Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
       # Also see: https://nikitabobko.github.io/AeroSpace/goodies#disable-hide-app
