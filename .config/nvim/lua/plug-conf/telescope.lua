@@ -15,10 +15,6 @@ return {
     local previewers = require("telescope.previewers")
     local builtin = require("telescope.builtin")
 
-    local function toggle_git_ignore()
-      vim.fn.ToggleGitIgnore()
-    end
-
     require("telescope").setup({
       defaults = {
         prompt_prefix = "🔍 ",
@@ -37,7 +33,6 @@ return {
           "--column",
           "--smart-case",
           "--hidden",
-          -- vim.g.ignored_files,
         },
         file_ignore_patterns = {
           "%.git/",
@@ -63,7 +58,6 @@ return {
             ["<C-d>"] = actions.results_scrolling_down,
             ["<C-p>"] = actions.cycle_history_prev,
             ["<C-n>"] = actions.cycle_history_next,
-            ["<C-f>"] = toggle_git_ignore,
             ["<PageUp>"] = actions.preview_scrolling_up,
             ["<PageDown>"] = actions.preview_scrolling_down,
           },
@@ -75,7 +69,6 @@ return {
             ["<C-d>"] = actions.results_scrolling_down,
             ["<C-p>"] = actions.cycle_history_prev,
             ["<C-n>"] = actions.cycle_history_next,
-            ["<C-f>"] = toggle_git_ignore,
             ["<PageUp>"] = actions.preview_scrolling_up,
             ["<PageDown>"] = actions.preview_scrolling_down,
             ["dd"] = actions.delete_buffer,
@@ -116,7 +109,7 @@ return {
     local M = {
       search_dotfiles = function()
         builtin.find_files({
-          find_command = { "fd", "--hidden", "--type", "file", "-E", ".git", "-E", ".config/base16-shell" },
+          find_command = { "fd", "--hidden", "--type", "file" },
           prompt_title = "< dotfiles >",
           cwd = "$HOME",
           search_dirs = { "$HOME/dotfiles", "$HOME/dotfiles_priv" },
@@ -180,46 +173,6 @@ return {
           end
           return cmd
         end,
-      })
-    end)
-
-    vim.env.di = vim.env.di and vim.env.di or "~"
-    vim.env.dig3 = vim.env.dig3 and vim.env.dig3 or "~"
-    vim.env.cr = vim.env.cr and vim.env.cr or "~"
-
-    map("<leader>gcr", function()
-      local additional_args = {}
-      return builtin.live_grep({
-        search_dirs = { vim.env.cr },
-        additional_args = additional_args,
-      })
-    end)
-
-    map("<leader>pcr", function()
-      return builtin.find_files({
-        search_dirs = { vim.env.cr },
-        find_command = { "fd", "--type", "file", "-p" },
-      })
-    end)
-
-    map("<leader>bc", function()
-      return builtin.find_files({
-        find_command = { "fd", "--type", "file", "-p", "-g", vim.env.REPO_PATH .. "/**/build_configurations.xml" },
-      })
-    end)
-
-    map("<leader>gpd", function()
-      return builtin.grep_string({
-        additional_args = {
-          "-g",
-          vim.env.di .. "/shared/**/*.py",
-          "-g",
-          vim.env.dig3 .. "/**/builders/*.py",
-          "-g",
-          vim.env.dig3 .. "/**/SConscript*",
-          "-g",
-          vim.env.dig3 .. "/**/SConstruct*",
-        },
       })
     end)
 
