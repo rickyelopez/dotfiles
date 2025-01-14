@@ -94,7 +94,7 @@
     ./modules/alacritty.nix
     ./modules/fx.nix
     ./modules/nvim.nix
-    ./modules/wezterm.nix
+    # ./modules/wezterm.nix
     ./modules/yazi.nix
     ./modules/zsh.nix
   ];

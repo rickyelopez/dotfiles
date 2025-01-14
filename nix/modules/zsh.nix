@@ -28,32 +28,35 @@
 
         [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
+        # load base16 theme
+        BASE16_SHELL="$HOME/.config/base16-shell/"
+        if [ -n "$PS1" ] && [ -s "$BASE16_SHELL/profile_helper.sh" ] && [ "$SHLVL" -le 2 ]; then
+            source "$BASE16_SHELL/profile_helper.sh"
+        fi
+
         # Tell Maven to use brew java instead of mac one
         if [ -f /usr/libexec/java_home ]; then
             export JAVA_HOME=$(/usr/libexec/java_home -v 1.8 2>/dev/null)
         fi
 
-        export NVM_DIR="$HOME/.nvm"
+        NVM_DIR="$HOME/.nvm"
         function load_nvm() {
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+            if [ -d "$NVM_DIR" ]; then
+                [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+                [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+                export NVM_DIR
+            fi
         }
-        load_nvm
-      '';
+      '' + pkgs.lib.optionalString (!pkgs.stdenv.isDarwin) "load_nvm";
 
-      initExtraBeforeCompInit = ''
-        BASE16_SHELL="$HOME/.config/base16-shell/"
-        [ -n "$PS1" ] &&
-            [ -s "$BASE16_SHELL/profile_helper.sh" ] &&
-            source "$BASE16_SHELL/profile_helper.sh"
-      '';
+      # initExtraBeforeCompInit = '' '';
 
       initExtraFirst = ''
         # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
         # Initialization code that may require console input (password prompts, [y/n]
         # confirmations, etc.) must go above this block; everything else may go below.
-        if [[ -r "$XDG_CACHE_HOME/p10k-instant-prompt-${user}.zsh" ]]; then
-          source "$XDG_CACHE_HOME/p10k-instant-prompt-${user}.zsh"
+        if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${user}.zsh" ]]; then
+          source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${user}.zsh"
         fi
       '';
 
