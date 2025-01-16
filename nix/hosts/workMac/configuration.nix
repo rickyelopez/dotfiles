@@ -40,12 +40,8 @@
     };
 
     taps = [
-      # "cmacrae/formulae"
-      "derailed/k9s"
       "homebrew/services"
-      "koekeishiya/formulae"
-      "mutagen-io/mutagen"
-      "nikitabobko/tap"
+      "pantsbuild/tap"
     ];
 
     brews = [
@@ -55,10 +51,9 @@
       "libgit2"
       "opencv"
       "openjdk"
-      "portaudio"
       "pam-reattach"
+      "portaudio"
       "skhd"
-      # "cmacrae/formulae/spacebar"
       "tcl-tk"
       "zlib"
     ];
@@ -70,6 +65,7 @@
       "ghostty"
       "hammerspoon"
       "karabiner-elements"
+      "pants"
       "vlc"
     ];
 

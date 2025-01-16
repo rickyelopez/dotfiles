@@ -88,6 +88,8 @@
         size = 11.0;
       };
     };
+
+    pyenv.enable = true;
   };
 
   imports = [
