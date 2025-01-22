@@ -59,6 +59,7 @@
     ];
 
     casks = [
+      "bitwarden"
       "bluesnooze"
       "caffeine"
       "foxitreader"
