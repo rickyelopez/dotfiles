@@ -33,6 +33,7 @@
       rsync
       socat
       sshpass
+      tio
       tmux
       unzip
       vim
