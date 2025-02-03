@@ -51,10 +51,14 @@
       "libgit2"
       "opencv"
       "openjdk"
+      "openssl"
       "pam-reattach"
       "portaudio"
+      "readline"
       "skhd"
-      "tcl-tk"
+      "sqlite3"
+      "tcl-tk@8"
+      "xz"
       "zlib"
     ];
 
@@ -68,6 +72,7 @@
       "karabiner-elements"
       "pants"
       "vlc"
+      "wireshark"
     ];
 
     masApps = { };
