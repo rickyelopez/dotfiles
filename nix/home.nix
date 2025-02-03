@@ -8,6 +8,7 @@
 
     packages = with pkgs; [
       bat
+      bear
       cmake
       delta
       fd
@@ -25,6 +26,7 @@
       lsof
       meson
       mutagen
+      neovim-remote
       nerd-fonts.blex-mono
       nerd-fonts.noto
       ninja
