@@ -11,7 +11,7 @@ return {
 
     map("<leader>pv", api.tree.focus, { "n" }, opts("Focus"))
     map([[\]], function()
-      api.tree.find_file({ open = true, focus = true })
+      api.tree.find_file({ open = true, focus = true, update_root = true })
     end, { "n" }, opts("Find file"))
 
     local function on_attach(bufnr)
