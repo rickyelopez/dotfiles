@@ -11,21 +11,21 @@ return {
       local map = require("utils").map
 
       local ignores = {
-        ".git",
-        ".cache",
-        ".msr",
-        ".gvl",
-        ".map",
         ".asm",
-        ".pyc",
-        ".png",
-        ".o",
         ".asms",
         ".asmss",
         ".c.html",
+        ".cache",
         ".compact.json",
-        ".json.raw",
+        ".git",
+        ".gvl",
         ".html",
+        ".json.raw",
+        ".map",
+        ".msr",
+        ".o",
+        ".png",
+        ".pyc",
       }
 
       local fd_ignore = "--no-ignore"
@@ -48,6 +48,9 @@ return {
           },
         },
         keymap = {
+          builting = {
+            ["<M-Esc>"] = "hide",
+          },
           fzf = {
             ["ctrl-u"] = "page-up",
             ["ctrl-d"] = "page-down",
@@ -67,7 +70,17 @@ return {
         },
       })
 
+      -- find bind for `fzf_lua.resume()`
+
       map("<C-p>", fzf_lua.files)
+      map("<leader>cd", function()
+        fzf_lua.files({
+          cmd_raw = "fd",
+          fd_opts = [[--color=never --hidden --type d --exclude .git]],
+          previewer = "hidden",
+          winopts = { title = "Choose Directory" },
+        })
+      end)
       map("<leader>gg", fzf_lua.live_grep)
       map("<leader>gw", fzf_lua.grep_cword) -- in normal mode, search word under cursor
       map("<leader>gw", fzf_lua.grep_visual, { "v" }) -- in visual mode, search the selection
