@@ -66,6 +66,7 @@
       defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
       homeConfigurations = {
         "ricclopez@donnager" = import ./nix/hosts/donnager { inherit self nixpkgs inputs; };
+        "ricclopez@thinkrick" = import ./nix/hosts/thinkrick { inherit self nixpkgs inputs; };
       };
     };
 }
