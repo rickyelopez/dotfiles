@@ -6,17 +6,18 @@ return {
       "neovim/nvim-lspconfig",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       "folke/neodev.nvim",
+      "p00f/clangd_extensions.nvim",
     },
     config = function()
       require("mason-lspconfig").setup({
-        automatic_installation = { exclude = { "clangd" } },
+        -- automatic_installation = { exclude = { "clangd" } },
         ensure_installed = {
+          "basedpyright",
           "bashls",
           "clangd",
           "jsonls",
           "lua_ls",
           "nil_ls",
-          "pyright",
           "rust_analyzer",
           "taplo",
           "vimls",
@@ -134,6 +135,41 @@ return {
             capabilities = capabilities,
           })
         end,
+        ["basedpyright"] = function()
+          require("lspconfig")["basedpyright"].setup({
+            on_attach = on_attach,
+            flags = lsp_flags,
+            capabilities = capabilities,
+            -- root_dir = util.root_pattern("pyproject.toml"),
+            settings = {
+              basedpyright = {
+                analysis = {
+                  autoSearchPaths = true,
+                  diagnosticMode = "openFilesOnly",
+                  useLibraryCodeForTypes = true,
+                },
+                -- root_dir = util.root_pattern("pyproject.toml"),
+              },
+            },
+          })
+        end,
+        ["clangd"] = function()
+          require("lspconfig")["clangd"].setup({
+            on_attach = on_attach,
+            flags = lsp_flags,
+            capabilities = capabilities,
+            settings = {
+              clangd = {
+                InlayHints = {
+                  Designators = true,
+                  Enabled = true,
+                  ParameterNames = true,
+                  DeducedTypes = true,
+                },
+              },
+            },
+          })
+        end,
         ["lua_ls"] = function()
           require("lspconfig")["lua_ls"].setup({
             on_attach = on_attach,
@@ -144,6 +180,9 @@ return {
                 diagnostics = {
                   -- Get the language server to recognize the `vim` global
                   globals = { "vim" },
+                },
+                hint = {
+                  enable = true, -- necessary
                 },
                 telemetry = {
                   enable = false,
@@ -175,14 +214,14 @@ return {
             },
           })
         end,
-        ["pyright"] = function()
-          require("lspconfig")["pyright"].setup({
-            on_attach = on_attach,
-            flags = lsp_flags,
-            capabilities = capabilities,
-            root_dir = util.root_pattern("pyproject.toml"),
-          })
-        end,
+        -- ["pyright"] = function()
+        --   require("lspconfig")["pyright"].setup({
+        --     on_attach = on_attach,
+        --     flags = lsp_flags,
+        --     capabilities = capabilities,
+        --     root_dir = util.root_pattern("pyproject.toml"),
+        --   })
+        -- end,
         ["rust_analyzer"] = function()
           require("lspconfig")["rust_analyzer"].setup({
             on_attach = on_attach,
@@ -196,6 +235,38 @@ return {
                 },
                 check = {
                   workspace = false,
+                },
+                inlayHints = {
+                  bindingModeHints = {
+                    enable = false,
+                  },
+                  chainingHints = {
+                    enable = true,
+                  },
+                  closingBraceHints = {
+                    enable = true,
+                    minLines = 25,
+                  },
+                  closureReturnTypeHints = {
+                    enable = "never",
+                  },
+                  lifetimeElisionHints = {
+                    enable = "never",
+                    useParameterNames = false,
+                  },
+                  maxLength = 25,
+                  parameterHints = {
+                    enable = true,
+                  },
+                  reborrowHints = {
+                    enable = "never",
+                  },
+                  renderColons = true,
+                  typeHints = {
+                    enable = true,
+                    hideClosureInitialization = false,
+                    hideNamedConstructor = false,
+                  },
                 },
               },
             },
@@ -213,6 +284,22 @@ return {
             },
           })
         end,
+        ["zls"] = function()
+          require("lspconfig")["zls"].setup({
+            on_attach = on_attach,
+            flags = lsp_flags,
+            capabilities = capabilities,
+            settings = {
+              zls = {
+                enable_inlay_hints = true,
+                inlay_hints_show_builtin = true,
+                inlay_hints_exclude_single_argument = true,
+                inlay_hints_hide_redundant_param_names = false,
+                inlay_hints_hide_redundant_param_names_last_token = false,
+              },
+            },
+          })
+        end,
       })
 
       require("clangd_extensions").setup({
@@ -224,7 +311,7 @@ return {
         extensions = {
           -- defaults:
           -- Automatically set inlay hints (type hints)
-          autoSetHints = true,
+          autoSetHints = false,
           -- These apply to the default ClangdSetInlayHints command
           inlay_hints = {
             -- Only show inlay hints for the current line
