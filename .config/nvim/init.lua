@@ -75,6 +75,12 @@ vim.opt.foldlevel = 99
 -- clipboard
 vim.opt.clipboard = "unnamedplus"
 
+vim.diagnostic.config({
+  severity_sort = true,
+  virtual_lines = true,
+  virtual_text = false,
+})
+
 local function copy(lines, _)
   require("osc52").copy(table.concat(lines, "\n"))
 end
