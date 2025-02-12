@@ -26,6 +26,7 @@ require("lazy").setup({
 
   {
     "junegunn/fzf.vim",
+    enabled = false, -- replaced by fzf.lua
     dependencies = { "junegunn/fzf", build = "./install --bin" },
   },
 
