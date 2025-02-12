@@ -1,5 +1,10 @@
 [plugin]
-deps = [{ use = "yazi-rs/plugins:chmod", rev = "d9bfa0b" }, { use = "yazi-rs/plugins:smart-filter", rev = "d9bfa0b" }]
+deps = [
+    { use = "yazi-rs/plugins:chmod", rev = "d9bfa0b" },
+    { use = "yazi-rs/plugins:smart-filter", rev = "d9bfa0b" },
+    { use = "hankertrix/augment-command", rev = "225c062" },
+    { use = "boydaihungst/restore", rev = "ffc209e" },
+]
 
 [flavor]
 deps = []
