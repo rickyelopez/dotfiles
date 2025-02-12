@@ -46,6 +46,7 @@
 
     brews = [
       "ccache"
+      "cmake"
       "gdal"
       "iproute2mac"
       "libgit2"
@@ -67,6 +68,7 @@
       "bluesnooze"
       "caffeine"
       "foxitreader"
+      "gcc-arm-embedded"
       "ghostty"
       "hammerspoon"
       "karabiner-elements"
