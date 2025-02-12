@@ -65,7 +65,6 @@ require("lazy").setup({
   "lukas-reineke/indent-blankline.nvim",
   "sophacles/vim-bundle-mako",
   "rust-lang/rust.vim",
-  "p00f/clangd_extensions.nvim",
   "rickyelopez/uncrustify.nvim",
   -- "rickyelopez/vim-uncrustify",
 
