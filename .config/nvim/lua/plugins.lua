@@ -61,7 +61,6 @@ require("lazy").setup({
   { "airblade/vim-rooter", enabled = false },
   "tpope/vim-commentary",
   "tpope/vim-surround",
-  "ojroques/nvim-osc52",
   "mbbill/undotree",
   "lukas-reineke/indent-blankline.nvim",
   "sophacles/vim-bundle-mako",

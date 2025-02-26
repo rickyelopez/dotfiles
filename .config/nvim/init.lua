@@ -49,8 +49,8 @@ vim.opt.shortmess:append("c")
 vim.opt.list = true
 -- note that tab is in here twice. Pretty sure that means that the second one is the one that actually gets used
 -- leaving it in until that much is confirmed
-vim.opt.listchars = { tab = "| ", trail = "•", extends = "❯", precedes = "❮", tab = "▷▷⋮" }
-vim.o.showbreak = "↪ "
+vim.opt.listchars = { trail = "•", extends = "❯", precedes = "❮", tab = "▷▷⋮" }
+vim.opt.showbreak = "↪ "
 
 -- searching settings
 vim.opt.showmatch = true
@@ -73,7 +73,7 @@ vim.opt.colorcolumn = "120"
 vim.opt.foldlevel = 99
 
 -- clipboard
-vim.opt.clipboard = "unnamedplus"
+vim.opt.clipboard = {"unnamed", "unnamedplus"}
 
 vim.diagnostic.config({
   severity_sort = true,
@@ -81,18 +81,16 @@ vim.diagnostic.config({
   virtual_text = false,
 })
 
-local function copy(lines, _)
-  require("osc52").copy(table.concat(lines, "\n"))
-end
-
-local function paste()
-  return { vim.fn.split(vim.fn.getreg(""), "\n"), vim.fn.getregtype("") }
-end
-
 vim.g.clipboard = {
-  name = "osc52",
-  copy = { ["+"] = copy, ["*"] = copy },
-  paste = { ["+"] = paste, ["*"] = paste },
+  name = "OSC 52",
+  copy = {
+    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+  },
+  paste = {
+    ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+  },
 }
 
 -- misc
