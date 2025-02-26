@@ -9,7 +9,6 @@
     packages = with pkgs; [
       bat
       bear
-      bitwarden-cli
       cmake
       delta
       fd
@@ -32,6 +31,7 @@
       nerd-fonts.noto
       ninja
       obsidian
+      pre-commit
       ripgrep
       rsync
       socat
@@ -39,6 +39,7 @@
       tio
       tmux
       unzip
+      uv
       vim
       watch
       wget
@@ -56,6 +57,7 @@
       ".config/lazygit/config.yml".source = mkLink "${home}/dotfiles/.config/lazygit/config.yml";
       ".config/stylua".source = mkLink "${home}/dotfiles/.config/stylua";
       ".config/tmux".source = mkLink "${home}/dotfiles/.config/tmux";
+      ".config/clangd/config.yaml".source = mkLink "${home}/dotfiles/.config/clangd/config.yaml";
       ".p10k.zsh".source = mkLink "${home}/dotfiles/.p10k.zsh";
     };
   };
