@@ -26,11 +26,6 @@ run = "plugin select-empty"
 desc = "Select empty dirs"
 
 [[manager.prepend_keymap]]
-on = "p"
-run = "plugin --sync smart-paste"
-desc = "Paste into the hovered directory or CWD"
-
-[[manager.prepend_keymap]]
 on = ["d", "u"]
 run = "plugin restore"
 desc = "Restore last deleted files/folders"

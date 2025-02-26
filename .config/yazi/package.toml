@@ -1,10 +1,22 @@
-[plugin]
-deps = [
-    { use = "yazi-rs/plugins:chmod", rev = "d9bfa0b" },
-    { use = "yazi-rs/plugins:smart-filter", rev = "d9bfa0b" },
-    { use = "hankertrix/augment-command", rev = "225c062" },
-    { use = "boydaihungst/restore", rev = "ffc209e" },
-]
+[[plugin.deps]]
+use = "yazi-rs/plugins:chmod"
+rev = "beb586a"
+hash = "f28138c2e11e87962b66d583fef724c3"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-filter"
+rev = "beb586a"
+hash = "b482f4f2d3c4e0aa3f8db89a95699439"
+
+[[plugin.deps]]
+use = "hankertrix/augment-command"
+rev = "7c20850"
+hash = "adeb11c4bdb0594b65237bbd438484ca"
+
+[[plugin.deps]]
+use = "boydaihungst/restore"
+rev = "89fddfd"
+hash = "b442aa672e07ec0765b4b00e7bfdc9b5"
 
 [flavor]
 deps = []
