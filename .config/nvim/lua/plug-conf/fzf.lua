@@ -59,6 +59,9 @@ return {
         files = {
           git_icons = false,
           toggle_ignore_flag = "--no-ignore " .. fd_ignore,
+          actions = {
+            ["ctrl-g"] = { actions.toggle_ignore },
+          },
         },
         grep = {
           git_icons = false,
