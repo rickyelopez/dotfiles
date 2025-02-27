@@ -53,8 +53,8 @@ map("<leader>hr", "<CMD>%!xxd<CR><CMD>set filetype=xxd<CR>")
 map("<leader>hw", "<CMD>%!xxd -r<CR><CMD>set binary<CR><CMD>filetype=<CR>")
 
 -- open scratchpad files
-map("<leader>spc", "<CMD>e ~/scratchpad.c<CR>")
-map("<leader>spp", "<CMD>e ~/scratchpad.py<CR>")
+map("<leader>spc", "<CMD>e ~/scratchpad/scratchpad.c<CR>")
+map("<leader>spp", "<CMD>e ~/scratchpad/scratchpad.py<CR>")
 
 -- Unmap annoying binds
 map("<M-p>", "")
