@@ -8,11 +8,6 @@ on = "<C-p>"
 run = "paste"
 desc = "Paste (not smart)"
 
-[[manager.prepend_keymap]]
-on = "p"
-run = "paste --smart"
-desc = "Paste (smart)"
-
 # preview with mac quicklook
 # [[manager.prepend_keymap]]
 # on = "<C-p>"
@@ -44,3 +39,84 @@ desc = "Select empty dirs"
 on = ["d", "u"]
 run = "plugin restore"
 desc = "Restore last deleted files/folders"
+
+# augment-commands:
+[[manager.prepend_keymap]]
+on = "p"
+run = "plugin augment-command -- paste"
+desc = "Paste (smart)"
+
+[[manager.prepend_keymap]]
+on = "P"
+run = "plugin augment-command -- paste --force"
+desc = "Paste yanked files (smart) (overwrite if the destination exists)"
+
+[[manager.prepend_keymap]]
+on = "a"
+run = "plugin augment-command -- create"
+desc = "Create a file or directory"
+
+[[manager.prepend_keymap]]
+on = "y"
+run = "plugin augment-command -- yank"
+desc = "Yank selected files (copy)"
+
+[[manager.prepend_keymap]]
+on = "x"
+run = "plugin augment-command -- yank --cut"
+desc = "Yank selected files (cut)"
+
+[[manager.prepend_keymap]]
+on = ["d", "d"]
+run = "plugin augment-command -- remove"
+desc = "Trash selected files"
+
+[[manager.prepend_keymap]]
+on = ["d", "D"]
+run = "plugin augment-command -- remove --permanently"
+desc = "Permanently delete selected files"
+
+[[manager.prepend_keymap]]
+on = "1"
+run = "plugin augment-command -- tab_switch 0"
+desc = "Switch to the first tab"
+
+[[manager.prepend_keymap]]
+on = "2"
+run = "plugin augment-command -- tab_switch 1"
+desc = "Switch to the second tab"
+
+[[manager.prepend_keymap]]
+on = "3"
+run = "plugin augment-command -- tab_switch 2"
+desc = "Switch to the third tab"
+
+[[manager.prepend_keymap]]
+on = "4"
+run = "plugin augment-command -- tab_switch 3"
+desc = "Switch to the fourth tab"
+
+[[manager.prepend_keymap]]
+on = "5"
+run = "plugin augment-command -- tab_switch 4"
+desc = "Switch to the fifth tab"
+
+[[manager.prepend_keymap]]
+on = "6"
+run = "plugin augment-command -- tab_switch 5"
+desc = "Switch to the sixth tab"
+
+[[manager.prepend_keymap]]
+on = "7"
+run = "plugin augment-command -- tab_switch 6"
+desc = "Switch to the seventh tab"
+
+[[manager.prepend_keymap]]
+on = "8"
+run = "plugin augment-command -- tab_switch 7"
+desc = "Switch to the eigth tab"
+
+[[manager.prepend_keymap]]
+on = "9"
+run = "plugin augment-command -- tab_switch 8"
+desc = "Switch to the ninght tab"
