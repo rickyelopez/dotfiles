@@ -74,7 +74,15 @@ return {
         map("K", vim.lsp.buf.hover, { "n" }, opts("Show hover", bufnr))
         map("<C-k>", vim.lsp.buf.signature_help, { "n" }, opts("Show signature", bufnr))
         map("<space>wa", vim.lsp.buf.add_workspace_folder, { "n" }, opts("Add folder to workspace", bufnr))
-        map("<space>wr", vim.lsp.buf.remove_workspace_folder, { "n" }, opts("Remove folder from workspace", bufnr))
+        map("<space>wr", function()
+          vim.ui.select(vim.lsp.buf.list_workspace_folders(), {
+            prompt = "Select a folder to remove:",
+          }, function(choice)
+            if choice then
+              vim.lsp.buf.remove_workspace_folder(choice)
+            end
+          end)
+        end, { "n" }, opts("Remove folder from workspace", bufnr))
         map("<space>wl", function()
           print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
         end, { "n" }, opts("List workspace folders", bufnr))
