@@ -10,8 +10,8 @@ hash = "b482f4f2d3c4e0aa3f8db89a95699439"
 
 [[plugin.deps]]
 use = "hankertrix/augment-command"
-rev = "7c20850"
-hash = "adeb11c4bdb0594b65237bbd438484ca"
+rev = "4fa6b5d"
+hash = "3553a408135d8650f0d9fe42a195ee62"
 
 [[plugin.deps]]
 use = "boydaihungst/restore"
