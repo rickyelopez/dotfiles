@@ -32,6 +32,7 @@
       ninja
       obsidian
       pre-commit
+      ra-multiplex
       ripgrep
       rsync
       socat
@@ -98,6 +99,10 @@
     };
 
     pyenv.enable = true;
+  };
+
+  services = {
+    lorri.enable = true;
   };
 
   imports = [
