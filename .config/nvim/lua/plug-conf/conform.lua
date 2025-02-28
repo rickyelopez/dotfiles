@@ -11,19 +11,31 @@ return {
         ["nixpkgs-fmt"] = {
           command = "nixpkgs-fmt",
         },
+        ["sql-formatter"] = {
+          command = "sql-formatter",
+        },
         -- rustfmt = {
         --   options = {
         --     default_edition = "2021",
         --   },
         -- },
       },
+      default_format_opts = {
+        lsp_format = "prefer",
+        async = true,
+      },
+      notify_no_formatters = true,
+      notify_on_error = true,
+      log_level = vim.log.levels.INFO,
       formatters_by_ft = {
         bzl = { "buildifier" },
         cpp = { "clang-format" }, -- note that c and cpp are different here, c uses `uncrustify`, configured in lspconfig.lua
         lua = { "stylua" },
         python = { "black" },
+        typescriptreact = { "biome" },
         rust = { "rustfmt" },
         sh = { "shfmt" },
+        sql = { "sql-formatter" },
         xml = { "xmlformat" },
         yaml = { "yamlfmt" },
         nix = { "nixpkgs-fmt" },
