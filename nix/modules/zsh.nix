@@ -21,7 +21,7 @@
         size = 10000;
       };
 
-      initExtra = ''
+      initExtra = /*bash*/ ''
         [[ -f $HOME/dotfiles_priv/.privrc ]] && source $HOME/dotfiles_priv/.privrc ]]
         [[ -f $HOME/dotfiles/.vars ]] && source $HOME/dotfiles/.vars
         [[ -f $HOME/dotfiles/.aliases ]] && source $HOME/dotfiles/.aliases
@@ -51,7 +51,7 @@
 
       # initExtraBeforeCompInit = '' '';
 
-      initExtraFirst = ''
+      initExtraFirst = /*bash*/ ''
         # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
         # Initialization code that may require console input (password prompts, [y/n]
         # confirmations, etc.) must go above this block; everything else may go below.
@@ -87,7 +87,7 @@
       oh-my-zsh =
         {
           enable = true;
-          extraConfig = ''
+          extraConfig = /*bash*/ ''
             zstyle ':omz:plugins:git' aliases no
           '';
           plugins = [ "git" "sudo" ];
