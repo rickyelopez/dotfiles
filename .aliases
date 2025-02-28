@@ -9,9 +9,16 @@ alias lg='lazygit'
 ## activate python env from path or in current directory if no path given
 activate () {
     if [ "$#" -eq 0 ]; then
-        [ -f ./env/bin/activate ] && source ./env/bin/activate || echo "'./env/bin/activate' does not exist"
+        if [ -f ./env/bin/activate ]; then
+            source ./env/bin/activate || echo "'./env/bin/activate' does not exist"
+            return 0
+        fi
+        if [ -f ./.venv/bin/activate ]; then
+            source ./.venv/bin/activate || echo "'./env/bin/activate' does not exist"
+            return 0
+        fi
     else
-        [ -f "$1"/bin/activate ] && source "$1"/bin/activate || echo "'$1/env/bin/activate' does not exist"
+        [ -f "$1"/bin/activate ] && source "$1"/bin/activate || echo "'$1/bin/activate' does not exist"
     fi
 }
 
