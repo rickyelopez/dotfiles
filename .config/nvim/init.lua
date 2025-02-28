@@ -2,6 +2,8 @@
 
 vim.cmd([[syntax on]]) -- enable syntax highlighting
 
+vim.highlight.priorities.semantic_tokens = 95
+
 vim.g.mapleader = " " -- set leader key to space
 
 -- disable netrw
