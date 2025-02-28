@@ -90,24 +90,15 @@ return {
         map("<space>rn", vim.lsp.buf.rename, { "n" }, opts("Rename symbol", bufnr))
         map("<space>ca", vim.lsp.buf.code_action, { "n" }, opts("Show code actions", bufnr))
 
+        local fmt =  require("conform").format
         -- only use uncrustify for c files
         -- this is a hack since work uses clang-format, but work also only uses cpp so this is fine for now
         if vim.api.nvim_buf_call(bufnr, function()
           return vim.bo.filetype == "c"
         end) then
-          -- if true then
-          local fmt = require("uncrustify").format
-          map("<leader>f", fmt, { "n", "v" }, opts("Format file/selection with uncrustify", bufnr))
-        else
-          local fmt = require("conform").format
-          map("<leader>f", function()
-            fmt({ async = true, lsp_fallback = "always" })
-          end, { "n", "v" }, opts("Format file/selection", bufnr))
+          fmt = require("uncrustify").format
         end
-
-        if client.name == "clangd" then
-          map("<leader>o", "<cmd>ClangdSwitchSourceHeader<CR>", { "n" }, opts("Switch source-header", bufnr))
-        end
+        map("<leader>f", fmt, { "n", "v" }, opts("Format file/selection", bufnr))
 
         local caps = client.server_capabilities
         if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
@@ -163,7 +154,10 @@ return {
         end,
         ["clangd"] = function()
           require("lspconfig")["clangd"].setup({
-            on_attach = on_attach,
+            on_attach = function(client, bufnr)
+              map("<leader>o", "<cmd>ClangdSwitchSourceHeader<CR>", { "n" }, opts("Switch source-header", bufnr))
+              on_attach(client, bufnr)
+            end,
             flags = lsp_flags,
             capabilities = capabilities,
             settings = {
@@ -317,12 +311,8 @@ return {
           capabilities = capabilities,
         },
         extensions = {
-          -- defaults:
-          -- Automatically set inlay hints (type hints)
-          autoSetHints = false,
-          -- These apply to the default ClangdSetInlayHints command
+          autoSetHints = false, -- per MysticalDevil/inlay-hints.nvim, disable this
           inlay_hints = {
-            -- Only show inlay hints for the current line
             only_current_line = false,
             -- Event which triggers a refersh of the inlay hints.
             -- You can make this "CursorMoved" or "CursorMoved,CursorMovedI" but
@@ -330,11 +320,8 @@ return {
             -- This option is only respected when only_current_line and
             -- autoSetHints both are true.
             only_current_line_autocmd = "CursorHold",
-            -- whether to show parameter hints with the inlay hints or not
             show_parameter_hints = true,
-            -- prefix for parameter hints
             parameter_hints_prefix = "<- ",
-            -- prefix for all the other hints (type, chaining)
             other_hints_prefix = "=> ",
             -- whether to align to the length of the longest line in the file
             max_len_align = false,
@@ -346,7 +333,6 @@ return {
             -- right_align_padding = 7,
             -- The color of the hints
             highlight = "Comment",
-            -- The highlight group priority for extmark
             priority = 100,
           },
           ast = {
@@ -368,26 +354,6 @@ return {
               TemplateTemplateParm = "🅃",
               TemplateParamObject = "🅃",
             },
-            --[[ These require codicons (https://github.com/microsoft/vscode-codicons)
-          role_icons = {
-            type = "",
-            declaration = "",
-            expression = "",
-            specifier = "",
-            statement = "",
-            ["template argument"] = "",
-          },
-
-          kind_icons = {
-            Compound = "",
-            Recovery = "",
-            TranslationUnit = "",
-            PackExpansion = "",
-            TemplateTypeParm = "",
-            TemplateTemplateParm = "",
-            TemplateParamObject = "",
-          }, ]]
-
             highlights = {
               detail = "Comment",
             },
