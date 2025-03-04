@@ -25,21 +25,6 @@ require("lazy").setup({
   { "folke/neodev.nvim", opts = {} },
 
   {
-    "junegunn/fzf.vim",
-    enabled = false, -- replaced by fzf.lua
-    dependencies = { "junegunn/fzf", build = "./install --bin" },
-  },
-
-  {
-    "numirias/semshi",
-    enabled = false,
-    build = ":UpdateRemotePlugins",
-    config = function()
-      vim.g.python_highlight_all = 1
-    end,
-  },
-
-  {
     "iamcco/markdown-preview.nvim",
     enabled = false,
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
@@ -54,19 +39,14 @@ require("lazy").setup({
     end,
   },
 
-  { "tpope/vim-fugitive", enabled = false },
-  { "tpope/vim-dispatch", enabled = false },
   { "norcalli/nvim-colorizer.lua", config = true, priority = 1 },
-  { "chrisbra/csv.vim", enabled = false },
-  { "airblade/vim-rooter", enabled = false },
   "tpope/vim-commentary",
   "tpope/vim-surround",
   "mbbill/undotree",
-  "lukas-reineke/indent-blankline.nvim",
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
   "sophacles/vim-bundle-mako",
   "rust-lang/rust.vim",
   "rickyelopez/uncrustify.nvim",
-  -- "rickyelopez/vim-uncrustify",
 
   privPlugins,
 })
