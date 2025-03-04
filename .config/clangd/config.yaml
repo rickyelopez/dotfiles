@@ -2,3 +2,17 @@ CompileFlags:
   Add: [-ferror-limit=0, -xc++, -Wall]
 Completion:
   AllScopes: true
+
+---
+
+If:
+  PathMatch: .*/esphome.*
+CompileFlags:
+  Add:
+    - "-ferror-limit=0"
+    - "-xc++"
+    - "-Wall"
+    - "-I/home/ricclopez/repos/esphome"
+  Remove: [-fipa-pta, -free, -mtext-section-literals, -mlongcalls]
+Completion:
+  AllScopes: true
