@@ -39,6 +39,11 @@
       # Fallback value (if you omit the key): on-focused-monitor-changed = []
       on-focused-monitor-changed = [ "move-mouse monitor-lazy-center" ];
 
+      workspace-to-monitor-force-assignment = {
+        "3" = "secondary";
+        "4" = "secondary";
+      };
+
       on-window-detected = [
         {
           "if" = {
