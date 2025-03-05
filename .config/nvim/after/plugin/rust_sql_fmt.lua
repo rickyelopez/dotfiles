@@ -4,12 +4,7 @@ local run_formatter = function(text)
   local split = vim.split(text, "\n")
   local result = table.concat(vim.list_slice(split, 2, #split - 1), "\n")
 
-  -- Finds sql-format-via-python somewhere in your nvim config path
-  -- local bin = vim.api.nvim_get_runtime_file("bin/sql-format-via-python.py", false)[1]
-
   local j = require("plenary.job"):new({
-    -- command = "python",
-    -- args = { bin },
     command = "sql-formatter",
     writer = { result },
   })
