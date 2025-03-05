@@ -1,5 +1,5 @@
 CompileFlags:
-  Add: [-ferror-limit=0, -xc++, -Wall]
+  Add: [-ferror-limit=0, -xc++, -Wall, -Werror, -Wextra]
 Completion:
   AllScopes: true
 
@@ -16,3 +16,12 @@ CompileFlags:
   Remove: [-fipa-pta, -free, -mtext-section-literals, -mlongcalls]
 Completion:
   AllScopes: true
+
+---
+
+If:
+  PathMatch: .*/linux/tools/usb/usbip/.*
+
+CompileFlags:
+  Add: [-xc, -I../libsrc]
+  Remove: [-xc++]
