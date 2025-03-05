@@ -2,7 +2,7 @@ local M = {}
 
 --- start the server
 --- @param path string path to the listen socket
-M.start = function(path)
+function M.start(path)
   path = "~/.local/state/nvim/nvimsocket"
   path = vim.fn.expand(path)
 

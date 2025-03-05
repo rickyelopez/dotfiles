@@ -41,7 +41,6 @@ return {
         debounce_hours = 5, -- at least 5 hours between attempts to install/update
       })
 
-      local util = require("lspconfig.util")
       local map = require("utils").map
 
       -- Mappings.
@@ -90,7 +89,7 @@ return {
         map("<space>rn", vim.lsp.buf.rename, { "n" }, opts("Rename symbol", bufnr))
         map("<space>ca", vim.lsp.buf.code_action, { "n" }, opts("Show code actions", bufnr))
 
-        local fmt =  require("conform").format
+        local fmt = require("conform").format
         -- only use uncrustify for c files
         -- this is a hack since work uses clang-format, but work also only uses cpp so this is fine for now
         if vim.api.nvim_buf_call(bufnr, function()

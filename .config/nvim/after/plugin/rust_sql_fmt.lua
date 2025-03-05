@@ -1,6 +1,6 @@
 -- based on https://github.com/tjdevries/config_manager/blob/master/xdg_config/nvim/after/plugin/sql_rust_automagic.lua
 
-local run_formatter = function(text)
+local function run_formatter(text)
   local split = vim.split(text, "\n")
   local result = table.concat(vim.list_slice(split, 2, #split - 1), "\n")
 
@@ -40,13 +40,13 @@ local embedded_sql = vim.treesitter.query.parse(
 ]]
 )
 
-local get_root = function(bufnr)
+local function get_root(bufnr)
   local parser = vim.treesitter.get_parser(bufnr, "rust", {})
   local tree = parser:parse()[1]
   return tree:root()
 end
 
-local format_sql = function(bufnr)
+local function format_sql(bufnr)
   bufnr = bufnr or vim.api.nvim_get_current_buf()
 
   if vim.bo[bufnr].filetype ~= "rust" then

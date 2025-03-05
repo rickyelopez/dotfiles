@@ -1,3 +1,4 @@
+local map = require("utils").map
 return {
   "L3MON4D3/LuaSnip",
   build = "make install_jsregexp",
@@ -50,20 +51,23 @@ return {
 
     require("luasnip.loaders.from_lua").lazy_load({ paths = { "./luasnippets/" } })
 
-    vim.keymap.set({ "i", "s" }, "<C-j>", function()
+    local opts = { noremap = true, silent = true }
+    local modes = { "i", "s" }
+
+    map("<C-j>", function()
       return vim.snippet.active({ direction = 1 }) and vim.snippet.jump(1)
-    end, { silent = true })
+    end, modes, opts)
 
-    vim.keymap.set({ "i", "s" }, "<C-k>", function()
+    map("<C-k>", function()
       return vim.snippet.active({ direction = -1 }) and vim.snippet.jump(-1)
-    end, { silent = true })
+    end, modes, opts)
 
-    vim.keymap.set({ "i", "s" }, "<C-u>", function()
+    map("<C-u>", function()
       ls.change_choice(1)
-    end, { silent = true })
+    end, modes, opts)
 
-    vim.keymap.set({ "i", "s" }, "<C-y>", function()
+    map("<C-y>", function()
       ls.change_choice(-1)
-    end, { silent = true })
+    end, modes, opts)
   end,
 }
