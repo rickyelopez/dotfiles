@@ -5,6 +5,7 @@
       brave
       calibre
       ferdium
+      gcc
       ghostty
       rofi
       vlc
@@ -50,6 +51,7 @@
 
   imports = [
     ../../home.nix
+    ../../platforms/linux/home.nix
     ../../modules/hyprland.nix
   ];
 }
