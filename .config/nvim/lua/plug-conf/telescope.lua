@@ -129,7 +129,8 @@ return {
               actions.select_default:replace(function()
                 local selection = action_state.get_selected_entry().value
                 actions.close(prompt_bufnr)
-                vim.fn.Update_compiledb(selection)
+                vim.system({"ln", "-sf", vim.fn.getcwd() .. selection})
+                vim.notify("Linked compile commands file")
               end)
               return true
             end,

@@ -1,7 +1,5 @@
 return {
   "akinsho/bufferline.nvim",
-  -- "git@github.com:rickyelopez/bufferline.nvim",
-  -- branch = "user/rl/groupDuplicates",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
     local cycle = require("bufferline").cycle
@@ -45,6 +43,7 @@ return {
               matcher = function(buf)
                 return buf.path:match("dotfiles") or buf.path:match("%.config")
               end,
+              auto_close = false,
             },
           },
         },
@@ -52,7 +51,7 @@ return {
     })
 
     --- @param buf integer buffer number, or 0 for current buffer
-    M.close = function(buf)
+    function M.close(buf)
       if buf == 0 then
         buf = vim.fn.bufnr("%")
       end
@@ -81,10 +80,18 @@ return {
     map("<leader>q", function()
       M.close(0)
     end)
-    map("<S-Tab>", function() cycle(1) end)
-    map("<leader><S-Tab>", function() cycle(-1) end)
-    map("<leader><S-L>", function() move(1) end)
-    map("<leader><S-H>", function() move(-1) end)
+    map("<S-Tab>", function()
+      cycle(1)
+    end)
+    map("<leader><S-Tab>", function()
+      cycle(-1)
+    end)
+    map("<leader><S-L>", function()
+      move(1)
+    end)
+    map("<leader><S-H>", function()
+      move(-1)
+    end)
     map("gb", pick)
   end,
 }
