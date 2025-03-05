@@ -1,4 +1,4 @@
-{ pkgs, home, user, config, lib, ... }:
+{ pkgs, home, user, config, ... }:
 {
   home = {
     stateVersion = "24.05"; # don't change
@@ -45,12 +45,6 @@
       watch
       wget
       yq
-    ]
-    # packages for linux only
-    ++ lib.lists.optionals pkgs.stdenv.isLinux [
-      ouch
-      rustup
-      trash-cli
     ];
 
     file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
@@ -99,10 +93,6 @@
     };
 
     pyenv.enable = true;
-  };
-
-  services = {
-    lorri.enable = true;
   };
 
   imports = [
