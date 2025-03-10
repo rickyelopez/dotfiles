@@ -1,6 +1,5 @@
 return {
   "nvim-lualine/lualine.nvim",
-  dependencies = "RRethy/nvim-base16",
   config = function()
     local function progress_lines()
       local cur = vim.fn.line(".")
@@ -9,7 +8,7 @@ return {
     end
     require("lualine").setup({
       options = {
-        -- theme = "base16",
+        theme = "tokyonight",
         globalstatus = true,
       },
       extensions = { "fzf", "lazy", "man", "mason", "nvim-tree", "oil", "toggleterm" },
