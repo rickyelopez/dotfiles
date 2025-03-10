@@ -50,10 +50,10 @@ return {
       sorting = {
         priority_weight = 2,
         comparators = {
-          cmp.config.compare.offset,
           cmp.config.compare.exact,
           cmp.config.compare.score,
           cmp.config.compare.recently_used,
+          cmp.config.compare.offset,
           require("clangd_extensions.cmp_scores"),
           cmp.config.compare.locality,
           cmp.config.compare.kind,
@@ -66,6 +66,7 @@ return {
       formatting = {
         format = require("lspkind").cmp_format({
           mode = "symbol_text",
+          show_labelDetails = true,
           menu = {
             nvim_lsp = "[LSP]",
             luasnip = "[Snip]",
