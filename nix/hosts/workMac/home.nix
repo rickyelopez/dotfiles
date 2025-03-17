@@ -21,6 +21,16 @@
     };
   };
 
+  programs = {
+    git = {
+      includes = [
+        {
+          path = "~/dotfiles_priv/.config/git/config";
+        }
+      ];
+    };
+  };
+
   imports = [
     ../../home.nix
   ];
