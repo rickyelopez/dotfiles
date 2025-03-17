@@ -110,94 +110,226 @@
       # customize settings that not supported by nix-darwin directly
       # Incomplete list of macOS `defaults` commands :
       #   https://github.com/yannbertrand/macos-defaults
-      NSGlobalDomain = {
-        # _HIHideMenuBar = true;
-        AppleInterfaceStyle = "Dark";
-        AppleShowAllExtensions = true;
-
-        AppleKeyboardUIMode = 3; # Mode 3 enables full keyboard control.
-        ApplePressAndHoldEnabled = true; # enable press and hold
-        # sets how long it takes before held key starts repeating.
-        InitialKeyRepeat = 15; # normal minimum is 15 (225 ms), maximum is 120 (1800 ms)
-        # sets how fast it repeats once it starts.
-        KeyRepeat = 2; # minimum is 2 (30 ms), maximum is 120 (1800 ms)
-
-        "com.apple.swipescrolldirection" = false; # natural scrolling (default: true)
-        # "com.apple.keyboard.fnState" = true;
-        # "com.apple.mouse.tapBehavior" = 1;
-        # "com.apple.sound.beep.volume" = 0.0;
-        # "com.apple.sound.beep.feedback" = 0;
-        # "com.apple.sound.beep.feedback" = 0; # disable beep sound when pressing volume up/down key
-
-        NSAutomaticCapitalizationEnabled = false; # disable auto capitalization
-        NSAutomaticDashSubstitutionEnabled = false; # disable auto dash substitution
-        NSAutomaticPeriodSubstitutionEnabled = false; # disable auto period substitution
-        NSAutomaticQuoteSubstitutionEnabled = false; # disable auto quote substitution
-        NSAutomaticSpellingCorrectionEnabled = false; # disable auto spelling correction
-        NSNavPanelExpandedStateForSaveMode = true; # expand save panel by default
-        NSNavPanelExpandedStateForSaveMode2 = true;
-        NSAutomaticWindowAnimationsEnabled = false;
-        NSWindowShouldDragOnGesture = true; # move window by dragging while holding Ctrl + Cmd
-      };
 
       CustomUserPreferences = {
-        ".GlobalPreferences" = {
-          # automatically switch to a new space when switching to the application
-          AppleSpacesSwitchOnActivate = true;
-        };
-
-        "com.apple.finder" = {
-          # ShowExternalHardDrivesOnDesktop = false;
-          # ShowHardDrivesOnDesktop = false;
-          ShowMountedServersOnDesktop = true;
-          ShowRemovableMediaOnDesktop = true;
-          _FXSortFoldersFirst = true;
-          # When performing a search, search the current folder by default
-          FXDefaultSearchScope = "SCcf";
-        };
-
         "com.apple.desktopservices" = {
           # Avoid creating .DS_Store files on network or USB volumes
           DSDontWriteNetworkStores = true;
           DSDontWriteUSBStores = true;
         };
 
-        "com.apple.spaces" = {
-          "spans-displays" = 0; # Display have seperate spaces
-        };
-
-        "com.apple.screencapture" = {
-          location = "~/Desktop/screenshots";
-          type = "png";
-        };
-
         "com.apple.AdLib" = {
           allowApplePersonalizedAdvertising = false;
         };
 
-        dock = {
-          autohide = true;
-          # orientation = "right";
-          launchanim = false;
-          show-process-indicators = true;
-          show-recents = false;
-          # static-only = true;
-          mru-spaces = false;
+        "com.apple.CloudSubscriptionFeatures.optIn" = {
+          "545129924" = false; # disable apple intelligence
         };
-
-        finder = {
-          _FXShowPosixPathInTitle = true;
-          AppleShowAllExtensions = true;
-          FXEnableExtensionChangeWarning = false;
-          ShowPathbar = true;
-          ShowStatusBar = true;
-        };
-
-        # keyboard = {
-        #   enableKeyMapping = true;
-        #   remapCapsLockToControl = true;
-        # };
       };
+
+      ".GlobalPreferences" = {
+        # "com.apple.mouse.scaling" = ;
+        # "com.apple.sound.beep.sound" = ;
+      };
+      ActivityMonitor = {
+        # IconType = ;
+        # OpenMainWindow = ;
+        # ShowCategory = ;
+        # SortColumn = ;
+        # SortDirection = ;
+      };
+      # LaunchServices.LSQuarantine = ;
+      NSGlobalDomain = {
+        # AppleEnableMouseSwipeNavigateWithScrolls = ;
+        # AppleEnableSwipeNavigateWithScrolls = ;
+        # AppleFontSmoothing = ;
+        # AppleICUForce24HourTime = ;
+        AppleInterfaceStyle = "Dark";
+        # AppleInterfaceStyleSwitchesAutomatically = ;
+        AppleKeyboardUIMode = 3;
+        AppleMeasurementUnits = "Centimeters";
+        AppleMetricUnits = 1;
+        ApplePressAndHoldEnabled = false;
+        AppleScrollerPagingBehavior = true;
+        AppleShowAllExtensions = true;
+        AppleShowAllFiles = true;
+        AppleShowScrollBars = "Automatic";
+        AppleSpacesSwitchOnActivate = false;
+        AppleTemperatureUnit = "Celsius";
+        # AppleWindowTabbingMode = ;
+        InitialKeyRepeat = 15;
+        KeyRepeat = 2;
+        NSAutomaticCapitalizationEnabled = false;
+        NSAutomaticDashSubstitutionEnabled = false;
+        NSAutomaticInlinePredictionEnabled = false;
+        NSAutomaticPeriodSubstitutionEnabled = false;
+        NSAutomaticQuoteSubstitutionEnabled = false;
+        NSAutomaticSpellingCorrectionEnabled = false;
+        NSAutomaticWindowAnimationsEnabled = false;
+        NSDisableAutomaticTermination = true;
+        NSDocumentSaveNewDocumentsToCloud = false;
+        NSNavPanelExpandedStateForSaveMode = true;
+        NSNavPanelExpandedStateForSaveMode2 = true;
+        NSScrollAnimationEnabled = true;
+        NSTableViewDefaultSizeMode = 2;
+        NSTextShowsControlCharacters = false;
+        NSUseAnimatedFocusRing = true;
+        NSWindowResizeTime = 0.2;
+        NSWindowShouldDragOnGesture = true;
+        PMPrintingExpandedStateForPrint = true;
+        PMPrintingExpandedStateForPrint2 = true;
+        _HIHideMenuBar = false;
+        "com.apple.keyboard.fnState" = false; # enable fn keys behaving as normal fn keys (instead of apple stuff)
+        "com.apple.mouse.tapBehavior" = 1; # enable tap to click
+        "com.apple.sound.beep.feedback" = 1;
+        # "com.apple.sound.beep.volume" = 0.0;
+        # "com.apple.springing.delay" = ;
+        # "com.apple.springing.enabled" = ;
+        "com.apple.swipescrolldirection" = false;
+        "com.apple.trackpad.enableSecondaryClick" = true;
+        "com.apple.trackpad.forceClick" = true;
+        "com.apple.trackpad.scaling" = 1.8;
+        "com.apple.trackpad.trackpadCornerClickBehavior" = null; # 1 enables right click
+      };
+      SoftwareUpdate.AutomaticallyInstallMacOSUpdates = false;
+      WindowManager = {
+        AppWindowGroupingBehavior = false;
+        AutoHide = false;
+        EnableStandardClickToShowDesktop = true;
+        # EnableTiledWindowMargins = ;
+        # GloballyEnabled = ;
+        # HideDesktop = ;
+        # StageManagerHideWidgets = ;
+        # StandardHideDesktopIcons = ;
+        # StandardHideWidgets = ;
+      };
+      alf = {
+        # allowdownloadsignedenabled = ;
+        # allowsignedenabled = ;
+        # globalstate = ;
+        # loggingenabled = ;
+        # stealthenabled = ;
+      };
+      controlcenter = {
+        # AirDrop = ;
+        BatteryShowPercentage = true;
+        Bluetooth = true;
+        Display = true;
+        # FocusModes = ;
+        NowPlaying = true;
+        Sound = true;
+      };
+      dock = {
+        # enable-spring-load-actions-on-all-items = ;
+        # appswitcher-all-displays = ;
+        autohide = true;
+        # autohide-delay = ;
+        # autohide-time-modifier = ;
+        # dashboard-in-overlay = ;
+        # expose-animation-duration = ;
+        # expose-group-apps = ;
+        # largesize = ;
+        launchanim = false;
+        # magnification = ;
+        # mineffect = ;
+        # minimize-to-application = ;
+        # mouse-over-hilite-stack = ;
+        mru-spaces = false;
+        # orientation = ;
+        # persistent-apps = ;
+        # persistent-others = ;
+        # scroll-to-open = ;
+        show-process-indicators = true;
+        show-recents = false;
+        # showhidden = ;
+        # slow-motion-allowed = ;
+        # static-only = ;
+        # tilesize = ;
+        wvous-bl-corner = 1;
+        wvous-br-corner = 1;
+        wvous-tl-corner = 1;
+        wvous-tr-corner = 1;
+      };
+      finder = {
+        AppleShowAllExtensions = true;
+        AppleShowAllFiles = true;
+        # CreateDesktop = ;
+        FXDefaultSearchScope = "SCcf";
+        FXEnableExtensionChangeWarning = false;
+        FXPreferredViewStyle = "Nlsv";
+        FXRemoveOldTrashItems = false;
+        NewWindowTarget = "Home";
+        # NewWindowTargetPath = ;
+        QuitMenuItem = false;
+        ShowExternalHardDrivesOnDesktop = true;
+        ShowHardDrivesOnDesktop = true;
+        ShowMountedServersOnDesktop = true;
+        ShowPathbar = true;
+        ShowRemovableMediaOnDesktop = true;
+        ShowStatusBar = true;
+        _FXShowPosixPathInTitle = true;
+        _FXSortFoldersFirst = true;
+        _FXSortFoldersFirstOnDesktop = false;
+      };
+      hitoolbox.AppleFnUsageType = "Do Nothing";
+      loginwindow = {
+        DisableConsoleAccess = false;
+        GuestEnabled = false;
+        # LoginwindowText = ;
+        # PowerOffDisabledWhileLoggedIn = ;
+        # RestartDisabled = ;
+        # RestartDisabledWhileLoggedIn = ;
+        # SHOWFULLNAME = ;
+        # ShutDownDisabled = ;
+        # ShutDownDisabledWhileLoggedIn = ;
+        # SleepDisabled = ;
+        # autoLoginUser = ;
+      };
+      magicmouse.MouseButtonMode = "TwoButton";
+      menuExtraClock = {
+        FlashDateSeparators = false;
+        IsAnalog = false;
+        Show24Hour = false;
+        ShowAMPM = true;
+        ShowDate = 1;
+        ShowDayOfMonth = true;
+        ShowDayOfWeek = true;
+        ShowSeconds = true;
+      };
+      screencapture = {
+        # disable-shadow = ;
+        # include-date = ;
+        location = "~/Desktop/screenshots";
+        # show-thumbnail = ;
+        # target = ;
+        type = "png";
+      };
+      screensaver = {
+        # askForPassword = ;
+        # askForPasswordDelay = ;
+      };
+      smb = {
+        # NetBIOSName = ;
+        # ServerDescription = ;
+      };
+      spaces.spans-displays = true;
+      trackpad = {
+        ActuationStrength = 1;
+        Clicking = true;
+        # Dragging = ;
+        FirstClickThreshold = 1;
+        SecondClickThreshold = 2;
+        TrackpadRightClick = true;
+        TrackpadThreeFingerDrag = true;
+        TrackpadThreeFingerTapGesture = 0;
+      };
+      # universalaccess = {
+      #   # closeViewScrollWheelToggle = ;
+      #   # closeViewZoomFollowsFocus = ;
+      #   # mouseDriverCursorSize = ;
+      #   reduceMotion = true;
+      #   # reduceTransparency = ;
+      # };
     };
   };
   imports = [
