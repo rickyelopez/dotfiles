@@ -137,6 +137,32 @@ return {
           })
           :find()
       end,
+
+      workspace_folders = function(opts)
+        opts = opts or {}
+
+        local folders = vim.lsp.buf.list_workspace_folders()
+        if #folders == 0 then
+          vim.notify("No folders in workspace")
+          return
+        end
+
+        pickers
+          .new(themes.get_dropdown({ layout_config = { width = 0.6 } }), {
+            prompt_title = "LSP Workspace Folders",
+            finder = finders.new_table(folders),
+            sorter = conf.file_sorter(opts),
+            attach_mappings = function(prompt_bufnr)
+              actions.select_default:replace(function(_) end)
+              actions.delete_buffer:replace(function()
+                local selection = action_state.get_selected_entry().value
+                vim.lsp.buf.remove_workspace_folder(selection)
+                vim.notify("Removed " .. selection .. " from LSP workspace")
+              end)
+              return true
+            end,
+          }):find()
+      end,
     }
 
     -- Keymaps
@@ -184,6 +210,8 @@ return {
     map("<leader>ts", builtin.treesitter)
     map("<leader>vrc", M.search_dotfiles)
     map("<leader>cc", M.select_compiledb)
+
+    map("<leader>wl", M.workspace_folders)
 
     return M
   end,
