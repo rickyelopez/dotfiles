@@ -1,95 +1,98 @@
 customCommands:
-    - key: 'c'
-      context: 'remotes'
-      description: 'Prune remote branches'
-      loadingText: 'Pruning'
-      stream: true
-      command: 'git remote prune {{.SelectedRemote.Name}}'
-    - key: 'D'
-      context: 'localBranches'
-      description: 'Delete branch from remote'
-      loadingText: 'Deleting'
-      stream: true
-      prompts:
-        - type: "input"
-          key: 'Remote'
-          title: 'Which origin to delete from:'
-          initialValue: 'origin'
-          suggestions:
-            preset: 'remotes'
-        - type: 'confirm'
-          body: 'Are you sure you want to delete branch "{{.SelectedLocalBranch.Name}}" from remote "{{.Form.Remote}}"? This action cannot be reverted.'
-      command: 'git push -u {{.Form.Remote}} :{{.SelectedLocalBranch.Name}}'
-    - key: 'D'
-      context: 'remoteBranches'
-      description: 'Delete branch from remote'
-      loadingText: 'Deleting'
-      stream: true
-      prompts:
-        - type: 'confirm'
-          body: 'Are you sure you want to delete branch "{{.SelectedRemoteBranch.Name}}" from remote "{{.SelectedRemote.Name}}"? This action cannot be reverted.'
-      command: 'git push -u {{.SelectedRemote.Name}} :{{.SelectedRemoteBranch.Name}}'
-    - key: 'f'
-      context: 'localBranches'
-      description: 'Fetch (or pull) the currently selected branch from its upstream'
-      loadingText: 'Fetching'
-      stream: true
-      command: 'git {{if eq .CheckedOutBranch.Name .SelectedLocalBranch.Name}} pull --rebase {{else}} fetch {{end}} origin {{.SelectedLocalBranch.Name}}:{{.SelectedLocalBranch.Name}}'
-    - key: 'F'
-      context: 'localBranches'
-      description: 'Force fetch the currently selected branch from its upstream'
-      loadingText: 'Fetching'
-      # stream: true
-      prompts:
-        - type: 'confirm'
-          body: 'Are you sure you want to force fetch branch {{.SelectedLocalBranch.Name}}'
-      command: '{{if not (eq .CheckedOutBranch.Name .SelectedLocalBranch.Name)}} git fetch origin {{.SelectedLocalBranch.Name}}:{{.SelectedLocalBranch.Name}} -f {{else}} echo "Cannot force fetch currently checked out branch. Use \"f\" instead" {{end}}'
-      showOutput: true
-    - key: '<c-f>'
-      context: 'localBranches'
-      description: 'Fetch a remote branch into a local branch'
-      loadingText: 'Fetching'
-      stream: true
-      prompts:
-        - type: 'menu'
-          title: 'What kind of branch is it?'
-          options:
-            - value: 'other'
-            - value: 'last-built'
-            - value: 'develop'
-            - value: 'feature'
-            - value: 'terminal'
-        - type: 'input'
-          title: 'Branch name?'
-          initialValue: '{{if ne (index .PromptResponses 0) "other"}}{{index .PromptResponses 0}}/{{end}}'
-      command: 'git fetch origin {{index .PromptResponses 1}}:{{index .PromptResponses 1}}'
+  - key: 'c'
+    context: 'remotes'
+    description: 'Prune remote branches'
+    loadingText: 'Pruning'
+    stream: true
+    command: 'git remote prune {{.SelectedRemote.Name}}'
+  - key: 'D'
+    context: 'localBranches'
+    description: 'Delete branch from remote'
+    loadingText: 'Deleting'
+    stream: true
+    prompts:
+      - type: "input"
+        key: 'Remote'
+        title: 'Which origin to delete from:'
+        initialValue: 'origin'
+        suggestions:
+          preset: 'remotes'
+      - type: 'confirm'
+        body: 'Are you sure you want to delete branch "{{.SelectedLocalBranch.Name}}" from remote "{{.Form.Remote}}"? This action cannot be reverted.'
+    command: 'git push -u {{.Form.Remote}} :{{.SelectedLocalBranch.Name}}'
+  - key: 'D'
+    context: 'remoteBranches'
+    description: 'Delete branch from remote'
+    loadingText: 'Deleting'
+    stream: true
+    prompts:
+      - type: 'confirm'
+        body: 'Are you sure you want to delete branch "{{.SelectedRemoteBranch.Name}}" from remote "{{.SelectedRemote.Name}}"? This action cannot be reverted.'
+    command: 'git push -u {{.SelectedRemote.Name}} :{{.SelectedRemoteBranch.Name}}'
+  - key: 'f'
+    context: 'localBranches'
+    description: 'Fetch (or pull) the currently selected branch from its upstream'
+    loadingText: 'Fetching'
+    stream: true
+    command: 'git {{if eq .CheckedOutBranch.Name .SelectedLocalBranch.Name}} pull --rebase {{else}} fetch {{end}} origin {{.SelectedLocalBranch.Name}}:{{.SelectedLocalBranch.Name}}'
+  - key: 'F'
+    context: 'localBranches'
+    description: 'Force fetch the currently selected branch from its upstream'
+    loadingText: 'Fetching'
+    # stream: true
+    prompts:
+      - type: 'confirm'
+        body: 'Are you sure you want to force fetch branch {{.SelectedLocalBranch.Name}}'
+    command: '{{if not (eq .CheckedOutBranch.Name .SelectedLocalBranch.Name)}} git fetch origin {{.SelectedLocalBranch.Name}}:{{.SelectedLocalBranch.Name}} -f {{else}} echo "Cannot force fetch currently checked out branch. Use \"f\" instead" {{end}}'
+    showOutput: true
+  - key: '<c-f>'
+    context: 'localBranches'
+    description: 'Fetch a remote branch into a local branch'
+    loadingText: 'Fetching'
+    stream: true
+    prompts:
+      - type: 'menu'
+        title: 'What kind of branch is it?'
+        options:
+          - value: 'other'
+          - value: 'last-built'
+          - value: 'develop'
+          - value: 'feature'
+          - value: 'terminal'
+      - type: 'input'
+        title: 'Branch name?'
+        initialValue: '{{if ne (index .PromptResponses 0) "other"}}{{index .PromptResponses 0}}/{{end}}'
+    command: 'git fetch origin {{index .PromptResponses 1}}:{{index .PromptResponses 1}}'
 gui:
-    branchColors:
-        'develop': '#fcc603'
-        'last-built': '#1a823e'
-        'terminal': '#912033'
-    nerdFontsVersion: '3'
+  branchColors:
+    'develop': '#fcc603'
+    'last-built': '#1a823e'
+    'terminal': '#912033'
+  nerdFontsVersion: '3'
 git:
-    overrideGpg: true
-    autoFetch: false
-    paging:
-      colorArg: always
-      pager: delta --dark --paging=never
-    fetchAll: false
-    parseEmoji: true
+  overrideGpg: true
+  autoFetch: false
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never
+  fetchAll: false
+  parseEmoji: true
 keybinding:
-    branches:
-        fastForward: <disabled>
-        forceCheckoutBranch: <disabled>
-    files:
-      toggleStagedAll: <disabled>
+  branches:
+    fastForward: <disabled>
+    forceCheckoutBranch: <disabled>
+  files:
+    toggleStagedAll: <disabled>
 os:
-    edit: 'NVIM_LISTEN_ADDRESS=~/.local/state/nvim/nvimsocket nvr --remote-silent {{filename}}'
-    editAtLine: 'NVIM_LISTEN_ADDRESS=~/.local/state/nvim/nvimsocket nvr --remote-silent +{{line}} {{filename}}'
-    editInTerminal: false
-    copyToClipboardCmd: >
-      if [[ "$TERM" =~ ^(screen|tmux) ]]; then
-        printf "\033Ptmux;\033\033]52;c;$(printf {{text}} | base64 -w 0)\a\033\\" > /dev/tty
-      else
-        printf "\033]52;c;$(printf {{text}} | base64 -w 0)\a" > /dev/tty
-      fi
+  edit: 'NVIM_LISTEN_ADDRESS=~/.local/state/nvim/nvimsocket nvr --remote-silent {{filename}}'
+  editAtLine: 'NVIM_LISTEN_ADDRESS=~/.local/state/nvim/nvimsocket nvr --remote-silent +{{line}} {{filename}}'
+  editInTerminal: false
+  copyToClipboardCmd: >
+    if [[ "$TERM" =~ ^(screen|tmux) ]]; then
+
+      printf "\033Ptmux;\033\033]52;c;$(printf {{text}} | base64 -w 0)\a\033\\" > /dev/tty
+    else
+
+      printf "\033]52;c;$(printf {{text}} | base64 -w 0)\a" > /dev/tty
+    fi
+
