@@ -21,7 +21,7 @@ return {
         -- },
       },
       default_format_opts = {
-        lsp_format = "prefer",
+        lsp_format = "fallback",
         async = true,
       },
       notify_no_formatters = true,
