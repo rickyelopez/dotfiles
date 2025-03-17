@@ -148,7 +148,8 @@
         # See: https://nikitabobko.github.io/AeroSpace/commands#layout
         alt-slash = "layout tiles horizontal vertical";
         alt-comma = "layout accordion horizontal vertical";
-        alt-e = "layout floating tiling"; # Toggle between floating and tiling layout
+        alt-e = "layout tiles accordion";
+        alt-v = "layout floating tiling";
 
         # See: https://nikitabobko.github.io/AeroSpace/commands#focus
         alt-h = "focus left";
