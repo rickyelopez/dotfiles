@@ -75,8 +75,8 @@ vim.opt.clipboard = { "unnamed", "unnamedplus" }
 
 vim.diagnostic.config({
   severity_sort = true,
-  virtual_lines = true,
-  virtual_text = false,
+  virtual_lines = false,
+  virtual_text = true,
 })
 
 local osc52 = require("vim.ui.clipboard.osc52")
