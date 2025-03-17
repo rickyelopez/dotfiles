@@ -84,8 +84,10 @@ keybinding:
   files:
     toggleStagedAll: <disabled>
 os:
-  edit: 'NVIM_LISTEN_ADDRESS=~/.local/state/nvim/nvimsocket nvr --remote-silent {{filename}}'
-  editAtLine: 'NVIM_LISTEN_ADDRESS=~/.local/state/nvim/nvimsocket nvr --remote-silent +{{line}} {{filename}}'
+  # edit, editAtLine, openDirInEditor taken directly from https://github.com/jesseduffield/lazygit/blob/master/pkg/config/editor_presets.go#L58
+  edit: '[ -z "$NVIM" ] && (nvim -- {{filename}}) || (nvim --server "$NVIM" --remote-send "<C-\>" && nvim --server "$NVIM" --remote {{filename}})'
+  editAtLine: '[ -z "$NVIM" ] && (nvim +{{line}} -- {{filename}}) || (nvim --server "$NVIM" --remote-send "<C-\>" &&  nvim --server "$NVIM" --remote {{filename}} && nvim --server "$NVIM" --remote-send ":{{line}}<CR>")'
+  openDirInEditor: '[ -z "$NVIM" ] && (nvim -- {{dir}}) || (nvim --server "$NVIM" --remote-send "<C-\>" && nvim --server "$NVIM" --remote-tab {{dir}})'
   editInTerminal: false
   copyToClipboardCmd: >
     if [[ "$TERM" =~ ^(screen|tmux) ]]; then
