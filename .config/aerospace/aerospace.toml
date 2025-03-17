@@ -35,6 +35,8 @@ default-root-container-orientation = 'auto'
 # Fallback value (if you omit the key): on-focused-monitor-changed = []
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
+workspace-to-monitor-force-assignment = { "3" = "secondary", "4" = "secondary" }
+
 # You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
 # Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
 # Also see: https://nikitabobko.github.io/AeroSpace/goodies#disable-hide-app
@@ -93,8 +95,9 @@ outer.right = 0
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
 alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
+alt-e = 'layout tiles accordion'
 
-alt-e = 'layout floating tiling' # Toggle between floating and tiling layout
+alt-v = 'layout floating tiling' # Toggle between floating and tiling layout
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
 alt-h = 'focus left'
@@ -192,8 +195,8 @@ alt-shift-semicolon = 'mode service'
 esc = ['reload-config', 'mode main']
 r = ['flatten-workspace-tree', 'mode main'] # reset layout
 f = [
-    'layout floating tiling',
-    'mode main',
+  'layout floating tiling',
+  'mode main',
 ] # Toggle between floating and tiling layout
 backspace = ['close-all-windows-but-current', 'mode main']
 
