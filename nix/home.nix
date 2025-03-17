@@ -77,13 +77,6 @@
 
     fzf.enable = true;
 
-    gh = {
-      enable = true;
-      extensions = [
-        pkgs.gh-dash
-      ];
-    };
-
     kitty = {
       enable = true;
       font = {
@@ -97,6 +90,7 @@
 
   imports = [
     ./modules/alacritty.nix
+    ./modules/git.nix
     ./modules/fx.nix
     ./modules/nvim.nix
     # ./modules/wezterm.nix
