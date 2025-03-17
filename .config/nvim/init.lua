@@ -1,6 +1,4 @@
--- vim settings
-
-vim.cmd([[syntax on]]) -- enable syntax highlighting
+vim.cmd("syntax on") -- enable syntax highlighting
 
 vim.highlight.priorities.semantic_tokens = 95
 
@@ -45,12 +43,10 @@ vim.opt.ttimeoutlen = 10
 
 -- command window settings
 vim.opt.cmdheight = 1
-vim.opt.shortmess:append("c")
+-- vim.opt.shortmess:append("c")
 
 -- show whitespace, tabs, line break, etc.
 vim.opt.list = true
--- note that tab is in here twice. Pretty sure that means that the second one is the one that actually gets used
--- leaving it in until that much is confirmed
 vim.opt.listchars = { trail = "•", extends = "❯", precedes = "❮", tab = "▷▷⋮" }
 vim.opt.showbreak = "↪ "
 
@@ -59,7 +55,7 @@ vim.opt.showmatch = true
 vim.opt.incsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.inccommand = "nosplit"
+vim.opt.inccommand = "nosplit"
 
 -- number column
 vim.opt.number = true
@@ -75,7 +71,7 @@ vim.opt.colorcolumn = "120"
 vim.opt.foldlevel = 99
 
 -- clipboard
-vim.opt.clipboard = {"unnamed", "unnamedplus"}
+vim.opt.clipboard = { "unnamed", "unnamedplus" }
 
 vim.diagnostic.config({
   severity_sort = true,
@@ -83,15 +79,16 @@ vim.diagnostic.config({
   virtual_text = false,
 })
 
+local osc52 = require("vim.ui.clipboard.osc52")
 vim.g.clipboard = {
   name = "OSC 52",
   copy = {
-    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+    ["+"] = osc52.copy("+"),
+    ["*"] = osc52.copy("*"),
   },
   paste = {
-    ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-    ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+    ["+"] = osc52.paste("+"),
+    ["*"] = osc52.paste("*"),
   },
 }
 
@@ -111,36 +108,7 @@ end
 -- plugins
 require("plugins")
 
-require("utils")
+require("utils").setup()
 require("binds")
 
-require("server").start("~/.local/state/nvim/nvimsocket")
-
--- enable dbc syntax highlighting
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = { "*.dbc" },
-  command = "set filetype=dbc",
-})
-
--- use cpp comment style in c files and cpp files
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "cpp", "c" },
-  command = [[set commentstring=//\ %s]],
-})
-
--- settings for lua
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "lua" },
-  command = [[set tabstop=2]],
-})
-
--- settings for verilog
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "verilog" },
-  command = [[set tabstop=2]],
-})
-
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = { "ZIP_BUILD" },
-  command = [[set ft=python]],
-})
+require("server").start()

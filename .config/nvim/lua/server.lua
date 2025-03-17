@@ -1,9 +1,9 @@
 local M = {}
 
 --- start the server
---- @param path string path to the listen socket
+--- @param path? string path to the listen socket
 function M.start(path)
-  path = "~/.local/state/nvim/nvimsocket"
+  path = path or "~/.local/state/nvim/nvimsocket"
   path = vim.fn.expand(path)
 
   local has_lsof = vim.system({ "which", "lsof" }):wait()
