@@ -6,9 +6,9 @@
       rustup
       trash-cli
     ];
+  };
 
-    services = {
-      lorri.enable = true;
-    };
+  services = {
+    lorri.enable = true;
   };
 }
