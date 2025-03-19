@@ -54,16 +54,16 @@
     }:
     {
       nixosConfigurations = {
-        expedition = import ./nix/hosts/expedition { inherit nixpkgs; inherit inputs; };
+        expedition = import ./nix/hosts/expedition { inherit nixpkgs inputs; };
       };
       darwinConfigurations = {
-        "Ricky-Lopez-DTQ4WX0376" = import ./nix/hosts/workMac { inherit self; inherit nixpkgs; inherit inputs; };
+        "Ricky-Lopez-DTQ4WX0376" = import ./nix/hosts/workMac { inherit self nixpkgs inputs; };
       };
 
       # Expose the package set, including overlays, for convenience.
       darwinPackages = self.darwinConfigurations."Ricky-Lopez-DTQ4WX0376".pkgs;
 
-      defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
+      packages.x86_64-linux.default = home-manager.defaultPackage.x86_64-linux;
       homeConfigurations = {
         "ricclopez@donnager" = import ./nix/hosts/donnager { inherit self nixpkgs inputs; };
         "ricclopez@thinkrick" = import ./nix/hosts/thinkrick { inherit self nixpkgs inputs; };

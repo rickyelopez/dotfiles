@@ -15,12 +15,7 @@ inputs.darwin.lib.darwinSystem {
         imports = [ ./home.nix ];
       };
 
-      home-manager.extraSpecialArgs = {
-        inherit self
-          inputs
-          home
-          user;
-      };
+      home-manager.extraSpecialArgs = { inherit self inputs home user; };
     }
   ];
 }
