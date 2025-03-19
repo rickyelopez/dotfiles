@@ -1,217 +1,25 @@
 #!/usr/bin/bash
 
-## epoch_ms to timestamp
-ts () { python3 -c "from datetime import datetime; print(datetime.fromtimestamp(${1}/1000 - (60*60*7)).strftime(\"%Y-%m-%d %H:%M:%S\"))"; }
-
-## launch lazygit
-alias lg='lazygit'
-
-## activate python env from path or in current directory if no path given
-activate () {
-    if [ "$#" -eq 0 ]; then
-        if [ -f ./env/bin/activate ]; then
-            source ./env/bin/activate || echo "'./env/bin/activate' does not exist"
-            return 0
-        fi
-        if [ -f ./.venv/bin/activate ]; then
-            source ./.venv/bin/activate || echo "'./env/bin/activate' does not exist"
-            return 0
-        fi
-    else
-        [ -f "$1"/bin/activate ] && source "$1"/bin/activate || echo "'$1/bin/activate' does not exist"
-    fi
-}
-
-# use this cmd to open lf and cd into whatever directory it is in when it exits
-if command -v lf &> /dev/null; then
-    lfcd () {
-        # `command` is needed in case `lfcd` is aliased to `lf`
-        cd "$(command lf -print-last-dir "$@")" || return
-    }
-fi
-
-# ninja build and filter compdb
-alias compdb="ninja -C out all_apps -t compdb | jq '[ .[] | select(.command | contains(\"bad_toolchain\")|not) ]' > compile_commands.json"
-
 ################################################################################
 #                           Common Git Commands
 ################################################################################
 
 #######################
-###### Helpers
-#######################
-# function to confirm operation
-confirm_branch () {
-    branch=$(gbc 2>&1)
-    if [ $? -ne 0 ]; then
-        return 1
-    fi
-
-    if [ -n "$ZSH_VERSION" ]; then
-        read "?You are about to $1 $branch. Continue? (y/n) " confirm
-    else
-        read -p "You are about to $1 $branch. Continue? (y/n) " confirm 
-    fi
-
-    if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]; then
-        return 0
-    fi
-
-    return 1
-}
-
-
-#######################
-###### Basics
-#######################
-alias gb='git branch'
-alias gs='git status'
-alias gc='git clean -dxf'
-
-
-#######################
-###### Branching
-#######################
-# return current branch
-alias gbc='git branch --show-current'
-# grep for branches
-gbg () { git branch | grep -E "$@"; }
-# make and checkout new brallanch
-alias gbn='git checkout -b'
-# delete branch
-alias gbd='git branch -D'
-# delete branch, grep branch name
-gbdg () { gbd $(gbg "$@"); }
-# fetch branch
-unalias gfo 2>/dev/null
-gfo () { branch=$1; shift; git fetch --prune origin "$branch":"$branch" "$@"; }
-# checkout branch
-alias gco='git checkout'
-# checkout branch, grep branch name
-gcog () { local branch=$1; shift; gco $(gbg "$branch") "$@"; }
-# fetch and checkout branch
-gfco () { gfo "$1" && gco "$1"; }
-
-
-#######################
-###### Conflicts
-#######################
-# list conflicted files
-alias gcl='git diff --name-only --diff-filter=U'
-# check if there are any conflict markers left
-alias gdc='git diff --check'
-
-
-#######################
-###### Log
-#######################
-# open the log (current branch or other)
-alias gl='git log'
-# open the log, grep for branch name
-unalias glg 2>/dev/null
-glg () {
-    local branch=$1
-    shift
-    gl $(gbg "$branch") "$@"
-}
-# short log
-alias glo='gl --oneline'
-# short log, grep for branch name
-unalias glog 2>/dev/null
-glog () {
-    local branch=$1
-    shift
-    glo $(gbg "$branch") "$@"
-}
-
-
-#######################
 ###### Rebasing
 #######################
-# rebase
-alias grb='git rebase'
 # squash, pass in how far back to go
-# alias gsq='git rebase -i HEAD~'
-gsq () {
-    local back=$1
-    shift
-    git rebase -i HEAD~"$back" "$@"
-}
-# rebase onto other branch from origin
-unalias grbo 2>/dev/null
-grbo () { local branch=$1; shift; grb origin/"$branch" "$@"; }
-# fetch and rebase
-# alias gfrb='f(){ gfo "$1" ; [ $? -eq 0 ] && grb "$1" || echo "Fetch failed; exiting" ; unset -f f;}; f'
-gfrb () { gfo "$1" || echo "Fetch failed; exiting" && grb "$1"; }
-# continue rebase
-alias grc='grb --continue'
-# abort rebase
-alias gra='grb --abort'
-
-
-#######################
-###### Cherry-picking
-#######################
-# cherry-pick
-alias gcp='git cherry-pick'
-# continue cherry-pick
-alias gcpa='gcp --abort'
-# abort cherry-pick
-alias gcpc='gcp --continue'
-
-
-#######################
-###### Submodules
-#######################
-# init all submodules defined in $SUBMODULES (defined elsewhere)
-# alias gsm='git submodule update --init --recursive $SUBMODULES'
-# force init all submodules defined in $SUBMODULES (defined elsewhere)
-# alias gsmf='git submodule update --init --recursive -f $SUBMODULES'
-
+# gir() {
+#     local back=$1
+#     shift
+#     git rebase -i HEAD~"$back" "$@"
+# }
 
 #######################
 ###### Committing
 #######################
-# amend commit, reset author
-alias gca='git commit --amend'
-# amend commit, reset author, don't edit commit msg
-alias gcan='gca --no-edit'
-# add conflicted files
-alias gac='git add $(gcl)'
 # fixup commit
-unalias gcf 2>/dev/null
-gcf () {
-    local back=$1
-    shift
-    git commit --fixup HEAD~"$back" "$@"
-}
-
-
-#######################
-###### Pushing
-#######################
-# force push, confirm first
-unalias gpf 2>/dev/null
-gpf () {
-    confirm_branch "force-push to" && git push -f || echo "cancelled"
-}
-# push branch to origin, confirm first
-unalias gpu 2>/dev/null
-gpu () {
-    confirm_branch "push branch to origin" && git push -u origin $(gbc) || echo "cancelled"
-}
-# force push branch to origin, confirm first
-gpuf () {
-    confirm_branch "force push branch to origin" && git push -u origin $(gbc) -f || echo "cancelled"
-}
-
-
-#######################
-###### Misc
-#######################
-alias gsh='git rev-parse --short HEAD'
-
-
-# source private alises if it exists
-[ -f "$HOME/dotfiles_priv/.priv_aliases" ] && source "$HOME/dotfiles_priv/.priv_aliases"
-
+# gcf() {
+#     local back=$1
+#     shift
+#     git commit --fixup HEAD~"$back" "$@"
+# }
