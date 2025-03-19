@@ -1,10 +1,6 @@
-{ self, pkgs, lib, home, user, ... }: {
-  services = {
-    nix-daemon.enable = true;
-  };
-
+{ self, pkgs, home, user, ... }: {
   nix = {
-    useDaemon = true;
+    enable = true;
 
     # do garbage collection weekly to keep disk usage low
     gc = {
@@ -53,7 +49,6 @@
       "opencv"
       "openjdk"
       "openssl"
-      "pam-reattach"
       "portaudio"
       "readline"
       "skhd"
@@ -93,7 +88,16 @@
     hostPlatform = "aarch64-darwin";
   };
 
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local = {
+    # unfortunately we can't use the following options because we want `ignore_ssh` at the end of the `pam_reattach` entry
+    # https://github.com/LnL7/nix-darwin/pull/1344#issuecomment-2738164190
+    # touchIdAuth = true;
+    # reattach = true;
+    text = ''
+      auth       optional       ${pkgs.pam-reattach}/lib/pam/pam_reattach.so ignore_ssh
+      auth       sufficient     pam_tid.so
+    '';
+  };
 
   system = {
     stateVersion = 4;
