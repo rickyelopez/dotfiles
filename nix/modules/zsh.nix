@@ -1,4 +1,20 @@
 { pkgs, user, home, ... }: {
+
+  home = {
+    sessionPath = [
+      "$HOME/.local/bin"
+      "$HOME/.cargo/bin"
+    ] ++ pkgs.lib.lists.optionals (pkgs.stdenv.isDarwin) [
+      "$(/opt/homebrew/bin/brew --prefix)/opt/util-linux/bin"
+      "$(/opt/homebrew/bin/brew --prefix)/opt/util-linux/sbin"
+    ];
+
+    shellAliases = {
+      lg = "lazygit";
+      zcdb = "ninja -C out all_apps -t compdb | jq \'[ .[] | select(.command | contains(\"bad_toolchain\")|not) ]\' > compile_commands.json";
+    };
+  };
+
   programs = {
     zsh = {
       enable = true;
@@ -22,21 +38,18 @@
       };
 
       initExtra = /*bash*/ ''
-        [[ -f $HOME/dotfiles_priv/.privrc ]] && source $HOME/dotfiles_priv/.privrc ]]
-        [[ -f $HOME/dotfiles/.vars ]] && source $HOME/dotfiles/.vars
-        [[ -f $HOME/dotfiles/.aliases ]] && source $HOME/dotfiles/.aliases
+        [ -f ~/.p10k.zsh ] && source ~/.p10k.zsh
+        [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 
-        [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+        # make ssh work in tmux across reconnections
+        if [[ -n "$SSH_TTY" ]] && [[ -n "$SSH_AUTH_SOCK" ]]; then
+          export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock.$(hostname)
+        fi
 
         # load base16 theme
         BASE16_SHELL="$HOME/.config/base16-shell/"
         if [ -n "$PS1" ] && [ -s "$BASE16_SHELL/profile_helper.sh" ] && [ "$SHLVL" -le 2 ]; then
             source "$BASE16_SHELL/profile_helper.sh"
-        fi
-
-        # Tell Maven to use brew java instead of mac one
-        if [ -f /usr/libexec/java_home ]; then
-            export JAVA_HOME=$(/usr/libexec/java_home -v 1.8 2>/dev/null)
         fi
 
         NVM_DIR="$HOME/.nvm"
@@ -47,6 +60,44 @@
                 export NVM_DIR
             fi
         }
+
+        ## activate python env from path or in current directory if no path given
+        activate() {
+            if [ "$#" -eq 0 ]; then
+                if [ -f ./env/bin/activate ]; then
+                    source ./env/bin/activate || echo "'./env/bin/activate' does not exist"
+                    return 0
+                elif [ -f ./.venv/bin/activate ]; then
+                    source ./.venv/bin/activate || echo "'./env/bin/activate' does not exist"
+                    return 0
+                fi
+            else
+                [ -f "$1"/bin/activate ] && source "$1"/bin/activate || echo "'$1/bin/activate' does not exist"
+            fi
+        }
+
+        # use this cmd to open yazi and cd into whatever directory it is in when it exits
+        # taken from https://yazi-rs.github.io/docs/quick-start/
+        if command -v yazi &>/dev/null; then
+            ycd() {
+                local tmp
+                tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+
+                yazi "$@" --cwd-file="$tmp"
+
+                if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+                    builtin cd -- "$cwd" || return 1
+                fi
+
+                rm -f -- "$tmp"
+            }
+        fi
+
+        # source private files
+        [ -f "$HOME/dotfiles_priv/.privrc" ] && source "$HOME/dotfiles_priv/.privrc"
+        [ -f "$HOME/dotfiles_priv/.vars" ] && source "$HOME/dotfiles_priv/.vars"
+        [ -f "$HOME/dotfiles_priv/.aliases" ] && source "$HOME/dotfiles_priv/.aliases"
+
       '' + pkgs.lib.optionalString (!pkgs.stdenv.isDarwin) "load_nvm";
 
       # initExtraBeforeCompInit = '' '';
@@ -67,11 +118,14 @@
       };
 
       sessionVariables = {
+        XDF_CONFIG_HOME = "${home}/.config";
         UNCRUSTIFY_CONFIG = "${home}/.config/uncrustify.cfg";
       };
 
       # shellAliases = {};
-      # shellGlobalAliases = {};
+      shellGlobalAliases = {
+        G = "| grep";
+      };
 
       syntaxHighlighting = {
         enable = true;
@@ -95,4 +149,3 @@
     };
   };
 }
-
