@@ -164,6 +164,6 @@
 
 
 # media keys bound to ncspot
-play : echo "playpause" | nc -U /tmp/ncspot/ncspot.sock &>/dev/null && echo "play/pause"
-next : echo "next" | nc -U /tmp/ncspot/ncspot.sock &>/dev/null && echo "next"
-previous : echo "previous" | nc -U /tmp/ncspot/ncspot.sock &>/dev/null && echo "previous"
+# play : echo "playpause" | nc -U /tmp/ncspot/ncspot.sock &>/dev/null && echo "play/pause"
+# next : echo "next" | nc -U /tmp/ncspot/ncspot.sock &>/dev/null && echo "next"
+# previous : echo "previous" | nc -U /tmp/ncspot/ncspot.sock &>/dev/null && echo "previous"
