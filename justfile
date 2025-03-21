@@ -4,7 +4,7 @@ build:
 
 [linux]
 build:
-  nix run ~/dotfiles -- build --flake ~/dotfiles
+  nix run ~/dotfiles -- --no-out-link build --flake ~/dotfiles
 
 [macos]
 switch:
