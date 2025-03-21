@@ -59,14 +59,6 @@
 
   fonts.fontconfig.enable = true;
 
-  xdg = {
-    configFile = {
-      # I think this is necessary because the file must exist in order to enable
-      # experimental features before this flake can build
-      "nix/nix.conf".enable = false;
-    };
-  };
-
   programs = {
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
