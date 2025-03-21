@@ -216,7 +216,7 @@ return {
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
-            cmd = { "ra-multiplex" },
+            cmd = { vim.fn.executable("ra-multiplex") and  "ra-multiplex" or "rust-analyzer"},
             settings = {
               ["rust-analyzer"] = {
                 files = {
