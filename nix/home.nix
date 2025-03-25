@@ -9,6 +9,7 @@
     packages = with pkgs; [
       bat
       bear
+      bitwarden-cli
       cmake
       delta
       fd
@@ -20,6 +21,7 @@
       htop
       just
       jq
+      jqp
       lazygit
       gcc
       gnumake
@@ -39,6 +41,7 @@
       sshpass
       tio
       tmux
+      uncrustify
       unzip
       uv
       vim
