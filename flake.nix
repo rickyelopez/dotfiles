@@ -62,25 +62,29 @@
     , home-manager
     , ...
     }:
-    let
-      callPackage = nixpkgs.lib.callPackageWith ({ inherit inputs; } // inputs);
-      hosts = callPackage ./nix/hosts { inherit callPackage; };
-    in
     {
-      nixosConfigurations = {
-        expedition = import ./nix/hosts/expedition { inherit nixpkgs inputs; };
-      } // hosts.donnager.nixosConfigurations;
+      nixosConfigurations = builtins.listToAttrs (
+        map
+          (host: {
+            name = host;
+            value = nixpkgs.lib.nixosSystem {
+              specialArgs = { inherit inputs host; };
+              modules = [ ./nix/hosts/nixos/${host} ];
+            };
+          })
+          (builtins.attrNames (builtins.readDir ./nix/hosts/nixos))
+      );
 
       darwinConfigurations = {
-        "Ricky-Lopez-DTQ4WX0376" = import ./nix/hosts/workMac { inherit self nixpkgs inputs; };
+        "Ricky-Lopez-DTQ4WX0376" = import ./nix/hosts/darwin/workMac { inherit self nixpkgs inputs; };
       };
 
       # Expose the package set, including overlays, for convenience.
       darwinPackages = self.darwinConfigurations."Ricky-Lopez-DTQ4WX0376".pkgs;
 
-      packages.x86_64-linux.default = home-manager.packages.x86_64-linux.default;
-      homeConfigurations = {
-        "ricclopez@thinkrick" = import ./nix/hosts/thinkrick { inherit self nixpkgs inputs; };
-      } // hosts.donnager.homeConfigurations;
+      # packages.x86_64-linux.default = home-manager.packages.x86_64-linux.default;
+      # homeConfigurations = {
+      #   "ricclopez@thinkrick" = import ./nix/hosts/thinkrick { inherit self nixpkgs inputs; };
+      # }; #// hosts.donnager.homeConfigurations;
     };
 }

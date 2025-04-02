@@ -1,3 +1,0 @@
-{ callPackage, ... }: {
-  donnager = callPackage ./donnager { };
-}

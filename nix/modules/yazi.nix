@@ -1,4 +1,8 @@
-{ pkgs, config, home, ... }: {
+{ pkgs, config, hostSpec, ... }:
+let
+  home = hostSpec.home;
+in
+{
   home = {
     packages = with pkgs; [ yazi ];
 
