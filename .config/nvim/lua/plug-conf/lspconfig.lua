@@ -77,16 +77,6 @@ return {
         map("<space>rn", vim.lsp.buf.rename, { "n" }, opts("Rename symbol", bufnr))
         map("<space>ca", vim.lsp.buf.code_action, { "n" }, opts("Show code actions", bufnr))
 
-        local fmt = require("conform").format
-        -- only use uncrustify for c files
-        -- this is a hack since work uses clang-format, but work also only uses cpp so this is fine for now
-        if vim.api.nvim_buf_call(bufnr, function()
-          return vim.bo.filetype == "c"
-        end) then
-          fmt = require("uncrustify").format
-        end
-        map("<leader>f", fmt, { "n", "v" }, opts("Format file/selection", bufnr))
-
         local caps = client.server_capabilities
         if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
           local augroup = vim.api.nvim_create_augroup("SemanticTokens", {})
@@ -142,6 +132,14 @@ return {
         ["clangd"] = function()
           require("lspconfig")["clangd"].setup({
             on_attach = function(client, bufnr)
+              -- use uncrustify for c files only
+              if vim.api.nvim_buf_call(bufnr, function()
+                return vim.bo.filetype == "c"
+              end) then
+                local fmt = require("uncrustify").format
+                map("<leader>f", fmt, { "n", "v" }, opts("Format file/selection", bufnr))
+              end
+
               map("<leader>o", "<cmd>ClangdSwitchSourceHeader<CR>", { "n" }, opts("Switch source-header", bufnr))
               on_attach(client, bufnr)
             end,
