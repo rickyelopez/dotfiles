@@ -22,8 +22,8 @@
       antidote = {
         enable = true;
         plugins = [
-          "chriskempson/base16-shell"
           "romkatv/powerlevel10k"
+          "tinted-theming/tinted-shell"
           "zsh-users/zsh-autosuggestions"
           "zsh-users/zsh-syntax-highlighting"
         ];
@@ -44,12 +44,6 @@
         # make ssh work in tmux across reconnections
         if [[ -n "$SSH_TTY" ]] && [[ -n "$SSH_AUTH_SOCK" ]]; then
           export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock.$(hostname)
-        fi
-
-        # load base16 theme
-        BASE16_SHELL="$HOME/.config/base16-shell/"
-        if [ -n "$PS1" ] && [ -s "$BASE16_SHELL/profile_helper.sh" ] && [ "$SHLVL" -le 2 ]; then
-            source "$BASE16_SHELL/profile_helper.sh"
         fi
 
         NVM_DIR="$HOME/.nvm"
