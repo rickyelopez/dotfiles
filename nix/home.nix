@@ -35,6 +35,7 @@
       obsidian
       pre-commit
       ra-multiplex
+      python313
       ripgrep
       rsync
       socat
