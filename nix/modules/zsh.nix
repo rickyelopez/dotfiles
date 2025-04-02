@@ -1,4 +1,9 @@
-{ pkgs, user, home, ... }: {
+{ pkgs, hostSpec, ... }:
+let
+  home = hostSpec.home;
+  user = hostSpec.username;
+in
+{
 
   home = {
     sessionPath = [

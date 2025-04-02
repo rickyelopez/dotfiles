@@ -1,4 +1,8 @@
-{ pkgs, home, user, config, ... }:
+{ pkgs, config, hostSpec, ... }:
+let
+  user = hostSpec.username;
+  home = hostSpec.home;
+in
 {
   home = {
     stateVersion = "24.05"; # don't change
@@ -73,19 +77,19 @@
 
     fzf.enable = true;
 
-    kitty = {
-      enable = true;
-      font = {
-        name = "Blex Mono Nerd Font Mono";
-        size = 11.0;
-      };
-    };
+    # kitty = {
+    #   enable = true;
+    #   font = {
+    #     name = "Blex Mono Nerd Font Mono";
+    #     size = 11.0;
+    #   };
+    # };
 
     pyenv.enable = true;
   };
 
   imports = [
-    ./modules/alacritty.nix
+    # ./modules/alacritty.nix
     ./modules/git.nix
     ./modules/fx.nix
     ./modules/nvim.nix

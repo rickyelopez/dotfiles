@@ -1,4 +1,8 @@
-{ pkgs, config, home, ... }: {
+{ pkgs, config, hostSpec, ... }:
+let
+  home = hostSpec.home;
+in
+{
   home = {
     file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
       ".config/wezterm/wezterm.lua".source = mkLink "${home}/dotfiles/.config/wezterm/wezterm.lua";
