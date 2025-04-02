@@ -1,4 +1,8 @@
-{ pkgs, inputs, config, home, ... }: {
+{ pkgs, inputs, config, hostSpec, ... }:
+let
+  home = hostSpec.home;
+in
+{
   home = {
     file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
       ".config/hypr/hyprland.conf".source = mkLink "${home}/dotfiles/.config/hypr/hyprland.conf";

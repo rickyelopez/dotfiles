@@ -1,4 +1,8 @@
-{ inputs, pkgs, config, home, ... }: {
+{ inputs, pkgs, config, hostSpec, ... }:
+let
+  home = hostSpec.home;
+in
+{
   home.file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
     ".config/nvim".source = mkLink "${home}/dotfiles/.config/nvim";
   };

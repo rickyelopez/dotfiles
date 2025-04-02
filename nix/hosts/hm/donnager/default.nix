@@ -2,7 +2,6 @@
 let
   user = "ricclopez";
   home = "/home/${user}";
-  hostname = "donnager";
 in
 {
   homeConfigurations = {
@@ -29,26 +28,6 @@ in
           };
         }
         ./home.nix
-      ];
-    };
-  };
-
-  nixosConfigurations = {
-    donnager = nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs user home hostname; };
-      system = "x86_64-linux";
-      modules = [
-        ./configuration.nix
-        nixos-wsl.nixosModules.default
-        lix-module.nixosModules.default
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = { inherit inputs home user hostname; };
-
-          home-manager.users."${user}" = import ./home.nix;
-        }
       ];
     };
   };
