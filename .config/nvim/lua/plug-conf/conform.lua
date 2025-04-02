@@ -1,3 +1,5 @@
+local map = require("utils").map
+
 return {
   "stevearc/conform.nvim",
   config = function()
@@ -40,6 +42,14 @@ return {
         yaml = { "yamlfmt" },
         nix = { "nixpkgs-fmt" },
       },
+    })
+
+    local fmt = require("conform").format
+    map("<leader>f", fmt, { "n", "v" }, {
+      desc = "conform: format with conform",
+      noremap = true,
+      silent = true,
+      nowait = true,
     })
   end,
 }
