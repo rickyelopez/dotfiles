@@ -1,22 +1,10 @@
-{ self, pkgs, home, user, ... }: {
-  nix = {
-    enable = true;
-
-    # do garbage collection weekly to keep disk usage low
-    gc = {
-      automatic = true;
-      options = "--delete-older-than 7d";
-    };
-
-    # Disable auto-optimise-store because of this issue:
-    #   https://github.com/NixOS/nix/issues/7273
-    # "error: cannot link '/nix/store/.tmp-link-xxxxx-xxxxx' to '/nix/store/.links/xxxx': File exists"
-    settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      auto-optimise-store = false;
-      warn-dirty = false;
-    };
-  };
+{ self, pkgs, config, ... }:
+let
+  home = config.hostSpec.home;
+  user = config.hostSpec.username;
+in
+{
+  nix.enable = true;
 
   users.users."${user}" = {
     home = home;
@@ -75,19 +63,6 @@
     masApps = { };
   };
 
-
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-      allowBroken = false;
-      allowInsecure = false;
-      allowUnsupportedSystem = false;
-
-      permittedInsecurePackages = [ ];
-    };
-    hostPlatform = "aarch64-darwin";
-  };
-
   security.pam.services.sudo_local = {
     # unfortunately we can't use the following options because we want `ignore_ssh` at the end of the `pam_reattach` entry
     # https://github.com/LnL7/nix-darwin/pull/1344#issuecomment-2738164190
@@ -100,7 +75,6 @@
   };
 
   system = {
-    stateVersion = 4;
     configurationRevision = self.rev or self.dirtyRev or null;
     # activationScripts are executed every time you boot the system or run `nixos-rebuild` / `darwin-rebuild`.
     activationScripts.postUserActivation.text = ''
@@ -337,7 +311,7 @@
     };
   };
   imports = [
-    ../../modules/nix-darwin/aerospace.nix
+    ../../../modules/nix-darwin/aerospace.nix
   ];
 }
 

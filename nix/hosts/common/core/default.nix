@@ -1,6 +1,13 @@
-{ inputs, pkgs, config, ... }: {
+{ inputs, pkgs, config, isDarwin, ... }:
+let
+  platform = if isDarwin then "darwin" else "nixos";
+  platformModules = "${platform}Modules";
+in
+{
   imports = [
-    inputs.home-manager.nixosModules.home-manager
+    inputs.home-manager.${platformModules}.home-manager
+
+    ./${platform}.nix
 
     ../../../host-spec.nix
     ../users
@@ -16,25 +23,21 @@
     config.allowUnfree = true;
   };
 
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
+  nix = {
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 7d";
+    };
+
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      # Disable auto-optimise-store because of this issue:
+      #   https://github.com/NixOS/nix/issues/7273
+      # "error: cannot link '/nix/store/.tmp-link-xxxxx-xxxxx' to '/nix/store/.links/xxxx': File exists"
+      auto-optimise-store = false;
+      warn-dirty = false;
+    };
   };
 
   time.timeZone = "America/Los_Angeles";
-
-  # Select locale properties.
-  i18n = {
-    defaultLocale = "en_US.UTF-8";
-    extraLocaleSettings = {
-      LC_ADDRESS = "en_US.UTF-8";
-      LC_IDENTIFICATION = "en_US.UTF-8";
-      LC_MEASUREMENT = "en_US.UTF-8";
-      LC_MONETARY = "en_US.UTF-8";
-      LC_NAME = "en_US.UTF-8";
-      LC_NUMERIC = "en_US.UTF-8";
-      LC_PAPER = "en_US.UTF-8";
-      LC_TELEPHONE = "en_US.UTF-8";
-      LC_TIME = "en_US.UTF-8";
-    };
-  };
 }
