@@ -1,4 +1,8 @@
-{ pkgs, home, config, user, ... }:
+{ pkgs, config, hostSpec, ... }:
+let
+  home = hostSpec.home;
+  user = hostSpec.username;
+in
 {
   home = {
     packages = with pkgs; [
@@ -19,6 +23,7 @@
       ".config/uwsm".source = mkLink "${home}/dotfiles/.config/uwsm";
       ".config/xdg-desktop-portal".source = mkLink "${home}/dotfiles/.config/xdg-desktop-portal";
     };
+
     pointerCursor = {
       gtk.enable = true;
       name = "Adwaita";
@@ -55,3 +60,4 @@
     ../../modules/hyprland.nix
   ];
 }
+
