@@ -1,4 +1,7 @@
-{ pkgs, home, config, ... }:
+{ pkgs, config, hostSpec, ... }:
+let
+  home = hostSpec.home;
+in
 {
   home = {
     packages = with pkgs; [
@@ -35,4 +38,3 @@
     ../../home.nix
   ];
 }
-
