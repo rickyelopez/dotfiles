@@ -1,22 +1,18 @@
-{ nixpkgs, inputs, ... }:
-let
-  user = "ricclopez";
-  home = "/home/${user}";
-  hostname = "expedition";
-in
-nixpkgs.lib.nixosSystem
-{
-  specialArgs = { inherit inputs user home hostname; };
-  modules = [
+{ inputs, host, ... }: {
+  imports = [
+    inputs.lix-module.nixosModules.default
+    inputs.madness.nixosModules.madness
+
+    ../../common/core
     ./configuration.nix
-    inputs.home-manager.nixosModules.home-manager
-    {
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.extraSpecialArgs = { inherit inputs home user hostname; };
-
-      home-manager.users."${user}" = import ./home.nix;
-    }
+    ./hardware-configuration.nix
   ];
-}
 
+  hostSpec = {
+    username = "ricclopez";
+    hostname = host;
+  };
+
+  nixpkgs.hostPlatform = "x86_64-linux";
+  system.stateVersion = "24.11";
+}
