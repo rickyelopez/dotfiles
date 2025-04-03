@@ -63,24 +63,28 @@
     , ...
     }:
     {
+      # nixos configurations for each host
+      # hosts are defined in ./nix/hosts/nixos
       nixosConfigurations = builtins.listToAttrs (
         map
           (host: {
             name = host;
             value = nixpkgs.lib.nixosSystem {
-              specialArgs = { inherit inputs host; isDarwin = false; };
+              specialArgs = { inherit inputs host; isDarwin = false; isStandaloneHm = false; };
               modules = [ ./nix/hosts/nixos/${host} ];
             };
           })
           (builtins.attrNames (builtins.readDir ./nix/hosts/nixos))
       );
 
+      # nix-darwin configurations for each host
+      # hosts are defined in ./nix/hosts/darwin
       darwinConfigurations = builtins.listToAttrs (
         map
           (host: {
             name = host;
             value = darwin.lib.darwinSystem {
-              specialArgs = { inherit inputs host; isDarwin = true; };
+              specialArgs = { inherit inputs host; isDarwin = true; isStandaloneHm = false; };
               modules = [ ./nix/hosts/darwin/${host} ];
             };
           })
@@ -91,9 +95,53 @@
       # I still don't know what this does. Do I actually need this??
       darwinPackages = self.darwinConfigurations."Ricky-Lopez-DTQ4WX0376".pkgs;
 
-      # packages.x86_64-linux.default = home-manager.packages.x86_64-linux.default;
-      # homeConfigurations = {
-      #   "ricclopez@thinkrick" = import ./nix/hosts/thinkrick { inherit self nixpkgs inputs; };
-      # }; #// hosts.donnager.homeConfigurations;
+      # standalone home-manager configs
+      # user@host combos are defined below, since the configuration is (so far, at least)
+      # identical across all the combos
+      packages.x86_64-linux.default = home-manager.packages.x86_64-linux.default;
+
+      homeConfigurations = builtins.listToAttrs (
+        map
+          (instance: {
+            name = "${instance.user}@${instance.host}";
+            value = home-manager.lib.homeManagerConfiguration rec {
+              pkgs = import nixpkgs { system = "x86_64-linux"; };
+              extraSpecialArgs = { inherit inputs; isDarwin = false; isStandaloneHm = false; };
+              modules = [
+                {
+                  imports = [
+                    ../../common/core
+                  ];
+
+                  hostSpec = {
+                    username = instance.user;
+                    hostname = instance.host;
+                    isStandaloneHm = true;
+                  };
+
+                  nix = {
+                    package = pkgs.nix;
+                  };
+                }
+              ];
+            };
+          })
+          ([
+            { user = "ricclopez"; host = "donnager"; }
+            { user = "ricclopez"; host = "thinkrick"; }
+          ])
+      );
+      # homeConfigurations = builtins.listToAttrs (
+      #   map
+      #     (host: {
+      #       name = host;
+      #       value = home-manager.lib.homeManagerConfiguration {
+      #         pkgs = import nixpkgs { system = "x86_64-linux"; };
+      #         extraSpecialArgs = { inherit inputs; isDarwin = false; isStandaloneHm = false; };
+      #         modules = [ ./nix/hosts/hm/${host} ];
+      #       };
+      #     })
+      #     (builtins.attrNames (builtins.readDir ./nix/hosts/hm))
+      # );
     };
 }
