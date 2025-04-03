@@ -106,64 +106,65 @@ return {
     require("telescope").load_extension("fzf")
     require("telescope").load_extension("toggleterm")
 
-    local M = {
-      search_dotfiles = function()
-        builtin.find_files({
-          find_command = { "fd", "--hidden", "--type", "file" },
-          prompt_title = "< dotfiles >",
-          cwd = "$HOME",
-          search_dirs = { "$HOME/dotfiles", "$HOME/dotfiles_priv" },
-          hidden = true,
+    local M = {}
+
+    function M.search_dotfiles()
+      builtin.find_files({
+        find_command = { "fd", "--hidden", "--type", "file" },
+        prompt_title = "< dotfiles >",
+        cwd = "$HOME",
+        search_dirs = { "$HOME/dotfiles", "$HOME/dotfiles_priv" },
+        hidden = true,
+      })
+    end
+
+    function M.select_compiledb(opts)
+      opts = opts or {}
+      local find_command = { "fd", "--type", "file", "--no-ignore-vcs", "-g", "*compile_commands.json" }
+      pickers
+        .new(themes.get_dropdown({ layout_config = { width = 0.6 } }), {
+          prompt_title = "Select compile_commands.json",
+          finder = finders.new_oneshot_job(find_command, opts),
+          sorter = conf.file_sorter(opts),
+          attach_mappings = function(prompt_bufnr)
+            actions.select_default:replace(function()
+              local selection = action_state.get_selected_entry().value
+              actions.close(prompt_bufnr)
+              vim.system({ "ln", "-sf", vim.fn.getcwd() .. selection })
+              vim.notify("Linked compile commands file")
+            end)
+            return true
+          end,
         })
-      end,
+        :find()
+    end
 
-      select_compiledb = function(opts)
-        opts = opts or {}
-        local find_command = { "fd", "--type", "file", "--no-ignore-vcs", "-g", "*compile_commands.json" }
-        pickers
-          .new(themes.get_dropdown({ layout_config = { width = 0.6 } }), {
-            prompt_title = "Select compile_commands.json",
-            finder = finders.new_oneshot_job(find_command, opts),
-            sorter = conf.file_sorter(opts),
-            attach_mappings = function(prompt_bufnr)
-              actions.select_default:replace(function()
-                local selection = action_state.get_selected_entry().value
-                actions.close(prompt_bufnr)
-                vim.system({"ln", "-sf", vim.fn.getcwd() .. selection})
-                vim.notify("Linked compile commands file")
-              end)
-              return true
-            end,
-          })
-          :find()
-      end,
+    function M.workspace_folders(opts)
+      opts = opts or {}
 
-      workspace_folders = function(opts)
-        opts = opts or {}
+      local folders = vim.lsp.buf.list_workspace_folders()
+      if #folders == 0 then
+        vim.notify("No folders in workspace")
+        return
+      end
 
-        local folders = vim.lsp.buf.list_workspace_folders()
-        if #folders == 0 then
-          vim.notify("No folders in workspace")
-          return
-        end
-
-        pickers
-          .new(themes.get_dropdown({ layout_config = { width = 0.6 } }), {
-            prompt_title = "LSP Workspace Folders",
-            finder = finders.new_table(folders),
-            sorter = conf.file_sorter(opts),
-            attach_mappings = function(prompt_bufnr)
-              actions.select_default:replace(function(_) end)
-              actions.delete_buffer:replace(function()
-                local selection = action_state.get_selected_entry().value
-                vim.lsp.buf.remove_workspace_folder(selection)
-                vim.notify("Removed " .. selection .. " from LSP workspace")
-              end)
-              return true
-            end,
-          }):find()
-      end,
-    }
+      pickers
+        .new(themes.get_dropdown({ layout_config = { width = 0.6 } }), {
+          prompt_title = "LSP Workspace Folders",
+          finder = finders.new_table(folders),
+          sorter = conf.file_sorter(opts),
+          attach_mappings = function()
+            actions.select_default:replace(function() end)
+            actions.delete_buffer:replace(function()
+              local selection = action_state.get_selected_entry().value
+              vim.lsp.buf.remove_workspace_folder(selection)
+              vim.notify("Removed " .. selection .. " from LSP workspace")
+            end)
+            return true
+          end,
+        })
+        :find()
+    end
 
     -- Keymaps
     local map = require("utils").map
