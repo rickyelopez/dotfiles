@@ -68,18 +68,27 @@
           (host: {
             name = host;
             value = nixpkgs.lib.nixosSystem {
-              specialArgs = { inherit inputs host; };
+              specialArgs = { inherit inputs host; isDarwin = false; };
               modules = [ ./nix/hosts/nixos/${host} ];
             };
           })
           (builtins.attrNames (builtins.readDir ./nix/hosts/nixos))
       );
 
-      darwinConfigurations = {
-        "Ricky-Lopez-DTQ4WX0376" = import ./nix/hosts/darwin/workMac { inherit self nixpkgs inputs; };
-      };
+      darwinConfigurations = builtins.listToAttrs (
+        map
+          (host: {
+            name = host;
+            value = darwin.lib.darwinSystem {
+              specialArgs = { inherit inputs host; isDarwin = true; };
+              modules = [ ./nix/hosts/darwin/${host} ];
+            };
+          })
+          (builtins.attrNames (builtins.readDir ./nix/hosts/darwin))
+      );
 
       # Expose the package set, including overlays, for convenience.
+      # I still don't know what this does. Do I actually need this??
       darwinPackages = self.darwinConfigurations."Ricky-Lopez-DTQ4WX0376".pkgs;
 
       # packages.x86_64-linux.default = home-manager.packages.x86_64-linux.default;
