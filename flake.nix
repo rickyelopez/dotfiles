@@ -84,7 +84,7 @@
           (host: {
             name = host;
             value = darwin.lib.darwinSystem {
-              specialArgs = { inherit inputs host; isDarwin = true; isStandaloneHm = false; };
+              specialArgs = { inherit self inputs host; isDarwin = true; isStandaloneHm = false; };
               modules = [ ./nix/hosts/darwin/${host} ];
             };
           })
