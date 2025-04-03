@@ -65,6 +65,11 @@
       default = false;
       description = "Used to indicate a host that is darwin";
     };
+    isStandaloneHm = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Used to indicate a host that is using standalone home-manager (not nixos or nix-darwin)";
+    };
     useYubikey = lib.mkOption {
       type = lib.types.bool;
       default = false;

@@ -1,23 +1,9 @@
-{ inputs, pkgs, config, isDarwin, ... }:
-let
-  platform = if isDarwin then "darwin" else "nixos";
-  platformModules = "${platform}Modules";
-in
+{ lib, isStandaloneHm, ... }:
 {
   imports = [
-    inputs.home-manager.${platformModules}.home-manager
-
-    ./${platform}.nix
-
     ../../../host-spec.nix
     ../users
-  ];
-
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    extraSpecialArgs = { inherit inputs pkgs; hostSpec = config.hostSpec; };
-  };
+  ] ++ lib.optionals (!isStandaloneHm) [ ./full.nix ];
 
   nixpkgs = {
     config.allowUnfree = true;
