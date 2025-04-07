@@ -2,7 +2,6 @@
 {
   imports = [
     ../../../host-spec.nix
-    ../users
   ] ++ lib.optionals (!isStandaloneHm) [ ./full.nix ];
 
   nixpkgs = {
@@ -36,6 +35,4 @@
       warn-dirty = false;
     };
   };
-
-  time.timeZone = "America/Los_Angeles";
 }
