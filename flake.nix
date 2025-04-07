@@ -111,18 +111,24 @@
             name = "${instance.user}@${instance.host}";
             value = home-manager.lib.homeManagerConfiguration rec {
               pkgs = import nixpkgs { system = "x86_64-linux"; };
-              extraSpecialArgs = { inherit inputs; isDarwin = false; isStandaloneHm = false; };
+              extraSpecialArgs = {
+                inherit inputs;
+                isDarwin = false;
+                isStandaloneHm = true;
+                hostSpec = {
+                  username = instance.user;
+                  hostname = instance.host;
+                  home = "/home/${instance.user}";
+                  isDarwin = false;
+                  isStandaloneHm = true;
+                };
+              };
               modules = [
                 {
                   imports = [
-                    ../../common/core
+                    ./nix/hosts/common/core
+                    ./nix/users/${instance.user}/${instance.host}.nix
                   ];
-
-                  hostSpec = {
-                    username = instance.user;
-                    hostname = instance.host;
-                    isStandaloneHm = true;
-                  };
 
                   nix = {
                     package = pkgs.nix;
@@ -136,17 +142,5 @@
             { user = "ricclopez"; host = "thinkrick"; }
           ])
       );
-      # homeConfigurations = builtins.listToAttrs (
-      #   map
-      #     (host: {
-      #       name = host;
-      #       value = home-manager.lib.homeManagerConfiguration {
-      #         pkgs = import nixpkgs { system = "x86_64-linux"; };
-      #         extraSpecialArgs = { inherit inputs; isDarwin = false; isStandaloneHm = false; };
-      #         modules = [ ./nix/hosts/hm/${host} ];
-      #       };
-      #     })
-      #     (builtins.attrNames (builtins.readDir ./nix/hosts/hm))
-      # );
     };
 }
