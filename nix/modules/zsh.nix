@@ -1,22 +1,21 @@
-{ pkgs, hostSpec, ... }:
+{ lib, hostSpec, ... }:
 let
   home = hostSpec.home;
   user = hostSpec.username;
 in
 {
-
   home = {
     sessionPath = [
       "$HOME/.local/bin"
       "$HOME/.cargo/bin"
-    ] ++ pkgs.lib.lists.optionals (pkgs.stdenv.isDarwin) [
+    ] ++ lib.optionals (hostSpec.isDarwin) [
       "$(/opt/homebrew/bin/brew --prefix)/opt/util-linux/bin"
       "$(/opt/homebrew/bin/brew --prefix)/opt/util-linux/sbin"
     ];
 
     shellAliases = {
       lg = "lazygit";
-      zcdb = "ninja -C out all_apps -t compdb | jq \'[ .[] | select(.command | contains(\"bad_toolchain\")|not) ]\' > compile_commands.json";
+      zipcdb = "ninja -C out all_apps -t compdb | jq \'[ .[] | select(.command | contains(\"bad_toolchain\")|not) ]\' > compile_commands.json";
     };
   };
 
@@ -97,7 +96,7 @@ in
         [ -f "$HOME/dotfiles_priv/.vars" ] && source "$HOME/dotfiles_priv/.vars"
         [ -f "$HOME/dotfiles_priv/.aliases" ] && source "$HOME/dotfiles_priv/.aliases"
 
-      '' + pkgs.lib.optionalString (!pkgs.stdenv.isDarwin) "load_nvm";
+      '' + lib.optionalString (!hostSpec.isDarwin) "load_nvm";
 
       # initExtraBeforeCompInit = '' '';
 
@@ -137,14 +136,13 @@ in
 
       zprof.enable = false;
 
-      oh-my-zsh =
-        {
-          enable = true;
-          extraConfig = /*bash*/ ''
-            zstyle ':omz:plugins:git' aliases no
-          '';
-          plugins = [ "git" "sudo" ];
-        };
+      oh-my-zsh = {
+        enable = true;
+        extraConfig = /*bash*/ ''
+          zstyle ':omz:plugins:git' aliases no
+        '';
+        plugins = [ "git" "sudo" ];
+      };
     };
   };
 }
