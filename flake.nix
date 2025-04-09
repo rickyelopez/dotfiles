@@ -121,6 +121,8 @@
                   home = "/home/${instance.user}";
                   isDarwin = false;
                   isStandaloneHm = true;
+                  isHeadless = instance.isHeadless;
+                  isServer = false;
                 };
               };
               modules = [
@@ -138,8 +140,8 @@
             };
           })
           ([
-            { user = "ricclopez"; host = "donnager"; }
-            { user = "ricclopez"; host = "thinkrick"; }
+            { user = "ricclopez"; host = "donnager"; isHeadless = false; }
+            { user = "ricclopez"; host = "thinkrick"; isHeadless = true; }
           ])
       );
     };

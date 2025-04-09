@@ -56,7 +56,7 @@ in
 
   imports = [
     ../../home.nix
-    ../../platforms/linux/home.nix
+    ../../platforms/linux/home
     ../../modules/hyprland.nix
   ];
 }
