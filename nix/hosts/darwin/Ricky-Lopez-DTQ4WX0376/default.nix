@@ -10,6 +10,7 @@
     username = "ricky.lopez";
     hostname = host;
     isDarwin = true;
+    isWork = true;
   };
 
   nixpkgs.hostPlatform = "aarch64-darwin";
