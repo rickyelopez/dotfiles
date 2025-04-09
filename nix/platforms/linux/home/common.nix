@@ -11,6 +11,5 @@
 
   services = {
     lorri.enable = true;
-    ssh-agent.enable = true;
   };
 }

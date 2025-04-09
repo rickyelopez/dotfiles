@@ -10,7 +10,7 @@
 
   imports = [
     ../../home.nix
-    ../../platforms/linux/home.nix
+    ../../platforms/linux/home
   ];
 }
 
