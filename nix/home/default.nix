@@ -89,12 +89,12 @@ in
   };
 
   imports = [
-    # ./modules/alacritty.nix
-    ./modules/git.nix
-    ./modules/fx.nix
-    ./modules/nvim.nix
-    # ./modules/wezterm.nix
-    ./modules/yazi.nix
-    ./modules/zsh.nix
+    # ./optional/alacritty.nix
+    ./optional/git.nix
+    ./optional/fx.nix
+    ./optional/nvim.nix
+    # ./optional/wezterm.nix
+    ./optional/yazi.nix
+    ./optional/zsh.nix
   ];
 }

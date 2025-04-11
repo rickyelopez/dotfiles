@@ -21,6 +21,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -129,7 +135,7 @@
                 {
                   imports = [
                     ./nix/hosts/common/core
-                    ./nix/users/${instance.user}/${instance.host}.nix
+                    ./nix/home/users/${instance.user}/${instance.host}.nix
                   ];
 
                   nix = {

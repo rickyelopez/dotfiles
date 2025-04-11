@@ -311,7 +311,7 @@ in
     };
   };
   imports = [
-    ../../../modules/nix-darwin/aerospace.nix
+    ../../common/optional/aerospace.nix
   ];
 }
 

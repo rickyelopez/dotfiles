@@ -5,8 +5,8 @@
     ];
   };
   imports = [
-    ../../home.nix
-    ../../home/optional/sops.nix
-    ../../platforms/linux/home
+    ../../../home
+    ../../optional/sops.nix
+    ../../../platforms/linux/home
   ];
 }

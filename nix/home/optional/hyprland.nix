@@ -8,6 +8,8 @@ in
       ".config/hypr/hyprland.conf".source = mkLink "${home}/dotfiles/.config/hypr/hyprland.conf";
       ".config/hypr/hyprlock.conf".source = mkLink "${home}/dotfiles/.config/hypr/hyprlock.conf";
       ".config/hypr/scripts".source = mkLink "${home}/dotfiles/.config/hypr/scripts";
+      ".config/uwsm".source = mkLink "${home}/dotfiles/.config/uwsm";
+      ".config/xdg-desktop-portal".source = mkLink "${home}/dotfiles/.config/xdg-desktop-portal";
     };
   };
   programs = {

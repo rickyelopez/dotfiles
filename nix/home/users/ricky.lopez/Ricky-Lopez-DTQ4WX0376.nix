@@ -35,7 +35,7 @@ in
   };
 
   imports = [
-    ../../home.nix
-    ../../home/optional/sops.nix
+    ../../../home
+    ../../optional/sops.nix
   ];
 }
