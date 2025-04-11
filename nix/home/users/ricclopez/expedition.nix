@@ -16,6 +16,7 @@
     ../../optional/hyprland.nix
     ../../optional/qt.nix
     ../../optional/rofi.nix
+    ../../optional/sops.nix
   ];
 }
 

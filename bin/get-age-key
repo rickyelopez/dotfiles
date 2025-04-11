@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+AGE_DIR="$HOME/.config/sops/age"
+
+mkdir -p "$AGE_DIR"
+chown -R "$(id -u):$(id -g)" "$HOME/.config"
+
+bw get item a9e27088-4019-402c-b0de-92cf28b6f723 | jq -r ".fields.[].value" > "$AGE_DIR/keys.txt"
+
+chmod 400 "$AGE_DIR/keys.txt"
