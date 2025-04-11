@@ -71,6 +71,7 @@ in
   wayland.windowManager.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    extraConfig = " ";
     plugins = [
       inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo
     ];

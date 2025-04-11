@@ -766,11 +766,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1743294814,
-        "narHash": "sha256-HqzVTylWZA0+cf4cpMGQOgcidJuCogjv51fJShrGxlI=",
+        "lastModified": 1744270614,
+        "narHash": "sha256-pW+kMJWqqxyJjOmmdMRWmGg1E6P6dHc+4F3u4yfMfS4=",
         "owner": "hyprwm",
         "repo": "hyprlock",
-        "rev": "1ebbc35c55ba9e43d53c4f1038c897be7239c903",
+        "rev": "71d35aa75f32ba2006e1116bc1fc53a59093bfc3",
         "type": "github"
       },
       "original": {
