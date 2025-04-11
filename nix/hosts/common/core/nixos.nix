@@ -1,9 +1,10 @@
-{ ... }: {
+{ outputs, ... }: {
   networking.hosts = {
     "10.19.21.31" = [ "sathub" "sathub.forestroot.elexpedition.com" ];
     "10.19.21.30" = [ "fob" "fob.forestroot.elexpedition.com" ];
   };
 
+  nixpkgs.overlays = [ outputs.overlays.default ];
   programs.nix-ld.enable = true;
 
   services = {
