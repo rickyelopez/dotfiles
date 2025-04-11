@@ -1,16 +1,15 @@
-{ inputs, pkgs, lib, hostSpec, ... }:
+{ inputs, lib, hostSpec, ... }:
 let
   home = hostSpec.home;
+  ageFolder = "${home}/.config/sops/age";
 in
 {
   imports = [
     inputs.sops-nix.homeManagerModules.sops
   ];
 
-  home.packages = with pkgs; [ sops ];
-
   sops = {
-    age.keyFile = "${home}/.config/sops/age/keys.txt";
+    age.keyFile = "${ageFolder}/keys.txt";
     defaultSopsFile = ../../../secrets.yaml;
     validateSopsFiles = false;
 
@@ -18,6 +17,7 @@ in
       "private_keys/new" = {
         path = "${home}/.ssh/id_new";
       };
+
       "private_keys/old" = {
         path = "${home}/.ssh/id_old";
       };

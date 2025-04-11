@@ -13,6 +13,7 @@
     ../../common/optional/opengl.nix
     ../../common/optional/qt.nix
     ../../common/optional/sddm.nix
+    ../../common/optional/sops.nix
     ../../common/optional/ssh.nix
     ../../common/optional/thunar.nix
     ../../common/optional/wayland.nix
