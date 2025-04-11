@@ -26,8 +26,8 @@ in
 
     pointerCursor = {
       gtk.enable = true;
-      name = "Adwaita";
-      package = pkgs.adwaita-qt;
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Classic";
       size = 24;
     };
   };
@@ -35,8 +35,8 @@ in
   gtk = {
     enable = true;
     cursorTheme = {
-      name = "Adwaita";
-      size = 24;
+      name = "Bibata-Modern-Classic";
+      size = 16;
     };
     # gtk2.configLocation = "";
     gtk3 = {

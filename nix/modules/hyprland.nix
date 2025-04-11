@@ -68,6 +68,16 @@ in
     };
   };
 
+  wayland.windowManager.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    plugins = [
+      inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo
+    ];
+  };
+
+  xdg.configFile."hypr/hyprland.conf".enable = false;
+
   services = {
     hyprpaper = {
       enable = true;
@@ -88,6 +98,7 @@ in
   };
 
   imports = [
+    inputs.hyprland.homeManagerModules.default
     inputs.hyprpanel.homeManagerModules.hyprpanel
   ];
 }
