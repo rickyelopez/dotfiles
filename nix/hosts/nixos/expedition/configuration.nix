@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, inputs, ... }:
 {
   boot.loader = {
     systemd-boot.enable = true;
@@ -99,7 +99,7 @@
 
     fprintd = {
       enable = true;
-      # package = pkgs.fprintd.override { libfprint = inputs.nixpkgs-local.legacyPackages.x86_64-linux.pkgs.libfprint-goodix; };
+      package = pkgs.fprintd.override { libfprint = pkgs.libfprint-goodix; };
       # tod.enable = true;
       # tod.driver = inputs.nixpkgs-local.legacyPackages.x86_64-linux.pkgs.libfprint-goodix;
     };

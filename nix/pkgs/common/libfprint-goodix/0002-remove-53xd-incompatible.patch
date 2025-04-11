@@ -1,0 +1,15 @@
+--- a/libfprint/fprint-list-udev-hwdb.c
++++ b/libfprint/fprint-list-udev-hwdb.c
+@@ -83,12 +83,10 @@ static const FpIdEntry whitelist_id_table[] = {
+   { .vid = 0x27c6, .pid = 0x5201 },
+   { .vid = 0x27c6, .pid = 0x5301 },
+   { .vid = 0x27c6, .pid = 0x530c },
+-  { .vid = 0x27c6, .pid = 0x532d },
+   { .vid = 0x27c6, .pid = 0x533c },
+   { .vid = 0x27c6, .pid = 0x5381 },
+   { .vid = 0x27c6, .pid = 0x5385 },
+   { .vid = 0x27c6, .pid = 0x538c },
+-  { .vid = 0x27c6, .pid = 0x538d },
+   { .vid = 0x27c6, .pid = 0x5395 },
+   { .vid = 0x27c6, .pid = 0x5584 },
+   { .vid = 0x27c6, .pid = 0x55a2 },

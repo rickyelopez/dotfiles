@@ -73,7 +73,12 @@
     , home-manager
     , ...
     }:
+    let
+      inherit (self) outputs;
+    in
     {
+      overlays = import ./nix/overlays { inherit inputs; };
+
       # nixos configurations for each host
       # hosts are defined in ./nix/hosts/nixos
       nixosConfigurations = builtins.listToAttrs (
@@ -81,7 +86,7 @@
           (host: {
             name = host;
             value = nixpkgs.lib.nixosSystem {
-              specialArgs = { inherit inputs host; isDarwin = false; isStandaloneHm = false; };
+              specialArgs = { inherit inputs outputs host; isDarwin = false; isStandaloneHm = false; };
               modules = [ ./nix/hosts/nixos/${host} ];
             };
           })
