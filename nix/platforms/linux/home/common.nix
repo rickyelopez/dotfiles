@@ -5,7 +5,7 @@
       gcc
       gdb
       killall
-      nodejs_23
+      # nodejs_23
       nodePackages.npm
       ouch
       pipx

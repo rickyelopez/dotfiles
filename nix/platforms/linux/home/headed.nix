@@ -9,7 +9,7 @@
       pamixer
       pavucontrol
       qalculate-gtk
-      rustdesk
+      # rustdesk
       vlc
     ];
   };
