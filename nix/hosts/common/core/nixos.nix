@@ -1,4 +1,20 @@
 { ... }: {
+  networking.hosts = {
+    "10.19.21.31" = [ "sathub" "sathub.forestroot.elexpedition.com" ];
+    "10.19.21.30" = [ "fob" "fob.forestroot.elexpedition.com" ];
+  };
+
+  programs.nix-ld.enable = true;
+
+  services = {
+    # Configure keymap in X11
+    xserver.xkb = {
+      layout = "us";
+      variant = "";
+    };
+  };
+
+
   # Select locale properties.
   i18n = {
     defaultLocale = "en_US.UTF-8";

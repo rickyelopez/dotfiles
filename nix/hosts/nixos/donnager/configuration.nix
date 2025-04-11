@@ -3,18 +3,7 @@
   wsl.enable = true;
   wsl.defaultUser = config.hostSpec.username;
 
-  networking.hostName = config.hostSpec.hostname;
-  networking.hosts = {
-    "10.19.21.31" = [ "sathub" "sathub.forestroot.elexpedition.com" ];
-    "10.19.21.30" = [ "fob" "fob.forestroot.elexpedition.com" ];
-  };
-
-  environment.systemPackages = with pkgs; [
-    ffmpegthumbnailer
-    killall
-    nodejs_23
-    pkg-config
-  ];
+  environment.systemPackages = with pkgs; [ ];
 
   programs = { zsh.enable = true; };
 

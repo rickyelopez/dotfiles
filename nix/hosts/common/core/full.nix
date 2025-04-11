@@ -18,15 +18,19 @@ in
     shell = pkgs.zsh;
   } // lib.optionalAttrs (!config.hostSpec.isDarwin) {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "dialout" ];
   };
 
-  programs.zsh.enable = true;
+  programs = {
+    zsh.enable = true;
+  };
 
   environment.systemPackages = with pkgs; [
     just
     git
   ];
+
+  networking.hostName = config.hostSpec.hostname; # Define your hostname.
 
   time.timeZone = "America/Los_Angeles";
 
@@ -34,6 +38,6 @@ in
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs pkgs; hostSpec = config.hostSpec; };
-    users.${user} = import ../../../users/${user}/${host}.nix;
+    users.${user} = import ../../../home/users/${user}/${host}.nix;
   };
 }
