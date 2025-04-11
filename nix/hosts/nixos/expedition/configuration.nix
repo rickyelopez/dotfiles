@@ -1,4 +1,6 @@
 { config, pkgs, inputs, lib, ... }:
+let pkgs-unstable = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+in
 {
   boot.loader = {
     systemd-boot.enable = true;
@@ -50,7 +52,11 @@
 
   hardware.graphics = {
     enable = true;
+    package = pkgs-unstable.mesa.drivers;
+    enable32Bit = true;
+    package32 = pkgs-unstable.pkgsi686Linux.mesa.drivers;
   };
+
   hardware.nvidia = {
     modesetting.enable = true;
     # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
@@ -132,6 +138,7 @@
     brightnessctl
     feh
     ffmpegthumbnailer
+    gdb
     gedit
     gpustat
     grim
@@ -144,6 +151,7 @@
     nodejs_23
     pamixer
     pavucontrol
+    pipx
     pkg-config
     qalculate-gtk
     rustdesk
@@ -184,12 +192,45 @@
     enable = true;
     wayland.enable = true;
   };
-  services.upower.enable = true;
-  services.gvfs.enable = true;
-  services.tumbler.enable = true;
   services.gnome.gnome-keyring.enable = true;
-  services.power-profiles-daemon.enable = true;
+  services.gvfs.enable = true;
   services.logind.lidSwitch = "ignore"; # disable lid switch, we handle it in hyprland
+  # services.power-profiles-daemon.enable = true;
+  services.tlp = {
+    enable = true;
+    settings = {
+      # CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      # CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+      # CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+      # CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+
+      INTEL_GPU_MIN_FREQ_ON_AC = 500;
+      INTEL_GPU_MIN_FREQ_ON_BAT = 500;
+
+      CPU_MIN_PERF_ON_AC = 100;
+      CPU_MAX_PERF_ON_AC = 100;
+      CPU_MIN_PERF_ON_BAT = 0;
+      CPU_MAX_PERF_ON_BAT = 70;
+
+      #Optional helps save long term battery health (currently handling this in bios)
+      #START_CHARGE_THRESH_BAT0 = 40; # 40 and bellow it starts to charge
+      #STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
+    };
+  };
+  services.tumbler.enable = true;
+  services.upower.enable = true;
+
+  services.fprintd = {
+    enable = true;
+    package = pkgs.fprintd.override { libfprint = inputs.nixpkgs-local.legacyPackages.x86_64-linux.pkgs.libfprint-goodix; };
+    # tod.enable = true;
+    # tod.driver = inputs.nixpkgs-local.legacyPackages.x86_64-linux.pkgs.libfprint-goodix;
+  };
+  systemd.services.fprintd.environment = {
+    G_MESSAGES_DEBUG = "all";
+  };
+
 
 
   # Select locale properties.
@@ -214,6 +255,16 @@
     variant = "";
   };
 
+  services.openssh = {
+    enable = true;
+    ports = [ 22 ];
+    settings = {
+      PasswordAuthentication = true;
+      AllowUsers = [ "ricclopez" ]; # Allows all users by default. Can be [ "user1" "user2" ]
+      PermitRootLogin = "prohibit-password"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
+    };
+  };
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -224,6 +275,7 @@
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
+    22 # ssh
     8080 # calibre
   ];
   # networking.firewall.allowedUDPPorts = [ ... ];
