@@ -15,6 +15,32 @@
     efi.canTouchEfiVariables = true;
   };
 
+  # format of the following described here: https://www.kernel.org/doc/Documentation/filesystems/nfs/nfsroot.txt
+  # tl;dr: client-ip:server-ip (skipped here):gateway:netmask:hostname:network device (skipped here):autoconf mode
+
+  # boot.kernelParams = [ "ip=10.19.21.20::10.19.21.1:255.255.255.0:${config.hostSpec.hostname}::none" ];
+  boot.kernelParams = [ "ip=dhcp" ];
+  boot.initrd = {
+    availableKernelModules = [
+      "r8169" # make network driver available
+      "aesni_intel" # hopefully speed up decrypting
+      "cryptd" # hopefully speed up decrypting
+    ];
+    systemd.users.root.shell = "/bin/cryptsetup-askpass";
+    network = {
+      enable = true;
+      ssh = {
+        enable = true;
+        port = 22;
+        authorizedKeyFiles = [
+          ../../../keys/id_old.pub
+          ../../../keys/id_new.pub
+        ];
+        hostKeys = [ "/etc/ssh/ssh_host_ed25519_key" ];
+      };
+    };
+  };
+
   programs = { zsh.enable = true; };
 
   # Some programs need SUID wrappers, can be configured further or are
