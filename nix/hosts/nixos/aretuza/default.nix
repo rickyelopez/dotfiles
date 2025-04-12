@@ -8,11 +8,12 @@
     ../../common/core
     ../../common/optional/bluetooth.nix
     ../../common/optional/gaming.nix
+    ../../common/optional/greetd.nix
     ../../common/optional/hyprland.nix
     ../../common/optional/nvidia.nix
     ../../common/optional/opengl.nix
     ../../common/optional/qt.nix
-    ../../common/optional/sddm.nix
+    # ../../common/optional/sddm.nix
     ../../common/optional/sops.nix
     ../../common/optional/ssh.nix
     ../../common/optional/thunar.nix
