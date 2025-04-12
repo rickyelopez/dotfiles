@@ -15,8 +15,6 @@
     efi.canTouchEfiVariables = true;
   };
 
-  environment.systemPackages = with pkgs; [ ];
-
   programs = { zsh.enable = true; };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -35,8 +33,6 @@
   # networking.firewall.enable = false;
 
   services = {
-    # TODO: figure out what to do about keyring
-    # gnome.gnome-keyring.enable = true;
     upower.enable = true;
   };
 }
