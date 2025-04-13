@@ -8,7 +8,7 @@
     overlays = [ inputs.hyprpanel.overlay ];
   };
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
     inputs.hyprpolkitagent.packages.${pkgs.system}.default
   ];
 
@@ -36,6 +36,4 @@
     };
     xdgOpenUsePortal = true;
   };
-
-
 }

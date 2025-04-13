@@ -54,6 +54,16 @@
       description = "X as in /sys/class/drm/cardX";
       default = null;
     };
+    isLaptop = lib.mkOption {
+      type = lib.types.bool;
+      description = "Whether this host is a laptop";
+      default = false;
+    };
+    hasBattery = lib.mkOption {
+      type = lib.types.bool;
+      description = "Whether this host has a battery (e.g. laptop)";
+      default = config.hostSpec.isLaptop;
+    };
 
     isServer = lib.mkOption {
       type = lib.types.bool;
