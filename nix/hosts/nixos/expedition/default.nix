@@ -17,12 +17,23 @@
     ../../common/optional/ssh.nix
     ../../common/optional/thunar.nix
     ../../common/optional/wayland.nix
+
+    ../../../modules/monitors.nix
   ];
 
   hostSpec = {
     username = "ricclopez";
     hostname = host;
   };
+
+  monitors = [
+    {
+      name = "eDP-1";
+      primary = true;
+      width = 1920;
+      height = 1080;
+    }
+  ];
 
   nixpkgs.hostPlatform = "x86_64-linux";
   system.stateVersion = "24.11";

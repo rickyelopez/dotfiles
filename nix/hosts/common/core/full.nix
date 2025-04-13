@@ -50,7 +50,7 @@ in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit inputs pkgs; hostSpec = config.hostSpec; };
+    extraSpecialArgs = { inherit inputs pkgs; hostSpec = config.hostSpec; monitors = config.monitors; };
     users.${user} = import ../../../home/users/${user}/${host}.nix;
   };
 }

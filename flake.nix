@@ -135,6 +135,7 @@
                   isHeadless = instance.isHeadless;
                   isServer = false;
                 };
+                monitors = [ ];
               };
               modules = [
                 {
