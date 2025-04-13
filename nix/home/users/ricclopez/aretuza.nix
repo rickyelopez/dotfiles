@@ -2,7 +2,9 @@
   home = {
     packages = with pkgs; [
       calibre
+      discord
       ferdium
+      mesa-demos
     ];
   };
   imports = [
