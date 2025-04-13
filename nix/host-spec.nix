@@ -49,6 +49,11 @@
         in
         if pkgs.stdenv.isLinux then "/home/${user}" else "/Users/${user}";
     };
+    gpu = lib.mkOption {
+      type = lib.types.nullOr lib.types.int;
+      description = "X as in /sys/class/drm/cardX";
+      default = null;
+    };
 
     isServer = lib.mkOption {
       type = lib.types.bool;
