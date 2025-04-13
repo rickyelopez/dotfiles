@@ -24,6 +24,7 @@
   hostSpec = {
     username = "ricclopez";
     hostname = host;
+    isLaptop = true;
   };
 
   monitors = [

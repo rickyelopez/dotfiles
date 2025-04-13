@@ -39,6 +39,10 @@
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
     };
+    Hyprspace = {
+      url = "github:KZDKM/Hyprspace";
+      inputs.hyprland.follows = "hyprland";
+    };
     hyprlock = {
       url = "github:hyprwm/hyprlock";
       inputs.nixpkgs.follows = "nixpkgs";
