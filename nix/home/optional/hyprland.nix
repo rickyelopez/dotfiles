@@ -269,6 +269,8 @@ in
         "$mainMod, mouse_up  , workspace, e-1"
 
         "$mainMod, UP, overview:toggle, all"
+
+        "$mainMod SHIFT, O, dpms, on"
       ];
 
       bindm = [
@@ -328,6 +330,34 @@ in
 
   services = {
     blueman-applet.enable = false; # hyprpanel has a nice bluetooth menu
+    hypridle = {
+      enable = true;
+      settings = {
+        general = {
+          before_sleep_cmd = "loginctl lock-session";
+          after_sleep_cmd = "hyprctl dispatch dpms on";
+          ignore_dbus_inhibit = false;
+          lock_cmd = "pidof hyprlock || hyprlock --immediate";
+        };
+
+        listener = [
+          {
+            timeout = 120;
+            on-timeout = "loginctl lock-session";
+          }
+          {
+            timeout = 300;
+            on-timeout = "hyprctl dispatch dpms off";
+            on-resume = "hyprctl dispatch dpms on";
+          }
+          {
+            timeout = 1200;
+            on-timeout = "systemctl suspend";
+            on-resume = "hyprctl dispatch dpms on";
+          }
+        ];
+      };
+    };
     hyprpaper = {
       enable = true;
       package = inputs.hyprpaper.packages.${pkgs.system}.hyprpaper;
