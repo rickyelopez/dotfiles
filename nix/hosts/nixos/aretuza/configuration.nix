@@ -61,4 +61,24 @@
   services = {
     upower.enable = true;
   };
+
+  fileSystems = {
+    "/run/media/ricclopez/FastFastData" = {
+      device = "/dev/disk/by-label/FastFastData";
+      fsType = "ntfs";
+      options = ["auto" "noatime" "norelatime" "exec" "rw" "uid=1000" "gid=100"];
+    };
+
+    "/run/media/ricclopez/FastData2" = {
+      device = "/dev/disk/by-label/FastData2";
+      fsType = "ntfs";
+      options = ["auto" "noatime" "norelatime" "exec" "rw" "uid=1000" "gid=100"];
+    };
+
+    "/run/media/ricclopez/Windows" = {
+      device = "/dev/disk/by-id/nvme-SHGP31-1000GM_KNB7N77341030863K-part4";
+      fsType = "ntfs";
+      options = ["auto" "noatime" "norelatime" "exec" "rw" "uid=1000" "gid=100"];
+    };
+  };
 }
