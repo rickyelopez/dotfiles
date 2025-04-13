@@ -15,6 +15,7 @@
     ../../optional/hyprland.nix
     ../../optional/qt.nix
     ../../optional/rofi.nix
+    ../../optional/ssh.nix
     ../../optional/sops.nix
   ];
 }
