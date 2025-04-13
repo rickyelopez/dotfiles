@@ -35,4 +35,5 @@ in
   };
 
   security.pam.services.greetd.enableGnomeKeyring = true;
+  security.pam.services.hyprlock.enableGnomeKeyring = true;
 }
