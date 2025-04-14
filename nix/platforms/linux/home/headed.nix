@@ -8,6 +8,7 @@
       nextcloud-client
       pamixer
       pavucontrol
+      playerctl
       qalculate-gtk
       # rustdesk
       vlc
@@ -16,6 +17,7 @@
 
   services = {
     ssh-agent.enable = true;
+    nextcloud-client.enable = true;
   };
 
   xdg.desktopEntries = {
