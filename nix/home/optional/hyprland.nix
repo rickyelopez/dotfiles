@@ -44,6 +44,7 @@ in
             "left" = [ "dashboard" "workspaces" "windowtitle" ];
             "middle" = [ "media" ];
             "right" = lib.flatten [
+              "hypridle"
               "volume"
               "network"
               "bluetooth"
@@ -77,8 +78,7 @@ in
 
       monitor = (
         map
-          (
-            m:
+          (m:
             "${m.name},${
             if m.enabled then
               "${toString m.width}x${toString m.height}@${toString m.refreshRate}"
@@ -87,10 +87,21 @@ in
               + ",vrr,${toString m.vrr}"
             else
               "disable"
-          }"
+            }"
           )
-          (monitors)
+          monitors
       ) ++ [ ",preferred,auto,1" ];
+
+      workspace = (
+        map
+          (m:
+            "${m.workspace}, monitor:${m.name}, default:true, persistent:true"
+          )
+          (builtins.filter
+            (m: m ? "workspace")
+            monitors
+          )
+      );
 
       input = {
         accel_profile = "flat";
@@ -173,21 +184,25 @@ in
         "systemctl --user start hyprpolkitagent"
         "systemctl --user start hyprpaper"
         "uwsm app -- hyprpanel" # The top bar
-        "uwsm app -- /usr/bin/nextcloud --background" # FIXME: enable nextcloud through home-manager maybe?
       ];
 
       windowrulev2 = [
         "float            , class:^org.pulseaudio.pavucontrol$"
-        "float            , class:^blueman-manager$"
+        "float            , class:blueman-manager"
         "float            , class:^nm-connection-editor$"
         "float            , class:^[Tt]hunar$"
         "size 1200 600    , class:^[Tt]hunar$"
         "float            , title:^btop$"
         "float            , title:^KCalc$"
         "float            , title:^Qalculate!$"
+        "float            , class:^steam$"
+
+        "float            , class:^discord$"
+        "workspace 6      , class:^discord$"
+        "size 1325 685    , class:^discord$"
 
         "float            , title:^Nextcloud$"
-        "move 75.5% 3.75% , title:^Nextcloud$"
+        "move 75.5% 20    , title:^Nextcloud$"
 
         "float            , title:^Ferdium$"
         "workspace special, title:^Ferdium$"
@@ -202,6 +217,12 @@ in
 
         "animation popin  , class:^Brave-browser$"
         "float            , class:^Brave-browser$, title:^_crx_.*$" # bitwarden popups
+        "float            , class:^Bitwarden$" # bitwarden-desktop
+
+        "float            , title:^Dashboard | uckg2p-cali - Brave$" # camera monitoring
+        "move 2562 667    , title:^Dashboard | uckg2p-cali - Brave$"
+        "size 2552 772    , title:^Dashboard | uckg2p-cali - Brave$"
+
 
         "float            , class:^Rofi$"
         "animation slide  , class:^Rofi$"
@@ -280,26 +301,34 @@ in
         "$mainMod SHIFT, mouse:272, resizewindow" # mainMod + Shift + click to resize
       ];
 
-      binde = [ ] ++ lib.optionals hostSpec.isLaptop [
-        # keyboard multimedia buttons
-        "     , XF86AudioRaiseVolume, exec, pamixer -i 5"
-        "     , XF86AudioLowerVolume, exec, pamixer -d 5"
-        "SHIFT, XF86AudioRaiseVolume, exec, pamixer --default-source -i 5"
-        "SHIFT, XF86AudioLowerVolume, exec, pamixer --default-source -d 5"
-        "     , XF86AudioMute       , exec, pamixer -t"
-        "SHIFT, XF86AudioMute       , exec, pamixer --default-source -t"
-        "     , XF86AudioPlay       , exec, playerctl play-pause"
-        "     , XF86Calculator      , exec, qalculate-gtk"
+      binde =
+        let
+          pamixer = lib.getExe pkgs.pamixer;
+          playerctl = lib.getExe pkgs.playerctl;
+          brightnessctl = lib.getExe pkgs.brightnessctl;
+        in
+        [
+          "     , XF86AudioRaiseVolume, exec, ${pamixer} -i 5"
+          "     , XF86AudioLowerVolume, exec, ${pamixer} -d 5"
+          "SHIFT, XF86AudioRaiseVolume, exec, ${pamixer} --default-source -i 5"
+          "SHIFT, XF86AudioLowerVolume, exec, ${pamixer} --default-source -d 5"
+          "     , XF86AudioMute       , exec, ${pamixer} -t"
+          "SHIFT, XF86AudioMute       , exec, ${pamixer} --default-source -t"
+          "     , XF86AudioPlay       , exec, ${playerctl} play-pause"
+          "     , XF86AudioPrev       , exec, ${playerctl} previous"
+          "     , XF86AudioNext       , exec, ${playerctl} next"
+        ] ++ lib.optionals hostSpec.isLaptop [
+          "     , XF86Calculator      , exec, qalculate-gtk"
 
-        # keyboard brightness buttons
-        "     , XF86MonBrightnessUp  , exec, brightnessctl set 5%+"
-        "     , XF86MonBrightnessDown, exec, brightnessctl --min-value=1 set 5%-"
-        "SHIFT, XF86MonBrightnessUp  , exec, brightnessctl set 1%+"
-        "SHIFT, XF86MonBrightnessDown, exec, brightnessctl --min-value=1 set 1%-"
-        "     , Print , exec, $screenshot"
-        # "binde =      , F9 , exec, cmd"
+          # keyboard brightness buttons
+          "     , XF86MonBrightnessUp  , exec, ${brightnessctl} set 5%+"
+          "     , XF86MonBrightnessDown, exec, ${brightnessctl} --min-value=1 set 5%-"
+          "SHIFT, XF86MonBrightnessUp  , exec, ${brightnessctl} set 1%+"
+          "SHIFT, XF86MonBrightnessDown, exec, ${brightnessctl} --min-value=1 set 1%-"
+          "     , Print , exec, $screenshot"
+          # "binde =      , F9 , exec, cmd"
 
-      ];
+        ];
 
       bindl = [ ] ++ lib.optionals hostSpec.isLaptop [
         # lid switch lock + suspend
@@ -308,8 +337,10 @@ in
 
       plugin = {
         csgo-vulkan-fix = {
-          res_w = 1920;
-          res_h = 1200;
+          # res_w = 1920;
+          # res_h = 1200;
+          res_w = 2560;
+          res_h = 1440;
 
           # NOT a regex! This is a string and has to exactly match initial_class
           class = "cs2";
