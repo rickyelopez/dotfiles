@@ -5,6 +5,7 @@
       gcc
       gdb
       killall
+      nfs-utils
       # nodejs_23
       nodePackages.npm
       ouch

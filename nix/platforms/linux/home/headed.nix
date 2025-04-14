@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   home = {
     packages = with pkgs; [
+      bitwarden-desktop
       brave
       feh
       gedit

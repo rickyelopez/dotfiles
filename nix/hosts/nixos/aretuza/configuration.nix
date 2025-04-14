@@ -94,5 +94,11 @@
       fsType = "ntfs";
       options = [ "auto" "noatime" "norelatime" "exec" "rw" "uid=1000" "gid=100" ];
     };
+
+    "/run/media/ricclopez/panama/Multimedia" = {
+      device = "panama:/mnt/relief/Multimedia";
+      fsType = "nfs";
+      options = [ "noatime" "norelatime" "exec" "rw" "nolock" ];
+    };
   };
 }
