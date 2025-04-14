@@ -9,6 +9,7 @@ let
     if config.sops.secrets ? "passwords/${user}"
     then config.sops.secrets."passwords/${user}".path
     else "";
+  ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in
 {
   imports = [
@@ -24,7 +25,15 @@ in
       shell = pkgs.zsh;
     } // lib.optionalAttrs (!config.hostSpec.isDarwin) {
       isNormalUser = true;
-      extraGroups = [ "networkmanager" "wheel" "dialout" ];
+      extraGroups = lib.flatten [
+        (ifTheyExist [
+          "dialout"
+          "docker"
+          "gamemode"
+          "networkmanager"
+          "wheel"
+        ])
+      ];
       hashedPasswordFile = sopsHashedPasswordFile;
     };
 

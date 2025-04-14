@@ -5,6 +5,7 @@
       discord
       ferdium
       mesa-demos
+      rivalcfg
     ];
   };
   imports = [
