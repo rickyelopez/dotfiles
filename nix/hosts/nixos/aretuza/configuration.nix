@@ -72,6 +72,8 @@
     search = [ "forestroot.elexpedition.com" ];
   };
 
+  powerManagement.cpuFreqGovernor = "performance";
+
   services = {
     upower.enable = true;
   };
