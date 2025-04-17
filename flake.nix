@@ -136,8 +136,9 @@
                   home = "/home/${instance.user}";
                   isDarwin = false;
                   isStandaloneHm = true;
-                  isHeadless = instance.isHeadless;
                   isServer = false;
+                  isHeadless = instance.isHeadless;
+                  isWork = instance.isWork;
                 };
                 monitors = [ ];
               };
@@ -156,8 +157,8 @@
             };
           })
           ([
-            { user = "ricclopez"; host = "donnager"; isHeadless = false; }
-            { user = "ricclopez"; host = "thinkrick"; isHeadless = true; }
+            { user = "ricclopez"; host = "donnager"; isHeadless = true; isWork = false; }
+            { user = "ricclopez"; host = "thinkrick"; isHeadless = true; isWork = true; }
           ])
       );
     };
