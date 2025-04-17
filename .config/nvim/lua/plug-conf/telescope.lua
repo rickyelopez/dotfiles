@@ -142,23 +142,41 @@ return {
     function M.workspace_folders(opts)
       opts = opts or {}
 
-      local folders = vim.lsp.buf.list_workspace_folders()
-      if #folders == 0 then
+      local buf = vim.fn.bufnr("%")
+
+      local function get_folders()
+        return vim.api.nvim_buf_call(buf, function()
+          return vim.lsp.buf.list_workspace_folders()
+        end)
+      end
+
+      if #get_folders() == 0 then
         vim.notify("No folders in workspace")
         return
+      end
+
+      local function remove_folder(folder)
+        vim.api.nvim_buf_call(buf, function()
+          vim.lsp.buf.remove_workspace_folder(folder)
+        end)
       end
 
       pickers
         .new(themes.get_dropdown({ layout_config = { width = 0.6 } }), {
           prompt_title = "LSP Workspace Folders",
-          finder = finders.new_table(folders),
+          finder = finders.new_dynamic({
+            fn = get_folders,
+          }),
           sorter = conf.file_sorter(opts),
-          attach_mappings = function()
+          attach_mappings = function(prompt_bufnr)
             actions.select_default:replace(function() end)
             actions.delete_buffer:replace(function()
               local selection = action_state.get_selected_entry().value
-              vim.lsp.buf.remove_workspace_folder(selection)
+              remove_folder(selection)
               vim.notify("Removed " .. selection .. " from LSP workspace")
+
+              local picker = action_state.get_current_picker(prompt_bufnr)
+              picker:refresh()
             end)
             return true
           end,
