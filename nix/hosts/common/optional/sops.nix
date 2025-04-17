@@ -1,12 +1,10 @@
-{ pkgs, config, ... }:
+{ config, ... }:
 let
   home = config.hostSpec.home;
   user = config.hostSpec.username;
   ageFolder = "${home}/.config/sops/age";
 in
 {
-  environment.systemPackages = [ pkgs.sops ];
-
   sops = {
     age.keyFile = "${ageFolder}/keys.txt";
     defaultSopsFile = ../../../../secrets.yaml;

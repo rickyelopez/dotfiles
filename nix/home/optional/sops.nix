@@ -1,4 +1,4 @@
-{ inputs, lib, hostSpec, ... }:
+{ inputs, pkgs, lib, hostSpec, ... }:
 let
   home = hostSpec.home;
   ageFolder = "${home}/.config/sops/age";
@@ -8,6 +8,7 @@ in
     inputs.sops-nix.homeManagerModules.sops
   ];
 
+  home.packages = with pkgs; [ sops ];
   sops = {
     age.keyFile = "${ageFolder}/keys.txt";
     defaultSopsFile = ../../../secrets.yaml;
@@ -24,6 +25,10 @@ in
     } // lib.optionalAttrs (hostSpec.isWork) {
       "private_keys/zip" = {
         path = "${home}/.ssh/id_zip";
+      };
+    } // lib.optionalAttrs (!hostSpec.isWork) {
+      "private_keys/dg" = {
+        path = "${home}/.ssh/id_dg";
       };
     };
   };
