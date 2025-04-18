@@ -116,7 +116,7 @@ in
       };
 
       sessionVariables = {
-        XDF_CONFIG_HOME = "${home}/.config";
+        XDG_CONFIG_HOME = "${home}/.config";
         UNCRUSTIFY_CONFIG = "${home}/.config/uncrustify.cfg";
       };
 
