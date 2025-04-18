@@ -1,11 +1,12 @@
-{ ... }: {
+{ config, ... }: {
   services.openssh = {
     enable = true;
     ports = [ 22 ];
+    authorizedKeysInHomedir = true;
     settings = {
       PasswordAuthentication = true;
-      AllowUsers = [ "ricclopez" ]; # Allows all users by default. Can be [ "user1" "user2" ]
-      PermitRootLogin = "prohibit-password"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
+      AllowUsers = [ config.hostSpec.username ];
+      PermitRootLogin = "prohibit-password";
     };
   };
 

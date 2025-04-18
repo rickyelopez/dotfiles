@@ -12,43 +12,17 @@ in
 
     packages = with pkgs; [
       bat
-      bear
-      bitwarden-cli
-      cmake
-      delta
       fd
-      ffmpeg
       fzf
       fx
       git
-      git-lfs
       htop
-      just
       jq
-      jqp
-      lazygit
-      gcc
-      gnumake
       lsof
-      meson
-      mutagen
-      neovim-remote
-      nerd-fonts.blex-mono
-      nerd-fonts.noto
-      ninja
-      obsidian
-      pre-commit
-      ra-multiplex
-      python313
       ripgrep
       rsync
-      socat
-      sshpass
-      tio
       tmux
-      uncrustify
       unzip
-      uv
       vim
       watch
       wget
@@ -56,45 +30,20 @@ in
     ];
 
     file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
-      ".config/ghostty".source = mkLink "${home}/dotfiles/.config/ghostty";
-      ".config/lazygit/config.yml".source = mkLink "${home}/dotfiles/.config/lazygit/config.yml";
-      ".config/stylua".source = mkLink "${home}/dotfiles/.config/stylua";
       ".config/tmux".source = mkLink "${home}/dotfiles/.config/tmux";
-      ".config/clangd/config.yaml".source = mkLink "${home}/dotfiles/.config/clangd/config.yaml";
-      ".p10k.zsh".source = mkLink "${home}/dotfiles/.p10k.zsh";
     };
   };
-
-  fonts.fontconfig.enable = true;
 
   programs = {
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
 
-    autojump.enable = true;
-
-    direnv.enable = true;
-
     fzf.enable = true;
-
-    # kitty = {
-    #   enable = true;
-    #   font = {
-    #     name = "Blex Mono Nerd Font Mono";
-    #     size = 11.0;
-    #   };
-    # };
-
-    pyenv.enable = true;
   };
 
   imports = [
-    # ./optional/alacritty.nix
-    ./optional/git.nix
     ./optional/fx.nix
-    ./optional/nvim.nix
-    # ./optional/wezterm.nix
     ./optional/yazi.nix
-    ./optional/zsh.nix
+    ./optional/zsh-minimal.nix
   ];
 }
