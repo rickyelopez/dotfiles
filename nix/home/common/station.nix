@@ -32,7 +32,6 @@ in
       tio
       uncrustify
       uv
-      vim
     ];
 
     file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
@@ -64,7 +63,6 @@ in
 
   imports = [
     # ../optional/alacritty.nix
-    ../optional/git.nix
     ../optional/nvim.nix
     # ../optional/wezterm.nix
     ../optional/zsh.nix
