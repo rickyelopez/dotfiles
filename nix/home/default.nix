@@ -23,7 +23,6 @@ in
       rsync
       tmux
       unzip
-      vim
       watch
       wget
       yq
@@ -43,6 +42,7 @@ in
 
   imports = [
     ./optional/fx.nix
+    ./optional/git.nix
     ./optional/yazi.nix
     ./optional/zsh-minimal.nix
   ];

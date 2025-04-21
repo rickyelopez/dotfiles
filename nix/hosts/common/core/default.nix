@@ -2,6 +2,7 @@
 {
   imports = [
     ../../../host-spec.nix
+    ../optional/vim.nix
   ] ++ lib.optionals (!isStandaloneHm) [ ./full.nix ];
 
   nixpkgs = {

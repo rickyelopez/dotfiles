@@ -7,6 +7,7 @@
       nfs-utils
       # nodejs_23
       nodePackages.npm
+      pciutils
       pipx
       trash-cli
       usbutils

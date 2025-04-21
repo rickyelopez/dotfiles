@@ -6,13 +6,14 @@
     ./hardware-configuration.nix
 
     ../../common/core
+    ../../common/optional/docker.nix
     ../../common/optional/ssh.nix
-    ../../common/optional/podman.nix
   ];
 
   hostSpec = {
     username = "nonroot";
     hostname = host;
+    domain = "forestroot.elexpedition.com";
     isServer = true;
     isHeadless = true;
   };

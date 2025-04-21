@@ -62,6 +62,7 @@ in
   ];
 
   networking.hostName = config.hostSpec.hostname; # Define your hostname.
+  networking.domain = lib.mkIf (config.hostSpec ? domain) config.hostSpec.domain;
 
   time.timeZone = "America/Los_Angeles";
 

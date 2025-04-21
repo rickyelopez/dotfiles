@@ -1,5 +1,5 @@
 { pkgs, lib, ... }: {
-  environment.variables = { EDITOR = lib.mkDefault "vim"; };
+  environment.variables = lib.mkDefault { EDITOR = "vim"; };
 
   environment.systemPackages = with pkgs; [
     ((vim_configurable.override {  }).customize {
@@ -17,6 +17,7 @@
       set expandtab
       set hidden
       set history=1000
+      set hlsearch
       set incsearch
       set mouse=a
       set nobackup
@@ -25,11 +26,15 @@
       set smartcase
       set undodir=$HOME/.vimfiles/undodir
 
+      set ts=2 sw=2
+
       nnoremap <Leader>h <C-w>h
       nnoremap <Leader>j <C-w>j
       nnoremap <Leader>k <C-w>k
       nnoremap <Leader>l <C-w>l
-      nnoremap <Leader><space> noh
+      nnoremap <Leader><space> <cmd>noh<cr>
+
+      nnoremap Y y$
       '';
     }
   )];
