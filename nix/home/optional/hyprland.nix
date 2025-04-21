@@ -202,7 +202,7 @@ in
         "size 1325 685    , class:^discord$"
 
         "float            , title:^Nextcloud$"
-        "move 75.5% 20    , title:^Nextcloud$"
+        "move 75.5% 30    , title:^Nextcloud$"
 
         "float            , title:^Ferdium$"
         "workspace special, title:^Ferdium$"
