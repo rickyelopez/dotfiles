@@ -44,6 +44,5 @@ in
     ./optional/fx.nix
     ./optional/git.nix
     ./optional/yazi.nix
-    ./optional/zsh-minimal.nix
   ];
 }
