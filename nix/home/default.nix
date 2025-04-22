@@ -1,4 +1,4 @@
-{ pkgs, config, hostSpec, ... }:
+{ pkgs, lib, config, hostSpec, ... }:
 let
   user = hostSpec.username;
   home = hostSpec.home;
@@ -44,5 +44,5 @@ in
     ./optional/fx.nix
     ./optional/git.nix
     ./optional/yazi.nix
-  ];
+  ] ++ lib.optionals (!hostSpec.isServer) [ ./common/station.nix ];
 }
