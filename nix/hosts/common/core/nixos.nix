@@ -1,4 +1,11 @@
-{ outputs, config, lib, ... }: {
+{ outputs, config, lib, ... }:
+let
+  user = config.hostSpec.username;
+  sopsUserPw = config.sops.secrets ? "passwords/${user}";
+  sopsHashedPasswordFile = config.sops.secrets."passwords/${user}".path;
+  ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
+in
+{
   networking.hosts = {
     "10.19.21.31" = [ "sathub" "sathub.forestroot.elexpedition.com" ];
     "10.19.21.30" = [ "fob" "fob.forestroot.elexpedition.com" ];
@@ -15,6 +22,33 @@
       layout = "us";
       variant = "";
     };
+  };
+
+  users = {
+    users.${user} = {
+      isNormalUser = true;
+      extraGroups = lib.flatten [
+        (ifTheyExist [
+          "dialout"
+          "docker"
+          "gamemode"
+          "networkmanager"
+          "wheel"
+        ])
+      ];
+    } // (if sopsUserPw then {
+      hashedPasswordFile = sopsHashedPasswordFile;
+    } else {
+      initialHashedPassword = "$y$j9T$lejABGwnRzGnhKP7SWz2a/$u8iDH0kOO3TkUbS4mFC3/YO/lb8Yq66FUivEY4BpX.2";
+    });
+
+    users.root = {
+      openssh.authorizedKeys.keyFiles = [
+        ../../../keys/id_new.pub
+      ];
+    };
+  } // lib.optionalAttrs sopsUserPw {
+    mutableUsers = false;
   };
 
   security.sudo.extraConfig = ''

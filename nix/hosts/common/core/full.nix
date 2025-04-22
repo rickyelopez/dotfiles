@@ -1,13 +1,10 @@
 # this file gets imported if the system is not using standalone home-manager (i.e. nixos or nix-darwin)
-{ inputs, lib, pkgs, config, isDarwin, ... }:
+{ inputs, pkgs, config, isDarwin, ... }:
 let
   user = config.hostSpec.username;
   host = config.hostSpec.hostname;
   platform = if isDarwin then "darwin" else "nixos";
   platformModules = "${platform}Modules";
-  sopsUserPw = config.sops.secrets ? "passwords/${user}";
-  sopsHashedPasswordFile = config.sops.secrets."passwords/${user}".path;
-  ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in
 {
   imports = [
@@ -25,35 +22,7 @@ in
       openssh.authorizedKeys.keyFiles = [
         ../../../keys/id_new.pub
       ];
-    } // lib.optionalAttrs (!config.hostSpec.isDarwin) {
-      isNormalUser = true;
-      extraGroups = lib.flatten [
-        (ifTheyExist [
-          "dialout"
-          "docker"
-          "gamemode"
-          "networkmanager"
-          "wheel"
-        ])
-      ];
-    } // (
-      if sopsUserPw then {
-        hashedPasswordFile = sopsHashedPasswordFile;
-      } else {
-        initialHashedPassword = "$y$j9T$lejABGwnRzGnhKP7SWz2a/$u8iDH0kOO3TkUbS4mFC3/YO/lb8Yq66FUivEY4BpX.2";
-      }
-    );
-
-    users.root = {
-      openssh.authorizedKeys.keyFiles = [
-        ../../../keys/id_new.pub
-      ];
-    } // lib.optionalAttrs sopsUserPw {
-      # shell = pkgs.zsh;
-      hashedPasswordFile = sopsHashedPasswordFile;
     };
-  } // lib.optionalAttrs sopsUserPw {
-    mutableUsers = false;
   };
 
   programs = {
