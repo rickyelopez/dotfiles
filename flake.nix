@@ -123,7 +123,7 @@
       homeConfigurations = builtins.listToAttrs (
         map
           (instance: {
-            name = "${instance.user}@${instance.host}";
+            name = "${instance.username}@${instance.hostname}";
             value = home-manager.lib.homeManagerConfiguration rec {
               pkgs = import nixpkgs { system = "x86_64-linux"; };
               extraSpecialArgs = {
@@ -131,22 +131,18 @@
                 isDarwin = false;
                 isStandaloneHm = true;
                 hostSpec = {
-                  username = instance.user;
-                  hostname = instance.host;
-                  home = "/home/${instance.user}";
+                  home = "/home/${instance.username}";
                   isDarwin = false;
                   isStandaloneHm = true;
                   isServer = false;
-                  isHeadless = instance.isHeadless;
-                  isWork = instance.isWork;
-                };
+                } // instance;
                 monitors = [ ];
               };
               modules = [
                 {
                   imports = [
                     ./nix/hosts/common/core
-                    ./nix/home/users/${instance.user}/${instance.host}.nix
+                    ./nix/home/users/${instance.username}/${instance.hostname}.nix
                   ];
 
                   nix = {
@@ -157,8 +153,8 @@
             };
           })
           ([
-            { user = "ricclopez"; host = "donnager"; isHeadless = true; isWork = false; }
-            { user = "ricclopez"; host = "thinkrick"; isHeadless = true; isWork = true; }
+            { username = "ricclopez"; hostname = "donnager"; isHeadless = true; isWork = false; domain = "forestroot.elexpedition.com"; }
+            { username = "ricclopez"; hostname = "thinkrick"; isHeadless = true; isWork = true; domain = ""; }
           ])
       );
     };

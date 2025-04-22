@@ -1,4 +1,4 @@
-{ outputs, ... }: {
+{ outputs, config, lib, ... }: {
   networking.hosts = {
     "10.19.21.31" = [ "sathub" "sathub.forestroot.elexpedition.com" ];
     "10.19.21.30" = [ "fob" "fob.forestroot.elexpedition.com" ];
@@ -6,6 +6,8 @@
 
   nixpkgs.overlays = [ outputs.overlays.default ];
   programs.nix-ld.enable = true;
+
+  networking.domain = lib.mkIf (config.hostSpec ? domain) config.hostSpec.domain;
 
   services = {
     # Configure keymap in X11

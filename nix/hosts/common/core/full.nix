@@ -15,13 +15,13 @@ in
     inputs.sops-nix.${platformModules}.sops
 
     ./${platform}.nix
+    ../optional/vim.nix
   ];
 
   users = {
     users.${user} = {
       name = user;
       shell = pkgs.zsh;
-      initialHashedPassword = "$y$j9T$lejABGwnRzGnhKP7SWz2a/$u8iDH0kOO3TkUbS4mFC3/YO/lb8Yq66FUivEY4BpX.2";
       openssh.authorizedKeys.keyFiles = [
         ../../../keys/id_new.pub
       ];
@@ -36,9 +36,13 @@ in
           "wheel"
         ])
       ];
-    } // lib.optionalAttrs sopsUserPw {
-      hashedPasswordFile = sopsHashedPasswordFile;
-    };
+    } // (
+      if sopsUserPw then {
+        hashedPasswordFile = sopsHashedPasswordFile;
+      } else {
+        initialHashedPassword = "$y$j9T$lejABGwnRzGnhKP7SWz2a/$u8iDH0kOO3TkUbS4mFC3/YO/lb8Yq66FUivEY4BpX.2";
+      }
+    );
 
     users.root = {
       openssh.authorizedKeys.keyFiles = [
@@ -62,7 +66,6 @@ in
   ];
 
   networking.hostName = config.hostSpec.hostname; # Define your hostname.
-  networking.domain = lib.mkIf (config.hostSpec ? domain) config.hostSpec.domain;
 
   time.timeZone = "America/Los_Angeles";
 
