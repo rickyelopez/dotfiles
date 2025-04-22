@@ -3,3 +3,4 @@
 .config/tmux/tpm/
 /result/
 flake.lock
+.p10k.zsh
