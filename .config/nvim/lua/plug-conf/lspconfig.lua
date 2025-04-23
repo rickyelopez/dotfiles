@@ -93,7 +93,10 @@ return {
       end
 
       local lsp_flags = {}
-      local capabilities = require("cmp_nvim_lsp").default_capabilities({ preselectSupport = false })
+      -- local capabilities = require("cmp_nvim_lsp").default_capabilities({ preselectSupport = false })
+
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities({}, false))
 
       local ok, priv_lsp = pcall(require, "lua-priv.lspconfig")
       if ok and priv_lsp then
@@ -133,9 +136,11 @@ return {
           require("lspconfig")["clangd"].setup({
             on_attach = function(client, bufnr)
               -- use uncrustify for c files only
-              if vim.api.nvim_buf_call(bufnr, function()
-                return vim.bo.filetype == "c"
-              end) then
+              if
+                vim.api.nvim_buf_call(bufnr, function()
+                  return vim.bo.filetype == "c"
+                end)
+              then
                 local fmt = require("uncrustify").format
                 map("<leader>f", fmt, { "n", "v" }, opts("Format file/selection", bufnr))
               end
@@ -214,7 +219,7 @@ return {
             on_attach = on_attach,
             flags = lsp_flags,
             capabilities = capabilities,
-            cmd = { vim.fn.executable("ra-multiplex") and  "ra-multiplex" or "rust-analyzer"},
+            cmd = { vim.fn.executable("ra-multiplex") and "ra-multiplex" or "rust-analyzer" },
             settings = {
               ["rust-analyzer"] = {
                 files = {
