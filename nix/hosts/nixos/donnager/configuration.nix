@@ -1,23 +1,23 @@
-{ pkgs, config, ... }:
+{ inputs, config, ... }:
 {
-  wsl.enable = true;
-  wsl.defaultUser = config.hostSpec.username;
+  imports = [
+    inputs.nixos-wsl.nixosModules.default
+  ];
+  wsl = {
+    enable = true;
+    defaultUser = config.hostSpec.username;
+    wslConf = {
+      network = {
+        generateHosts = false;
+        generateResolvConf = false;
+      };
+    };
+  };
 
-  environment.systemPackages = with pkgs; [ ];
-
-  programs = { zsh.enable = true; };
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [ ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.allowedUDPPorts = [ ];
+  networking = {
+    nameservers = [ "10.19.21.6" ];
+    search = [ "forestroot.elexpedition.com" ];
+  };
 }

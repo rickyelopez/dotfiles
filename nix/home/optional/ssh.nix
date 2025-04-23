@@ -3,6 +3,7 @@ let
   identityFiles = [ "id_new" "id_old" ];
   standardHosts = [
     { user = "nonroot"; host = "sathub"; }
+    { user = "nonroot"; host = "cintra"; }
     { user = "root"; host = "panama"; }
     { user = "root"; host = "fob"; }
     { user = "root"; host = "dns-01"; }

@@ -25,6 +25,12 @@ in
   };
 
   users = {
+    groups.${user} = {
+      members = [ user ];
+      # FIXME: just realized I'm not specifying the uid anywhere
+      gid = config.users.users.${user}.uid;
+    };
+
     users.${user} = {
       isNormalUser = true;
       extraGroups = lib.flatten [
