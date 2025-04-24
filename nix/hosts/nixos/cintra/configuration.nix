@@ -31,7 +31,6 @@
     "10.19.21.40" = [ "panama" "panama.forestroot.elexpedition.com" ];
   };
 
-
-  services.openssh.settings.AllowUsers = [ "nonroot" ];
+  services.openssh.settings.AllowUsers = [ "root" ];
 }
 
