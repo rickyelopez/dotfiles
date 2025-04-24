@@ -24,15 +24,17 @@ in
     };
   };
 
+  # FIXME: handle uid and gid better
   users = {
     groups.${user} = {
       members = [ user ];
-      # FIXME: just realized I'm not specifying the uid anywhere
-      gid = config.users.users.${user}.uid;
+      gid = 1000;
     };
 
     users.${user} = {
+      uid = 1000;
       isNormalUser = true;
+      group = toString user;
       extraGroups = lib.flatten [
         (ifTheyExist [
           "dialout"
