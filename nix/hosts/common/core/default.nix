@@ -1,4 +1,4 @@
-{ lib, config, isStandaloneHm, ... }:
+{ lib, isStandaloneHm, ... }:
 {
   imports = [
     ../../../host-spec.nix
@@ -6,18 +6,6 @@
 
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = [ ] ++ lib.optionals (config.hostSpec.isDarwin) [
-      # issues building bitwarden-cli on darwin-aarch64
-      # https://github.com/NixOS/nixpkgs/issues/339576
-      (final: prev: {
-        bitwarden-cli = prev.bitwarden-cli.overrideAttrs (
-          oldAttrs: {
-            nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ prev.llvmPackages_18.stdenv.cc ];
-            stdenv = prev.llvmPackages_18.stdenv;
-          }
-        );
-      })
-    ];
   };
 
   nix = {
