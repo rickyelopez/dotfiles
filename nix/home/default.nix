@@ -19,6 +19,7 @@ in
       htop
       jq
       lsof
+      nixd
       ripgrep
       rsync
       tmux

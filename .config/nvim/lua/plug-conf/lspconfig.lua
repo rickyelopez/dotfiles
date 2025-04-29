@@ -294,6 +294,12 @@ return {
         end,
       })
 
+      require("lspconfig").nixd.setup({
+        on_attach = on_attach,
+        flags = lsp_flags,
+        capabilities = capabilities,
+      })
+
       require("clangd_extensions").setup({
         server = {
           on_attach = on_attach,
