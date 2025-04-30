@@ -190,5 +190,23 @@
         };
       };
     };
+    zsh.initExtra = /*bash*/''
+      # use this cmd to open yazi and cd into whatever directory it is in when it exits
+      # taken from https://yazi-rs.github.io/docs/quick-start/
+      if command -v yazi &>/dev/null; then
+          ycd() {
+              local tmp
+              tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+
+              yazi "$@" --cwd-file="$tmp"
+
+              if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+                  builtin cd -- "$cwd" || return 1
+              fi
+
+              rm -f -- "$tmp"
+          }
+      fi
+    '';
   };
 }
