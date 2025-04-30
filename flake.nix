@@ -71,8 +71,6 @@
   outputs =
     inputs @ { self
     , darwin
-    , nixos-wsl
-    , lix-module
     , nixpkgs
     , home-manager
     , ...
@@ -148,14 +146,16 @@
                   nix = {
                     package = pkgs.nix;
                   };
+
+                  nixpkgs.overlays = [ outputs.overlays.default ];
                 }
               ];
             };
           })
-          ([
+          [
             { username = "ricclopez"; hostname = "donnager"; isHeadless = true; isWork = false; domain = "forestroot.elexpedition.com"; }
             { username = "ricclopez"; hostname = "thinkrick"; isHeadless = true; isWork = true; domain = ""; }
-          ])
+          ]
       );
     };
 }
