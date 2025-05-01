@@ -47,6 +47,14 @@
       on-window-detected = [
         {
           "if" = {
+            app-id = "com.bitwarden.desktop";
+          };
+          # check-further-callbacks = true;
+          run = [ "layout floating" ];
+        }
+
+        {
+          "if" = {
             app-id = "com.brave.Browser";
             # app-name-regex-substring = "settings";
             window-title-regex-substring = "bitwarden";
