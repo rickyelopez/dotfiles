@@ -54,7 +54,9 @@ return {
         return opt
       end
 
-      map("<space>e", vim.diagnostic.open_float, { "n" }, opts("Show diagnostics"))
+      map("<space>e", function()
+        vim.diagnostic.open_float({ border = "single" })
+      end, { "n" }, opts("Show diagnostics"))
       -- map("<space>q", vim.diagnostic.setloclist, opts("Show diagnostics in loclist"))
 
       -- Use an on_attach function to only map the following keys
@@ -70,7 +72,9 @@ return {
         map("gr", function()
           trouble.open({ mode = "lsp_references", focus = true })
         end, { "n" }, opts("Show references", bufnr))
-        map("K", vim.lsp.buf.hover, { "n" }, opts("Show hover", bufnr))
+        map("K", function()
+          vim.lsp.buf.hover({ border = "single" })
+        end, { "n" }, opts("Show hover", bufnr))
         map("<C-k>", vim.lsp.buf.signature_help, { "n" }, opts("Show signature", bufnr))
         map("<space>wa", vim.lsp.buf.add_workspace_folder, { "n" }, opts("Add folder to workspace", bufnr))
         map("<space>D", vim.lsp.buf.type_definition, { "n" }, opts("Goto type definition", bufnr))
