@@ -1,5 +1,9 @@
 local map = require("utils").map
 
+-- make j/k treat wrapped lines as regular
+map("j", "gj")
+map("k", "gk")
+
 -- add window navigation shortcuts
 map("<leader>h", "<CMD>wincmd h<CR>")
 map("<leader>j", "<CMD>wincmd j<CR>")
