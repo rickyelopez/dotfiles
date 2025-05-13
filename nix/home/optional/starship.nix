@@ -5,7 +5,7 @@
       enableZshIntegration = true;
       settings = {
         format = /*bash*/lib.concatStrings [
-          "[░▒▓](#a3aed2)"
+          "[](fg:#a3aed2)"
           "$os"
           "[](bg:#769ff0 fg:#a3aed2)"
           "$directory"
@@ -42,6 +42,7 @@
             Arch = "󰣇";
             CentOS = "";
             Debian = "󰣚";
+            NixOS = "󱄅";
           };
         };
 
