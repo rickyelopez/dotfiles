@@ -110,5 +110,6 @@ require("plugins")
 
 require("utils").setup()
 require("binds")
+require("lsp")
 
 require("server").start()
