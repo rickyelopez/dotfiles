@@ -22,8 +22,6 @@ end
 require("lazy").setup({
   { import = "plug-conf" },
 
-  { "folke/neodev.nvim", opts = {} },
-
   {
     "iamcco/markdown-preview.nvim",
     enabled = false,
