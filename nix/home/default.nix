@@ -12,6 +12,7 @@ in
 
     packages = with pkgs; [
       bat
+      bash
       bitwise
       fd
       fzf

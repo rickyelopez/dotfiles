@@ -6,6 +6,7 @@
     ./configuration.nix
 
     ../../common/core
+    ../../common/optional/docker.nix
     ../../common/optional/sops.nix
   ];
 
