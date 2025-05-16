@@ -9,7 +9,6 @@ return {
     },
     config = true,
     opts = {
-      -- automatic_installation = { exclude = { "clangd" } },
       ensure_installed = {
         "basedpyright",
         "bashls",
