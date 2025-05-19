@@ -51,8 +51,8 @@ map("<leader><space>", "<CMD>noh<CR>")
 map("<leader>ws", "<CMD>let _s=@/<Bar>:%s/\\s\\+$//e<Bar><CR><CMD>let @/=_s<Bar><CR>")
 
 -- hex read/write
-map("<leader>hr", "<CMD>%!xxd<CR><CMD>set filetype=xxd<CR>")
-map("<leader>hw", "<CMD>%!xxd -r<CR><CMD>set binary<CR><CMD>filetype=<CR>")
+map("<leader>xr", "<CMD>%!xxd<CR><CMD>set filetype=xxd<CR>")
+map("<leader>xw", "<CMD>%!xxd -r<CR><CMD>set binary<CR><CMD>filetype=<CR>")
 
 -- open scratchpad files
 map("<leader>spc", "<CMD>e ~/scratchpad/scratchpad.c<CR>")
