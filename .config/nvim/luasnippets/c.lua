@@ -3,6 +3,11 @@
 local function insert_selected(_, snip)
   local res = {}
   local env = snip.env
+
+  if type(env.TM_SELECTED_TEXT) == "string" then
+    return {env.TM_SELECTED_TEXT}
+  end
+
   for _, ele in ipairs(env.TM_SELECTED_TEXT) do
     table.insert(res, ele)
   end
