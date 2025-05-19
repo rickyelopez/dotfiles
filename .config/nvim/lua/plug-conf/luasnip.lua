@@ -54,20 +54,16 @@ return {
     local opts = { noremap = true, silent = true }
     local modes = { "i", "s" }
 
-    map("<C-j>", function()
+    map("<C-n>", function()
       return vim.snippet.active({ direction = 1 }) and vim.snippet.jump(1)
     end, modes, opts)
 
-    map("<C-k>", function()
+    map("<C-p>", function()
       return vim.snippet.active({ direction = -1 }) and vim.snippet.jump(-1)
     end, modes, opts)
 
-    map("<C-u>", function()
-      ls.change_choice(1)
-    end, modes, opts)
-
     map("<C-y>", function()
-      ls.change_choice(-1)
+      ls.change_choice(1)
     end, modes, opts)
   end,
 }
