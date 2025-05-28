@@ -35,7 +35,7 @@ local on_attach = function(client, bufnr)
   map("<space>wa", vim.lsp.buf.add_workspace_folder, { "n" }, opts("Add folder to workspace", bufnr))
   map("<space>D", vim.lsp.buf.type_definition, { "n" }, opts("Goto type definition", bufnr))
   map("<space>rn", vim.lsp.buf.rename, { "n" }, opts("Rename symbol", bufnr))
-  map("<space>ca", vim.lsp.buf.code_action, { "n" }, opts("Show code actions", bufnr))
+  map("<space>cA", vim.lsp.buf.code_action, { "n" }, opts("Show code actions", bufnr))
 
   local caps = client.server_capabilities
   if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
