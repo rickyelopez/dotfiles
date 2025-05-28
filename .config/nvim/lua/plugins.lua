@@ -13,12 +13,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- plugins from dotfiles_priv
-local ok, privPlugins = pcall(require, "lua-priv.plugins")
-if not ok or not privPlugins then
-  privPlugins = {}
-end
-
 require("lazy").setup({
   { import = "plug-conf" },
 
@@ -42,9 +36,7 @@ require("lazy").setup({
   "tpope/vim-surround",
   "mbbill/undotree",
   { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
-  "sophacles/vim-bundle-mako",
-  "rust-lang/rust.vim",
-  "rickyelopez/uncrustify.nvim",
-
-  privPlugins,
+  { "sophacles/vim-bundle-mako", ft = "mako" },
+  { "rust-lang/rust.vim", ft = "rust" },
+  { "rickyelopez/uncrustify.nvim", lazy = true },
 })

@@ -68,7 +68,7 @@ return {
       elseif #utils.listValidBuffers() > 1 then
         cycle(-1)
       else
-        local newBuf = vim.api.nvim_create_buf(true, false)
+        local newBuf = vim.api.nvim_create_buf(true, true)
         vim.api.nvim_set_current_buf(newBuf)
       end
       vim.api.nvim_buf_delete(buf, {})
