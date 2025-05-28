@@ -124,13 +124,14 @@ return {
   {
     "da-moon/telescope-toggleterm.nvim",
     dependencies = "akinsho/toggleterm.nvim",
+    keys = { "<leader>tt" },
     config = function()
-      map("<leader>tt", require("telescope").extensions.toggleterm.toggleterm)
       require("telescope-toggleterm").setup({
         telescope_mappings = {
           ["dd"] = require("telescope-toggleterm").actions.exit_terminal,
         },
       })
+      map("<leader>tt", require("telescope").extensions.toggleterm.toggleterm)
     end,
   },
 }

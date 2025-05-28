@@ -1,5 +1,5 @@
 return {
-  "p00f/clangd_extensions.nvim",
+  { "p00f/clangd_extensions.nvim", lazy = true },
   { "williamboman/mason.nvim", config = true, opts = { log_level = vim.log.levels.DEBUG } },
   {
     "mason-org/mason-lspconfig.nvim",

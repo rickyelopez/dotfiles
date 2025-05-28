@@ -1,6 +1,10 @@
 return {
   "nvim-tree/nvim-tree.lua",
   dependencies = { "nvim-tree/nvim-web-devicons" },
+  keys = {
+    "<leader>pv",
+    "\\",
+  },
   config = function()
     local map = require("utils").map
     local api = require("nvim-tree.api")
