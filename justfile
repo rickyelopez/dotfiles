@@ -8,7 +8,7 @@ build:
 
 [macos]
 switch:
-  darwin-rebuild switch --flake ~/dotfiles
+  sudo darwin-rebuild switch --flake ~/dotfiles
 
 [linux]
 switch:

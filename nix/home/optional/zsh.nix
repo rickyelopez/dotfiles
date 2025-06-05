@@ -33,38 +33,44 @@ in
 
       autosuggestion.enable = true;
 
-      initExtra = /*bash*/ ''
-        [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+      initContent = lib.mkMerge [
+        (lib.mkOrder 500 /*bash*/
+          ''
+            [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+          '')
 
-        NVM_DIR="$HOME/.nvm"
-        function load_nvm() {
-            if [ -d "$NVM_DIR" ]; then
-                [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-                [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-                export NVM_DIR
-            fi
-        }
-
-        ## activate python env from path or in current directory if no path given
-        activate() {
-            if [ "$#" -eq 0 ]; then
-                if [ -f ./env/bin/activate ]; then
-                    source ./env/bin/activate || echo "'./env/bin/activate' does not exist"
-                    return 0
-                elif [ -f ./.venv/bin/activate ]; then
-                    source ./.venv/bin/activate || echo "'./env/bin/activate' does not exist"
-                    return 0
+        (lib.mkOrder 1000 /*bash*/
+          (''
+            NVM_DIR="$HOME/.nvm"
+            function load_nvm() {
+                if [ -d "$NVM_DIR" ]; then
+                    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+                    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+                    export NVM_DIR
                 fi
-            else
-                [ -f "$1"/bin/activate ] && source "$1"/bin/activate || echo "'$1/bin/activate' does not exist"
-            fi
-        }
+            }
 
-        # source private files
-        [ -f "$HOME/dotfiles_priv/.privrc" ] && source "$HOME/dotfiles_priv/.privrc"
-        [ -f "$HOME/dotfiles_priv/.vars" ] && source "$HOME/dotfiles_priv/.vars"
-        [ -f "$HOME/dotfiles_priv/.aliases" ] && source "$HOME/dotfiles_priv/.aliases"
-      '' + lib.optionalString (!hostSpec.isDarwin) "load_nvm";
+            ## activate python env from path or in current directory if no path given
+            activate() {
+                if [ "$#" -eq 0 ]; then
+                    if [ -f ./env/bin/activate ]; then
+                        source ./env/bin/activate || echo "'./env/bin/activate' does not exist"
+                        return 0
+                    elif [ -f ./.venv/bin/activate ]; then
+                        source ./.venv/bin/activate || echo "'./env/bin/activate' does not exist"
+                        return 0
+                    fi
+                else
+                    [ -f "$1"/bin/activate ] && source "$1"/bin/activate || echo "'$1/bin/activate' does not exist"
+                fi
+            }
+
+            # source private files
+            [ -f "$HOME/dotfiles_priv/.privrc" ] && source "$HOME/dotfiles_priv/.privrc"
+            [ -f "$HOME/dotfiles_priv/.vars" ] && source "$HOME/dotfiles_priv/.vars"
+            [ -f "$HOME/dotfiles_priv/.aliases" ] && source "$HOME/dotfiles_priv/.aliases"
+          '' + lib.optionalString (!hostSpec.isDarwin) "load_nvm"))
+      ];
 
       # initExtraBeforeCompInit = /*bash*/'' '';
 

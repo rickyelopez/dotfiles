@@ -190,7 +190,7 @@
         };
       };
     };
-    zsh.initExtra = /*bash*/''
+    zsh.initContent = lib.mkOrder 1000 /*bash*/ ''
       # use this cmd to open yazi and cd into whatever directory it is in when it exits
       # taken from https://yazi-rs.github.io/docs/quick-start/
       if command -v yazi &>/dev/null; then

@@ -1,4 +1,7 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   home.packages = with pkgs; [ fx ];
-  programs.zsh.initExtra = '' source <(fx --comp zsh) '';
+  programs.zsh.initContent = lib.mkOrder 1000
+    /*bash*/ ''
+    source <(fx --comp zsh)
+  '';
 }

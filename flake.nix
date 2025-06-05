@@ -60,8 +60,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    madness.url = "github:antithesishq/madness";
-
     sops-nix = {
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
