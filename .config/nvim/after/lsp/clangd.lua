@@ -24,7 +24,6 @@ return {
       { "n" },
       opts("Switch source-header", bufnr)
     )
-    vim.g.my_on_attach(client, bufnr)
   end,
   settings = {
     clangd = {
