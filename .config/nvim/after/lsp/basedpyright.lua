@@ -8,7 +8,6 @@ return {
     end, {
       desc = "Organize Imports",
     })
-    vim.g.my_on_attach(client, bufnr)
   end,
 
   settings = {
