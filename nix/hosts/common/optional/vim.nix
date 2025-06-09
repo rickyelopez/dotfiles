@@ -35,6 +35,9 @@
       nnoremap <Leader><space> <cmd>noh<cr>
 
       nnoremap Y y$
+
+      vnoremap > >gv
+      vnoremap < <gv
       '';
     }
   )];
