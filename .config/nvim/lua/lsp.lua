@@ -24,8 +24,7 @@ local on_attach = function(client, bufnr)
 
   map("gD", vim.lsp.buf.declaration, { "n" }, opts("Goto declaration", bufnr))
   map("gd", vim.lsp.buf.definition, { "n" }, opts("Goto definition", bufnr))
-  map("gi", vim.lsp.buf.implementation, { "n" }, opts("Goto implementation", bufnr))
-  map("gr", function()
+  map("grr", function()
     trouble.open({ mode = "lsp_references", focus = true })
   end, { "n" }, opts("Show references", bufnr))
   map("K", function()
@@ -34,8 +33,6 @@ local on_attach = function(client, bufnr)
   map("<C-k>", vim.lsp.buf.signature_help, { "n" }, opts("Show signature", bufnr))
   map("<space>wa", vim.lsp.buf.add_workspace_folder, { "n" }, opts("Add folder to workspace", bufnr))
   map("<space>D", vim.lsp.buf.type_definition, { "n" }, opts("Goto type definition", bufnr))
-  map("<space>rn", vim.lsp.buf.rename, { "n" }, opts("Rename symbol", bufnr))
-  map("<space>ca", vim.lsp.buf.code_action, { "n" }, opts("Show code actions", bufnr))
 
   local caps = client.server_capabilities
   if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
