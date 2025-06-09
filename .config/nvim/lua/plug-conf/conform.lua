@@ -10,9 +10,6 @@ return {
             return vim.env.BLACK_CFG and { "--config", vim.env.BLACK_CFG } or {}
           end,
         },
-        ["nixpkgs-fmt"] = {
-          command = "nixpkgs-fmt",
-        },
         ["sql-formatter"] = {
           command = "sql-formatter",
         },
@@ -40,7 +37,6 @@ return {
         sql = { "sql-formatter" },
         xml = { "xmlformat" },
         yaml = { "yamlfmt" },
-        nix = { "nixpkgs-fmt" },
       },
     })
 

@@ -61,7 +61,4 @@ vim.lsp.config("*", {
 })
 
 -- nixd doesn't exist in lspconfig, set it up manually here
-require("lspconfig").nixd.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
+vim.lsp.enable("nixd")
