@@ -9,7 +9,7 @@ return {
     require("lualine").setup({
       options = {
         theme = "tokyonight",
-        globalstatus = true,
+        globalstatus = false,
       },
       extensions = { "fzf", "lazy", "man", "mason", "nvim-tree", "oil", "toggleterm" },
       sections = {
