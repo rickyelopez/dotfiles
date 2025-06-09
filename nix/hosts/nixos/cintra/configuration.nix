@@ -8,6 +8,10 @@
       };
     }
     ../../../disks/nixos-ext4.nix
+
+    ../../common/optional/containers/frigate.nix
+    ../../common/optional/containers/lemmy.nix
+    ../../common/optional/containers/teamspeak.nix
   ];
 
   boot.loader = {
@@ -20,15 +24,33 @@
   environment.systemPackages = with pkgs; [ nfs-utils ];
   services.rpcbind.enable = true;
 
+  # Google Coral PCIe
   hardware.coral.pcie.enable = true;
   users.users.${config.hostSpec.username}.extraGroups = [ "coral" ];
 
-  networking.networkmanager.enable = true;
-  networking.firewall.allowedTCPPorts = [ 8555 8971 ];
-  networking.firewall.allowedUDPPorts = [ ];
+  networking = {
+    networkmanager.enable = true;
 
-  networking.hosts = {
-    "10.19.21.40" = [ "panama" "panama.forestroot.elexpedition.com" ];
+    defaultGateway = { address = "10.19.21.1"; interface = "enp6s18"; };
+    defaultGateway6 = { address = "fd00:750::1"; interface = "enp6s18"; };
+
+    interfaces = {
+      enp6s18 = {
+        ipv4 = {
+          addresses = [{ address = "10.19.21.18"; prefixLength = 24; }];
+        };
+        ipv6 = {
+          addresses = [
+            { address = "fd00:750::18"; prefixLength = 64; }
+            { address = "fe80::18"; prefixLength = 64; }
+          ];
+        };
+      };
+    };
+
+    hosts = {
+      "10.19.21.40" = [ "panama" "panama.forestroot.elexpedition.com" ];
+    };
   };
 
   services.openssh.settings.AllowUsers = [ "root" ];
