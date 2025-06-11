@@ -22,6 +22,11 @@ in
         hash = "sha256-G0kuCrG6lz4R+LdAqNWiMXneF09pLI+xKCiagryBb5k=";
       };
     };
+
+    shellAliases = {
+      bazel = "bazelisk"; # FIXME: move bazelisk somewhere common and take this alias with it
+    };
+
   };
 
   programs = {
