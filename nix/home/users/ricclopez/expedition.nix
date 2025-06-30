@@ -11,11 +11,11 @@
   imports = [
     ../../../home
     ../../../platforms/linux/home
-    ../../optional/gtk.nix
-    ../../optional/hyprland.nix
-    ../../optional/qt.nix
-    ../../optional/rofi.nix
-    ../../optional/sops.nix
+    ../../common/optional/gtk.nix
+    ../../common/optional/hyprland.nix
+    ../../common/optional/qt.nix
+    ../../common/optional/rofi.nix
+    ../../common/optional/sops.nix
   ];
 }
 

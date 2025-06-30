@@ -62,10 +62,8 @@ in
   };
 
   imports = [
-    # ../optional/alacritty.nix
-    ../optional/nvim.nix
-    # ../optional/wezterm.nix
-    ../optional/zsh.nix
+    ../common/optional/nvim.nix
+    ../common/optional/zsh.nix
   ];
 }
 

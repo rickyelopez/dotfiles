@@ -36,6 +36,6 @@ in
 
   imports = [
     ../../../home
-    ../../optional/sops.nix
+    ../../common/optional/sops.nix
   ];
 }

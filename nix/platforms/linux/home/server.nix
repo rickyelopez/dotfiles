@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    ../../../home/optional/zsh-minimal.nix
+    ../../../home/common/optional/zsh-minimal.nix
   ];
 
   home.file.".ssh/rc".source = ../../../../.ssh/rc;

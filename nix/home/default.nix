@@ -45,8 +45,8 @@ in
   };
 
   imports = [
-    ./optional/fx.nix
-    ./optional/git.nix
-    ./optional/yazi.nix
+    ./common/optional/fx.nix
+    ./common/optional/git.nix
+    ./common/optional/yazi.nix
   ] ++ lib.optionals (!hostSpec.isServer) [ ./common/station.nix ];
 }

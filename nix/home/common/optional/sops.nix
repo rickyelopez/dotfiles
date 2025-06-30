@@ -11,7 +11,7 @@ in
   home.packages = with pkgs; [ sops ];
   sops = {
     age.keyFile = "${ageFolder}/keys.txt";
-    defaultSopsFile = ../../../secrets.yaml;
+    defaultSopsFile = ../../../../secrets.yaml;
     validateSopsFiles = false;
 
     secrets = {
