@@ -22,13 +22,11 @@
   services.rpcbind.enable = true;
 
   networking = {
-    networkmanager.enable = true;
-
-    defaultGateway = { address = "10.19.21.1"; interface = "enp6s18"; };
-    defaultGateway6 = { address = "fd00:750::1"; interface = "enp6s18"; };
+    defaultGateway = { address = "10.19.21.1"; interface = "ens18"; };
+    defaultGateway6 = { address = "fd00:750::1"; interface = "ens18"; };
 
     interfaces = {
-      enp6s18 = {
+      ens18 = {
         ipv4 = {
           addresses = [{ address = "10.19.21.24"; prefixLength = 24; }];
         };
@@ -44,8 +42,12 @@
     hosts = {
       "10.19.21.40" = [ "panama" "panama.forestroot.elexpedition.com" ];
     };
+
+    nameservers = [ "10.19.21.6" ];
+    search = [ "forestroot.elexpedition.com" ];
   };
 
+  services.qemuGuest.enable = true;
   services.openssh.settings.AllowUsers = [ "root" ];
 }
 
