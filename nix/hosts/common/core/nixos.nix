@@ -6,15 +6,20 @@ let
   ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in
 {
-  networking.hosts = {
-    "10.19.21.31" = [ "sathub" "sathub.forestroot.elexpedition.com" ];
-    "10.19.21.30" = [ "fob" "fob.forestroot.elexpedition.com" ];
+  networking = {
+    hosts = {
+      "10.19.21.14" = [ "dns-01" "dns-01.forestroot.elexpedition.com" ];
+      "10.19.21.18" = [ "cintra" "cintra.forestroot.elexpedition.com" ];
+      "10.19.21.22" = [ "fondor" "fondor.forestroot.elexpedition.com" ];
+      "10.19.21.24" = [ "ferrix" "ferrix.forestroot.elexpedition.com" ];
+      "10.19.21.30" = [ "fob" "fob.forestroot.elexpedition.com" ];
+      "10.19.21.31" = [ "sathub" "sathub.forestroot.elexpedition.com" ];
+    };
+    domain = lib.mkIf (config.hostSpec ? domain) config.hostSpec.domain;
   };
 
   nixpkgs.overlays = [ outputs.overlays.default ];
   programs.nix-ld.enable = true;
-
-  networking.domain = lib.mkIf (config.hostSpec ? domain) config.hostSpec.domain;
 
   services = {
     # Configure keymap in X11

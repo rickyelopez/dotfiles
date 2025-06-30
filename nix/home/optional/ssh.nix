@@ -4,8 +4,10 @@ let
   standardHosts = [
     { user = "nonroot"; host = "sathub"; }
     { user = "nonroot"; host = "cintra"; }
+    { user = "nonroot"; host = "ferrix"; }
     { user = "root"; host = "panama"; }
     { user = "root"; host = "fob"; }
+    { user = "root"; host = "fondor"; }
     { user = "root"; host = "dns-01"; }
   ];
   standardHostConfigs = lib.attrsets.mergeAttrsList (
