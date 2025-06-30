@@ -13,8 +13,8 @@
 
   imports = [
     ../../../home
-    ../../optional/ssh.nix
-    ../../optional/sops.nix
+    ../../common/optional/ssh.nix
+    ../../common/optional/sops.nix
     ../../../platforms/linux/home
   ];
 }

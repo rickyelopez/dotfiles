@@ -3,7 +3,7 @@
     yazi = {
       enable = true;
       enableZshIntegration = true;
-      initLua = builtins.readFile ../../../.config/yazi/init.lua;
+      initLua = builtins.readFile ../../../../.config/yazi/init.lua;
 
       keymap = {
         manager.prepend_keymap = [

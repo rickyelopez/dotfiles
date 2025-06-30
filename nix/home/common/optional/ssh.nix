@@ -45,7 +45,18 @@ in
         identitiesOnly = true;
         identityFile = lib.lists.forEach identityFiles (file: "${hostSpec.home}/.ssh/${file}");
       };
-    } // standardHostConfigs;
+    }
+    // standardHostConfigs
+    // lib.optionalAttrs (!hostSpec.isWork) {
+      "git-dg" = {
+        host = "dg.github.com";
+        hostname = "github.com";
+        user = "git";
+        forwardAgent = false;
+        identitiesOnly = true;
+        identityFile = "${hostSpec.home}/.ssh/id_dg";
+      };
+    };
   };
 
   home.file = {
