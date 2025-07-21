@@ -55,6 +55,7 @@ in
       "ghostty"
       "hammerspoon"
       "karabiner-elements"
+      "ksnip"
       "pants"
       "vlc"
       "wireshark"
