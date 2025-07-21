@@ -6,7 +6,7 @@
       initLua = builtins.readFile ../../../../.config/yazi/init.lua;
 
       keymap = {
-        manager.prepend_keymap = [
+        mgr.prepend_keymap = [
           {
             on = [ "g" "d" ];
             run = "cd ~/dotfiles";
@@ -84,7 +84,7 @@
       };
 
       settings = {
-        manager = {
+        mgr = {
           show_hidden = true;
           show_symlink = true;
         };
