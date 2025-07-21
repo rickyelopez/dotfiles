@@ -6,6 +6,7 @@
       feh
       gedit
       ghostty
+      ksnip
       nextcloud-client
       pamixer
       pavucontrol
