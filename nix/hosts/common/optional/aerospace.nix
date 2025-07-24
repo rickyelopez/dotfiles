@@ -47,9 +47,22 @@
       on-window-detected = [
         {
           "if" = {
+            app-id = "com.apple.finder";
+          };
+          run = [ "layout floating" ];
+        }
+
+        {
+          "if" = {
             app-id = "com.bitwarden.desktop";
           };
-          # check-further-callbacks = true;
+          run = [ "layout floating" ];
+        }
+
+        {
+          "if" = {
+            app-name-regex-substring = "Vial";
+          };
           run = [ "layout floating" ];
         }
 
