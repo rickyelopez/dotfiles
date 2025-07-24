@@ -39,7 +39,7 @@ in
       "openssl"
       "portaudio"
       "readline"
-      "skhd"
+      # "skhd"
       "sqlite3"
       "tcl-tk@8"
       "xz"
