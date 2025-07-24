@@ -11,6 +11,7 @@
       # };
       vimrcConfig.customRC = ''
       syntax on
+      filetype plugin on
       let mapleader = " "
 
       set autoindent
@@ -23,10 +24,11 @@
       set nobackup
       set noswapfile
       set relativenumber
+      set ignorecase
       set smartcase
       set undodir=$HOME/.vimfiles/undodir
 
-      set ts=2 sw=2
+      set ts=4 sw=4
 
       nnoremap <Leader>h <C-w>h
       nnoremap <Leader>j <C-w>j
