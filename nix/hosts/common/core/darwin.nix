@@ -4,9 +4,10 @@
     # https://github.com/NixOS/nixpkgs/issues/339576
     (final: prev: {
       bitwarden-cli = prev.bitwarden-cli.overrideAttrs (
-        oldAttrs: {
+        finalAttrs: oldAttrs: {
           nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ prev.llvmPackages_18.stdenv.cc ];
           stdenv = prev.llvmPackages_18.stdenv;
+          meta.broken = false;
         }
       );
     })
