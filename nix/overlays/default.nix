@@ -6,7 +6,8 @@ let
       {
         callPackage = prev.lib.callPackageWith final;
         directory = ../pkgs/common;
-      } // { });
+      }
+    );
 
   modifications =
     final: prev: {
