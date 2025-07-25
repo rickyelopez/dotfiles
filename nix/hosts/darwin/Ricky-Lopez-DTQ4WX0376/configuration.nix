@@ -56,6 +56,7 @@ in
       "hammerspoon"
       "karabiner-elements"
       "ksnip"
+      "notunes"
       "pants"
       "vlc"
       "wireshark"
@@ -104,6 +105,8 @@ in
         "com.apple.CloudSubscriptionFeatures.optIn" = {
           "545129924" = false; # disable apple intelligence
         };
+
+        "digital.twisted.noTunes" = { replacement = "https://lms.elxpd.com/"; };
       };
 
       ".GlobalPreferences" = {
