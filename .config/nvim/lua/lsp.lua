@@ -26,6 +26,8 @@ vim.lsp.config("*", {
 -- nixd doesn't exist in lspconfig, set it up manually here
 vim.lsp.enable("nixd")
 
+vim.lsp.enable("buck2")
+
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
   callback = function(event)
