@@ -2,13 +2,13 @@
 let
   identityFiles = [ "id_new" "id_old" ];
   standardHosts = [
-    { user = "nonroot"; host = "sathub"; }
     { user = "nonroot"; host = "cintra"; }
+    { user = "nonroot"; host = "dns-01"; }
     { user = "nonroot"; host = "ferrix"; }
-    { user = "root"; host = "panama"; }
+    { user = "nonroot"; host = "sathub"; }
     { user = "root"; host = "fob"; }
     { user = "root"; host = "fondor"; }
-    { user = "root"; host = "dns-01"; }
+    { user = "root"; host = "panama"; }
   ];
   standardHostConfigs = lib.attrsets.mergeAttrsList (
     lib.lists.map
