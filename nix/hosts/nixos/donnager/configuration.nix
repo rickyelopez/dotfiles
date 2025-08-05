@@ -1,4 +1,4 @@
-{ inputs, config, ... }:
+{ inputs, config, pkgs, ... }:
 {
   imports = [
     inputs.nixos-wsl.nixosModules.default
@@ -13,6 +13,10 @@
       };
     };
   };
+
+  boot.supportedFilesystems = [ "nfs" ];
+  environment.systemPackages = with pkgs; [ nfs-utils ];
+  services.rpcbind.enable = true;
 
   networking.firewall.allowedTCPPorts = [ ];
   networking.firewall.allowedUDPPorts = [ ];
