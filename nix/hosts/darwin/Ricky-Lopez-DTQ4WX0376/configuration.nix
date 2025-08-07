@@ -34,6 +34,7 @@ in
       "gdal"
       "iproute2mac"
       "libgit2"
+      "ncdu"
       "opencv"
       "openjdk"
       "openssl"
