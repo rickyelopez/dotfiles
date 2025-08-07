@@ -37,9 +37,10 @@ function M.setup()
     command = [[set commentstring=//\ %s]],
   })
 
+  -- turn .bazelrc files into ft bazelrc
   vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-    pattern = { "ZIP_BUILD" },
-    command = [[set ft=python]],
+    pattern = { ".bazelrc" },
+    command = "set filetype=bazelrc",
   })
 
   -- should probably port this to pure lua at some point
