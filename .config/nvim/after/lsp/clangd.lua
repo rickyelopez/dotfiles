@@ -25,6 +25,7 @@ return {
       opts("Switch source-header", bufnr)
     )
   end,
+  filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' }, -- remove proto
   settings = {
     clangd = {
       InlayHints = {
