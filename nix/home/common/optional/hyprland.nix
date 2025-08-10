@@ -14,7 +14,6 @@ in
   programs = {
     hyprpanel = {
       enable = true;
-      overlay.enable = true;
       # systemd.enable = true;
       settings = {
         bar = {
@@ -22,12 +21,34 @@ in
           notifications.show_total = true;
           customModules.cpuTemp.sensor = "/sys/class/hwmon/hwmon2/temp1_input";
           customModules.netstat.networkInterface = "wlp0s20f3";
+          layouts = {
+            "0" = {
+              "left" = [ "dashboard" "workspaces" "windowtitle" ];
+              "middle" = [ "media" ];
+              "right" = lib.flatten [
+                "hypridle"
+                "volume"
+                "network"
+                "bluetooth"
+                (lib.optionalString hostSpec.hasBattery "battery")
+                "cputemp"
+                "systray"
+                "clock"
+                "notifications"
+              ];
+            };
+            "*" = {
+              "left" = [ "dashboard" "workspaces" "windowtitle" ];
+              "middle" = [ ];
+              "right" = [ ];
+            };
+          };
         };
         menus = {
           clock.weather.enabled = false;
           dashboard = {
             powermenu.logout = "uwsm stop";
-            stats.enable_gpu = true;
+            stats.enable_gpu = false;
             shortcuts.enabled = false;
             directories.enabled = false;
           };
@@ -36,30 +57,6 @@ in
         theme = {
           bar.outer_spacing = "0.2em";
           font.size = "1.0rem";
-        };
-      };
-      layout = {
-        "bar.layouts" = {
-          "0" = {
-            "left" = [ "dashboard" "workspaces" "windowtitle" ];
-            "middle" = [ "media" ];
-            "right" = lib.flatten [
-              "hypridle"
-              "volume"
-              "network"
-              "bluetooth"
-              (lib.optionalString hostSpec.hasBattery "battery")
-              "cputemp"
-              "systray"
-              "clock"
-              "notifications"
-            ];
-          };
-          "*" = {
-            "left" = [ "dashboard" "workspaces" "windowtitle" ];
-            "middle" = [ ];
-            "right" = [ ];
-          };
         };
       };
     };
@@ -289,7 +286,7 @@ in
         "$mainMod, mouse_down, workspace, e+1"
         "$mainMod, mouse_up  , workspace, e-1"
 
-        "$mainMod, UP, overview:toggle, all"
+        # "$mainMod, UP, overview:toggle, all"
 
         "$mainMod SHIFT, O, dpms, on"
       ];
@@ -409,6 +406,5 @@ in
 
   imports = [
     inputs.hyprland.homeManagerModules.default
-    inputs.hyprpanel.homeManagerModules.hyprpanel
   ];
 }
