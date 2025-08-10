@@ -5,6 +5,8 @@ let
   ageFolder = "${home}/.config/sops/age";
 in
 {
+  fileSystems."/home".neededForBoot = true;
+
   sops = {
     age.keyFile = "${ageFolder}/keys.txt";
     defaultSopsFile = ../../../../secrets.yaml;
