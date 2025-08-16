@@ -286,7 +286,7 @@ in
         "$mainMod, mouse_down, workspace, e+1"
         "$mainMod, mouse_up  , workspace, e-1"
 
-        # "$mainMod, UP, overview:toggle, all"
+        "$mainMod, UP, overview:toggle, all"
 
         "$mainMod SHIFT, O, dpms, on"
       ];
@@ -370,13 +370,13 @@ in
 
         listener = [
           {
-            timeout = 120;
-            on-timeout = "loginctl lock-session";
-          }
-          {
             timeout = 300;
             on-timeout = "hyprctl dispatch dpms off";
             on-resume = "hyprctl dispatch dpms on";
+          }
+          {
+            timeout = 500;
+            on-timeout = "loginctl lock-session";
           }
           {
             timeout = 1200;
