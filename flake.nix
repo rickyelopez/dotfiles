@@ -80,6 +80,7 @@
     }:
     let
       inherit (self) outputs;
+      lib = nixpkgs.lib.extend (self: super: { custom = import ./nix/lib { inherit (nixpkgs) lib; }; } // home-manager.lib);
     in
     {
       overlays = import ./nix/overlays { inherit inputs; };
@@ -91,8 +92,12 @@
           (host: {
             name = host;
             value = nixpkgs.lib.nixosSystem {
-              specialArgs = { inherit inputs outputs host; isDarwin = false; isStandaloneHm = false; };
-              modules = [ ./nix/hosts/nixos/${host} ];
+              specialArgs = {
+                inherit inputs outputs host lib;
+                isDarwin = false;
+                isStandaloneHm = false;
+              };
+              modules = [ ./nix/modules/host ./nix/hosts/nixos/${host} ];
             };
           })
           (builtins.attrNames (builtins.readDir ./nix/hosts/nixos))
@@ -105,8 +110,12 @@
           (host: {
             name = host;
             value = darwin.lib.darwinSystem {
-              specialArgs = { inherit self inputs outputs host; isDarwin = true; isStandaloneHm = false; isWork = true; };
-              modules = [ ./nix/hosts/darwin/${host} ];
+              specialArgs = {
+                inherit self inputs outputs host lib;
+                isDarwin = true;
+                isStandaloneHm = false;
+              };
+              modules = [ ./nix/modules/host ./nix/hosts/darwin/${host} ];
             };
           })
           (builtins.attrNames (builtins.readDir ./nix/hosts/darwin))
@@ -128,7 +137,7 @@
             value = home-manager.lib.homeManagerConfiguration rec {
               pkgs = import nixpkgs { system = "x86_64-linux"; };
               extraSpecialArgs = {
-                inherit inputs;
+                inherit inputs lib;
                 isDarwin = false;
                 isStandaloneHm = true;
                 hostSpec = {
@@ -144,6 +153,7 @@
                   imports = [
                     ./nix/hosts/common/core
                     ./nix/home/users/${instance.username}/${instance.hostname}.nix
+                    ./nix/modules/home-manager
                   ];
 
                   nix = {
@@ -156,8 +166,8 @@
             };
           })
           [
-            { username = "ricclopez"; hostname = "donnager"; isHeadless = true; isWork = false; domain = "forestroot.elexpedition.com"; }
-            { username = "ricclopez"; hostname = "thinkrick"; isHeadless = true; isWork = true; domain = ""; }
+            { username = "ricclopez"; hostname = "donnager"; isHeadless = true; domain = "forestroot.elexpedition.com"; }
+            { username = "ricclopez"; hostname = "thinkrick"; isHeadless = true; domain = ""; }
           ]
       );
     };

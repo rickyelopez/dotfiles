@@ -44,6 +44,7 @@ in
   };
 
   imports = [
+    ../modules/home-manager
     ./common/optional/fx.nix
     ./common/optional/git.nix
     ./common/optional/yazi.nix
