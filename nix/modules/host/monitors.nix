@@ -1,6 +1,9 @@
 { lib, config, ... }:
+let
+  cfg = config.my.monitors;
+in
 {
-  options.monitors = lib.mkOption {
+  options.my.monitors = lib.mkOption {
     type = lib.types.listOf (
       lib.types.submodule {
         options = {
@@ -64,12 +67,13 @@
     );
     default = [ ];
   };
+
   config = {
     assertions = [
       {
         assertion =
-          ((lib.length config.monitors) != 0)
-          -> ((lib.length (lib.filter (m: m.primary) config.monitors)) == 1);
+          ((lib.length cfg) != 0)
+          -> ((lib.length (lib.filter (m: m.primary) cfg)) == 1);
         message = "Exactly one monitor must be set to primary.";
       }
     ];

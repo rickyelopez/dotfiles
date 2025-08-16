@@ -17,8 +17,6 @@
     ../../common/optional/ssh.nix
     ../../common/optional/thunar.nix
     ../../common/optional/wayland.nix
-
-    ../../../modules/monitors.nix
   ];
 
   hostSpec = {
@@ -27,7 +25,7 @@
     isLaptop = true;
   };
 
-  monitors = [
+  my.monitors = [
     {
       name = "eDP-1";
       primary = true;

@@ -41,7 +41,7 @@ in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit inputs pkgs; hostSpec = config.hostSpec; monitors = config.monitors; };
+    extraSpecialArgs = { inherit inputs pkgs; hostSpec = config.hostSpec; monitors = config.my.monitors; };
     users.${user} = import ../../../home/users/${user}/${host}.nix;
   };
 }
