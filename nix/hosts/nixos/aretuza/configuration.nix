@@ -85,6 +85,8 @@
   };
 
   fileSystems = {
+    "/home".neededForBoot = true;
+
     "/run/media/ricclopez/FastFastData" = {
       device = "/dev/disk/by-label/FastFastData";
       fsType = "ntfs";
