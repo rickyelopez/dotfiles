@@ -20,8 +20,6 @@
     ../../common/optional/ssh.nix
     ../../common/optional/thunar.nix
     ../../common/optional/wayland.nix
-
-    ../../../modules/monitors.nix
   ];
 
   hostSpec = {
@@ -30,7 +28,7 @@
     gpu = 2;
   };
 
-  monitors = [
+  my.monitors = [
     {
       name = "DP-3";
       primary = true;

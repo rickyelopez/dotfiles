@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }:
 let
-  monitor = lib.head (lib.filter (m: m.primary) config.monitors);
+  monitor = lib.head (lib.filter (m: m.primary) config.my.monitors);
 in
 {
   # https://github.com/fufexan/nix-gaming/blob/master/modules/platformOptimizations.nix
