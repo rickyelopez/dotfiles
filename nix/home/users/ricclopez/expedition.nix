@@ -17,5 +17,7 @@
     ../../common/optional/rofi.nix
     ../../common/optional/sops.nix
   ];
+
+  my.docker.enable = true;
 }
 

@@ -39,6 +39,8 @@ in
     };
   };
 
+  my.docker.enable = true;
+
   imports = [
     ../../../home
     ../../common/optional/sops.nix

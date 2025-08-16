@@ -2,7 +2,7 @@
   imports = [
     ../../../home
     ../../../platforms/linux/home
-
-    ../../common/optional/docker.nix
   ];
+
+  my.docker.enable = true;
 }
