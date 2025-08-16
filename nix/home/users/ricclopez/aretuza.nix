@@ -19,5 +19,7 @@
     ../../common/optional/ssh.nix
     ../../common/optional/sops.nix
   ];
+
+  my.docker.enable = true;
 }
 

@@ -1,4 +1,11 @@
 { pkgs, ... }: {
+  imports = [
+    ../../../home
+    ../../common/optional/ssh.nix
+    ../../common/optional/sops.nix
+    ../../../platforms/linux/home
+  ];
+
   home = {
     packages = with pkgs; [
       buck2
@@ -12,10 +19,5 @@
     ssh-agent.enable = true;
   };
 
-  imports = [
-    ../../../home
-    ../../common/optional/ssh.nix
-    ../../common/optional/sops.nix
-    ../../../platforms/linux/home
-  ];
+  my.docker.enable = true;
 }
