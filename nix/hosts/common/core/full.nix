@@ -43,6 +43,6 @@ in
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs pkgs; hostSpec = config.hostSpec; monitors = config.my.monitors; };
     users.${user} = ../../../home/users/${user}/${host}.nix;
-    sharedModules = builtins.map lib.custom.relativeToRoot [ "modules/home-manager" ];
+    sharedModules = map lib.custom.relativeToRoot [ "modules/home-manager" ];
   };
 }

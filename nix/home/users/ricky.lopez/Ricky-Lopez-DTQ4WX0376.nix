@@ -3,7 +3,6 @@
   home = {
     packages = with pkgs; [
       k9s
-      bazelisk
       util-linux
     ];
     file = {
@@ -20,11 +19,6 @@
       ".hammerspoon/.luarc.json"
       ".hammerspoon/modules"
     ];
-
-    shellAliases = {
-      bazel = "bazelisk"; # FIXME: move bazelisk somewhere common and take this alias with it
-    };
-
   };
 
   programs = {
@@ -38,6 +32,7 @@
   };
 
   my = {
+    bazel.enable = true;
     docker.enable = true;
     sops.enable = true;
   };

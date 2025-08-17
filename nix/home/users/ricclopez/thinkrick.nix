@@ -1,13 +1,8 @@
 { pkgs, ... }: {
   home = {
     packages = with pkgs; [
-      bazelisk
       protobuf
     ];
-
-    shellAliases = {
-      bazel = "bazelisk"; # FIXME: move bazelisk somewhere common and take this alias with it
-    };
   };
 
 
@@ -16,6 +11,9 @@
     ../../../platforms/linux/home
   ];
 
-  my.docker.enable = true;
+  my = {
+    bazel.enable = true;
+    docker.enable = true;
+  };
 }
 
