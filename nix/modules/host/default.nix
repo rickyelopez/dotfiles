@@ -1,6 +1,6 @@
 { lib, ... }:
 let
-  hostFiles = lib.custom.scanPaths ../host;
+  hostFiles = lib.custom.scanPaths ./.;
 in
 {
   imports = [] ++ hostFiles;
