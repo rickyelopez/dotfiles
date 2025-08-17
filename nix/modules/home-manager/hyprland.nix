@@ -1,4 +1,4 @@
-{ pkgs, inputs, lib, config, hostSpec, monitors, ... }:
+{ pkgs, inputs, lib, config, hostSpec, my, ... }:
 let
   cfg = config.my.hyprland;
 in
@@ -96,7 +96,7 @@ in
               "disable"
           }"
             )
-            monitors
+            my.monitors
         ) ++ [ ",preferred,auto,1" ];
 
         workspace = (
@@ -106,7 +106,7 @@ in
             )
             (builtins.filter
               (m: m ? "workspace")
-              monitors
+              my.monitors
             )
         );
 
