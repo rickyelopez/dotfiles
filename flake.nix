@@ -146,7 +146,6 @@
                   isStandaloneHm = true;
                   isServer = false;
                 } // instance;
-                monitors = [ ];
               };
               modules = [
                 {

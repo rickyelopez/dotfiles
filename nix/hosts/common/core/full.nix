@@ -33,14 +33,18 @@ in
     git
   ];
 
-  networking.hostName = config.hostSpec.hostname; # Define your hostname.
+  networking.hostName = config.hostSpec.hostname;
 
   time.timeZone = "America/Los_Angeles";
 
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit inputs pkgs; hostSpec = config.hostSpec; monitors = config.my.monitors; };
+    extraSpecialArgs = {
+      inherit inputs pkgs;
+      hostSpec = config.hostSpec;
+      my = config.my;
+    };
     users.${user} = ../../../home;
     sharedModules = map lib.custom.relativeToRoot [ "modules/home-manager" ];
   };
