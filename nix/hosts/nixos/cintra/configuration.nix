@@ -8,10 +8,6 @@
       };
     }
     ../../../disks/nixos-ext4.nix
-
-    ../../common/optional/containers/frigate.nix
-    ../../common/optional/containers/lemmy.nix
-    ../../common/optional/containers/teamspeak.nix
   ];
 
   boot.loader = {
@@ -56,5 +52,13 @@
 
   services.qemuGuest.enable = true;
   services.openssh.settings.AllowUsers = [ "root" ];
+
+  my = {
+    containers = {
+      frigate.enable = true;
+      lemmy.enable = true;
+      teamspeak.enable = true;
+    };
+  };
 }
 

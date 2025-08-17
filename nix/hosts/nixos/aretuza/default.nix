@@ -5,19 +5,7 @@
     ./configuration.nix
     ./hardware-configuration.nix
 
-    ../../common/optional/bluetooth.nix
     ../../common/optional/gaming.nix
-    ../../common/optional/greetd.nix
-    ../../common/optional/hyprland.nix
-    ../../common/optional/nvidia.nix
-    ../../common/optional/opengl.nix
-    ../../common/optional/qt.nix
-    # ../../common/optional/sddm.nix
-    ../../common/optional/secureboot.nix
-    ../../common/optional/sops.nix
-    ../../common/optional/ssh.nix
-    ../../common/optional/thunar.nix
-    ../../common/optional/wayland.nix
   ];
 
   hostSpec = {
@@ -27,7 +15,10 @@
   };
 
   my = {
-    docker.enable = true;
+    bluetooth.enable = true;
+    virtualisation.docker.enable = true;
+    greetd.enable = true;
+    hyprland.enable = true;
     monitors = [
       {
         name = "DP-3";
@@ -46,6 +37,14 @@
         workspace = "6";
       }
     ];
+    nvidia.enable = true;
+    opengl.enable = true;
+    qt.enable = true;
+    secureboot.enable = true;
+    sops.enable = true;
+    ssh.enable = true;
+    thunar.enable = true;
+    wayland.enable = true;
   };
 
   nixpkgs.hostPlatform = "x86_64-linux";

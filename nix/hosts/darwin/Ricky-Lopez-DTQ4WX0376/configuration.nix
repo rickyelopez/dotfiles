@@ -15,6 +15,10 @@ in
 
   environment.systemPackages = [ ];
 
+  my = {
+    aerospace.enable = true;
+  };
+
   homebrew = {
     enable = true;
     onActivation = {
@@ -315,8 +319,5 @@ in
       # };
     };
   };
-  imports = [
-    ../../common/optional/aerospace.nix
-  ];
 }
 
