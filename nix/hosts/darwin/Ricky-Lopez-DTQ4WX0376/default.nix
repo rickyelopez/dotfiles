@@ -1,8 +1,5 @@
-{ inputs, host, ... }: {
+{ host, ... }: {
   imports = [
-    inputs.home-manager.darwinModules.home-manager
-
-    ../../common/core
     ./configuration.nix
   ];
 

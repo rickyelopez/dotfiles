@@ -1,4 +1,4 @@
-{ outputs, config, lib, ... }:
+{ inputs, outputs, host, config, lib, ... }:
 let
   user = config.hostSpec.username;
   sopsUserPw = config.sops.secrets ? "passwords/${user}";
@@ -6,6 +6,13 @@ let
   ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in
 {
+  imports = [
+    inputs.home-manager.nixosModules.home-manager
+    inputs.sops-nix.nixosModules.sops
+
+    ../nixos/${host}
+  ];
+
   networking = {
     hosts = {
       "10.19.21.14" = [ "dns-01" "dns-01.forestroot.elexpedition.com" ];
@@ -57,7 +64,7 @@ in
 
     users.root = {
       openssh.authorizedKeys.keyFiles = [
-        ../../../keys/id_new.pub
+        (lib.custom.relativeToRoot "keys/id_new.pub")
       ];
     };
   } // lib.optionalAttrs sopsUserPw {

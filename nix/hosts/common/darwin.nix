@@ -1,4 +1,11 @@
-{ outputs, ... }: {
+{ inputs, outputs, host, ... }: {
+  imports = [
+    inputs.home-manager.darwinModules.home-manager
+    inputs.sops-nix.darwinModules.sops
+
+    ../darwin/${host}
+  ];
+
   nixpkgs.overlays = [
     # issues building bitwarden-cli on darwin-aarch64
     # https://github.com/NixOS/nixpkgs/issues/339576

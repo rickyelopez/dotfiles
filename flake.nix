@@ -95,9 +95,13 @@
               specialArgs = {
                 inherit inputs outputs host lib;
                 isDarwin = false;
-                isStandaloneHm = false;
               };
-              modules = [ ./nix/modules/host ./nix/hosts/nixos/${host} ];
+              modules = [
+                ./nix/common.nix
+                ./nix/modules/host
+                ./nix/hosts/common
+                ./nix/hosts/common/nixos.nix
+              ];
             };
           })
           (builtins.attrNames (builtins.readDir ./nix/hosts/nixos))
@@ -113,9 +117,13 @@
               specialArgs = {
                 inherit self inputs outputs host lib;
                 isDarwin = true;
-                isStandaloneHm = false;
               };
-              modules = [ ./nix/modules/host ./nix/hosts/darwin/${host} ];
+              modules = [
+                ./nix/common.nix
+                ./nix/modules/host
+                ./nix/hosts/common
+                ./nix/hosts/common/darwin.nix
+              ];
             };
           })
           (builtins.attrNames (builtins.readDir ./nix/hosts/darwin))
@@ -138,8 +146,6 @@
               pkgs = import nixpkgs { system = "x86_64-linux"; };
               extraSpecialArgs = {
                 inherit inputs lib;
-                isDarwin = false;
-                isStandaloneHm = true;
                 hostSpec = {
                   home = "/home/${instance.username}";
                   isDarwin = false;
@@ -150,7 +156,7 @@
               modules = [
                 {
                   imports = [
-                    ./nix/hosts/common/core
+                    ./nix/common.nix
                     ./nix/home
                     ./nix/modules/home-manager
                   ];

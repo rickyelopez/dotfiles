@@ -1,8 +1,6 @@
-{ lib, isStandaloneHm, ... }:
+{ ... }:
 {
-  imports = [
-    ../../../host-spec.nix
-  ] ++ lib.optionals (!isStandaloneHm) [ ./full.nix ];
+  imports = [ ./host-spec.nix ];
 
   nixpkgs = {
     config.allowUnfree = true;

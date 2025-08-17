@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, hostSpec, ... }:
 let
   cfg = config.my.alacritty;
 in
@@ -15,7 +15,7 @@ in
         font = {
           normal = {
             family =
-              if pkgs.stdenv.isDarwin then
+              if hostSpec.isDarwin then
                 "BlexMono Nerd Font Mono"
               else
                 "Blex Mono Nerd Font Mono";

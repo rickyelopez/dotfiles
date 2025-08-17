@@ -1,17 +1,11 @@
 # this file gets imported if the system is not using standalone home-manager (i.e. nixos or nix-darwin)
-{ inputs, pkgs, config, isDarwin, lib, ... }:
+{ inputs, pkgs, config, lib, ... }:
 let
   user = config.hostSpec.username;
-  platform = if isDarwin then "darwin" else "nixos";
-  platformModules = "${platform}Modules";
 in
 {
   imports = [
-    inputs.home-manager.${platformModules}.home-manager
-    inputs.sops-nix.${platformModules}.sops
-
-    ./${platform}.nix
-    ../optional/vim.nix
+    ./optional/vim.nix
   ];
 
   users = {
@@ -19,7 +13,7 @@ in
       name = user;
       shell = pkgs.zsh;
       openssh.authorizedKeys.keyFiles = [
-        ../../../keys/id_new.pub
+        (lib.custom.relativeToRoot "keys/id_new.pub")
       ];
     };
   };
@@ -45,7 +39,7 @@ in
       hostSpec = config.hostSpec;
       my = config.my;
     };
-    users.${user} = ../../../home;
+    users.${user} = lib.custom.relativeToRoot "home/";
     sharedModules = map lib.custom.relativeToRoot [ "modules/home-manager" ];
   };
 }
