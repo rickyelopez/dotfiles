@@ -4,10 +4,6 @@ let
   user = config.hostSpec.username;
 in
 {
-  imports = [
-    ./optional/vim.nix
-  ];
-
   users = {
     users.${user} = {
       name = user;
@@ -41,5 +37,9 @@ in
     };
     users.${user} = lib.custom.relativeToRoot "home/";
     sharedModules = map lib.custom.relativeToRoot [ "modules/home-manager" ];
+  };
+
+  my = {
+    vim.enable = true;
   };
 }

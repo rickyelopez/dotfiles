@@ -1,14 +1,13 @@
-{ isDarwin, config, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
-  cfg = config.my.docker;
+  cfg = config.my.virtualisation.docker;
 in
 {
-  options.my.docker = {
+  options.my.virtualisation.docker = {
     enable = lib.mkEnableOption "host docker module";
   };
 
-  # need to exclude darwin here because at least one of these keys doesn't even exist in nix-darwin
-  config = lib.optionalAttrs (!isDarwin) (lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     users.users.${config.hostSpec.username}.extraGroups = [ "docker" ];
     virtualisation = {
       containers.enable = true;
@@ -35,5 +34,5 @@ in
       dive
       docker-compose
     ];
-  });
+  };
 }

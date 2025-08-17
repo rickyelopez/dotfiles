@@ -4,8 +4,6 @@
     inputs.lix-module.nixosModules.default
 
     ./configuration.nix
-
-    ../../common/optional/sops.nix
   ];
 
   hostSpec = {
@@ -15,7 +13,10 @@
     isHeadless = true;
   };
 
-  my.docker.enable = true;
+  my = {
+    virtualisation.docker.enable = true;
+    sops.enable = true;
+  };
 
   nixpkgs.hostPlatform = "x86_64-linux";
   system.stateVersion = "24.11";

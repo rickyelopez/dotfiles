@@ -4,8 +4,6 @@
 
     ./configuration.nix
     ./hardware-configuration.nix
-
-    ../../common/optional/ssh.nix
   ];
 
   hostSpec = {
@@ -16,7 +14,10 @@
     isHeadless = true;
   };
 
-  my.docker.enable = true;
+  my = {
+    virtualisation.docker.enable = true;
+    ssh.enable = true;
+  };
 
   nixpkgs.hostPlatform = "x86_64-linux";
   system.stateVersion = "24.11";
