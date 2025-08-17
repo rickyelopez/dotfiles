@@ -1,7 +1,7 @@
 { config, lib, hostSpec, ... }:
 let
   home = hostSpec.home;
-  homeFiles = lib.custom.scanPaths ../home-manager; # path "." doesn't work for some reason
+  homeFiles = lib.custom.scanPaths ./.;
 in
 {
   imports = [ ] ++ homeFiles;
