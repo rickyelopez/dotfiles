@@ -2,7 +2,6 @@
 { inputs, pkgs, config, isDarwin, lib, ... }:
 let
   user = config.hostSpec.username;
-  host = config.hostSpec.hostname;
   platform = if isDarwin then "darwin" else "nixos";
   platformModules = "${platform}Modules";
 in
@@ -42,7 +41,7 @@ in
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs pkgs; hostSpec = config.hostSpec; monitors = config.my.monitors; };
-    users.${user} = ../../../home/users/${user}/${host}.nix;
+    users.${user} = ../../../home;
     sharedModules = map lib.custom.relativeToRoot [ "modules/home-manager" ];
   };
 }

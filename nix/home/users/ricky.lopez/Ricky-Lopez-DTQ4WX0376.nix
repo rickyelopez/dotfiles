@@ -36,8 +36,4 @@
     docker.enable = true;
     sops.enable = true;
   };
-
-  imports = [
-    ../../../home
-  ];
 }
