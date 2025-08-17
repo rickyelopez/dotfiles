@@ -6,7 +6,6 @@
     ./configuration.nix
 
     ../../common/core
-    ../../common/optional/docker.nix
     ../../common/optional/sops.nix
   ];
 
@@ -16,6 +15,8 @@
     domain = "forestroot.elexpedition.com";
     isHeadless = true;
   };
+
+  my.docker.enable = true;
 
   nixpkgs.hostPlatform = "x86_64-linux";
   system.stateVersion = "24.11";
