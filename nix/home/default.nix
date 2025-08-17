@@ -31,10 +31,10 @@ in
       yq
     ];
 
-    file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
-      ".config/tmux".source = mkLink "${home}/dotfiles/.config/tmux";
-      ".config/uncrustify.cfg".source = mkLink "${home}/dotfiles/.config/uncrustify.cfg";
-    };
+    file = config.lib.file.mkDotfilesSymlinks [
+      ".config/tmux"
+      ".config/uncrustify.cfg"
+    ];
   };
 
   programs = {

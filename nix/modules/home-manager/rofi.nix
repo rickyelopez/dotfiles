@@ -1,7 +1,6 @@
-{ pkgs, config, hostSpec, lib, ... }:
+{ pkgs, config, lib, ... }:
 let
   cfg = config.my.rofi;
-  home = hostSpec.home;
 in
 {
   options.my.rofi = {
@@ -14,9 +13,9 @@ in
         rofi
       ];
 
-      file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
-        ".config/rofi".source = mkLink "${home}/dotfiles/.config/rofi";
-      };
+      file = config.lib.file.mkDotfilesSymlinks [
+        ".config/rofi"
+      ];
     };
   };
 }

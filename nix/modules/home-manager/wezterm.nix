@@ -1,7 +1,6 @@
-{ config, pkgs, lib, hostSpec, ... }:
+{ config, pkgs, lib, ... }:
 let
   cfg = config.my.wezterm;
-  home = hostSpec.home;
 in
 {
   options.my.wezterm = {
@@ -13,9 +12,9 @@ in
     xdg.configFile."wezterm/wezterm.lua".enable = false;
 
     home = {
-      file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
-        ".config/wezterm/wezterm.lua".source = mkLink "${home}/dotfiles/.config/wezterm/wezterm.lua";
-      };
+      file = config.lib.file.mkDotfilesSymlink [
+        ".config/wezterm/wezterm.lua"
+      ];
       packages = with pkgs; [ wezterm.terminfo ];
     };
 

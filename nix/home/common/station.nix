@@ -1,7 +1,4 @@
-{ pkgs, config, hostSpec, ... }:
-let
-  home = hostSpec.home;
-in
+{ pkgs, config, ... }:
 {
   home = {
     packages = with pkgs; [
@@ -34,13 +31,13 @@ in
       uv
     ];
 
-    file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
-      ".config/ghostty".source = mkLink "${home}/dotfiles/.config/ghostty";
-      ".config/lazygit/config.yml".source = mkLink "${home}/dotfiles/.config/lazygit/config.yml";
-      ".config/stylua".source = mkLink "${home}/dotfiles/.config/stylua";
-      ".config/clangd/config.yaml".source = mkLink "${home}/dotfiles/.config/clangd/config.yaml";
-      ".p10k.zsh".source = mkLink "${home}/dotfiles/.p10k.zsh";
-    };
+    file = config.lib.file.mkDotfilesSymlinks [
+      ".config/ghostty"
+      ".config/lazygit/config.yml"
+      ".config/stylua"
+      ".config/clangd/config.yaml"
+      ".p10k.zsh"
+    ];
   };
 
   fonts.fontconfig.enable = true;
