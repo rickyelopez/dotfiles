@@ -43,10 +43,11 @@ in
     fzf.enable = true;
   };
 
-  imports = [
-    ../modules/home-manager
-    ./common/optional/fx.nix
-    ./common/optional/git.nix
-    ./common/optional/yazi.nix
-  ] ++ lib.optionals (!hostSpec.isServer) [ ./common/station.nix ];
+  my = {
+    fx.enable = true;
+    git.enable = true;
+    yazi.enable = true;
+  };
+
+  imports = lib.optionals (!hostSpec.isServer) [ ./common/station.nix ];
 }

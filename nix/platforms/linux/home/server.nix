@@ -1,11 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
-  imports = [
-    ../../../home/common/optional/zsh-minimal.nix
-  ];
-
   home.file.".ssh/rc".source = ../../../../.ssh/rc;
   home.packages = with pkgs; [
     openssl
   ];
+
+  my.zsh = {
+    enable = true;
+    minimal = lib.mkForce true;
+  };
 }

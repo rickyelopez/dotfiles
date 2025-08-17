@@ -1,8 +1,6 @@
 { pkgs, ... }: {
   imports = [
     ../../../home
-    ../../common/optional/ssh.nix
-    ../../common/optional/sops.nix
     ../../../platforms/linux/home
   ];
 
@@ -19,5 +17,9 @@
     ssh-agent.enable = true;
   };
 
-  my.docker.enable = true;
+  my = {
+    docker.enable = true;
+    sops.enable = true;
+    ssh.enable = true;
+  };
 }
