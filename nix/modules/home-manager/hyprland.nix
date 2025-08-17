@@ -1,7 +1,6 @@
 { pkgs, inputs, lib, config, hostSpec, monitors, ... }:
 let
   cfg = config.my.hyprland;
-  home = hostSpec.home;
 in
 {
   options.my.hyprland = {
@@ -14,12 +13,12 @@ in
 
   config = lib.mkIf cfg.enable {
     home = {
-      file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
-        ".config/hypr/hyprlock.conf".source = mkLink "${home}/dotfiles/.config/hypr/hyprlock.conf";
-        ".config/hypr/scripts".source = mkLink "${home}/dotfiles/.config/hypr/scripts";
-        ".config/uwsm".source = mkLink "${home}/dotfiles/.config/uwsm";
-        ".config/xdg-desktop-portal".source = mkLink "${home}/dotfiles/.config/xdg-desktop-portal";
-      };
+      file = config.lib.file.mkDotfilesSymlinks [
+        ".config/hypr/hyprlock.conf"
+        ".config/hypr/scripts"
+        ".config/uwsm"
+        ".config/xdg-desktop-portal"
+      ];
     };
 
     programs = {

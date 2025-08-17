@@ -1,7 +1,6 @@
-{ inputs, pkgs, config, hostSpec, lib, ... }:
+{ inputs, pkgs, config, lib, ... }:
 let
   cfg = config.my.nvim;
-  home = hostSpec.home;
 in
 {
   options.my.nvim = {
@@ -9,9 +8,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
-      ".config/nvim".source = mkLink "${home}/dotfiles/.config/nvim";
-    };
+    home.file = config.lib.file.mkDotfilesSymlinks [
+      ".config/nvim"
+    ];
 
     programs.neovim = {
       enable = true;

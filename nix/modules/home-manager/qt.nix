@@ -1,7 +1,6 @@
-{ config, hostSpec, lib, ... }:
+{ config, lib, ... }:
 let
   cfg = config.my.qt;
-  home = hostSpec.home;
 in
 {
   options.my.qt = {
@@ -10,11 +9,11 @@ in
 
   config = lib.mkIf cfg.enable {
     home = {
-      file = let mkLink = config.lib.file.mkOutOfStoreSymlink; in {
-        ".config/Kvantum".source = mkLink "${home}/dotfiles/.config/Kvantum";
-        ".config/qt5ct".source = mkLink "${home}/dotfiles/.config/qt5ct";
-        ".config/qt6ct".source = mkLink "${home}/dotfiles/.config/qt6ct";
-      };
+      file = config.lib.file.mkDotfilesSymlinks [
+        ".config/Kvantum"
+        ".config/qt5ct"
+        ".config/qt6ct"
+      ];
     };
   };
 }
