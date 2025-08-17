@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ config, lib, ... }: {
   imports = [
     {
       _module.args = {
@@ -53,7 +53,7 @@
         enable = true;
         port = 22;
         authorizedKeyFiles = [
-          ../../../keys/id_new.pub
+          (lib.custom.relativeToRoot "keys/id_new.pub")
         ];
         hostKeys = [ "/etc/ssh/ssh_host_ed25519_key" ];
       };
