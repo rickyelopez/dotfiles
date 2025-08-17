@@ -11,13 +11,15 @@
   imports = [
     ../../../home
     ../../../platforms/linux/home
-    ../../common/optional/gtk.nix
-    ../../common/optional/hyprland.nix
-    ../../common/optional/qt.nix
-    ../../common/optional/rofi.nix
-    ../../common/optional/sops.nix
   ];
 
-  my.docker.enable = true;
+  my = {
+    docker.enable = true;
+    gtk.enable = true;
+    hyprland.enable = true;
+    qt.enable = true;
+    rofi.enable = true;
+    sops.enable = true;
+  };
 }
 

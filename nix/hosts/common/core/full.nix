@@ -1,5 +1,5 @@
 # this file gets imported if the system is not using standalone home-manager (i.e. nixos or nix-darwin)
-{ inputs, pkgs, config, isDarwin, ... }:
+{ inputs, pkgs, config, isDarwin, lib, ... }:
 let
   user = config.hostSpec.username;
   host = config.hostSpec.hostname;
@@ -42,6 +42,7 @@ in
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs pkgs; hostSpec = config.hostSpec; monitors = config.my.monitors; };
-    users.${user} = import ../../../home/users/${user}/${host}.nix;
+    users.${user} = ../../../home/users/${user}/${host}.nix;
+    sharedModules = builtins.map lib.custom.relativeToRoot [ "modules/home-manager" ];
   };
 }

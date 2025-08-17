@@ -39,10 +39,12 @@ in
     };
   };
 
-  my.docker.enable = true;
+  my = {
+    docker.enable = true;
+    sops.enable = true;
+  };
 
   imports = [
     ../../../home
-    ../../common/optional/sops.nix
   ];
 }

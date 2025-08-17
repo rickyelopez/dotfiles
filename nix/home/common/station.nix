@@ -47,23 +47,13 @@ in
 
   programs = {
     autojump.enable = true;
-
     direnv.enable = true;
-
-    # kitty = {
-    #   enable = true;
-    #   font = {
-    #     name = "Blex Mono Nerd Font Mono";
-    #     size = 11.0;
-    #   };
-    # };
-
     pyenv.enable = true;
   };
 
-  imports = [
-    ../common/optional/nvim.nix
-    ../common/optional/zsh.nix
-  ];
+  my = {
+    nvim.enable = true;
+    zsh.enable = true;
+  };
 }
 
