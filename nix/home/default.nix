@@ -1,9 +1,14 @@
-{ pkgs, lib, config, hostSpec, ... }:
+{ pkgs, config, hostSpec, ... }:
 let
   user = hostSpec.username;
   home = hostSpec.home;
 in
 {
+  imports = [
+    ./users/${user}/${hostSpec.hostname}.nix
+    ./common/station.nix
+  ];
+
   home = {
     stateVersion = "24.05"; # don't change
 
@@ -48,6 +53,4 @@ in
     git.enable = true;
     yazi.enable = true;
   };
-
-  imports = lib.optionals (!hostSpec.isServer) [ ./common/station.nix ];
 }

@@ -152,7 +152,7 @@
                 {
                   imports = [
                     ./nix/hosts/common/core
-                    ./nix/home/users/${instance.username}/${instance.hostname}.nix
+                    ./nix/home
                     ./nix/modules/home-manager
                   ];
 

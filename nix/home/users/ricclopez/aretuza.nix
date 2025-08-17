@@ -10,7 +10,6 @@
   };
 
   imports = [
-    ../../../home
     ../../../platforms/linux/home
     ../../common/optional/gaming.nix
   ];

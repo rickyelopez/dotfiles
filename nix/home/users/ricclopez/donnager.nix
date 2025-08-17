@@ -1,6 +1,5 @@
 { pkgs, ... }: {
   imports = [
-    ../../../home
     ../../../platforms/linux/home
   ];
 
