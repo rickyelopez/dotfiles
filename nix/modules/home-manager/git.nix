@@ -73,6 +73,7 @@ in
           pager = {
             branch = "cat";
             tag = "cat";
+            blame = "delta";
           };
         };
 
@@ -85,7 +86,10 @@ in
         delta = {
           enable = true;
           options = {
-            features = "side-by-side";
+            dark = true;
+            features = "line-numbers zebra-dark"; # "side-by-side"
+            hyperlinks = true;
+            map-styles = "bold purple => syntax magenta, bold cyan => syntax blue";
             navigate = true;
           };
         };
