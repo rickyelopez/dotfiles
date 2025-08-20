@@ -2,7 +2,8 @@ vim.cmd("syntax on") -- enable syntax highlighting
 
 vim.hl.priorities.semantic_tokens = 95
 
-vim.g.mapleader = " " -- set leader key to space
+vim.g.mapleader = " " -- use space as leader
+vim.g.winborder = "rounded"
 
 -- disable netrw
 vim.g.loaded_netrw = 1
@@ -26,7 +27,6 @@ vim.opt.smarttab = true
 vim.opt.autoindent = true
 -- vim.opt.smartindent = true
 
--- self-explanatory settings
 vim.opt.cursorline = true
 vim.opt.wrap = false
 vim.opt.swapfile = false
@@ -70,40 +70,20 @@ vim.opt.colorcolumn = "120"
 -- don't fold anything when opening file
 vim.opt.foldlevel = 99
 
--- clipboard
 vim.opt.clipboard = { "unnamed", "unnamedplus" }
 
 vim.diagnostic.config({
   severity_sort = true,
+  update_in_insert = false,
   virtual_lines = false,
   virtual_text = true,
 })
 
-local osc52 = require("vim.ui.clipboard.osc52")
-vim.g.clipboard = {
-  name = "OSC 52",
-  copy = {
-    ["+"] = osc52.copy("+"),
-    ["*"] = osc52.copy("*"),
-  },
-  paste = {
-    ["+"] = osc52.paste("+"),
-    ["*"] = osc52.paste("*"),
-  },
-}
+vim.g.clipboard = "osc52"
 
 -- misc
 vim.opt.nrformats:append("alpha")
 vim.o.formatoptions = "cr/qn1jp"
-
--- neovide settings
-if vim.g.neovide then
-  vim.g.neovide_scale_factor = 0.5
-  vim.g.neovide_floating_blur_amount_x = 2.0
-  vim.g.neovide_floating_blur_amount_y = 2.0
-  vim.g.neovide_transparency = 0.8
-  vim.g.neovide_cursor_vfx_mode = "torpedo"
-end
 
 -- plugins
 require("plugins")

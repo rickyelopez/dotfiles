@@ -34,7 +34,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = event.buf })
 
-    map("gD", vim.lsp.buf.declaration, { "n" }, opts("Goto declaration", event.buf))
+    map("gD", "<cmd>Lspsaga peek_definition<CR>", { "n" }, opts("Goto declaration", event.buf))
     map("gd", vim.lsp.buf.definition, { "n" }, opts("Goto definition", event.buf))
     map("grr", function()
       require("trouble").open({ mode = "lsp_references", focus = true })
