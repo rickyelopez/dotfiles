@@ -13,6 +13,12 @@ return {
       code_action = {
         show_server_name = true,
       },
+      definition = {
+        keys = {
+          vsplit = "<C-w>v",
+          split = "<C-w>s",
+        },
+      },
     })
 
     local map = require("utils").map
