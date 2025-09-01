@@ -1,8 +1,6 @@
 { inputs, host, ... }:
 {
   imports = [
-    inputs.lix-module.nixosModules.default
-
     ./configuration.nix
   ];
 

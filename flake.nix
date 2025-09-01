@@ -11,11 +11,6 @@
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.3-1.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -161,10 +156,7 @@
                     ./nix/modules/home-manager
                   ];
 
-                  nix = {
-                    package = pkgs.nix;
-                  };
-
+                  nix.package = pkgs.lixPackageSets.stable.lix;
                   nixpkgs.overlays = [ outputs.overlays.default ];
                 }
               ];
