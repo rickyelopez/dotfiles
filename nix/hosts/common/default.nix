@@ -4,6 +4,8 @@ let
   user = config.hostSpec.username;
 in
 {
+  nix.package = pkgs.lixPackageSets.stable.lix;
+
   users = {
     users.${user} = {
       name = user;

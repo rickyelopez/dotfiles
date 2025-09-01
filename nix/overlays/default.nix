@@ -11,6 +11,13 @@ let
 
   modifications =
     final: prev: {
+      # set up lix
+      inherit (final.lixPackageSets.stable)
+        nixpkgs-review
+        nix-direnv
+        nix-eval-jobs
+        nix-fast-build
+        colmena;
       fprintd = prev.fprintd.overrideAttrs (oldAttrs: rec {
         version = "1.94.4";
         src = prev.fetchFromGitLab {
