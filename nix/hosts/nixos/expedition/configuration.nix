@@ -1,4 +1,8 @@
-{ pkgs, inputs, ... }:
+{ config, pkgs, ... }:
+let
+  wg_port = 51820;
+  wg_privkey = config.sops.secrets."wireguard/${config.hostSpec.hostname}".path;
+in
 {
   boot.loader = {
     systemd-boot.enable = true;
@@ -54,13 +58,6 @@
     fsType = "ext4";
   };
 
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
   networking.networkmanager.enable = true;
 
   services = {
@@ -111,19 +108,31 @@
     G_MESSAGES_DEBUG = "all";
   };
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
     8080 # calibre
   ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+
+  sops.secrets = {
+    "wireguard/${config.hostSpec.hostname}" = { };
+  };
+
+  networking.firewall = {
+    allowedUDPPorts = [ wg_port ];
+  };
+
+  networking.wireguard.interfaces = {
+    wg0 = {
+      ips = [ "10.255.254.10/24" ];
+      listenPort = wg_port;
+      privateKeyFile = wg_privkey;
+      peers = [
+        {
+          publicKey = "xjQby/0vO5YKKi8k0xdybzsXt96nxotkx83GXeeERAw=";
+          allowedIPs = [ "10.255.254.0/24" "10.19.21.0/24" "10.7.51.0/24" ];
+          endpoint = "elxpd.com:51821";
+          persistentKeepalive = 25;
+        }
+      ];
+    };
+  };
 }
