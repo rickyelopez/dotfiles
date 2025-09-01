@@ -27,6 +27,7 @@ in
       gtk3 = {
         bookmarks = [
           "file:///home/${user}/Nextcloud"
+          "file:///home/${user}/Downloads"
         ];
         extraConfig = {
           gtk-application-prefer-dark-theme = 1;
