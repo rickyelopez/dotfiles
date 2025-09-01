@@ -14,6 +14,7 @@
 
   my = {
     bluetooth.enable = true;
+    greetd.enable = true;
     hyprland.enable = true;
     monitors = [
       {
@@ -27,7 +28,6 @@
     nvidia.enable = true;
     opengl.enable = true;
     qt.enable = true;
-    sddm.enable = true;
     sops.enable = true;
     ssh.enable = true;
     thunar.enable = true;
