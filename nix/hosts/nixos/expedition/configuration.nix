@@ -135,4 +135,12 @@ in
       ];
     };
   };
+
+
+  # add udev rules that will create symlinks to the appropriate card in /dev/dri for use with hyprland
+  services.udev.extraRules =
+    ''
+      KERNEL=="card*", KERNELS=="0000:01:00.0", SUBSYSTEM=="drm", SUBSYSTEMS=="pci", SYMLINK+="dri/dgpu"
+      KERNEL=="card*", KERNELS=="0000:00:02.0", SUBSYSTEM=="drm", SUBSYSTEMS=="pci", SYMLINK+="dri/igpu"
+    '';
 }
