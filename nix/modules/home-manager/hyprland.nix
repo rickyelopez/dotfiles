@@ -16,9 +16,13 @@ in
       file = config.lib.file.mkDotfilesSymlinks [
         ".config/hypr/hyprlock.conf"
         ".config/hypr/scripts"
-        ".config/uwsm"
+        ".config/uwsm/env"
         ".config/xdg-desktop-portal"
-      ];
+      ] // lib.optionalAttrs hostSpec.isLaptop {
+        ".config/uwsm/env-hyprland".text = /*bash*/''
+          export AQ_DRM_DEVICES="/dev/dri/igpu:/dev/dri/dgpu"
+        '';
+      };
     };
 
     programs = {
