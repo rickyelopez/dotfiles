@@ -177,8 +177,11 @@ in
           new_status = "master";
         };
 
+        gesture = [
+          "3, horizontal, workspace"
+        ];
+
         gestures = {
-          workspace_swipe = true;
           workspace_swipe_invert = false;
         };
 
