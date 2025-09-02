@@ -65,7 +65,7 @@ in
 
     gnome.gnome-keyring.enable = true;
 
-    logind.lidSwitch = "ignore"; # disable lid switch, we handle it in hyprland
+    logind.settings.Login.HandleLidSwitch = "ignore"; # disable lid switch, we handle it in hyprland
 
     # services.power-profiles-daemon.enable = true;
 
