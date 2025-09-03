@@ -14,7 +14,7 @@ in
 
   hardware.fancontrol = {
     enable = true;
-    config = /*bash*/ ''
+    config = ''
       DEVPATH=hwmon6=devices/platform/dell_smm_hwmon hwmon2=devices/platform/coretemp.0
 
       DEVNAME=hwmon6=dell_smm hwmon2=coretemp
@@ -61,10 +61,6 @@ in
   networking.networkmanager.enable = true;
 
   services = {
-    dbus.enable = true;
-
-    gnome.gnome-keyring.enable = true;
-
     logind.settings.Login.HandleLidSwitch = "ignore"; # disable lid switch, we handle it in hyprland
 
     # services.power-profiles-daemon.enable = true;
