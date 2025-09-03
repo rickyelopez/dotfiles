@@ -54,6 +54,7 @@ in
     casks = [
       "bitwarden"
       "bluesnooze"
+      "brave-browser"
       "caffeine"
       "foxitreader"
       "gcc-arm-embedded"
