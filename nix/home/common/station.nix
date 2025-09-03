@@ -27,6 +27,7 @@
         python313
         socat
         sshpass
+        sqlitebrowser
         tio
         uncrustify
         uv

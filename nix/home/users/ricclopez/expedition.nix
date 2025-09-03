@@ -2,6 +2,7 @@
   home = {
     packages = with pkgs; [
       brightnessctl
+      buck2
       calibre
       ferdium
       mesa-demos

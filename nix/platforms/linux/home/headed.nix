@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ hostSpec, pkgs, lib, ... }: {
   home = {
     packages = with pkgs; [
       bitwarden-desktop
@@ -14,7 +14,7 @@
       qalculate-gtk
       # rustdesk
       vlc
-    ];
+    ] ++ lib.optionals (!hostSpec.isWork) [ rustdesk-flutter ];
   };
 
   services = {
