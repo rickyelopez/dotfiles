@@ -1,4 +1,4 @@
-{ inputs, host, ... }: {
+{ host, ... }: {
   imports = [
     ./configuration.nix
     ./hardware-configuration.nix
@@ -10,6 +10,7 @@
     username = "ricclopez";
     hostname = host;
     isLaptop = true;
+    gpu = 0;
   };
 
   my = {
