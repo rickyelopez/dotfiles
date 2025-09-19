@@ -6,7 +6,6 @@
   home = {
     packages = with pkgs; [
       buck2
-      gcc
     ];
   };
 
