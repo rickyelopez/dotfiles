@@ -1,7 +1,6 @@
 { pkgs, ... }: {
   home = {
     packages = with pkgs; [
-      gcc
       gdb
       # nodejs_23
       nodePackages.npm

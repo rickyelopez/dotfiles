@@ -13,6 +13,7 @@
         just
         jqp
         lazygit
+        lld
         gcc
         gnumake
         meson
