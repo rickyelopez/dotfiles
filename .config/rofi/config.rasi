@@ -19,7 +19,7 @@ configuration {
     // hover-select:               true;
     window-format:              "{w} · {c} · {t}";
     // dpi:                        1;
-    run-command:                "uwsm app -- {cmd}";
+    run-command:                "uwsm-app -- {cmd}";
 
     timeout {
         action: "kb-cancel";
