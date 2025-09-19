@@ -194,7 +194,7 @@ in
         };
 
         exec-once = [
-          "dbus-update-activation-environment --systemd --all"
+          # "dbus-update-activation-environment --systemd --all"
           "systemctl --user start hyprpolkitagent"
           "systemctl --user start hyprpaper"
           "uwsm app -- hyprpanel" # The top bar
@@ -252,11 +252,11 @@ in
           "$mainMod, F, fullscreen"
 
           # general shortcuts
-          "$mainMod, RETURN, exec, $terminal" # terminal emulator
-          "$mainMod, S     , exec, $screenshot" # screenshot
-          "$mainMod, L     , exec, uwsm app -- hyprlock" # lockscreen
+          "$mainMod, RETURN, exec, uwsm-app -- $terminal" # terminal emulator
+          "$mainMod, S     , exec, uwsm-app -- $screenshot" # screenshot
+          "$mainMod, L     , exec, uwsm-app -- hyprlock" # lockscreen
           "ALT_L   , SPACE , exec, rofi -combi -show" # rofi
-          "ALT_L   , E     , exec, $fileManager" # file manager
+          "ALT_L   , E     , exec, uwsm-app -- $fileManager" # file manager
 
           "$mainMod      , G    , togglegroup"
           "ALT_L         , tab  , changegroupactive"
@@ -303,7 +303,7 @@ in
           "$mainMod, mouse_down, workspace, e+1"
           "$mainMod, mouse_up  , workspace, e-1"
 
-          "$mainMod, UP, overview:toggle, all"
+          # "$mainMod, UP, overview:toggle, all"
 
           "$mainMod SHIFT, O, dpms, on"
         ];
@@ -346,7 +346,7 @@ in
 
         bindl = [ ] ++ lib.optionals hostSpec.isLaptop [
           # lid switch lock + suspend
-          ", switch:on:Lid Switch, exec, systemctl suspend; pidof hyprlock || hyprlock --immediate & disown"
+          ", switch:on:Lid Switch, exec, systemctl suspend; pidof hyprlock || uwsm-app -- hyprlock --immediate & disown"
         ];
 
         plugin = {
@@ -369,7 +369,7 @@ in
       plugins = [
         # inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo
         inputs.hyprland-plugins.packages.${pkgs.system}.csgo-vulkan-fix
-        inputs.Hyprspace.packages.${pkgs.system}.Hyprspace
+        # inputs.Hyprspace.packages.${pkgs.system}.Hyprspace
       ];
     };
 
