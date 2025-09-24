@@ -2,6 +2,7 @@
 {
   home = {
     packages = with pkgs; [
+      ghostty-bin
       k9s
       util-linux
     ];
