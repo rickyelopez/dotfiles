@@ -58,14 +58,13 @@ in
       "caffeine"
       "foxitreader"
       "gcc-arm-embedded"
-      "ghostty"
       "hammerspoon"
       "karabiner-elements"
       "ksnip"
       "notunes"
       "pants"
       "vlc"
-      "wireshark"
+      "wireshark-app"
     ];
 
     masApps = { };
