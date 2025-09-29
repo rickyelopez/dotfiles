@@ -44,7 +44,6 @@ in
       "openssl"
       "portaudio"
       "readline"
-      # "skhd"
       "sqlite3"
       "tcl-tk@8"
       "xz"
