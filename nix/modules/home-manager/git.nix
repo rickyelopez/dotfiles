@@ -64,22 +64,25 @@ in
         userEmail = "31072564+rickyelopez@users.noreply.github.com";
 
         extraConfig = {
-          diff = {
-            colorMoved = "default";
+          core = {
+            fsmonitor = true;
+            untrackedCache = true;
           };
-          merge = {
-            conflictstyle = "diff3";
-          };
+
+          diff.colorMoved = "default";
+
+          init.defaultBranch = "main";
+
+          merge.conflictstyle = "diff3";
+
           pager = {
             branch = "cat";
             tag = "cat";
             blame = "delta";
           };
-        };
 
-        extraConfig = {
-          init.defaultBranch = "main";
           push.autoSetupRemote = true;
+
           pull.rebase = true;
         };
 
