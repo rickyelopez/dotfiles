@@ -1,4 +1,7 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
+let
+  cfg = config.my.bazel;
+in
 {
   options.my.bazel = {
     enable = lib.mkEnableOption "home bazel module.";
@@ -9,13 +12,11 @@
     };
   };
 
-  config = {
-    home = {
-      packages = [ pkgs.bazelisk ];
+  config.home = lib.mkIf cfg.enable {
+    packages = [ pkgs.bazelisk ];
 
-      shellAliases = {
-        bazel = "bazelisk";
-      };
+    shellAliases = {
+      bazel = "bazelisk";
     };
   };
 }
