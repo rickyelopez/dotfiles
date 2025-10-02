@@ -35,6 +35,7 @@
   my = {
     bazel.enable = true;
     docker.enable = true;
+    remote-open.enable = true;
     sops.enable = true;
   };
 }
