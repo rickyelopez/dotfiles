@@ -13,6 +13,7 @@
   my = {
     bazel.enable = true;
     docker.enable = true;
+    remote-open.client.enable = true;
   };
 }
 
