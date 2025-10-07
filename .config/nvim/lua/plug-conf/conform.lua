@@ -31,10 +31,11 @@ return {
         cpp = { "clang-format" }, -- note that c and cpp are different here, c uses `uncrustify`, configured in lspconfig.lua
         lua = { "stylua" },
         python = { "ruff_format", "black", stop_after_first = true },
-        typescriptreact = { "biome" },
         rust = { "rustfmt" },
         sh = { "shfmt" },
         sql = { "sql-formatter" },
+        typescriptreact = { "biome" },
+        typst = { lsp_format = "prefer" },
         xml = { "xmlformat" },
         yaml = { "yamlfmt" },
       },
