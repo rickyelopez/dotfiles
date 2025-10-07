@@ -16,9 +16,9 @@ in
           normal = {
             family =
               if hostSpec.isDarwin then
-                "BlexMono Nerd Font Mono"
+                "BlexMono Nerd Font Propo"
               else
-                "Blex Mono Nerd Font Mono";
+                "Blex Mono Nerd Font Propo";
             style = "Medium";
           };
           size = 10;

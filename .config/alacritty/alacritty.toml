@@ -14,7 +14,7 @@ style = "Bold Italic"
 style = "Italic"
 
 [font.normal]
-family = "Blex Mono Nerd Font Mono"
+family = "Blex Mono Nerd Font Propo"
 style = "Medium"
 
 [scrolling]

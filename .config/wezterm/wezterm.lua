@@ -4,7 +4,7 @@ local config = wezterm.config_builder()
 config.audible_bell = "Disabled"
 
 config.color_scheme = "Gruvbox dark, medium (base16)"
-config.font = wezterm.font("BlexMono Nerd Font Mono", { weight = "Medium" })
+config.font = wezterm.font("BlexMono Nerd Font Propo", { weight = "Medium" })
 config.font_size = 11.0
 
 config.window_background_opacity = 0.9

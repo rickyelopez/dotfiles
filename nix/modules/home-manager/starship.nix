@@ -43,15 +43,15 @@ in
             disabled = false;
             style = "bg:#a3aed2 fg:#090c0c";
             symbols = {
-              Windows = "󰍲";
-              Ubuntu = "󰕈";
-              Macos = "󰀵";
-              Linux = "󰌽";
-              Fedora = "󰣛";
-              Arch = "󰣇";
-              CentOS = "";
-              Debian = "󰣚";
-              NixOS = "󱄅";
+              Windows = "󰍲 ";
+              Ubuntu = "󰕈 ";
+              Macos = "󰀵 ";
+              Linux = "󰌽 ";
+              Fedora = "󰣛 ";
+              Arch = "󰣇 ";
+              CentOS = " ";
+              Debian = "󰣚 ";
+              NixOS = "󱄅 ";
             };
           };
 
