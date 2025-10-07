@@ -27,10 +27,19 @@ return {
     -- See :h blink-cmp-config-keymap for defining your own keymap
     keymap = { preset = "default" },
 
+    cmdline = {
+      keymap = { preset = "inherit" },
+      completion = { menu = { auto_show = true } },
+    },
+
     appearance = {
       -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
       -- Adjusts spacing to ensure icons are aligned
       nerd_font_variant = "mono",
+    },
+
+    per_filetype = {
+      lua = { inherit_defaults = true, "lazydev" },
     },
 
     snippets = { preset = "luasnip" },
@@ -39,7 +48,7 @@ return {
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
-      default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+      default = { "lsp", "path", "snippets", "buffer" },
       providers = {
         lazydev = {
           name = "LazyDev",
