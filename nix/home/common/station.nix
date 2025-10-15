@@ -39,7 +39,6 @@
         ".config/lazygit/config.yml"
         ".config/stylua"
         ".config/clangd/config.yaml"
-        ".p10k.zsh"
       ];
     };
 
