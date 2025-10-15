@@ -52,7 +52,7 @@ customCommands:
     prompts:
       - type: 'input'
         title: 'Branch name?'
-    command: 'git fetch origin {{index .PromptResponses 1}}:{{index .PromptResponses 1}}'
+    command: 'git fetch origin {{index .PromptResponses 0}}:{{index .PromptResponses 0}}'
     output: log
 gui:
   branchColors:
