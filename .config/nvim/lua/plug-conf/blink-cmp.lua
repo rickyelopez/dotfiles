@@ -38,10 +38,6 @@ return {
       nerd_font_variant = "mono",
     },
 
-    per_filetype = {
-      lua = { inherit_defaults = true, "lazydev" },
-    },
-
     snippets = { preset = "luasnip" },
     signature = { enabled = true },
 
@@ -56,6 +52,10 @@ return {
           -- make lazydev completions top priority (see `:h blink.cmp`)
           score_offset = 100,
         },
+      },
+
+      per_filetype = {
+        lua = { inherit_defaults = true, "lazydev" },
       },
     },
 
