@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home = {
     packages = with pkgs; [
       brightnessctl
@@ -22,4 +23,3 @@
     sops.enable = true;
   };
 }
-

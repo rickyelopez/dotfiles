@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.my.vim;
 in
@@ -50,8 +55,7 @@ in
           vnoremap > >gv
           vnoremap < <gv
         '';
-      }
-      )
+      })
     ];
   };
 }

@@ -1,4 +1,11 @@
-{ inputs, outputs, host, config, lib, ... }:
+{
+  inputs,
+  outputs,
+  host,
+  config,
+  lib,
+  ...
+}:
 let
   user = config.hostSpec.username;
   sopsUserPw = config.sops.secrets ? "passwords/${user}";
@@ -15,12 +22,30 @@ in
 
   networking = {
     hosts = {
-      "10.19.21.14" = [ "dns-01" "dns-01.forestroot.elexpedition.com" ];
-      "10.19.21.18" = [ "cintra" "cintra.forestroot.elexpedition.com" ];
-      "10.19.21.22" = [ "fondor" "fondor.forestroot.elexpedition.com" ];
-      "10.19.21.24" = [ "ferrix" "ferrix.forestroot.elexpedition.com" ];
-      "10.19.21.30" = [ "fob" "fob.forestroot.elexpedition.com" ];
-      "10.19.21.31" = [ "sathub" "sathub.forestroot.elexpedition.com" ];
+      "10.19.21.14" = [
+        "dns-01"
+        "dns-01.forestroot.elexpedition.com"
+      ];
+      "10.19.21.18" = [
+        "cintra"
+        "cintra.forestroot.elexpedition.com"
+      ];
+      "10.19.21.22" = [
+        "fondor"
+        "fondor.forestroot.elexpedition.com"
+      ];
+      "10.19.21.24" = [
+        "ferrix"
+        "ferrix.forestroot.elexpedition.com"
+      ];
+      "10.19.21.30" = [
+        "fob"
+        "fob.forestroot.elexpedition.com"
+      ];
+      "10.19.21.31" = [
+        "sathub"
+        "sathub.forestroot.elexpedition.com"
+      ];
     };
     domain = lib.mkIf (config.hostSpec ? domain) config.hostSpec.domain;
   };
@@ -56,18 +81,25 @@ in
           "wheel"
         ])
       ];
-    } // (if sopsUserPw then {
-      hashedPasswordFile = sopsHashedPasswordFile;
-    } else {
-      initialHashedPassword = "$y$j9T$lejABGwnRzGnhKP7SWz2a/$u8iDH0kOO3TkUbS4mFC3/YO/lb8Yq66FUivEY4BpX.2";
-    });
+    }
+    // (
+      if sopsUserPw then
+        {
+          hashedPasswordFile = sopsHashedPasswordFile;
+        }
+      else
+        {
+          initialHashedPassword = "$y$j9T$lejABGwnRzGnhKP7SWz2a/$u8iDH0kOO3TkUbS4mFC3/YO/lb8Yq66FUivEY4BpX.2";
+        }
+    );
 
     users.root = {
       openssh.authorizedKeys.keyFiles = [
         (lib.custom.relativeToRoot "keys/id_new.pub")
       ];
     };
-  } // lib.optionalAttrs sopsUserPw {
+  }
+  // lib.optionalAttrs sopsUserPw {
     mutableUsers = false;
   };
 
@@ -78,7 +110,6 @@ in
     # Keep SSH_AUTH_SOCK so that pam_ssh_agent_auth.so can do its magic.
     Defaults env_keep+=SSH_AUTH_SOCK
   '';
-
 
   # Select locale properties.
   i18n = {

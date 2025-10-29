@@ -1,4 +1,10 @@
-{ pkgs, config, hostSpec, lib, ... }:
+{
+  pkgs,
+  config,
+  hostSpec,
+  lib,
+  ...
+}:
 {
   config = lib.mkIf (!hostSpec.isServer) {
     home = {
@@ -17,6 +23,7 @@
         gnumake
         meson
         mutagen
+        nixfmt
         neovim-remote
         nerd-fonts.blex-mono
         nerd-fonts.noto
@@ -55,4 +62,3 @@
     };
   };
 }
-

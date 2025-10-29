@@ -1,4 +1,9 @@
-{ pkgs, config, hostSpec, ... }:
+{
+  pkgs,
+  config,
+  hostSpec,
+  ...
+}:
 let
   user = hostSpec.username;
   home = hostSpec.home;

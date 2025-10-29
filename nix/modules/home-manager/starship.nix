@@ -55,7 +55,6 @@ in
             };
           };
 
-
           directory = {
             style = "fg:#e3e5e5 bg:#769ff0";
             format = "[ $path ]($style)";
@@ -105,7 +104,6 @@ in
             style = "bg:#212736";
             format = "[[ $symbol( $context) ](fg:#83a598 bg:color_bg3)]($style)";
           };
-
 
           nix_shell = {
             disabled = true;

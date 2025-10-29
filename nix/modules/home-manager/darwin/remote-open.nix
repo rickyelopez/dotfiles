@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.my.remote-open;
   handler = pkgs.writeShellScriptBin "ropen" ''
@@ -12,7 +17,10 @@ in
 {
   options.my.remote-open = {
     enable = lib.mkEnableOption "home remote-open module.";
-    port = lib.mkOption { type = lib.types.int; default = 9999; };
+    port = lib.mkOption {
+      type = lib.types.int;
+      default = 9999;
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -24,7 +32,9 @@ in
         config = {
           Label = "com.example.remote-open.user";
           ProgramArguments = [ "${handler}/bin/ropen" ];
-          inetdCompatibility = { Wait = false; };
+          inetdCompatibility = {
+            Wait = false;
+          };
           Sockets = {
             Listeners = {
               SockServiceName = "${toString cfg.port}";

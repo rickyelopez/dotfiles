@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   monitor = lib.head (lib.filter (m: m.primary) config.my.monitors);
 in
@@ -38,7 +43,10 @@ in
         ];
       };
 
-      extraPackages = with pkgs; [ gamemode gamescope ];
+      extraPackages = with pkgs; [
+        gamemode
+        gamescope
+      ];
       protontricks.enable = true;
       extraCompatPackages = [ pkgs.proton-ge-bin ];
 
@@ -56,7 +64,6 @@ in
       #       ;
       #   });
       # };
-
 
     };
     gamescope = {

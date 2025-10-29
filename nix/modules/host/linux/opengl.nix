@@ -1,4 +1,10 @@
-{ config, inputs, lib, pkgs, ... }:
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.my.opengl;
   pkgs-unstable = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};

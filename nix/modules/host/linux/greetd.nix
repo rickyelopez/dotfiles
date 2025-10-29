@@ -1,4 +1,10 @@
-{ inputs, pkgs, config, lib, ... }:
+{
+  inputs,
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   cfg = config.my.greetd;
   hyprlandPackage = inputs.hyprland.packages.${pkgs.system}.hyprland;

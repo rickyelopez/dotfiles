@@ -15,7 +15,8 @@
         url = "https://github.com/mogenson/Swipe.spoon/archive/c56520507d98e663ae0e1228e41cac690557d4aa.zip";
         hash = "sha256-G0kuCrG6lz4R+LdAqNWiMXneF09pLI+xKCiagryBb5k=";
       };
-    } // config.lib.file.mkDotfilesSymlinks [
+    }
+    // config.lib.file.mkDotfilesSymlinks [
       ".hammerspoon/init.lua"
       ".hammerspoon/.luarc.json"
       ".hammerspoon/modules"

@@ -1,4 +1,12 @@
-{ inputs, lib, disk, withSwap, swapSizeGigabytes, ... }: {
+{
+  inputs,
+  lib,
+  disk,
+  withSwap,
+  swapSizeGigabytes,
+  ...
+}:
+{
   imports = [
     inputs.disko.nixosModules.disko
   ];
@@ -47,4 +55,3 @@
     };
   };
 }
-

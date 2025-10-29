@@ -71,9 +71,7 @@ in
   config = {
     assertions = [
       {
-        assertion =
-          ((lib.length cfg) != 0)
-          -> ((lib.length (lib.filter (m: m.primary) cfg)) == 1);
+        assertion = ((lib.length cfg) != 0) -> ((lib.length (lib.filter (m: m.primary) cfg)) == 1);
         message = "Exactly one monitor must be set to primary.";
       }
     ];

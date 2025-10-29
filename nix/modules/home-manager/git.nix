@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   cfg = config.my.git;
 in
@@ -102,8 +107,7 @@ in
         };
       };
 
-      zsh.initContent = lib.mkOrder 1000
-        /*bash*/ ''
+      zsh.initContent = lib.mkOrder 1000 /* bash */ ''
         # Request confirmation for an action before proceeding
         # Expects a format string as an argument. '%s' in the format string will be
         # replaced with the branch name

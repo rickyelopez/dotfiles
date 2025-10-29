@@ -1,5 +1,11 @@
 # this file gets imported if the system is not using standalone home-manager (i.e. nixos or nix-darwin)
-{ inputs, pkgs, config, lib, ... }:
+{
+  inputs,
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   user = config.hostSpec.username;
 in

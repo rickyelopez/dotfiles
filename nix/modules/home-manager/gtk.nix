@@ -1,4 +1,10 @@
-{ pkgs, lib, config, hostSpec, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  hostSpec,
+  ...
+}:
 let
   cfg = config.my.gtk;
   user = hostSpec.username;
