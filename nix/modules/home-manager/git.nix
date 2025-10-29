@@ -56,14 +56,17 @@ in
           pkgs.gh-dash
         ];
       };
+
       git = {
         enable = true;
         lfs.enable = true;
 
-        userName = "Ricky Lopez";
-        userEmail = "31072564+rickyelopez@users.noreply.github.com";
+        settings = {
+          user = {
+            name = "Ricky Lopez";
+            email = "31072564+rickyelopez@users.noreply.github.com";
+          };
 
-        extraConfig = {
           core = {
             fsmonitor = true;
             untrackedCache = true;
@@ -86,17 +89,19 @@ in
           pull.rebase = true;
         };
 
-        delta = {
-          enable = true;
-          options = {
-            dark = true;
-            features = "line-numbers zebra-dark"; # "side-by-side"
-            hyperlinks = true;
-            map-styles = "bold purple => syntax magenta, bold cyan => syntax blue";
-            navigate = true;
-          };
+      };
+
+      delta = {
+        enable = true;
+        options = {
+          dark = true;
+          features = "line-numbers zebra-dark"; # "side-by-side"
+          hyperlinks = true;
+          map-styles = "bold purple => syntax magenta, bold cyan => syntax blue";
+          navigate = true;
         };
       };
+
       zsh.initContent = lib.mkOrder 1000
         /*bash*/ ''
         # Request confirmation for an action before proceeding

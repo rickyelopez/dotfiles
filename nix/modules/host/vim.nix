@@ -11,7 +11,7 @@ in
     environment.variables = lib.mkDefault { EDITOR = "vim"; };
 
     environment.systemPackages = with pkgs; [
-      ((vim_configurable.override { }).customize {
+      ((vim-full.override { }).customize {
         name = "vim";
         # Install plugins for example for syntax highlighting of nix files
         # vimrcConfig.packages.myplugins = with pkgs.vimPlugins; {

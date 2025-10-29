@@ -6,7 +6,6 @@
         bear
         bitwarden-cli
         cmake
-        delta
         ffmpeg
         fx
         git-lfs
