@@ -1,20 +1,29 @@
-{ hostSpec, pkgs, lib, ... }: {
+{
+  hostSpec,
+  pkgs,
+  lib,
+  ...
+}:
+{
   home = {
-    packages = with pkgs; [
-      bitwarden-desktop
-      brave
-      feh
-      gedit
-      ghostty
-      ksnip
-      nextcloud-client
-      pamixer
-      pavucontrol
-      playerctl
-      qalculate-gtk
-      # rustdesk
-      vlc
-    ] ++ lib.optionals (!hostSpec.isWork) [ rustdesk-flutter ];
+    packages =
+      with pkgs;
+      [
+        bitwarden-desktop
+        brave
+        feh
+        gedit
+        ghostty
+        ksnip
+        nextcloud-client
+        pamixer
+        pavucontrol
+        playerctl
+        qalculate-gtk
+        # rustdesk
+        vlc
+      ]
+      ++ lib.optionals (!hostSpec.isWork) [ rustdesk-flutter ];
   };
 
   services = {
@@ -29,7 +38,10 @@
       type = "Application";
       exec = "${pkgs.brave}/bin/brave --password-store=gnome-libsecret %U";
       terminal = false;
-      categories = [ "Network" "WebBrowser" ];
+      categories = [
+        "Network"
+        "WebBrowser"
+      ];
       startupNotify = true;
       icon = "brave-browser";
       actions = {

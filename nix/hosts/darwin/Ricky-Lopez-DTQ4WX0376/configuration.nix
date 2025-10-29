@@ -1,4 +1,9 @@
-{ self, pkgs, config, ... }:
+{
+  self,
+  pkgs,
+  config,
+  ...
+}:
 let
   home = config.hostSpec.home;
   user = config.hostSpec.username;
@@ -110,7 +115,9 @@ in
           "545129924" = false; # disable apple intelligence
         };
 
-        "digital.twisted.noTunes" = { replacement = "https://lms.elxpd.com/"; };
+        "digital.twisted.noTunes" = {
+          replacement = "https://lms.elxpd.com/";
+        };
       };
 
       ".GlobalPreferences" = {
@@ -319,4 +326,3 @@ in
     };
   };
 }
-

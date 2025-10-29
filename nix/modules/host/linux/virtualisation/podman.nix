@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.my.virtualisation.podman;
 in
@@ -35,6 +40,5 @@ in
         runroot = "/run/containers/storage";
       };
     };
-  }
-  ;
+  };
 }

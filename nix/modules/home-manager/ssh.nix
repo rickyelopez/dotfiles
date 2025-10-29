@@ -1,27 +1,54 @@
-{ lib, config, hostSpec, ... }:
+{
+  lib,
+  config,
+  hostSpec,
+  ...
+}:
 let
   cfg = config.my.ssh;
-  identityFiles = [ "id_new" "id_old" ];
+  identityFiles = [
+    "id_new"
+    "id_old"
+  ];
   standardHosts = [
-    { user = "nonroot"; host = "cintra"; }
-    { user = "nonroot"; host = "dns-01"; }
-    { user = "nonroot"; host = "ferrix"; }
-    { user = "nonroot"; host = "sathub"; }
-    { user = "root"; host = "fob"; }
-    { user = "root"; host = "fondor"; }
-    { user = "root"; host = "panama"; }
+    {
+      user = "nonroot";
+      host = "cintra";
+    }
+    {
+      user = "nonroot";
+      host = "dns-01";
+    }
+    {
+      user = "nonroot";
+      host = "ferrix";
+    }
+    {
+      user = "nonroot";
+      host = "sathub";
+    }
+    {
+      user = "root";
+      host = "fob";
+    }
+    {
+      user = "root";
+      host = "fondor";
+    }
+    {
+      user = "root";
+      host = "panama";
+    }
   ];
   standardHostConfigs = lib.attrsets.mergeAttrsList (
-    lib.lists.map
-      (cfg: {
-        "${cfg.host}" = {
-          # match = "host ${host},${host}.${config.hostSpec.domain}";
-          user = cfg.user;
-          forwardAgent = true;
-          identityFile = lib.lists.forEach identityFiles (file: "${hostSpec.home}/.ssh/${file}");
-        };
-      })
-      standardHosts
+    lib.lists.map (cfg: {
+      "${cfg.host}" = {
+        # match = "host ${host},${host}.${config.hostSpec.domain}";
+        user = cfg.user;
+        forwardAgent = true;
+        identityFile = lib.lists.forEach identityFiles (file: "${hostSpec.home}/.ssh/${file}");
+      };
+    }) standardHosts
   );
 in
 {

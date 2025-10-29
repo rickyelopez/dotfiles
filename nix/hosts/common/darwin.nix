@@ -1,4 +1,10 @@
-{ inputs, outputs, host, ... }: {
+{
+  inputs,
+  outputs,
+  host,
+  ...
+}:
+{
   imports = [
     inputs.home-manager.darwinModules.home-manager
     inputs.sops-nix.darwinModules.sops

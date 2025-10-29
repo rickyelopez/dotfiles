@@ -1,4 +1,9 @@
-{ config, lib, hostSpec, ... }:
+{
+  config,
+  lib,
+  hostSpec,
+  ...
+}:
 let
   home = hostSpec.home;
 in
@@ -7,12 +12,14 @@ in
 
   # I think this is the cleanest way to do this given that I need to support both
   # standalone hm and hm baked into nixos or nix-darwin
-  config.lib.file.mkDotfilesSymlinks = paths:
-    builtins.listToAttrs (map
-      (path: {
+  config.lib.file.mkDotfilesSymlinks =
+    paths:
+    builtins.listToAttrs (
+      map (path: {
         name = path;
-        value = { source = config.lib.file.mkOutOfStoreSymlink "${home}/dotfiles/${path}"; };
-      })
-      paths
+        value = {
+          source = config.lib.file.mkOutOfStoreSymlink "${home}/dotfiles/${path}";
+        };
+      }) paths
     );
 }

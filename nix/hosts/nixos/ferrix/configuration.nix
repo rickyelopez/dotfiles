@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   imports = [
     {
       _module.args = {
@@ -22,25 +23,45 @@
   services.rpcbind.enable = true;
 
   networking = {
-    defaultGateway = { address = "10.19.21.1"; interface = "ens18"; };
-    defaultGateway6 = { address = "fd00:750::1"; interface = "ens18"; };
+    defaultGateway = {
+      address = "10.19.21.1";
+      interface = "ens18";
+    };
+    defaultGateway6 = {
+      address = "fd00:750::1";
+      interface = "ens18";
+    };
 
     interfaces = {
       ens18 = {
         ipv4 = {
-          addresses = [{ address = "10.19.21.24"; prefixLength = 24; }];
+          addresses = [
+            {
+              address = "10.19.21.24";
+              prefixLength = 24;
+            }
+          ];
         };
         ipv6 = {
           addresses = [
-            { address = "fd00:750::24"; prefixLength = 64; }
-            { address = "fe80::24"; prefixLength = 64; }
+            {
+              address = "fd00:750::24";
+              prefixLength = 64;
+            }
+            {
+              address = "fe80::24";
+              prefixLength = 64;
+            }
           ];
         };
       };
     };
 
     hosts = {
-      "10.19.21.40" = [ "panama" "panama.forestroot.elexpedition.com" ];
+      "10.19.21.40" = [
+        "panama"
+        "panama.forestroot.elexpedition.com"
+      ];
     };
 
     nameservers = [ "10.19.21.6" ];
@@ -50,4 +71,3 @@
   services.qemuGuest.enable = true;
   services.openssh.settings.AllowUsers = [ "root" ];
 }
-

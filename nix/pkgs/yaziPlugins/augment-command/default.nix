@@ -1,8 +1,8 @@
-{ lib
-, fetchFromGitHub
-, pkgs
-, mkYaziPlugin ? pkgs.yaziPlugins.mkYaziPlugin
-,
+{
+  lib,
+  fetchFromGitHub,
+  pkgs,
+  mkYaziPlugin ? pkgs.yaziPlugins.mkYaziPlugin,
 }:
 mkYaziPlugin {
   pname = "augment-command";

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.my.yazi;
 in
@@ -17,7 +22,10 @@ in
         keymap = {
           mgr.prepend_keymap = [
             {
-              on = [ "g" "d" ];
+              on = [
+                "g"
+                "d"
+              ];
               run = "cd ~/dotfiles";
               desc = "Goto ~/dotfiles";
             }
@@ -32,22 +40,34 @@ in
               desc = "Smart filter";
             }
             {
-              on = [ "c" "m" ];
+              on = [
+                "c"
+                "m"
+              ];
               run = "plugin chmod";
               desc = "Chmod on selected files";
             }
             {
-              on = [ "c" "f" ];
+              on = [
+                "c"
+                "f"
+              ];
               run = "plugin flatten";
               desc = "Flatten selected dirs";
             }
             {
-              on = [ "c" "e" ];
+              on = [
+                "c"
+                "e"
+              ];
               run = "plugin select-empty";
               desc = "Select empty dirs";
             }
             {
-              on = [ "d" "u" ];
+              on = [
+                "d"
+                "u"
+              ];
               run = "plugin restore";
               desc = "Restore last deleted files/folders";
             }
@@ -67,22 +87,27 @@ in
               desc = "Create a file or directory";
             }
             {
-              on = [ "d" "d" ];
+              on = [
+                "d"
+                "d"
+              ];
               run = "plugin augment-command -- remove";
               desc = "Trash selected files";
             }
             {
-              on = [ "d" "D" ];
+              on = [
+                "d"
+                "D"
+              ];
               run = "plugin augment-command -- remove --permanently";
               desc = "Permanently delete selected files";
             }
-          ] ++ builtins.map
-            (num: {
-              on = "${toString num}";
-              run = "plugin augment-command -- tab_switch ${toString (num - 1)}";
-              desc = "Switch to tab ${toString num}";
-            })
-            (lib.range 1 9);
+          ]
+          ++ builtins.map (num: {
+            on = "${toString num}";
+            run = "plugin augment-command -- tab_switch ${toString (num - 1)}";
+            desc = "Switch to tab ${toString num}";
+          }) (lib.range 1 9);
         };
 
         plugins = {
@@ -99,16 +124,49 @@ in
           };
           opener = {
             edit = [
-              { run = "nvim \"$@\""; desc = "nvim"; block = true; }
-              { run = "nvr --remote-silent \"$@\""; desc = "nvr"; }
-              { run = "$${EDITOR:-vim} \"$@\""; desc = "$EDITOR"; block = true; for = "linux"; }
+              {
+                run = "nvim \"$@\"";
+                desc = "nvim";
+                block = true;
+              }
+              {
+                run = "nvr --remote-silent \"$@\"";
+                desc = "nvr";
+              }
+              {
+                run = "$${EDITOR:-vim} \"$@\"";
+                desc = "$EDITOR";
+                block = true;
+                for = "linux";
+              }
             ];
           };
-          play = [{ run = "vlc \"$@\""; desc = "VLC"; orphan = true; }];
+          play = [
+            {
+              run = "vlc \"$@\"";
+              desc = "VLC";
+              orphan = true;
+            }
+          ];
           reveal = [
-            { run = "thunar \"$(dirname \"$1\")\""; desc = "Reveal"; orphan = true; for = "linux"; }
-            { run = "open -R \"$1\""; desc = "Reveal"; orphan = true; for = "macos"; }
-            { run = "explorer /select;\"%1\""; orphan = true; desc = "Reveal"; for = "windows"; }
+            {
+              run = "thunar \"$(dirname \"$1\")\"";
+              desc = "Reveal";
+              orphan = true;
+              for = "linux";
+            }
+            {
+              run = "open -R \"$1\"";
+              desc = "Reveal";
+              orphan = true;
+              for = "macos";
+            }
+            {
+              run = "explorer /select;\"%1\"";
+              orphan = true;
+              desc = "Reveal";
+              for = "windows";
+            }
           ];
           preview = {
             image_delay = 0;
@@ -199,7 +257,7 @@ in
           };
         };
       };
-      zsh.initContent = lib.mkOrder 1000 /*bash*/ ''
+      zsh.initContent = lib.mkOrder 1000 /* bash */ ''
         # use this cmd to open yazi and cd into whatever directory it is in when it exits
         # taken from https://yazi-rs.github.io/docs/quick-start/
         if command -v yazi &>/dev/null; then

@@ -1,4 +1,12 @@
-{ pkgs, inputs, lib, config, hostSpec, my, ... }:
+{
+  pkgs,
+  inputs,
+  lib,
+  config,
+  hostSpec,
+  my,
+  ...
+}:
 let
   cfg = config.my.hyprland;
 in
@@ -13,16 +21,18 @@ in
 
   config = lib.mkIf cfg.enable {
     home = {
-      file = config.lib.file.mkDotfilesSymlinks [
-        ".config/hypr/hyprlock.conf"
-        ".config/hypr/scripts"
-        ".config/uwsm/env"
-        ".config/xdg-desktop-portal"
-      ] // lib.optionalAttrs hostSpec.isLaptop {
-        ".config/uwsm/env-hyprland".text = /*bash*/''
-          export AQ_DRM_DEVICES="/dev/dri/igpu:/dev/dri/dgpu"
-        '';
-      };
+      file =
+        config.lib.file.mkDotfilesSymlinks [
+          ".config/hypr/hyprlock.conf"
+          ".config/hypr/scripts"
+          ".config/uwsm/env"
+          ".config/xdg-desktop-portal"
+        ]
+        // lib.optionalAttrs hostSpec.isLaptop {
+          ".config/uwsm/env-hyprland".text = /* bash */ ''
+            export AQ_DRM_DEVICES="/dev/dri/igpu:/dev/dri/dgpu"
+          '';
+        };
     };
 
     programs = {
@@ -37,7 +47,11 @@ in
             customModules.netstat.networkInterface = "wlp0s20f3";
             layouts = {
               "0" = {
-                "left" = [ "dashboard" "workspaces" "windowtitle" ];
+                "left" = [
+                  "dashboard"
+                  "workspaces"
+                  "windowtitle"
+                ];
                 "middle" = [ "media" ];
                 "right" = lib.flatten [
                   "hypridle"
@@ -52,7 +66,11 @@ in
                 ];
               };
               "*" = {
-                "left" = [ "dashboard" "workspaces" "windowtitle" ];
+                "left" = [
+                  "dashboard"
+                  "workspaces"
+                  "windowtitle"
+                ];
                 "middle" = [ ];
                 "right" = [ ];
               };
@@ -85,33 +103,28 @@ in
         "$mainMod" = "SUPER";
         "$terminal" = lib.getExe pkgs.ghostty;
         "$fileManager" = lib.getExe pkgs.xfce.thunar;
-        "$screenshot" = ''${lib.getExe pkgs.grim} -g "$(${lib.getExe pkgs.slurp})" - | ${lib.getExe pkgs.swappy} -f -'';
+        "$screenshot" =
+          ''${lib.getExe pkgs.grim} -g "$(${lib.getExe pkgs.slurp})" - | ${lib.getExe pkgs.swappy} -f -'';
 
-        monitor = (
-          map
-            (m:
-              "${m.name},${
-            if m.enabled then
-              "${toString m.width}x${toString m.height}@${toString m.refreshRate}"
-              + ",${toString m.x}x${toString m.y},1"
-              + ",transform,${toString m.transform}"
-              + ",vrr,${toString m.vrr}"
-            else
-              "disable"
-          }"
-            )
-            my.monitors
-        ) ++ [ ",preferred,auto,1" ];
+        monitor =
+          (map (
+            m:
+            "${m.name},${
+              if m.enabled then
+                "${toString m.width}x${toString m.height}@${toString m.refreshRate}"
+                + ",${toString m.x}x${toString m.y},1"
+                + ",transform,${toString m.transform}"
+                + ",vrr,${toString m.vrr}"
+              else
+                "disable"
+            }"
+          ) my.monitors)
+          ++ [ ",preferred,auto,1" ];
 
         workspace = (
-          map
-            (m:
-              "${m.workspace}, monitor:${m.name}, default:true, persistent:true"
-            )
-            (builtins.filter
-              (m: m ? "workspace")
-              my.monitors
-            )
+          map (m: "${m.workspace}, monitor:${m.name}, default:true, persistent:true") (
+            builtins.filter (m: m ? "workspace") my.monitors
+          )
         );
 
         input = {
@@ -154,7 +167,6 @@ in
           };
           rounding = 5;
         };
-
 
         animations = {
           enabled = true;
@@ -236,7 +248,6 @@ in
           "float            , title:^Dashboard | uckg2p-cali - Brave$" # camera monitoring
           "move 2562 667    , title:^Dashboard | uckg2p-cali - Brave$"
           "size 2552 772    , title:^Dashboard | uckg2p-cali - Brave$"
-
 
           "float            , class:^Rofi$"
           "animation slide  , class:^Rofi$"
@@ -331,7 +342,8 @@ in
             "     , XF86AudioPlay       , exec, ${playerctl} play-pause"
             "     , XF86AudioPrev       , exec, ${playerctl} previous"
             "     , XF86AudioNext       , exec, ${playerctl} next"
-          ] ++ lib.optionals hostSpec.isLaptop [
+          ]
+          ++ lib.optionals hostSpec.isLaptop [
             "     , XF86Calculator      , exec, qalculate-gtk"
 
             # keyboard brightness buttons
@@ -344,10 +356,12 @@ in
 
           ];
 
-        bindl = [ ] ++ lib.optionals hostSpec.isLaptop [
-          # lid switch lock + suspend
-          ", switch:on:Lid Switch, exec, systemctl suspend; pidof hyprlock || uwsm-app -- hyprlock --immediate & disown"
-        ];
+        bindl =
+          [ ]
+          ++ lib.optionals hostSpec.isLaptop [
+            # lid switch lock + suspend
+            ", switch:on:Lid Switch, exec, systemctl suspend; pidof hyprlock || uwsm-app -- hyprlock --immediate & disown"
+          ];
 
         plugin = {
           csgo-vulkan-fix = {
@@ -407,12 +421,11 @@ in
         enable = true;
         package = inputs.hyprpaper.packages.${pkgs.system}.hyprpaper;
         settings = {
-          preload =
-            [
-              "~/Nextcloud/Media/Wallpapers/1643793713226.jpg"
-              "~/Nextcloud/Media/Wallpapers/1694344616904955.jpg"
-              "~/Nextcloud/Media/Wallpapers/Dog Watcher.jpg"
-            ];
+          preload = [
+            "~/Nextcloud/Media/Wallpapers/1643793713226.jpg"
+            "~/Nextcloud/Media/Wallpapers/1694344616904955.jpg"
+            "~/Nextcloud/Media/Wallpapers/Dog Watcher.jpg"
+          ];
 
           wallpaper = [
             ",~/Nextcloud/Media/Wallpapers/1643793713226.jpg"

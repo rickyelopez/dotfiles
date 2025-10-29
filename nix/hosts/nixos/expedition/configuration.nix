@@ -124,7 +124,11 @@ in
       peers = [
         {
           publicKey = "xjQby/0vO5YKKi8k0xdybzsXt96nxotkx83GXeeERAw=";
-          allowedIPs = [ "10.255.254.0/24" "10.19.21.0/24" "10.7.51.0/24" ];
+          allowedIPs = [
+            "10.255.254.0/24"
+            "10.19.21.0/24"
+            "10.7.51.0/24"
+          ];
           endpoint = "elxpd.com:51821";
           persistentKeepalive = 25;
         }
@@ -132,11 +136,9 @@ in
     };
   };
 
-
   # add udev rules that will create symlinks to the appropriate card in /dev/dri for use with hyprland
-  services.udev.extraRules =
-    ''
-      KERNEL=="card*", KERNELS=="0000:01:00.0", SUBSYSTEM=="drm", SUBSYSTEMS=="pci", SYMLINK+="dri/dgpu"
-      KERNEL=="card*", KERNELS=="0000:00:02.0", SUBSYSTEM=="drm", SUBSYSTEMS=="pci", SYMLINK+="dri/igpu"
-    '';
+  services.udev.extraRules = ''
+    KERNEL=="card*", KERNELS=="0000:01:00.0", SUBSYSTEM=="drm", SUBSYSTEMS=="pci", SYMLINK+="dri/dgpu"
+    KERNEL=="card*", KERNELS=="0000:00:02.0", SUBSYSTEM=="drm", SUBSYSTEMS=="pci", SYMLINK+="dri/igpu"
+  '';
 }

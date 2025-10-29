@@ -1,4 +1,5 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, ... }:
+{
   imports = [
     {
       _module.args = {
@@ -25,25 +26,45 @@
   users.users.${config.hostSpec.username}.extraGroups = [ "coral" ];
 
   networking = {
-    defaultGateway = { address = "10.19.21.1"; interface = "ens18"; };
-    defaultGateway6 = { address = "fd00:750::1"; interface = "ens18"; };
+    defaultGateway = {
+      address = "10.19.21.1";
+      interface = "ens18";
+    };
+    defaultGateway6 = {
+      address = "fd00:750::1";
+      interface = "ens18";
+    };
 
     interfaces = {
       ens18 = {
         ipv4 = {
-          addresses = [{ address = "10.19.21.18"; prefixLength = 24; }];
+          addresses = [
+            {
+              address = "10.19.21.18";
+              prefixLength = 24;
+            }
+          ];
         };
         ipv6 = {
           addresses = [
-            { address = "fd00:750::18"; prefixLength = 64; }
-            { address = "fe80::18"; prefixLength = 64; }
+            {
+              address = "fd00:750::18";
+              prefixLength = 64;
+            }
+            {
+              address = "fe80::18";
+              prefixLength = 64;
+            }
           ];
         };
       };
     };
 
     hosts = {
-      "10.19.21.40" = [ "panama" "panama.forestroot.elexpedition.com" ];
+      "10.19.21.40" = [
+        "panama"
+        "panama.forestroot.elexpedition.com"
+      ];
     };
 
     nameservers = [ "10.19.21.6" ];
@@ -61,4 +82,3 @@
     };
   };
 }
-
