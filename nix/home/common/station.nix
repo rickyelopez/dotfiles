@@ -23,6 +23,7 @@
         gnumake
         meson
         mutagen
+        ncdu
         nixfmt
         neovim-remote
         nerd-fonts.blex-mono

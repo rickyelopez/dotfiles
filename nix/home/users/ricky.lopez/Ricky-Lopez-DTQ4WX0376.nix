@@ -2,10 +2,29 @@
 {
   home = {
     packages = with pkgs; [
+      bluesnooze
+      caffeine
+      ccache
+      cmake
+      gdal
       ghostty-bin
+      iproute2mac
       k9s
+      karabiner-elements
+      libgit2
+      opencv
+      openssl
+      portaudio
+      readline
+      sqlite
+      tcl
       util-linux
+      vlc-bin
+      wireshark
+      xz
+      zlib
     ];
+
     file = {
       ".hammerspoon/Spoons/SpoonInstall.spoon".source = pkgs.fetchzip {
         url = "https://github.com/Hammerspoon/Spoons/raw/master/Spoons/SpoonInstall.spoon.zip";
@@ -20,6 +39,7 @@
       ".hammerspoon/init.lua"
       ".hammerspoon/.luarc.json"
       ".hammerspoon/modules"
+      ".config/karabiner/karabiner.json"
     ];
   };
 
