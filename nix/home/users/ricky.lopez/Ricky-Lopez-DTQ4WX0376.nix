@@ -12,6 +12,7 @@
       k9s
       karabiner-elements
       libgit2
+      notunes
       opencv
       openssl
       portaudio
