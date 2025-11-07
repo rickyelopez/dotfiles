@@ -38,37 +38,17 @@ in
     ];
 
     brews = [
-      "ccache"
-      "cmake"
-      "gdal"
-      "iproute2mac"
-      "libgit2"
-      "ncdu"
-      "opencv"
       "openjdk"
-      "openssl"
-      "portaudio"
-      "readline"
-      "sqlite3"
-      "tcl-tk@8"
-      "xz"
-      "zlib"
     ];
 
     casks = [
       "bitwarden"
-      "bluesnooze"
       "brave-browser"
-      "caffeine"
       "foxitreader"
-      "gcc-arm-embedded"
       "hammerspoon"
-      "karabiner-elements"
       "ksnip"
       "notunes"
       "pants"
-      "vlc"
-      "wireshark-app"
     ];
 
     masApps = { };
