@@ -83,7 +83,6 @@ vim.g.clipboard = "osc52"
 
 -- misc
 vim.opt.nrformats:append("alpha")
-vim.o.formatoptions = "cr/qn1jp"
 
 -- plugins
 require("plugins")
@@ -93,3 +92,5 @@ require("binds")
 require("lsp")
 
 require("server").start()
+
+vim.o.formatoptions = "cr/qn1jp"
