@@ -18,6 +18,7 @@ in
     inputs.sops-nix.nixosModules.sops
 
     ../nixos/${host}
+    ../../platforms/linux/host
   ];
 
   networking = {
