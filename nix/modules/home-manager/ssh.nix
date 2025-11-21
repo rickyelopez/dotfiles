@@ -59,18 +59,20 @@ in
   config = lib.mkIf cfg.enable {
     programs.ssh = {
       enable = true;
-
-      controlMaster = "auto";
-      controlPath = "${hostSpec.home}/.ssh/sockets/S.%r@%h:%p";
-      controlPersist = "20m";
-      # Avoids infinite hang if control socket connection interrupted. ex: vpn goes down/up
-      serverAliveCountMax = 3;
-      serverAliveInterval = 5; # 3 * 5s
-
-      hashKnownHosts = true;
-      addKeysToAgent = "yes";
+      enableDefaultConfig = false;
 
       matchBlocks = {
+        "*" = {
+          controlMaster = "auto";
+          controlPath = "${hostSpec.home}/.ssh/sockets/S.%r@%h:%p";
+          controlPersist = "20m";
+          # Avoids infinite hang if control socket connection interrupted. ex: vpn goes down/up
+          serverAliveCountMax = 3;
+          serverAliveInterval = 5; # 3 * 5s
+
+          hashKnownHosts = true;
+          addKeysToAgent = "yes";
+        };
         "git" = {
           host = "github.com";
           user = "git";
