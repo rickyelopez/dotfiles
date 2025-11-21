@@ -63,9 +63,9 @@ gui:
 git:
   overrideGpg: true
   autoFetch: false
-  paging:
-    colorArg: always
-    pager: delta --dark --paging=never
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never
   fetchAll: false
   parseEmoji: true
   log:
