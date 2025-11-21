@@ -1,5 +1,5 @@
 CompileFlags:
-  Add: [-ferror-limit=0, -xc++, -Wall, -Werror, -Wextra]
+  Add: [-ferror-limit=0, -xc, -Wall, -Werror, -Wextra]
 Completion:
   AllScopes: true
 
