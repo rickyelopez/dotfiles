@@ -28,6 +28,9 @@ in
           filetype plugin on
           let mapleader = " "
 
+          set updatetime=300
+          set ttimeoutlen=10
+
           set autoindent
           set expandtab
           set hidden
