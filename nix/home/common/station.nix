@@ -21,6 +21,7 @@
         lld
         gcc
         gnumake
+        lspmux
         meson
         mutagen
         ncdu
@@ -31,7 +32,6 @@
         ninja
         obsidian
         pre-commit
-        ra-multiplex
         python313
         socat
         sshpass
