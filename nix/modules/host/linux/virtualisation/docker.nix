@@ -19,6 +19,8 @@ in
       docker = {
         enable = true;
         storageDriver = "overlay2";
+        logDriver = "journald";
+        liveRestore = true;
         daemon = {
           settings = {
             default-address-pools = [
@@ -27,9 +29,6 @@ in
                 size = 24;
               }
             ];
-            log-opts = {
-              # max-size = "100m";
-            };
           };
         };
       };
