@@ -20,6 +20,7 @@
         lazygit
         gcc
         gnumake
+        lld-only
         lspmux
         meson
         mutagen
@@ -38,16 +39,6 @@
         tio
         uncrustify
         uv
-        (pkgs.linkFarm "lld" [
-          {
-            name = "bin/ld";
-            path = pkgs.llvmPackages.bintools;
-          }
-          {
-            name = "bin/ld.lld";
-            path = pkgs.llvmPackages.bintools;
-          }
-        ])
       ];
 
       file = config.lib.file.mkDotfilesSymlinks [
