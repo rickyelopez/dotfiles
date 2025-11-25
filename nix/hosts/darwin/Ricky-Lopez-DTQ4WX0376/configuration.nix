@@ -46,7 +46,6 @@ in
       "brave-browser"
       "foxitreader"
       "hammerspoon"
-      "notunes"
       "pants"
     ];
 
