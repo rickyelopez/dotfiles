@@ -11,6 +11,7 @@
       iproute2mac
       k9s
       karabiner-elements
+      ksnip-bin
       libgit2
       notunes
       opencv
