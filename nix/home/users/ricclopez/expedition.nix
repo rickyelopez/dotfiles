@@ -21,5 +21,6 @@
     qt.enable = true;
     rofi.enable = true;
     sops.enable = true;
+    ssh.enable = true;
   };
 }
