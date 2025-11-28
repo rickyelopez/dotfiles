@@ -31,7 +31,13 @@ require("lazy").setup({
     end,
   },
 
-  { "norcalli/nvim-colorizer.lua", config = true, priority = 1 },
+  {
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup({ "*" }, { RRGGBBAA = true })
+    end,
+    priority = 1,
+  },
   "tpope/vim-commentary",
   "tpope/vim-surround",
   "mbbill/undotree",
