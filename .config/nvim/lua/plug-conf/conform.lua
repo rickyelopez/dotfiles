@@ -13,11 +13,6 @@ return {
         ["sql-formatter"] = {
           command = "sql-formatter",
         },
-        -- rustfmt = {
-        --   options = {
-        --     default_edition = "2021",
-        --   },
-        -- },
       },
       default_format_opts = {
         lsp_format = "fallback",
