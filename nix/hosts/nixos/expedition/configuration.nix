@@ -116,6 +116,7 @@ in
     allowedUDPPorts = [ wg_port ];
   };
 
+  networking.wireguard.enable = false;
   networking.wireguard.interfaces = {
     wg0 = {
       ips = [ "10.255.254.10/24" ];

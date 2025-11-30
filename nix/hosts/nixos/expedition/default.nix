@@ -33,6 +33,7 @@
     sops.enable = true;
     ssh.enable = true;
     thunar.enable = true;
+    virtualisation.docker.enable = true;
     wayland.enable = true;
     wireshark.enable = true;
   };
