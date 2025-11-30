@@ -25,6 +25,7 @@ in
         config.lib.file.mkDotfilesSymlinks [
           ".config/hypr/hyprlock.conf"
           ".config/hypr/scripts"
+          ".config/hypr/windowrules.conf"
           ".config/uwsm/env"
           ".config/xdg-desktop-portal"
         ]
@@ -212,46 +213,7 @@ in
           "uwsm app -- hyprpanel" # The top bar
         ];
 
-        windowrule = [
-          "match:class = ^org.pulseaudio.pavucontrol$, float yes"
-          "match:class = blueman-manager, float yes"
-          "match:class = ^nm-connection-editor$, float yes"
-          "match:class = ^[Tt]hunar$, float yes"
-          "match:class = ^[Tt]hunar$, size 1200 600"
-          "match:title = ^btop$, float yes"
-          "match:title = ^KCalc$, float yes"
-          "match:title = ^Qalculate!$, float yes"
-          "match:class = ^steam$, float yes"
-
-          "match:class = ^discord$, float yes"
-          "match:class = ^discord$, workspace 6"
-          "match:class = ^discord$, size 1325 685"
-
-          "match:title = ^Nextcloud$, float yes"
-          "match:title = ^Nextcloud$, move 75.5% 30"
-
-          "match:title = ^Ferdium$, float yes"
-          "match:title = ^Ferdium$, workspace special"
-          "match:title = ^Ferdium$, move 884 50"
-          "match:title = ^Ferdium$, size 1033 1027"
-
-          "match:title = ^ncspot$, float yes"
-          "match:title = ^ncspot$, workspace special"
-          "match:title = ^ncspot$, move 2% 5%"
-
-          "match:class = ^$fileManager$, animation popin"
-
-          "match:class = ^Brave-browser$, animation popin"
-          "match:class = ^Brave-browser$, match:title = ^_crx_.*$, float yes" # bitwarden popups
-          "match:class = ^Bitwarden$, float yes" # bitwarden-desktop
-
-          "match:title = ^Dashboard | uckg2p-cali - Brave$, float yes" # camera monitoring
-          "match:title = ^Dashboard | uckg2p-cali - Brave$, move 2562 667"
-          "match:title = ^Dashboard | uckg2p-cali - Brave$, size 2552 772"
-
-          "match:class = ^Rofi$, float yes"
-          "match:class = ^Rofi$, animation slide"
-        ];
+        source = "/home/${hostSpec.username}/.config/hypr/windowrules.conf";
 
         bind = [
           # hyprland stuff
