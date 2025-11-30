@@ -212,45 +212,45 @@ in
           "uwsm app -- hyprpanel" # The top bar
         ];
 
-        windowrulev2 = [
-          "float            , class:^org.pulseaudio.pavucontrol$"
-          "float            , class:blueman-manager"
-          "float            , class:^nm-connection-editor$"
-          "float            , class:^[Tt]hunar$"
-          "size 1200 600    , class:^[Tt]hunar$"
-          "float            , title:^btop$"
-          "float            , title:^KCalc$"
-          "float            , title:^Qalculate!$"
-          "float            , class:^steam$"
+        windowrule = [
+          "match:class = ^org.pulseaudio.pavucontrol$, float yes"
+          "match:class = blueman-manager, float yes"
+          "match:class = ^nm-connection-editor$, float yes"
+          "match:class = ^[Tt]hunar$, float yes"
+          "match:class = ^[Tt]hunar$, size 1200 600"
+          "match:title = ^btop$, float yes"
+          "match:title = ^KCalc$, float yes"
+          "match:title = ^Qalculate!$, float yes"
+          "match:class = ^steam$, float yes"
 
-          "float            , class:^discord$"
-          "workspace 6      , class:^discord$"
-          "size 1325 685    , class:^discord$"
+          "match:class = ^discord$, float yes"
+          "match:class = ^discord$, workspace 6"
+          "match:class = ^discord$, size 1325 685"
 
-          "float            , title:^Nextcloud$"
-          "move 75.5% 30    , title:^Nextcloud$"
+          "match:title = ^Nextcloud$, float yes"
+          "match:title = ^Nextcloud$, move 75.5% 30"
 
-          "float            , title:^Ferdium$"
-          "workspace special, title:^Ferdium$"
-          "move 884 50      , title:^Ferdium$"
-          "size 1033 1027   , title:^Ferdium$"
+          "match:title = ^Ferdium$, float yes"
+          "match:title = ^Ferdium$, workspace special"
+          "match:title = ^Ferdium$, move 884 50"
+          "match:title = ^Ferdium$, size 1033 1027"
 
-          "float            , title:^ncspot$"
-          "workspace special, title:^ncspot$"
-          "move 2% 5%       , title:^ncspot$"
+          "match:title = ^ncspot$, float yes"
+          "match:title = ^ncspot$, workspace special"
+          "match:title = ^ncspot$, move 2% 5%"
 
-          "animation popin  , class:^$fileManager$"
+          "match:class = ^$fileManager$, animation popin"
 
-          "animation popin  , class:^Brave-browser$"
-          "float            , class:^Brave-browser$, title:^_crx_.*$" # bitwarden popups
-          "float            , class:^Bitwarden$" # bitwarden-desktop
+          "match:class = ^Brave-browser$, animation popin"
+          "match:class = ^Brave-browser$, match:title = ^_crx_.*$, float yes" # bitwarden popups
+          "match:class = ^Bitwarden$, float yes" # bitwarden-desktop
 
-          "float            , title:^Dashboard | uckg2p-cali - Brave$" # camera monitoring
-          "move 2562 667    , title:^Dashboard | uckg2p-cali - Brave$"
-          "size 2552 772    , title:^Dashboard | uckg2p-cali - Brave$"
+          "match:title = ^Dashboard | uckg2p-cali - Brave$, float yes" # camera monitoring
+          "match:title = ^Dashboard | uckg2p-cali - Brave$, move 2562 667"
+          "match:title = ^Dashboard | uckg2p-cali - Brave$, size 2552 772"
 
-          "float            , class:^Rofi$"
-          "animation slide  , class:^Rofi$"
+          "match:class = ^Rofi$, float yes"
+          "match:class = ^Rofi$, animation slide"
         ];
 
         bind = [
