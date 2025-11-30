@@ -45,7 +45,7 @@ in
             network.label = false;
             notifications.show_total = true;
             customModules.cpuTemp.sensor = "/sys/class/hwmon/hwmon2/temp1_input";
-            customModules.netstat.networkInterface = "wlp0s20f3";
+            customModules.netstat.networkInterface = "wlp60s0";
             layouts = {
               "0" = {
                 "left" = [
@@ -58,7 +58,7 @@ in
                   "hypridle"
                   "volume"
                   "network"
-                  "bluetooth"
+                  # "bluetooth"
                   (lib.optionalString hostSpec.hasBattery "battery")
                   "cputemp"
                   "systray"
