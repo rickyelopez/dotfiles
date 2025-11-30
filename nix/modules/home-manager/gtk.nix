@@ -25,11 +25,6 @@ in
     };
     gtk = {
       enable = true;
-      cursorTheme = {
-        name = "Bibata-Modern-Classic";
-        size = 16;
-      };
-      # gtk2.configLocation = "";
       gtk3 = {
         bookmarks = [
           "file:///home/${user}/Nextcloud"
