@@ -18,7 +18,7 @@
         pamixer
         pavucontrol
         playerctl
-        qalculate-gtk
+        qalculate-qt
         # rustdesk
         vlc
       ]

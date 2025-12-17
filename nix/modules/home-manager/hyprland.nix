@@ -306,7 +306,7 @@ in
             "     , XF86AudioNext       , exec, ${playerctl} next"
           ]
           ++ lib.optionals hostSpec.isLaptop [
-            "     , XF86Calculator      , exec, qalculate-gtk"
+            "     , XF86Calculator      , exec, qalculate-qt"
 
             # keyboard brightness buttons
             "     , XF86MonBrightnessUp  , exec, ${brightnessctl} set 5%+"
