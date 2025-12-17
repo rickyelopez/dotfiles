@@ -30,7 +30,7 @@ return {
           -- end
           -- filter out by buffer name
           if vim.fn.bufname(buf_number) ~= "health://" then
-              return true
+            return true
           end
           -- filter out based on arbitrary rules
           -- e.g. filter out vim wiki buffer from tabline in your work repo
@@ -46,9 +46,9 @@ return {
         persist_buffer_sort = true,
         enforce_regular_tabs = false,
         hover = {
-            enabled = true,
-            delay = 200,
-            reveal = {'close'}
+          enabled = true,
+          delay = 200,
+          reveal = { "close" },
         },
         sort_by = "relative_directory",
         separator_style = "slant",
@@ -71,15 +71,21 @@ return {
       },
     })
 
-    --- @param buf integer buffer number, or 0 for current buffer
-    function M.close(buf)
-      if buf == 0 then
-        buf = vim.fn.bufnr("%")
+    --- @param bufnr integer buffer number, or 0 for current buffer
+    function M.close(bufnr)
+      if bufnr == 0 then
+        bufnr = vim.fn.bufnr("%")
+      end
+
+      local modified = vim.api.nvim_get_option_value("modified", { buf = bufnr })
+      if modified then
+        vim.notify("Buffer modified! Can't delete.\nWrite buffer and try again.", vim.log.levels.WARN)
+        return
       end
 
       -- if closing a buffer we don't have selected, there are no issues
-      if buf ~= vim.api.nvim_get_current_buf() then
-        vim.api.nvim_buf_delete(buf, {})
+      if bufnr ~= vim.api.nvim_get_current_buf() then
+        vim.api.nvim_buf_delete(bufnr, {})
         return
       end
 
@@ -92,7 +98,7 @@ return {
         local newBuf = vim.api.nvim_create_buf(true, true)
         vim.api.nvim_set_current_buf(newBuf)
       end
-      vim.api.nvim_buf_delete(buf, {})
+      vim.api.nvim_buf_delete(bufnr, {})
     end
 
     -- Keymaps
