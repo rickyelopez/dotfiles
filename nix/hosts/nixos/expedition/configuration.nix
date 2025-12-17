@@ -4,17 +4,19 @@ let
   wg_privkey = config.sops.secrets."wireguard/${config.hostSpec.hostname}".path;
 in
 {
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
-  };
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
 
-  # hack to get hwmon device ordering to be somewhat consistent
-  boot.kernelModules = [ "coretemp" ];
+    # hack to get hwmon device ordering to be somewhat consistent
+    kernelModules = [ "coretemp" ];
+  };
 
   hardware.fancontrol = {
     enable = true;
-    config = /*ini*/''
+    config = /* ini */ ''
       DEVPATH=hwmon3=devices/platform/dell_smm_hwmon hwmon2=devices/platform/coretemp.0
 
       DEVNAME=hwmon3=dell_smm hwmon2=coretemp
@@ -99,9 +101,15 @@ in
 
   };
 
-  # enable fprintd debug
-  systemd.services.fprintd.environment = {
-    G_MESSAGES_DEBUG = "all";
+  systemd = {
+    sleep.extraConfig = ''
+      SuspendState=mem
+      MemorySleepMode=deep
+    '';
+    # enable fprintd debug
+    services.fprintd.environment = {
+      G_MESSAGES_DEBUG = "all";
+    };
   };
 
   networking.firewall.allowedTCPPorts = [
