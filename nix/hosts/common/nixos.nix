@@ -79,6 +79,8 @@ in
           "docker"
           "gamemode"
           "networkmanager"
+          "users"
+          "plugdev"
           "wheel"
         ])
       ];
