@@ -67,6 +67,8 @@ in
 
     # services.power-profiles-daemon.enable = true;
 
+    hardware.dell-bios-fan-control.enable = true;
+
     tlp = {
       enable = true;
       settings = {
