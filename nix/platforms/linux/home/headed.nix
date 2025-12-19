@@ -10,10 +10,10 @@
       with pkgs;
       [
         brave
-        feh
         gedit
         ghostty
         ksnip
+        imv
         nextcloud-client
         pamixer
         pavucontrol
