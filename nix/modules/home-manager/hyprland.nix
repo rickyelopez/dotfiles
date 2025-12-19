@@ -93,6 +93,14 @@ in
           };
         };
       };
+      wpaperd = {
+        enable = true;
+        settings = {
+          any = {
+            path = "~/Nextcloud/Media/Wallpapers/1694344616904955.jpg";
+          };
+        };
+      };
     };
 
     wayland.windowManager.hyprland = {
@@ -204,12 +212,12 @@ in
 
         misc = {
           disable_hyprland_logo = true;
+          disable_splash_rendering = true;
         };
 
         exec-once = [
           # "dbus-update-activation-environment --systemd --all"
           "systemctl --user start hyprpolkitagent"
-          "systemctl --user start hyprpaper"
           "uwsm app -- hyprpanel" # The top bar
         ];
 
@@ -345,7 +353,6 @@ in
       plugins = [
         # inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo
         inputs.hyprland-plugins.packages.${pkgs.system}.csgo-vulkan-fix
-        # inputs.Hyprspace.packages.${pkgs.system}.Hyprspace
       ];
     };
 
@@ -376,21 +383,6 @@ in
               on-timeout = "systemctl suspend";
               on-resume = "hyprctl dispatch dpms on";
             }
-          ];
-        };
-      };
-      hyprpaper = {
-        enable = true;
-        package = inputs.hyprpaper.packages.${pkgs.system}.hyprpaper;
-        settings = {
-          preload = [
-            "~/Nextcloud/Media/Wallpapers/1643793713226.jpg"
-            "~/Nextcloud/Media/Wallpapers/1694344616904955.jpg"
-            "~/Nextcloud/Media/Wallpapers/Dog Watcher.jpg"
-          ];
-
-          wallpaper = [
-            ",~/Nextcloud/Media/Wallpapers/1643793713226.jpg"
           ];
         };
       };
