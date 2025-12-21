@@ -45,7 +45,7 @@ in
             network.label = false;
             notifications.show_total = true;
             customModules.cpuTemp.sensor = "/sys/class/hwmon/hwmon2/temp1_input";
-            customModules.netstat.networkInterface = "wlp60s0";
+            # customModules.netstat.networkInterface = "wlp60s0";
             layouts = {
               "0" = {
                 "left" = [
@@ -57,7 +57,7 @@ in
                 "right" = lib.flatten [
                   "hypridle"
                   "volume"
-                  "network"
+                  # "network"
                   # "bluetooth"
                   (lib.optionalString hostSpec.hasBattery "battery")
                   "cputemp"
@@ -357,7 +357,7 @@ in
     };
 
     services = {
-      blueman-applet.enable = false; # hyprpanel has a nice bluetooth menu
+      blueman-applet.enable = true;
       hypridle = {
         enable = true;
         settings = {
