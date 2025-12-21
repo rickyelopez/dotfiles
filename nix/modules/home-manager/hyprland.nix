@@ -330,7 +330,7 @@ in
           [ ]
           ++ lib.optionals hostSpec.isLaptop [
             # lid switch lock + suspend
-            ", switch:on:Lid Switch, exec, systemctl suspend; pidof hyprlock || uwsm-app -- hyprlock --immediate & disown"
+            ", switch:on:Lid Switch, exec, systemctl suspend; pidof hyprlock || uwsm-app -- hyprlock --immediate"
           ];
 
         plugin = {
