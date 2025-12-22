@@ -6,6 +6,7 @@
       buck2
       calibre
       ferdium
+      kicad
       mesa-demos
     ];
   };
