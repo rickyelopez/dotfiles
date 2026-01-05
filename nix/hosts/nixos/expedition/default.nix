@@ -29,6 +29,10 @@
     ];
     nvidia.enable = true;
     opengl.enable = true;
+    printing = {
+      enable = true;
+      printers.mtlXerox = true;
+    };
     qt.enable = true;
     sops.enable = true;
     ssh.enable = true;
