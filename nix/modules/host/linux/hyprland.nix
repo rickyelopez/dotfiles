@@ -7,6 +7,7 @@
 }:
 let
   cfg = config.my.hyprland;
+  hyprlandPackage = inputs.hyprland.packages.${pkgs.system}.hyprland;
 in
 {
   options.my.hyprland = {
@@ -16,6 +17,7 @@ in
   config = lib.mkIf cfg.enable {
     nix.settings = {
       substituters = [ "https://hyprland.cachix.org" ];
+      trusted-substituters = ["https://hyprland.cachix.org"];
       trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
     };
 
@@ -27,13 +29,14 @@ in
       hyprland = {
         enable = true;
         withUWSM = true;
-        package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+        package = hyprlandPackage;
         portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
       };
       hyprlock = {
         enable = true;
         package = inputs.hyprlock.packages.${pkgs.system}.hyprlock;
       };
+      uwsm.waylandCompositors.hyprland.binPath = lib.mkForce "/run/current-system/sw/bin/start-hyprland";
     };
 
     xdg.portal = {
