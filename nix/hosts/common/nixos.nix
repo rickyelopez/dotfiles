@@ -64,9 +64,13 @@ in
 
   # FIXME: handle uid and gid better
   users = {
-    groups.${user} = {
-      members = [ user ];
-      gid = 1000;
+    groups = {
+      ${user} = {
+        members = [ user ];
+        gid = 1000;
+      };
+      dialout = {};
+      plugdev = {};
     };
 
     users.${user} = {
