@@ -151,5 +151,17 @@ in
   services.udev.extraRules = ''
     KERNEL=="card*", KERNELS=="0000:01:00.0", SUBSYSTEM=="drm", SUBSYSTEMS=="pci", SYMLINK+="dri/dgpu"
     KERNEL=="card*", KERNELS=="0000:00:02.0", SUBSYSTEM=="drm", SUBSYSTEMS=="pci", SYMLINK+="dri/igpu"
+
+    # these next two rules are for google nest thermostats in dfu mode
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="0451", MODE="660", GROUP="plugdev"
+    SUBSYSTEM=="usb_device", ATTRS{idVendor}=="0451", MODE="660", GROUP="plugdev"
+
+    # st-link v2
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3748", \
+    MODE="660", GROUP="plugdev", TAG+="uaccess", ENV{ID_MM_DEVICE_IGNORE}="1", \
+    SYMLINK+="stlinkv2_%n"
+
+    # atmel avrisp2
+    ATTR{idVendor}=="03eb", ATTR{idProduct}=="2104", MODE="660", GROUP="plugdev", TAG+="uaccess"
   '';
 }
