@@ -10,17 +10,9 @@
     ];
   };
 
-  programs.zsh.initContent = /* bash */ ''
-    export GITHUB_TOKEN="$(cat ${config.sops.secrets."github_tokens/work".path})"
-  '';
-
   imports = [
     ../../../platforms/linux/home
   ];
-
-  sops.secrets = {
-    "github_tokens/work" = { };
-  };
 
   my = {
     bazel.enable = true;
@@ -30,5 +22,6 @@
       enable = true;
       addKeys = false;
     };
+    work.secrets.enable = true;
   };
 }
