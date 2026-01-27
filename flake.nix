@@ -132,7 +132,7 @@
 
       # Expose the package set, including overlays, for convenience.
       # I still don't know what this does. Do I actually need this??
-      darwinPackages = self.darwinConfigurations."Ricky-Lopez-DTQ4WX0376".pkgs;
+      darwinPackages = self.darwinConfigurations."RickBook-Pro".pkgs;
 
       # standalone home-manager configs
       # user@host combos are defined below, since the configuration is (so far, at least)
