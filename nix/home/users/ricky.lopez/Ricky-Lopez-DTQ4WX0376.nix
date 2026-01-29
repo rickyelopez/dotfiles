@@ -60,6 +60,9 @@
     docker.enable = true;
     remote-open.enable = true;
     sops.enable = true;
-    work.secrets.enable = true;
+    work = {
+      enable = true;
+      secrets.enable = true;
+    };
   };
 }
