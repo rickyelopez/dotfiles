@@ -5,7 +5,7 @@ return {
     "akinsho/toggleterm.nvim",
     config = function()
       require("toggleterm").setup({
-        open_mapping = [[<c-\>]],
+        open_mapping = [[<C-\>]],
         float_opts = {
           border = "curved",
         },
@@ -74,9 +74,19 @@ return {
       --- Keymaps that are common to TUI apps
       local function set_tui_keymaps(term)
         local opts = { noremap = true, silent = true, buffer = term.bufnr }
+        vim.keymap.set("t", [[<C-\>]], "<CMD>close<CR>", opts)
         vim.keymap.set("t", "<Esc>", "<Esc>", opts)
         vim.keymap.set("t", "q", "q", opts)
+      end
+
+      local function set_terminal_keymaps()
+        local opts = { noremap = true, silent = true, buffer = true }
+        vim.keymap.set("t", "<M-Esc>", "<Esc>", opts)
         vim.keymap.set("t", [[<C-\>]], "<CMD>close<CR>", opts)
+        vim.keymap.set("t", "<Esc>", "<CMD>stopinsert<CR>", opts)
+        vim.keymap.set("n", "gf", "<C-w>gF", opts)
+        vim.keymap.set("n", "<S-Tab>", next_terminal, opts)
+        vim.keymap.set("n", "<leader><S-Tab>", prev_terminal, opts)
       end
 
       local lazygit = Terminal:new({
