@@ -22,6 +22,9 @@
       enable = true;
       addKeys = false;
     };
-    work.secrets.enable = true;
+    work = {
+      enable = true;
+      secrets.enable = true;
+    };
   };
 }
