@@ -93,14 +93,6 @@ in
           };
         };
       };
-      wpaperd = {
-        enable = true;
-        settings = {
-          any = {
-            path = "~/Nextcloud/Media/Wallpapers/1694344616904955.jpg";
-          };
-        };
-      };
     };
 
     wayland.windowManager.hyprland = {
@@ -111,7 +103,7 @@ in
       settings = {
         "$mainMod" = "SUPER";
         "$terminal" = lib.getExe pkgs.ghostty;
-        "$fileManager" = lib.getExe pkgs.xfce.thunar;
+        "$fileManager" = lib.getExe pkgs.thunar;
         "$screenshot" =
           ''${lib.getExe pkgs.grim} -g "$(${lib.getExe pkgs.slurp})" - | ${lib.getExe pkgs.swappy} -f -'';
 
@@ -384,6 +376,14 @@ in
               on-resume = "hyprctl dispatch dpms on";
             }
           ];
+        };
+      };
+      wpaperd = {
+        enable = true;
+        settings = {
+          any = {
+            path = "~/Nextcloud/Media/Wallpapers/1694344616904955.jpg";
+          };
         };
       };
     };
