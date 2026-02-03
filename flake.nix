@@ -55,6 +55,11 @@
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    jetpack = {
+      url = "github:anduril/jetpack-nixos/master"; # Add this line
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
