@@ -21,7 +21,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -59,15 +58,18 @@
   };
 
   outputs =
-    inputs @ { self
-    , darwin
-    , nixpkgs
-    , home-manager
-    , ...
+    inputs@{
+      self,
+      darwin,
+      nixpkgs,
+      home-manager,
+      ...
     }:
     let
       inherit (self) outputs;
-      lib = nixpkgs.lib.extend (self: super: { custom = import ./nix/lib { inherit (nixpkgs) lib; }; } // home-manager.lib);
+      lib = nixpkgs.lib.extend (
+        self: super: { custom = import ./nix/lib { inherit (nixpkgs) lib; }; } // home-manager.lib
+      );
     in
     {
       overlays = import ./nix/overlays { inherit inputs; };
@@ -75,45 +77,52 @@
       # nixos configurations for each host
       # hosts are defined in ./nix/hosts/nixos
       nixosConfigurations = builtins.listToAttrs (
-        map
-          (host: {
-            name = host;
-            value = nixpkgs.lib.nixosSystem {
-              specialArgs = {
-                inherit inputs outputs host lib;
-                isDarwin = false;
-              };
-              modules = [
-                ./nix/common.nix
-                ./nix/modules/host
-                ./nix/hosts/common
-                ./nix/hosts/common/nixos.nix
-              ];
+        map (host: {
+          name = host;
+          value = nixpkgs.lib.nixosSystem {
+            specialArgs = {
+              inherit
+                inputs
+                outputs
+                host
+                lib
+                ;
+              isDarwin = false;
             };
-          })
-          (builtins.attrNames (builtins.readDir ./nix/hosts/nixos))
+            modules = [
+              ./nix/common.nix
+              ./nix/modules/host
+              ./nix/hosts/common
+              ./nix/hosts/common/nixos.nix
+            ];
+          };
+        }) (builtins.attrNames (builtins.readDir ./nix/hosts/nixos))
       );
 
       # nix-darwin configurations for each host
       # hosts are defined in ./nix/hosts/darwin
       darwinConfigurations = builtins.listToAttrs (
-        map
-          (host: {
-            name = host;
-            value = darwin.lib.darwinSystem {
-              specialArgs = {
-                inherit self inputs outputs host lib;
-                isDarwin = true;
-              };
-              modules = [
-                ./nix/common.nix
-                ./nix/modules/host
-                ./nix/hosts/common
-                ./nix/hosts/common/darwin.nix
-              ];
+        map (host: {
+          name = host;
+          value = darwin.lib.darwinSystem {
+            specialArgs = {
+              inherit
+                self
+                inputs
+                outputs
+                host
+                lib
+                ;
+              isDarwin = true;
             };
-          })
-          (builtins.attrNames (builtins.readDir ./nix/hosts/darwin))
+            modules = [
+              ./nix/common.nix
+              ./nix/modules/host
+              ./nix/hosts/common
+              ./nix/hosts/common/darwin.nix
+            ];
+          };
+        }) (builtins.attrNames (builtins.readDir ./nix/hosts/darwin))
       );
 
       # Expose the package set, including overlays, for convenience.
@@ -138,7 +147,8 @@
                   isDarwin = false;
                   isStandaloneHm = true;
                   isServer = false;
-                } // instance;
+                }
+                // instance;
               };
               modules = [
                 {
@@ -155,8 +165,18 @@
             };
           })
           [
-            { username = "ricclopez"; hostname = "donnager"; isHeadless = true; domain = "forestroot.elexpedition.com"; }
-            { username = "ricclopez"; hostname = "thinkrick"; isHeadless = true; domain = ""; }
+            {
+              username = "ricclopez";
+              hostname = "donnager";
+              isHeadless = true;
+              domain = "forestroot.elexpedition.com";
+            }
+            {
+              username = "ricclopez";
+              hostname = "thinkrick";
+              isHeadless = true;
+              domain = "";
+            }
           ]
       );
     };
