@@ -12,32 +12,48 @@ let
   ];
   standardHosts = [
     {
+      host = "barry";
       user = "nonroot";
+    }
+    {
       host = "cintra";
+      user = "nonroot";
     }
     {
+      host = "cutiepie";
       user = "nonroot";
+    }
+    {
       host = "dns-01";
+      user = "nonroot";
     }
     {
-      user = "nonroot";
       host = "ferrix";
-    }
-    {
       user = "nonroot";
-      host = "sathub";
     }
     {
-      user = "root";
       host = "fob";
+      user = "root";
     }
     {
-      user = "root";
       host = "fondor";
+      user = "root";
     }
     {
-      user = "root";
+      host = "hermes";
+      user = "nonroot";
+    }
+    {
       host = "panama";
+      user = "root";
+    }
+    {
+      host = "rickhub";
+      user = "nonroot";
+    }
+    {
+      host = "sathub";
+      user = "nonroot";
     }
   ];
   standardHostConfigs = lib.attrsets.mergeAttrsList (
