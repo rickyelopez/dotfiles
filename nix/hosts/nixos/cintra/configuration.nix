@@ -58,6 +58,28 @@
           ];
         };
       };
+
+      ens19 = {
+        ipv4 = {
+          addresses = [
+            {
+              address = "10.19.99.18";
+              prefixLength = 24;
+            }
+          ];
+        };
+      };
+
+      ens20 = {
+        ipv4 = {
+          addresses = [
+            {
+              address = "10.19.50.18";
+              prefixLength = 24;
+            }
+          ];
+        };
+      };
     };
 
     hosts = {
