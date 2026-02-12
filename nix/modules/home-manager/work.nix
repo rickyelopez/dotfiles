@@ -26,6 +26,8 @@ in
           export DATALIB__BARAZA_API_TOKEN="$(cat ${config.sops.secrets."work/baraza_token".path})"
           export BUILDKITE_API_TOKEN="$(cat ${config.sops.secrets."work/buildkite_token".path})"
           export JIRA_API_TOKEN="$(cat ${config.sops.secrets."work/jira_token".path})"
+          export XRAY_CLIENT_ID="$(cat ${config.sops.secrets."work/xray_client_id".path})"
+          export XRAY_CLIENT_SECRET="$(cat ${config.sops.secrets."work/xray_client_secret".path})"
         '';
 
         sessionVariables = {
@@ -38,6 +40,8 @@ in
         "work/baraza_token" = { };
         "work/buildkite_token" = { };
         "work/jira_token" = { };
+        "work/xray_client_id" = { };
+        "work/xray_client_secret" = { };
       };
 
       my.sops.enable = true;
