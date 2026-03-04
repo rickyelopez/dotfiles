@@ -44,7 +44,6 @@ in
 
           shellAliases = lib.mkIf (!cfg.minimal) {
             lg = "lazygit";
-            zipcdb = "ninja -C out all_apps -t compdb | jq \'[ .[] | select(.command | contains(\"bad_toolchain\")|not) ]\' > compile_commands.json";
           };
         };
 
