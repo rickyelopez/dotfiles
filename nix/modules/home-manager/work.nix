@@ -18,6 +18,17 @@ in
       home.packages = with pkgs; [
         opencode
       ];
+
+      programs.zsh = {
+        shellAliases = {
+          zipcdb = "ninja -C out all_apps -t compdb | jq \'[ .[] | select(.command | contains(\"bad_toolchain\")|not) ]\' > compile_commands.json";
+        };
+        initContent = /* bash */ ''
+          function devc() {
+            devcontainer-fs "$@" -- '/home/vscode/data/bin/start.sh'
+          }
+        '';
+      };
     })
     (lib.mkIf cfg.secrets.enable {
       programs.zsh = {
