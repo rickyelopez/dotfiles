@@ -31,7 +31,6 @@
         nerd-fonts.noto
         ninja
         obsidian
-        pre-commit
         python313
         socat
         sshpass
