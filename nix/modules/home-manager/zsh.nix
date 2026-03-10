@@ -62,7 +62,7 @@ in
             (lib.mkOrder 500 /* bash */ ''
               # make ssh work in tmux across reconnections
               if [[ -n "$SSH_TTY" ]] && [[ -n "$SSH_AUTH_SOCK" ]]; then
-              export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock.$(hostname)
+                export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock.$(hostname)
               fi
             '')
 
@@ -129,39 +129,42 @@ in
               [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
             '')
 
-            (lib.mkOrder 1000 (
-              /* bash */ ''
-                NVM_DIR="$HOME/.nvm"
-                function load_nvm() {
+            (lib.mkOrder 1000 /* bash */ ''
+              NVM_DIR="$HOME/.nvm"
+              function load_nvm() {
                 if [ -d "$NVM_DIR" ]; then
-                [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-                [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-                export NVM_DIR
+                  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+                  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+                  export NVM_DIR
                 fi
-                }
+              }
 
-                ## activate python env from path or in current directory if no path given
-                activate() {
+              ## activate python env from typical directories or from the given path
+              function activate() {
                 if [ "$#" -eq 0 ]; then
-                if [ -f ./env/bin/activate ]; then
-                source ./env/bin/activate || echo "'./env/bin/activate' does not exist"
-                return 0
-                elif [ -f ./.venv/bin/activate ]; then
-                source ./.venv/bin/activate || echo "'./env/bin/activate' does not exist"
-                return 0
-                fi
+                  if [ -f ./env/bin/activate ]; then
+                    source ./env/bin/activate
+                  elif [ -f ./.venv/bin/activate ]; then
+                    source ./.venv/bin/activate
+                  else
+                    echo "No venv detected"
+                  fi
                 else
-                [ -f "$1"/bin/activate ] && source "$1"/bin/activate || echo "'$1/bin/activate' does not exist"
+                  if [ -f "$1"/bin/activate ]; then
+                    source "$1"/bin/activate
+                  else
+                    echo "'$1/bin/activate' does not exist"
+                  fi
                 fi
-                }
+              }
 
-                # source private files
-                [ -f "$HOME/dotfiles_priv/.privrc" ] && source "$HOME/dotfiles_priv/.privrc"
-                [ -f "$HOME/dotfiles_priv/.vars" ] && source "$HOME/dotfiles_priv/.vars"
-                [ -f "$HOME/dotfiles_priv/.aliases" ] && source "$HOME/dotfiles_priv/.aliases"
-              ''
-              + lib.optionalString (!hostSpec.isDarwin) "load_nvm"
-            ))
+              # source private files
+              [ -f "$HOME/dotfiles_priv/.privrc" ] && source "$HOME/dotfiles_priv/.privrc"
+              [ -f "$HOME/dotfiles_priv/.vars" ] && source "$HOME/dotfiles_priv/.vars"
+              [ -f "$HOME/dotfiles_priv/.aliases" ] && source "$HOME/dotfiles_priv/.aliases"
+
+              [ $(uname) = "Darwin" ] && load_nvm
+            '')
           ];
 
           sessionVariables = {
@@ -170,7 +173,7 @@ in
 
           oh-my-zsh = {
             enable = true;
-            extraConfig = /* bash */ '''';
+            extraConfig = /* bash */ "";
             plugins = [ "rust" ];
           };
         };
