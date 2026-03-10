@@ -70,6 +70,13 @@ in
 
           {
             "if" = {
+              app-id = "org.ksnip.ksnip";
+            };
+            run = [ "layout floating" ];
+          }
+
+          {
+            "if" = {
               app-name-regex-substring = "Vial";
             };
             run = [ "layout floating" ];
