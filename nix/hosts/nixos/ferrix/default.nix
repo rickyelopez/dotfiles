@@ -15,6 +15,7 @@
 
   my = {
     virtualisation.docker.enable = true;
+    lab.enable = true;
     ssh.enable = true;
   };
 
