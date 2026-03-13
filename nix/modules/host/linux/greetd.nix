@@ -7,7 +7,7 @@
 }:
 let
   cfg = config.my.greetd;
-  hyprlandPackage = inputs.hyprland.packages.${pkgs.system}.hyprland;
+  hyprlandPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
   hyprlandConfig = pkgs.writeText "greetd-hyprland-config" ''
     exec-once = ${config.programs.regreet.package}/bin/regreet -L trace; hyprctl dispatch exit
     exec = systemctl --user import-environment
