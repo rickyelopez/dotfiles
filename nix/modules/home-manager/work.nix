@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.my.work;
+  workSecret = name: config.sops.secrets."work/${name}".path;
 in
 {
   options.my.work = {
@@ -33,12 +34,12 @@ in
     (lib.mkIf cfg.secrets.enable {
       programs.zsh = {
         initContent = /* bash */ ''
-          export GITHUB_TOKEN="$(cat ${config.sops.secrets."work/github_token".path})"
-          export DATALIB__BARAZA_API_TOKEN="$(cat ${config.sops.secrets."work/baraza_token".path})"
-          export BUILDKITE_API_TOKEN="$(cat ${config.sops.secrets."work/buildkite_token".path})"
-          export JIRA_API_KEY="$(cat ${config.sops.secrets."work/jira_token".path})"
-          export XRAY_CLIENT_ID="$(cat ${config.sops.secrets."work/xray_client_id".path})"
-          export XRAY_CLIENT_SECRET="$(cat ${config.sops.secrets."work/xray_client_secret".path})"
+          export GITHUB_TOKEN="$(cat ${workSecret "github_token"})"
+          export DATALIB__BARAZA_API_TOKEN="$(cat ${workSecret "baraza_token"})"
+          export BUILDKITE_API_TOKEN="$(cat ${workSecret "buildkite_token"})"
+          export JIRA_API_KEY="$(cat ${workSecret "jira_token"})"
+          export XRAY_CLIENT_ID="$(cat ${workSecret "xray_client_id"})"
+          export XRAY_CLIENT_SECRET="$(cat ${workSecret "xray_client_secret"})"
         '';
 
         sessionVariables = {
