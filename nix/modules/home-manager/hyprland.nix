@@ -343,8 +343,8 @@ in
       };
       extraConfig = " ";
       plugins = [
-        # inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo
-        inputs.hyprland-plugins.packages.${pkgs.system}.csgo-vulkan-fix
+        # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
+        inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.csgo-vulkan-fix
       ];
     };
 

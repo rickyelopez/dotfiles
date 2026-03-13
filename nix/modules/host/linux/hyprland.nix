@@ -7,7 +7,7 @@
 }:
 let
   cfg = config.my.hyprland;
-  hyprlandPackage = inputs.hyprland.packages.${pkgs.system}.hyprland;
+  hyprlandPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
 in
 {
   options.my.hyprland = {
@@ -22,7 +22,7 @@ in
     };
 
     environment.systemPackages = [
-      inputs.hyprpolkitagent.packages.${pkgs.system}.default
+      inputs.hyprpolkitagent.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
 
     programs = {
@@ -30,11 +30,11 @@ in
         enable = true;
         withUWSM = true;
         package = hyprlandPackage;
-        portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+        portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
       };
       hyprlock = {
         enable = true;
-        package = inputs.hyprlock.packages.${pkgs.system}.hyprlock;
+        package = inputs.hyprlock.packages.${pkgs.stdenv.hostPlatform.system}.hyprlock;
       };
       uwsm.waylandCompositors.hyprland.binPath = lib.mkForce "/run/current-system/sw/bin/start-hyprland";
     };
