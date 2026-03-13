@@ -18,6 +18,7 @@ in
         enable = true;
         enableZshIntegration = true;
         initLua = builtins.readFile (lib.custom.relativeToRepoRoot ".config/yazi/init.lua");
+        shellWrapperName = "y";
 
         keymap = {
           mgr.prepend_keymap = [
