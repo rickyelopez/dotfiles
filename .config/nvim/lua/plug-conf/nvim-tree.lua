@@ -2,21 +2,32 @@ return {
   "nvim-tree/nvim-tree.lua",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   keys = {
-    "<leader>pv",
-    "\\",
+    {
+      "<leader>pv",
+      function()
+        require("nvim-tree.api").tree.open()
+      end,
+      mode = "n",
+      silent = true,
+      desc = "nvim-tree: Focus",
+    },
+    {
+      "\\",
+      function()
+        require("nvim-tree.api").tree.find_file({
+          open = true,
+          update_root = true,
+          focus = true,
+        })
+      end,
+      mode = "n",
+      silent = true,
+      desc = "nvim-tree: Find file",
+    },
   },
-  config = function()
+  opts = function()
     local map = require("utils").map
     local api = require("nvim-tree.api")
-
-    local function opts(desc)
-      return { desc = "nvim-tree: " .. desc, noremap = true, silent = true, nowait = true }
-    end
-
-    map("<leader>pv", api.tree.focus, { "n" }, opts("Focus"))
-    map([[\]], function()
-      api.tree.find_file({ open = true, focus = true, update_root = true })
-    end, { "n" }, opts("Find file"))
 
     local function on_attach(bufnr)
       local function opts(desc)
@@ -24,7 +35,7 @@ return {
       end
 
       -- default mappings
-      api.config.mappings.default_on_attach(bufnr)
+      api.map.on_attach.default(bufnr)
 
       -- custom mappings
       map("<BS>", api.tree.change_root_to_parent, { "n" }, opts("Up"))
@@ -33,7 +44,7 @@ return {
       map("C", api.node.navigate.parent_close, { "n" }, opts("Collapse"))
     end
 
-    require("nvim-tree").setup({
+    return {
       on_attach = on_attach,
       sort_by = "case_sensitive",
       -- sync_root_with_cwd = true,
@@ -62,6 +73,6 @@ return {
       git = {
         enable = false,
       },
-    })
+    }
   end,
 }
