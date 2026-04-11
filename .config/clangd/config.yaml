@@ -1,19 +1,9 @@
 CompileFlags:
-  Add: [-ferror-limit=0, -xc, -Wall, -Werror, -Wextra]
-Completion:
-  AllScopes: true
-
----
-
-If:
-  PathMatch: .*/esphome.*
-CompileFlags:
   Add:
-    - "-ferror-limit=0"
-    - "-xc++"
-    - "-Wall"
-    - "-I/home/ricclopez/repos/esphome"
-  Remove: [-fipa-pta, -free, -mtext-section-literals, -mlongcalls]
+    - -ferror-limit=0
+    - -Wall
+    - -Werror
+    - -Wextra
 Completion:
   AllScopes: true
 
@@ -23,5 +13,8 @@ If:
   PathMatch: .*/linux/tools/usb/usbip/.*
 
 CompileFlags:
-  Add: [-xc, -I../libsrc]
-  Remove: [-xc++]
+  Add:
+    - -xc
+    - -I../libsrc
+  Remove:
+    - -xc++
