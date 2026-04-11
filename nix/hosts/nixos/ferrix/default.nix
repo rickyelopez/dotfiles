@@ -14,9 +14,9 @@
   };
 
   my = {
-    virtualisation.docker.enable = true;
     lab.enable = true;
     ssh.enable = true;
+    virtualisation.docker.enable = true;
   };
 
   nixpkgs.hostPlatform = "x86_64-linux";
