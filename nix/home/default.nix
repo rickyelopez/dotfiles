@@ -27,7 +27,6 @@ in
       fd
       fzf
       fx
-      git
       htop
       jq
       lsof
