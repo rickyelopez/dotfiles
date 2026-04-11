@@ -22,6 +22,8 @@ in
       enable = true;
       package = inputs.neovim-nightly.packages.${pkgs.stdenv.hostPlatform.system}.default;
       defaultEditor = true;
+      withRuby = false;
+      withPython3 = false;
     };
   };
 }

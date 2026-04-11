@@ -26,11 +26,6 @@ in
     zsh.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    just
-    git
-  ];
-
   networking.hostName = config.hostSpec.hostname;
 
   time.timeZone = "America/Los_Angeles";

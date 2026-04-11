@@ -6,8 +6,7 @@
       ffmpegthumbnailer
       killall
       nfs-utils
-      # nodejs_23
-      nodePackages.npm
+      nodejs_25
       pciutils
       pipx
       trash-cli
