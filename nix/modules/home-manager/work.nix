@@ -26,7 +26,7 @@ in
         };
         initContent = /* bash */ ''
           function devc() {
-            devcontainer-fs "$@" -- '/home/vscode/data/bin/start.sh'
+            bazel run //tools/ide:devcontainer -- "$@" '/home/vscode/data/bin/start.sh'
           }
         '';
       };
