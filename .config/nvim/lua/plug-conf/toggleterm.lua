@@ -107,13 +107,6 @@ return {
         on_open = set_tui_keymaps,
       })
 
-      local function set_terminal_keymaps()
-        local opts = { noremap = true, silent = true, buffer = true }
-        vim.keymap.set("t", "<Esc>", "<CMD>stopinsert<CR>", opts)
-        vim.keymap.set("n", "gf", "<C-w>gF", opts)
-        vim.keymap.set("n", "<S-Tab>", next_terminal, opts)
-        vim.keymap.set("n", "<leader><S-Tab>", prev_terminal, opts)
-      end
 
       -- use term://*toggleterm#* to apply to only toggleterm terminals
       -- use term://* for all terminals
