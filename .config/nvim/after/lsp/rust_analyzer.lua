@@ -1,24 +1,58 @@
-local cmd
+local function mux_is_running()
+  local socket_check = vim.system({ "bash", "-c", "ss -tuplen 2>/dev/null | grep 27631" }):wait()
+  return socket_check.code == 0
+end
 
-local socket_check = vim.system({ "bash", "-c", "ss -tuplen 2>/dev/null | grep 27631" }):wait()
+local function get_mode()
+  if vim.g.rust_analyzer_start_mode ~= nil then
+    return vim.g.rust_analyzer_start_mode
+  end
 
-if socket_check.code == 0 then
-  cmd = vim.lsp.rpc.connect("127.0.0.1", 27631)
-else
+  if mux_is_running() then
+    vim.g.rust_analyzer_start_mode = "mux"
+    return vim.g.rust_analyzer_start_mode
+  end
+
   local choice = vim.fn.confirm(
-    "Couldn't find an lspmux socket at localhots:27631. Do you want to start vanilla rust-analyzer??",
+    "Couldn't find an lspmux socket at localhost:27631. Start vanilla rust-analyzer?",
     "&Yes\n&No",
     2
   )
+
   if choice == 1 then
-    cmd = { "rust-analyzer" }
+    vim.g.rust_analyzer_start_mode = "vanilla"
   else
-    cmd = {}
+    vim.g.rust_analyzer_start_mode = "disabled"
   end
+
+  return vim.g.rust_analyzer_start_mode
+end
+
+local mode = get_mode()
+local cmd = nil
+local filetypes = nil
+
+if mode == "mux" then
+  cmd = vim.lsp.rpc.connect("127.0.0.1", 27631)
+elseif mode == "vanilla" then
+  cmd = { "rust-analyzer" }
+elseif mode == "disabled" then
+  filetypes = {}
+end
+
+if not vim.g.rust_lsp_reset_command_created then
+  vim.api.nvim_create_user_command("RustLspReset", function()
+    vim.g.rust_analyzer_start_mode = nil
+    vim.lsp.enable("rust_analyzer", false)
+    vim.lsp.enable("rust_analyzer", true)
+    vim.notify("Rust LSP startup choice reset for this session", vim.log.levels.INFO)
+  end, { desc = "Reset cached Rust LSP startup choice" })
+  vim.g.rust_lsp_reset_command_created = true
 end
 
 return {
   cmd = cmd,
+  filetypes = filetypes,
   settings = {
     ["rust-analyzer"] = {
       lspMux = {
