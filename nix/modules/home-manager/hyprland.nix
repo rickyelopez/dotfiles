@@ -85,7 +85,7 @@ in
               shortcuts.enabled = false;
               directories.enabled = false;
             };
-            power.lowBatteryNotification = true;
+            power.lowBatteryNotification = hostSpec.hasBattery;
           };
           theme = {
             bar.outer_spacing = "0.2em";
@@ -221,7 +221,7 @@ in
           # "$mainMod, M, uwsm stop,"
           "$mainMod, V, togglefloating,"
           "$mainMod, P, pseudo," # dwindle
-          "$mainMod, E, togglesplit" # dwindle
+          "$mainMod, E, layoutmsg, togglesplit" # dwindle
           "$mainMod, F, fullscreen"
 
           # general shortcuts

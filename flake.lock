@@ -973,7 +973,9 @@
           "nixpkgs"
         ],
         "pre-commit-hooks-nix": "pre-commit-hooks-nix",
-        "rust-overlay": "rust-overlay"
+        "rust-overlay": [
+          "rust-overlay"
+        ]
       },
       "locked": {
         "lastModified": 1737639419,
@@ -1177,22 +1179,22 @@
         "neovim-nightly": "neovim-nightly",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_3",
+        "rust-overlay": "rust-overlay",
         "sops-nix": "sops-nix"
       }
     },
     "rust-overlay": {
       "inputs": {
         "nixpkgs": [
-          "lanzaboote",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1731897198,
-        "narHash": "sha256-Ou7vLETSKwmE/HRQz4cImXXJBr/k9gp4J4z/PF8LzTE=",
+        "lastModified": 1776395632,
+        "narHash": "sha256-Mi1uF5f2FsdBIvy+v7MtsqxD3Xjhd0ARJdwoqqqPtJo=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "0be641045af6d8666c11c2c40e45ffc9667839b5",
+        "rev": "8087ff1f47fff983a1fba70fa88b759f2fd8ae97",
         "type": "github"
       },
       "original": {

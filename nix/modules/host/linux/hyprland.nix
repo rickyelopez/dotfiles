@@ -37,6 +37,7 @@ in
         package = inputs.hyprlock.packages.${pkgs.stdenv.hostPlatform.system}.hyprlock;
       };
       uwsm.waylandCompositors.hyprland.binPath = lib.mkForce "/run/current-system/sw/bin/start-hyprland";
+      uwsm.waylandCompositors.hyprland.prettyName = "Hyprland";
     };
 
     xdg.portal = {
