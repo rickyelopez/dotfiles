@@ -89,7 +89,7 @@
       ];
     };
 
-    nameservers = [ "10.19.21.6" ];
+    nameservers = [ "10.19.21.9" ];
     search = [ "forestroot.elexpedition.com" ];
   };
 
