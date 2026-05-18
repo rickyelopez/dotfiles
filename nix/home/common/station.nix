@@ -12,6 +12,7 @@
         bear
         bitwarden-cli
         cmake
+        feishin
         ffmpeg
         fx
         git-lfs
