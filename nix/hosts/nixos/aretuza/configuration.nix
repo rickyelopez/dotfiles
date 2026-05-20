@@ -49,7 +49,8 @@
       "aesni_intel" # hopefully speed up decrypting
       "cryptd" # hopefully speed up decrypting
     ];
-    systemd.users.root.shell = "/bin/cryptsetup-askpass";
+    # FIXME: this needs to be updated for the new systemd stage1 boot
+    # systemd.users.root.shell = "/bin/cryptsetup-askpass";
     network = {
       enable = true;
       ssh = {
