@@ -77,7 +77,7 @@ in
       enable = true;
       enableDefaultConfig = false;
 
-      matchBlocks = {
+      settings = {
         "*" = {
           controlMaster = "auto";
           controlPath = "${hostSpec.home}/.ssh/sockets/S.%r@%h:%p";

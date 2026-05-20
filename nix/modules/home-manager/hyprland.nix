@@ -97,6 +97,7 @@ in
 
     wayland.windowManager.hyprland = {
       enable = true;
+      configType = "hyprlang"; # TODO: switch to lua
       systemd.enable = false;
       package = null;
       portalPackage = null;

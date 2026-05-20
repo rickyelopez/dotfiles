@@ -104,7 +104,7 @@ in
   };
 
   systemd = {
-    sleep.extraConfig = ''
+    sleep.settings.Sleep = ''
       SuspendState=mem
       MemorySleepMode=deep
     '';
