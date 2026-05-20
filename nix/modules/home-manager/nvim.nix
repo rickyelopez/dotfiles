@@ -24,6 +24,7 @@ in
       defaultEditor = true;
       withRuby = false;
       withPython3 = false;
+      sideloadInitLua = true;
     };
   };
 }
