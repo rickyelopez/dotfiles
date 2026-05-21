@@ -1,7 +1,3 @@
-vim.cmd("syntax on") -- enable syntax highlighting
-
-vim.hl.priorities.semantic_tokens = 95
-
 vim.g.mapleader = " " -- use space as leader
 vim.g.winborder = "rounded"
 
@@ -93,4 +89,7 @@ require("lsp")
 
 require("server").start()
 
+vim.cmd("syntax on") -- enable syntax highlighting
+
+vim.hl.priorities.semantic_tokens = 95
 vim.o.formatoptions = "cr/qn1jp"
