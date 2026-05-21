@@ -186,7 +186,6 @@ in
 
         dwindle = {
           # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-          pseudotile = true; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
           preserve_split = true; # you probably want this
         };
 
@@ -222,7 +221,7 @@ in
           # "$mainMod, M, uwsm stop,"
           "$mainMod, V, togglefloating,"
           "$mainMod, P, pseudo," # dwindle
-          "$mainMod, E, togglesplit" # dwindle
+          "$mainMod, E, layoutmsg, togglesplit" # dwindle
           "$mainMod, F, fullscreen"
 
           # general shortcuts

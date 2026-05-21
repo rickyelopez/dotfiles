@@ -104,10 +104,10 @@ in
   };
 
   systemd = {
-    sleep.settings.Sleep = ''
-      SuspendState=mem
-      MemorySleepMode=deep
-    '';
+    sleep.settings.Sleep = {
+      SuspendState = "mem";
+      MemorySleepMode = "deep";
+    };
     # enable fprintd debug
     services.fprintd.environment = {
       G_MESSAGES_DEBUG = "all";
