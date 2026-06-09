@@ -13,8 +13,8 @@ return {
       analysis = {
         autoSearchPaths = true,
         diagnosticMode = "openFilesOnly",
-        useLibraryCodeForTypes = true,
         useTypingExtensions = true,
+        logLevel = "Trace",
       },
     },
   },
