@@ -1,4 +1,3 @@
-vim.cmd("syntax on") -- enable syntax highlighting
 
 vim.hl.priorities.semantic_tokens = 95
 
@@ -94,3 +93,5 @@ require("lsp")
 require("server").start()
 
 vim.o.formatoptions = "cr/qn1jp"
+
+vim.cmd("syntax on") -- enable syntax highlighting

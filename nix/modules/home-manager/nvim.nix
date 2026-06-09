@@ -23,7 +23,7 @@ in
       package = inputs.neovim-nightly.packages.${pkgs.stdenv.hostPlatform.system}.default;
       defaultEditor = true;
       withRuby = false;
-      withPython3 = false;
+      withPython3 = true;
       sideloadInitLua = true;
     };
   };
