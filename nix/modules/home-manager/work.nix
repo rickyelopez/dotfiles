@@ -34,6 +34,7 @@ in
     (lib.mkIf cfg.secrets.enable {
       programs.zsh = {
         initContent = /* bash */ ''
+          export ARTIFACTORY_DEBIAN_TOKEN="$(cat ${workSecret "artifactory_debian_token"})"
           export GITHUB_TOKEN="$(cat ${workSecret "github_token"})"
           export DATALIB__BARAZA_API_TOKEN="$(cat ${workSecret "baraza_token"})"
           export BUILDKITE_API_TOKEN="$(cat ${workSecret "buildkite_token"})"
@@ -48,6 +49,7 @@ in
       };
 
       sops.secrets = {
+        "work/artifactory_debian_token" = { };
         "work/github_token" = { };
         "work/baraza_token" = { };
         "work/buildkite_token" = { };
