@@ -16,9 +16,7 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
-      home.packages = with pkgs; [
-        opencode
-      ];
+      home.packages = with pkgs; [ ];
 
       programs.zsh = {
         shellAliases = {
