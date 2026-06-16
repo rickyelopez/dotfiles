@@ -11,7 +11,7 @@ in
     programs = {
       starship = {
         enable = true;
-        enableZshIntegration = true;
+        enableZshIntegration = false;
         settings = {
           format = lib.concatStrings [
             "[](fg:#a3aed2)"
@@ -151,6 +151,14 @@ in
           };
         };
       };
+
+      zsh.initContent = lib.mkOrder 1000 /* bash */ ''
+        if [[ $TERM != "dumb" ]]; then
+          (( $+functions[__zsh_profile_start] )) && __zsh_profile_start "starship init"
+          eval "$(${lib.getExe config.programs.starship.package} init zsh)"
+          (( $+functions[__zsh_profile_end] )) && __zsh_profile_end "starship init"
+        fi
+      '';
     };
   };
 }

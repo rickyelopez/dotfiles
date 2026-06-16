@@ -66,6 +66,46 @@ in
               fi
             '')
 
+            (lib.mkIf cfg.zprof (lib.mkOrder 505 /* bash */ ''
+              zmodload zsh/datetime
+              typeset -gA __zsh_profile_start_times
+
+              function __zsh_profile_start() {
+                __zsh_profile_start_times[$1]=$EPOCHREALTIME
+              }
+
+              function __zsh_profile_end() {
+                local start=$__zsh_profile_start_times[$1]
+                [[ -z "$start" ]] && return
+                printf 'zsh startup: %6.2f ms  %s\n' $(( (EPOCHREALTIME - start) * 1000 )) "$1" >&2
+                unset "__zsh_profile_start_times[$1]"
+              }
+            ''))
+
+            (lib.mkOrder 525 /* bash */ ''
+              # Home Manager adds each profile's stock zsh functions tree to
+              # fpath. On systems with layered Nix profiles, those are duplicate
+              # aliases of zsh's own functions and make compinit scan extra files.
+              zsh_functions_dir="/share/zsh/$ZSH_VERSION/functions"
+              zsh_store_functions_dir=""
+
+              for dir in $fpath; do
+                if [[ "$dir" == /nix/store/*"$zsh_functions_dir" && -d "$dir" ]]; then
+                  zsh_store_functions_dir="$dir"
+                  break
+                fi
+              done
+
+              if [[ -n "$zsh_store_functions_dir" ]]; then
+                fpath=(
+                  ''${^fpath:#*/share/zsh/$ZSH_VERSION/functions}
+                  "$zsh_store_functions_dir"
+                )
+              fi
+
+              unset dir zsh_functions_dir zsh_store_functions_dir
+            '')
+
             (lib.mkOrder 1500 /* bash */ ''
               # source private files
               [ -f "$HOME/dotfiles_priv/.privrc" ] && source "$HOME/dotfiles_priv/.privrc"
@@ -74,19 +114,14 @@ in
             '')
           ];
 
-          # initExtraBeforeCompInit = /*bash*/'' '';
-
-          # initExtraFirst = /*bash*/ '' '';
-
           localVariables = {
             DISABLE_UPDATE_PROMPT = "true";
+            ZSH_DISABLE_COMPFIX = "true";
           };
 
           sessionVariables = {
             XDG_CONFIG_HOME = "${home}/.config";
           };
-
-          # shellAliases = {};
 
           shellGlobalAliases = {
             G = "| grep";
@@ -163,7 +198,7 @@ in
               [ -f "$HOME/dotfiles_priv/.vars" ] && source "$HOME/dotfiles_priv/.vars"
               [ -f "$HOME/dotfiles_priv/.aliases" ] && source "$HOME/dotfiles_priv/.aliases"
 
-              [ $(uname) = "Darwin" ] && load_nvm
+              # [ $(uname) = "Darwin" ] && load_nvm
             '')
           ];
 

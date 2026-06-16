@@ -51,13 +51,9 @@
 
     fonts.fontconfig.enable = true;
 
-    programs = {
+    my = {
       autojump.enable = true;
       direnv.enable = true;
-      pyenv.enable = true;
-    };
-
-    my = {
       nvim.enable = true;
       zsh.enable = true;
     };

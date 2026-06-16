@@ -64,5 +64,6 @@
       enable = true;
       secrets.enable = true;
     };
+    zsh.zprof = false;
   };
 }

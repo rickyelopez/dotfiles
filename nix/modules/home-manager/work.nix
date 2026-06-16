@@ -34,13 +34,13 @@ in
     (lib.mkIf cfg.secrets.enable {
       programs.zsh = {
         initContent = /* bash */ ''
-          export ARTIFACTORY_DEBIAN_TOKEN="$(cat ${workSecret "artifactory_debian_token"})"
-          export GITHUB_TOKEN="$(cat ${workSecret "github_token"})"
-          export DATALIB__BARAZA_API_TOKEN="$(cat ${workSecret "baraza_token"})"
-          export BUILDKITE_API_TOKEN="$(cat ${workSecret "buildkite_token"})"
-          export JIRA_API_KEY="$(cat ${workSecret "jira_token"})"
-          export XRAY_CLIENT_ID="$(cat ${workSecret "xray_client_id"})"
-          export XRAY_CLIENT_SECRET="$(cat ${workSecret "xray_client_secret"})"
+          export ARTIFACTORY_DEBIAN_TOKEN="$(<${workSecret "artifactory_debian_token"})"
+          export GITHUB_TOKEN="$(<${workSecret "github_token"})"
+          export DATALIB__BARAZA_API_TOKEN="$(<${workSecret "baraza_token"})"
+          export BUILDKITE_API_TOKEN="$(<${workSecret "buildkite_token"})"
+          export JIRA_API_KEY="$(<${workSecret "jira_token"})"
+          export XRAY_CLIENT_ID="$(<${workSecret "xray_client_id"})"
+          export XRAY_CLIENT_SECRET="$(<${workSecret "xray_client_secret"})"
         '';
 
         sessionVariables = {
