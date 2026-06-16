@@ -1,58 +1,55 @@
-local function mux_is_running()
-  local socket_check = vim.system({ "bash", "-c", "ss -tuplen 2>/dev/null | grep 27631" }):wait()
-  return socket_check.code == 0
-end
-
 local function get_mode()
-  if vim.g.rust_analyzer_start_mode ~= nil then
-    return vim.g.rust_analyzer_start_mode
-  end
-
-  if mux_is_running() then
-    vim.g.rust_analyzer_start_mode = "mux"
-    return vim.g.rust_analyzer_start_mode
-  end
-
-  local choice = vim.fn.confirm(
-    "Couldn't find an lspmux socket at localhost:27631. Start vanilla rust-analyzer?",
-    "&Yes\n&No",
-    2
-  )
-
-  if choice == 1 then
-    vim.g.rust_analyzer_start_mode = "vanilla"
-  else
-    vim.g.rust_analyzer_start_mode = "disabled"
-  end
-
-  return vim.g.rust_analyzer_start_mode
+  return vim.g.rust_analyzer_start_mode or "mux"
 end
 
-local mode = get_mode()
-local cmd = nil
-local filetypes = nil
+local mode_configs = {
+  mux = {
+    cmd = vim.lsp.rpc.connect("127.0.0.1", 27631),
+    filetypes = nil,
+  },
+  vanilla = {
+    cmd = { "rust-analyzer" },
+    filetypes = nil,
+  },
+  disabled = {
+    cmd = nil,
+    filetypes = {},
+  },
+}
 
-if mode == "mux" then
-  cmd = vim.lsp.rpc.connect("127.0.0.1", 27631)
-elseif mode == "vanilla" then
-  cmd = { "rust-analyzer" }
-elseif mode == "disabled" then
-  filetypes = {}
+local function set_mode(mode)
+  local mode_config = mode_configs[mode]
+  if mode_config == nil then
+    vim.notify("Invalid Rust LSP mode: " .. mode, vim.log.levels.ERROR)
+    return
+  end
+
+  vim.g.rust_analyzer_start_mode = mode
+  vim.lsp.config("rust_analyzer", mode_config)
+  vim.notify("Rust LSP mode: " .. mode .. "; restart rust_analyzer to apply", vim.log.levels.INFO)
 end
 
-if not vim.g.rust_lsp_reset_command_created then
-  vim.api.nvim_create_user_command("RustLspReset", function()
-    vim.g.rust_analyzer_start_mode = nil
-    vim.lsp.enable("rust_analyzer", false)
-    vim.lsp.enable("rust_analyzer", true)
-    vim.notify("Rust LSP startup choice reset for this session", vim.log.levels.INFO)
-  end, { desc = "Reset cached Rust LSP startup choice" })
-  vim.g.rust_lsp_reset_command_created = true
+if not vim.g.rust_lsp_mode_command_created then
+  vim.api.nvim_create_user_command("RustLspMode", function(opts)
+    if opts.args == "" then
+      vim.notify("Rust LSP mode: " .. get_mode(), vim.log.levels.INFO)
+      return
+    end
+
+    set_mode(opts.args)
+  end, {
+    nargs = "?",
+    complete = function()
+      return { "mux", "vanilla", "disabled" }
+    end,
+    desc = "Show or switch Rust LSP mode",
+  })
+  vim.g.rust_lsp_mode_command_created = true
 end
 
-return {
-  cmd = cmd,
-  filetypes = filetypes,
+local mode_config = mode_configs[get_mode()]
+
+return vim.tbl_deep_extend("force", mode_config, {
   settings = {
     ["rust-analyzer"] = {
       lspMux = {
@@ -100,4 +97,4 @@ return {
       },
     },
   },
-}
+})
