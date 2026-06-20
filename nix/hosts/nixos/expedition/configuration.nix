@@ -126,22 +126,26 @@ in
     allowedUDPPorts = [ wg_port ];
   };
 
-  networking.wireguard.enable = false;
-  networking.wireguard.interfaces = {
+  networking.wg-quick.interfaces = {
     wg0 = {
-      ips = [ "10.255.254.10/24" ];
+      autostart = false;
+      address = [ "10.255.254.10/32" ];
+      dns = [
+        "10.19.21.9"
+      ];
       listenPort = wg_port;
       privateKeyFile = wg_privkey;
       peers = [
         {
-          publicKey = "xjQby/0vO5YKKi8k0xdybzsXt96nxotkx83GXeeERAw=";
           allowedIPs = [
-            "10.255.254.0/24"
-            "10.19.21.0/24"
-            "10.7.51.0/24"
+            # "10.255.254.0/24"
+            # "10.19.21.0/24"
+            # "10.7.51.0/24"
+            "0.0.0.0/0"
           ];
           endpoint = "elxpd.com:51821";
           persistentKeepalive = 25;
+          publicKey = "xjQby/0vO5YKKi8k0xdybzsXt96nxotkx83GXeeERAw=";
         }
       ];
     };
