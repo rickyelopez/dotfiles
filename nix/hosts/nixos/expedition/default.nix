@@ -31,7 +31,7 @@
     opengl.enable = true;
     printing = {
       enable = true;
-      printers.mtlXerox = true;
+      printers.mtlXerox = false;
     };
     qt.enable = true;
     sops.enable = true;
