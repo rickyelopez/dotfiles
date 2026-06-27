@@ -176,7 +176,7 @@ in
             rules = [
               # Folder
               {
-                name = "*/";
+                url = "*/";
                 use = [
                   "edit"
                   "open"
@@ -247,7 +247,7 @@ in
               }
               # Fallback
               {
-                name = "*";
+                url = "*";
                 use = [
                   "edit"
                   "open"
