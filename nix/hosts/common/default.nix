@@ -10,7 +10,14 @@ let
   user = config.hostSpec.username;
 in
 {
-  nix.package = pkgs.lixPackageSets.stable.lix;
+  nix = {
+    package = pkgs.lixPackageSets.stable.lix;
+    settings = {
+      trusted-users = [ user ];
+      trusted-substituters = [ "https://nix-community.cachix.org/" ];
+      trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
+    };
+  };
 
   users = {
     users.${user} = {
