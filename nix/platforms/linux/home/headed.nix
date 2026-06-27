@@ -35,7 +35,7 @@
       name = "Brave Web Browser";
       genericName = "Web Browser";
       type = "Application";
-      exec = "${pkgs.brave}/bin/brave --password-store=gnome-libsecret %U";
+      exec = "${pkgs.brave}/bin/brave --password-store=gnome-libsecret --ozone-platform=x11 %U";
       terminal = false;
       categories = [
         "Network"
@@ -46,11 +46,11 @@
       actions = {
         "new-window" = {
           name = "New Window";
-          exec = "${pkgs.brave}/bin/brave --password-store=gnome-libsecret";
+          exec = "${pkgs.brave}/bin/brave --password-store=gnome-libsecret --ozone-platform=x11";
         };
         "new-private-window" = {
           name = "New Private Window";
-          exec = "${pkgs.brave}/bin/brave --password-store=gnome-libsecret --incognito";
+          exec = "${pkgs.brave}/bin/brave --password-store=gnome-libsecret --ozone-platform=x11 --incognito";
         };
       };
       mimeType = [

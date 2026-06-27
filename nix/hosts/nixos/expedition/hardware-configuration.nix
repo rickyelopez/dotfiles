@@ -9,9 +9,13 @@
     enableRedistributableFirmware = true;
     graphics = {
       extraPackages = with pkgs; [
+        intel-vaapi-driver
+        intel-compute-runtime-legacy1
         libva-vdpau-driver
         libvdpau-va-gl
+        nvidia-vaapi-driver
       ];
+      extraPackages32 = with pkgs.pkgsi686Linux; [ intel-vaapi-driver ];
     };
   };
 
