@@ -38,7 +38,7 @@ in
 
     programs = {
       hyprpanel = {
-        enable = true;
+        enable = false;
         # systemd.enable = true;
         settings = {
           bar = {
@@ -357,7 +357,7 @@ in
             before_sleep_cmd = "loginctl lock-session";
             after_sleep_cmd = "hyprctl dispatch dpms on";
             ignore_dbus_inhibit = false;
-            lock_cmd = "pidof hyprlock || hyprlock --immediate";
+            lock_cmd = "pidof hyprlock || hyprlock --grace 0";
           };
 
           listener = [
@@ -383,6 +383,82 @@ in
         settings = {
           any = {
             path = "~/Nextcloud/Media/Wallpapers/1694344616904955.jpg";
+          };
+        };
+      };
+
+      wayle = {
+        enable = true;
+
+        settings = {
+          bar = {
+            layout = [
+              {
+                center = [ "clock" ];
+                left = [
+                  "dashboard"
+                  {
+                    modules = [
+                      "cpu"
+                      "ram"
+                    ];
+                    name = "Stats";
+                  }
+                  "hyprland-workspaces"
+                  "media"
+                ];
+                monitor = "*";
+                right = [
+                  "idle-inhibit"
+                  "battery"
+                  {
+                    modules = [
+                      "volume"
+                      "microphone"
+                    ];
+                    name = "Audio";
+                  }
+                  "systray"
+                  {
+                    modules = [
+                      "network"
+                      "bluetooth"
+                    ];
+                    name = "Networking";
+                  }
+                  "notifications"
+                ];
+                show = true;
+              }
+            ];
+            scale = 0.85;
+          };
+          general = {
+            font-mono = "BlexMono Nerd Font Mono";
+          };
+          modules = {
+            bluetooth = {
+              label-show = false;
+            };
+            clock = {
+              format = "%a %b %d %I:%M:%S %p";
+            };
+            cpu = {
+              format = "{{ percent }}% {{ temp_c }}°C";
+            };
+            hyprland-workspaces = {
+              workspace-ignore = [ "-99" ];
+            };
+            media = {
+              players-ignored = [ "brave.instance*" ];
+            };
+            systray = {
+              icon-scale = 1.1;
+              internal-padding = 0.25;
+            };
+          };
+          wallpaper = {
+            engine-enabled = false;
           };
         };
       };
