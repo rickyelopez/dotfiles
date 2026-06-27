@@ -4,9 +4,10 @@
     packages = with pkgs; [
       dig
       ffmpegthumbnailer
+      inotify-tools
       killall
       nfs-utils
-      nodejs_25
+      nodejs_26
       pciutils
       pipx
       trash-cli

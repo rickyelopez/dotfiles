@@ -33,6 +33,7 @@ in
       nixd
       ripgrep
       rsync
+      tcpdump
       tmux
       unzip
       watch
