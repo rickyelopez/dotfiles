@@ -14,3 +14,5 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 ## nvidia settings
 export LIBVA_DRIVER_NAME=nvidia
 export __GLX_VENDOR_LIBRARY_NAME=nvidia
+
+export NVD_BACKEND=direct

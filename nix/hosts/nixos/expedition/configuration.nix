@@ -50,7 +50,6 @@ in
 
   # the rest of the nvidia config is in ../../common/optional/nvidia.nix, but this is super host-specific
   hardware.nvidia.prime = {
-    sync.enable = true;
     intelBusId = "PCI:0:2:0";
     nvidiaBusId = "PCI:1:0:0";
   };
