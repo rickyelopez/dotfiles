@@ -26,12 +26,12 @@ in
       FCFANS=hwmon3/pwm1=hwmon3/fan1_input hwmon3/pwm2=hwmon3/fan2_input
 
       INTERVAL=1
-      AVERAGE=hwmon3/pwm2=15 hwmon3/pwm1=10
+      AVERAGE=hwmon3/pwm2=15 hwmon3/pwm1=15
 
       # the following values are in degC
       # MINTEMP: The temperature below which the fan gets switched to minimum speed
       # MAXTEMP: The temperature over which the fan gets switched to maximum speed
-      MINTEMP=hwmon3/pwm2=60 hwmon3/pwm1=60
+      MINTEMP=hwmon3/pwm2=50 hwmon3/pwm1=50
       MAXTEMP=hwmon3/pwm2=70 hwmon3/pwm1=70
 
       # the following values are in PWM (0-255)
@@ -77,8 +77,8 @@ in
         # CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
         # CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
 
-        INTEL_GPU_MIN_FREQ_ON_AC = 500;
-        INTEL_GPU_MIN_FREQ_ON_BAT = 500;
+        # INTEL_GPU_MIN_FREQ_ON_AC = 500;
+        # INTEL_GPU_MIN_FREQ_ON_BAT = 500;
 
         CPU_MIN_PERF_ON_AC = 100;
         CPU_MAX_PERF_ON_AC = 100;
@@ -114,7 +114,7 @@ in
   };
 
   networking.firewall.allowedTCPPorts = [
-    8080 # calibre
+    # 8080 # calibre
   ];
 
   sops.secrets = {
