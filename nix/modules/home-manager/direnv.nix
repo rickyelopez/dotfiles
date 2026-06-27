@@ -16,6 +16,7 @@ in
       direnv = {
         enable = true;
         enableZshIntegration = false;
+        nix-direnv.enable = true;
       };
 
       zsh.initContent = lib.mkOrder 1000 /* bash */ ''
