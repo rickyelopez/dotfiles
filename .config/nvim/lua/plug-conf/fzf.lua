@@ -7,7 +7,7 @@ return {
     },
     config = function()
       local fzf_lua = require("fzf-lua")
-      local actions = require("fzf-lua.actions")
+      local actions = fzf_lua.actions
       local map = require("utils").map
 
       local ignores = {
@@ -73,7 +73,20 @@ return {
         },
       })
 
-      -- find bind for `fzf_lua.resume()`
+      -- reimplement grep_cword and grep_visual from fzf-lua to use live_grep instead of grep
+      local function grep_cword(opts)
+        opts = opts or {}
+        opts.no_esc = true
+        -- match whole words only (#968)
+        opts.search = fzf_lua.utils.rg_escape_cword(vim.fn.expand("<cword>"))
+        return fzf_lua.live_grep(opts)
+      end
+
+      local function grep_visual(opts)
+        opts = opts or {}
+        opts.search = fzf_lua.utils.get_visual_selection()
+        return fzf_lua.live_grep(opts)
+      end
 
       map("<C-p>", fzf_lua.files)
       map("<leader>cd", function()
@@ -85,8 +98,8 @@ return {
         })
       end)
       map("<leader>gg", fzf_lua.live_grep)
-      map("<leader>gw", fzf_lua.grep_cword) -- in normal mode, search word under cursor
-      map("<leader>gw", fzf_lua.grep_visual, { "v" }) -- in visual mode, search the selection
+      map("<leader>gw", grep_cword) -- in normal mode, search word under cursor
+      map("<leader>gw", grep_visual, { "v" }) -- in visual mode, search the selection
       map("<leader>gr", fzf_lua.resume) -- resume previous grep/fd search
     end,
   },

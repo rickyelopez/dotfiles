@@ -27,7 +27,24 @@ return {
   },
   opts = function()
     local map = require("utils").map
+    local fzf = require("fzf-lua")
     local api = require("nvim-tree.api")
+
+    local function get_dir(opts)
+      local node = api.tree.get_node_under_cursor()
+      if node == nil then
+        vim.notify("tried to get node, got nil", vim.log.levels.ERROR)
+        return nil
+      end
+
+      local basedir = node.type == "directory" and node.absolute_path or vim.fs.dirname(node.absolute_path)
+      vim.notify(basedir)
+      opts = opts or {}
+      opts.cwd = basedir
+      opts.search_dirs = { basedir }
+      -- opts.attach_mappings = view_selection
+      return opts
+    end
 
     local function on_attach(bufnr)
       local function opts(desc)
@@ -42,11 +59,21 @@ return {
       map("?", api.tree.toggle_help, { "n" }, opts("Help"))
       map(".", api.tree.change_root_to_node, { "n" }, opts("CD"))
       map("C", api.node.navigate.parent_close, { "n" }, opts("Collapse"))
+
+      map("<leader>gg", function()
+        fzf.live_grep(get_dir())
+      end, { "n" }, opts("Live grep in currently highlighted dir"))
+
+      map("<C-p>", function()
+        fzf.files(get_dir())
+      end, { "n" }, opts("Files in currently highlighted dir"))
     end
 
     return {
       on_attach = on_attach,
-      sort_by = "case_sensitive",
+      sort = {
+        sorter = "case_sensitive",
+      },
       -- sync_root_with_cwd = true,
       actions = {
         change_dir = {
