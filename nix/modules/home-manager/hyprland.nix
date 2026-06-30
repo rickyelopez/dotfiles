@@ -446,6 +446,9 @@ in
             cpu = {
               format = "{{ percent }}% {{ temp_c }}°C";
             };
+            dashboard = {
+              dropdown-logout-command = "uwsm stop";
+            };
             hyprland-workspaces = {
               workspace-ignore = [ "-99" ];
             };
