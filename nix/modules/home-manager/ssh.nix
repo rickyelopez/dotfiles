@@ -80,17 +80,15 @@ in
       settings = {
         "*" = {
           controlMaster = "auto";
-          controlPath = "${hostSpec.home}/.ssh/sockets/S.%r@%h:%p";
+          controlPath = "${hostSpec.home}/.ssh/sockets/S.%r@%n:%p";
           controlPersist = "20m";
           # Avoids infinite hang if control socket connection interrupted. ex: vpn goes down/up
           serverAliveCountMax = 3;
           serverAliveInterval = 5; # 3 * 5s
 
           hashKnownHosts = true;
-          addKeysToAgent = "yes";
         };
-        "git" = {
-          host = "github.com";
+        "github.com" = {
           user = "git";
           forwardAgent = false;
           identitiesOnly = true;
@@ -100,7 +98,6 @@ in
       // standardHostConfigs
       // lib.optionalAttrs (!hostSpec.isWork) {
         "git-dg" = {
-          host = "dg.github.com";
           hostname = "github.com";
           user = "git";
           forwardAgent = false;
