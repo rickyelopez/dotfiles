@@ -17,6 +17,7 @@ in
   config = lib.mkIf cfg.enable {
     home = {
       pointerCursor = {
+        enable = true;
         gtk.enable = true;
         package = pkgs.bibata-cursors;
         name = "Bibata-Modern-Classic";
@@ -37,7 +38,7 @@ in
       gtk4.theme = config.gtk.theme;
       iconTheme.name = "Tokyonight-Light";
       theme = {
-        package = pkgs.tokyonight-gtk-theme;
+        # package = pkgs.tokyonight-gtk-theme; # FIXME: pick a new theme
         name = "Tokyonight-Dark";
       };
     };

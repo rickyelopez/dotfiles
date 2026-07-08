@@ -2,7 +2,7 @@
   description = "Dotfiles Flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/dea0d9eeca494734e596f3f4a813324d6af41265";
 
     darwin = {
       url = "github:LnL7/nix-darwin";

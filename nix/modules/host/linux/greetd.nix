@@ -9,7 +9,7 @@ let
   cfg = config.my.greetd;
   hyprlandPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
   hyprlandConfig = pkgs.writeText "greetd-hyprland-config" ''
-    exec-once = ${config.programs.regreet.package}/bin/regreet -L trace; hyprctl dispatch exit
+    exec-once = ${config.services.displayManager.regreet.package}/bin/regreet -L trace; hyprctl dispatch exit
     exec = systemctl --user import-environment
     debug:disable_logs = false
     misc {
@@ -24,18 +24,16 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs = {
-      seahorse.enable = true;
-      regreet = {
+    programs.seahorse.enable = true;
+
+    services = {
+      displayManager.regreet = {
         enable = true;
         theme = {
           package = pkgs.tokyonight-gtk-theme;
           name = "Tokyonight-Dark";
         };
       };
-    };
-
-    services = {
       gnome.gnome-keyring.enable = true;
       greetd = {
         enable = true;
