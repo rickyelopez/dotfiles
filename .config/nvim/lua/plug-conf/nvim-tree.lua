@@ -38,12 +38,41 @@ return {
       end
 
       local basedir = node.type == "directory" and node.absolute_path or vim.fs.dirname(node.absolute_path)
-      vim.notify(basedir)
       opts = opts or {}
       opts.cwd = basedir
       opts.search_dirs = { basedir }
       -- opts.attach_mappings = view_selection
       return opts
+    end
+
+    local function edit_or_open()
+      local node = api.tree.get_node_under_cursor()
+
+      if node == nil then
+        return nil
+      end
+
+      api.node.open.edit()
+    end
+
+    -- open as vsplit on current node
+    local function vsplit_preview()
+      local node = api.tree.get_node_under_cursor()
+
+      if node == nil then
+        return nil
+      end
+
+      if node.type == "directory" then
+        -- expand or collapse folder
+        api.node.open.edit()
+      else
+        -- open file as vsplit
+        api.node.open.vertical()
+      end
+
+      -- Finally refocus on tree if it was lost
+      api.tree.focus()
     end
 
     local function on_attach(bufnr)
@@ -67,6 +96,13 @@ return {
       map("<C-p>", function()
         fzf.files(get_dir())
       end, { "n" }, opts("Files in currently highlighted dir"))
+
+      vim.keymap.set("n", "l", edit_or_open, opts("Edit or Open"))
+      vim.keymap.set("n", "L", vsplit_preview, opts("Vsplit Preview"))
+      vim.keymap.set("n", "h", function()
+        api.node.collapse(api.tree.get_node_under_cursor())
+      end, opts("Close"))
+      vim.keymap.set("n", "H", api.tree.collapse_all, opts("Collapse All"))
     end
 
     return {
