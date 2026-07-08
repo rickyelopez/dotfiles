@@ -1,76 +1,61 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    lazy = false,
     build = ":TSUpdate",
     config = function()
-      --- @diagnostic disable-next-line: missing-fields
-      require("nvim-treesitter.configs").setup({
-        sync_install = false,
-        auto_install = true,
-        ensure_installed = {
-          "bash",
-          "c",
-          "cpp",
-          "css",
-          "gn",
-          "html",
-          "javascript",
-          "just",
-          "lua",
-          "markdown",
-          "markdown_inline",
-          "python",
-          "query",
-          "rust",
-          "starlark",
-          "sql",
-          "toml",
-          "typescript",
-          "vim",
-          "vimdoc",
-          "yaml",
-          "zig",
-        },
-        highlight = {
-          enable = true,
-          disable = { "csv", "tsv" },
-          -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-          -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-          -- Using this option may slow down your editor, and you may see some duplicate highlights.
-          -- Instead of true it can also be a list of languages
-          -- additional_vim_regex_highlighting = { "csv", "tsv" }, -- {"python"},
-          additional_vim_regex_highlighting = false,
-        },
-        playground = {
-          enable = true,
-          disable = {},
-          updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-          persist_queries = false, -- Whether the query persists across vim sessions
-          keybindings = {
-            toggle_query_editor = "o",
-            toggle_hl_groups = "i",
-            toggle_injected_languages = "t",
-            toggle_anonymous_nodes = "a",
-            toggle_language_display = "I",
-            focus_language = "f",
-            unfocus_language = "F",
-            update = "R",
-            goto_node = "<cr>",
-            show_help = "?",
-          },
-        },
-        indent = {
-          enable = true,
-        },
+      require("nvim-treesitter").setup()
+      require("nvim-treesitter").install({
+        "bash",
+        "c",
+        "cpp",
+        "css",
+        "gn",
+        "html",
+        "javascript",
+        "just",
+        "lua",
+        "markdown",
+        "markdown_inline",
+        "python",
+        "query",
+        "rust",
+        "starlark",
+        "sql",
+        "toml",
+        "typescript",
+        "vim",
+        "vimdoc",
+        "yaml",
+        "zig",
       })
 
-      vim.wo.foldmethod = "expr"
-      vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+      -- highlights
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function(args)
+          local ft = vim.bo[args.buf].filetype
+
+          if ft == "csv" or ft == "tsv" then
+            return
+          end
+
+          local lang = vim.treesitter.language.get_lang(ft)
+          if not lang then
+            return
+          end
+
+          pcall(vim.treesitter.start, args.buf, lang)
+        end,
+      })
+
+      -- folds
+      vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+      vim.wo[0][0].foldmethod = "expr"
+
+      -- indents (experimental)
+      -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
     end,
-  },
-  {
-    "nvim-treesitter/playground",
-    dependencies = "nvim-treesitter/nvim-treesitter",
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
@@ -88,6 +73,5 @@ return {
       separator = nil,
       zindex = 20, -- The Z-index of the context window
     },
-    config = true,
   },
 }
