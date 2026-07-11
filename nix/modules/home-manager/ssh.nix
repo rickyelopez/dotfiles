@@ -26,6 +26,7 @@ let
       "cintra"
       "cutiepie"
       "dns-01"
+      "erid"
       "ferrix"
       "hermes"
       "rickhub"
