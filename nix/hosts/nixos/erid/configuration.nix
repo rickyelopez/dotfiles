@@ -95,6 +95,7 @@
   my = {
     containers = {
     };
+    lab.enable = true;
     nvidia = {
       enable = true;
       runtime.enable = true;
