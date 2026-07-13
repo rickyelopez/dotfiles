@@ -95,5 +95,9 @@
   my = {
     containers = {
     };
+    nvidia = {
+      enable = true;
+      runtime.enable = true;
+    };
   };
 }
