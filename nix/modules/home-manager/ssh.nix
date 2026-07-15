@@ -24,6 +24,7 @@ let
     nonroot = [
       "barry"
       "cintra"
+      "curiosity"
       "cutiepie"
       "dns-01"
       "erid"
