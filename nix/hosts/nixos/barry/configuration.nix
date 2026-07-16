@@ -1,15 +1,16 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   imports = [
-    {
-      _module.args = {
-        disk = "/dev/disk/by-id/nvme-eui.0025385281b29033";
-        withSwap = true;
-        swapSizeGigabytes = 4;
-      };
-    }
-    ../../../disks/nixos-ext4.nix
+    inputs.disko.nixosModules.disko
   ];
+
+  disko.devices.disk = {
+    disk0 = import ../../../disks/layouts/nixos-ext4.nix {
+      device = "/dev/disk/by-id/nvme-eui.0025385281b29033";
+      withSwap = true;
+      swapSizeGigabytes = 4;
+    };
+  };
 
   boot.loader = {
     systemd-boot.enable = true;
