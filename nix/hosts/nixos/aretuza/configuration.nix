@@ -1,15 +1,21 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  inputs,
+  ...
+}:
 {
   imports = [
-    {
-      _module.args = {
-        disk = "/dev/disk/by-id/nvme-CT1000P2SSD8_2139E5D674DF";
-        withSwap = true;
-        swapSizeGigabytes = 64;
-      };
-    }
-    ../../../disks/nixos-luks-btrfs.nix
+    inputs.disko.nixosModules.disko
   ];
+
+  disko.devices.disk = {
+    disk0 = import ../../../disks/layouts/nixos-luks-btrfs.nix {
+      device = "/dev/disk/by-id/nvme-CT1000P2SSD8_2139E5D674DF";
+      withSwap = true;
+      swapSizeGigabytes = 64;
+    };
+  };
 
   boot.loader = {
     efi.canTouchEfiVariables = true;
