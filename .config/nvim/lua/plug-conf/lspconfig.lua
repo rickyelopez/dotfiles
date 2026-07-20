@@ -36,6 +36,7 @@ return {
         "shellcheck",
         "shfmt",
         "stylua",
+        "tree-sitter-cli",
         "yamlfmt",
       },
       auto_update = false,
