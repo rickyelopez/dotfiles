@@ -29,6 +29,7 @@ let
       "dns-01"
       "erid"
       "ferrix"
+      "hubble"
       "hermes"
       "rickhub"
       "sathub"
