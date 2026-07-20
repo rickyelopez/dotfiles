@@ -32,7 +32,7 @@
         nerd-fonts.noto
         ninja
         obsidian
-        python313
+        python314
         socat
         sshpass
         sqlitebrowser
