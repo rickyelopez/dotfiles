@@ -5,7 +5,6 @@
       gdb
       ouch
       pkg-config
-      python313
       rustup
     ];
   };
