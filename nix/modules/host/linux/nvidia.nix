@@ -5,6 +5,11 @@ in
 {
   options.my.nvidia = {
     enable = lib.mkEnableOption "host nvidia module.";
+    open = lib.mkOption {
+      type = lib.types.bool;
+      description = "use open source driver";
+      default = true;
+    };
     runtime.enable = lib.mkEnableOption "nvidia container runtime.";
   };
 
@@ -16,7 +21,7 @@ in
           enable = true;
           finegrained = false;
         };
-        open = true;
+        open = cfg.open;
         nvidiaSettings = true;
         package = config.boot.kernelPackages.nvidiaPackages.stable;
       };
