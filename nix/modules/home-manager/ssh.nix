@@ -15,6 +15,7 @@ let
   standardHosts = {
     root = [
       "ample"
+      "arrakis"
       "cobble"
       "fob"
       "fondor"
