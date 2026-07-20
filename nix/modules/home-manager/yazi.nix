@@ -104,7 +104,7 @@ in
               desc = "Permanently delete selected files";
             }
           ]
-          ++ builtins.map (num: {
+          ++ map (num: {
             on = "${toString num}";
             run = "plugin augment-command -- tab_switch ${toString (num - 1)}";
             desc = "Switch to tab ${toString num}";
