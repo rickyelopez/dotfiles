@@ -1,4 +1,4 @@
-{ inputs, host, ... }:
+{ host, ... }:
 {
   imports = [
     ./configuration.nix
@@ -11,6 +11,12 @@
     username = "ricclopez";
     hostname = host;
     gpu = 2;
+    networking = {
+      addresses = {
+        ipv4 = "10.19.21.20";
+        domain = "forestroot.elexpedition.com";
+      };
+    };
   };
 
   my = {

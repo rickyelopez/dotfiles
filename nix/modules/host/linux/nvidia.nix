@@ -5,9 +5,10 @@ in
 {
   options.my.nvidia = {
     enable = lib.mkEnableOption "host nvidia module.";
+    cuda = lib.mkEnableOption "cuda support.";
     open = lib.mkOption {
       type = lib.types.bool;
-      description = "use open source driver";
+      description = "open source driver.";
       default = true;
     };
     runtime.enable = lib.mkEnableOption "nvidia container runtime.";
@@ -32,5 +33,7 @@ in
     virtualisation.docker.daemon.settings.features.cdi = cfg.runtime.enable;
 
     services.xserver.videoDrivers = [ "nvidia" ];
+
+    nixpkgs.config.cudaSupport = cfg.cuda;
   };
 }

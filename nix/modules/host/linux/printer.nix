@@ -9,7 +9,7 @@ let
 in
 {
   options.my.printing = {
-    enable = lib.mkEnableOption "host sops module.";
+    enable = lib.mkEnableOption "host printer module.";
     printers = {
       mtlXerox = lib.mkEnableOption "Xerox printer in mtl";
     };

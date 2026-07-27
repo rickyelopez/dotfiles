@@ -11,6 +11,7 @@
     username = "ricclopez";
     hostname = host;
     isLaptop = true;
+    hasWifi = true;
     gpu = 0;
   };
 
