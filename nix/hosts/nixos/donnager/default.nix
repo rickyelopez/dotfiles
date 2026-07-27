@@ -1,4 +1,4 @@
-{ inputs, host, ... }:
+{ host, ... }:
 {
   imports = [
     ./configuration.nix
@@ -7,7 +7,9 @@
   hostSpec = {
     username = "ricclopez";
     hostname = host;
-    domain = "forestroot.elexpedition.com";
+    networking = {
+      domain = "forestroot.elexpedition.com";
+    };
     isHeadless = true;
   };
 

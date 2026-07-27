@@ -59,7 +59,7 @@ in
                   "volume"
                   # "network"
                   # "bluetooth"
-                  (lib.optionalString hostSpec.hasBattery "battery")
+                  (lib.optionalString hostSpec.isLaptop "battery")
                   "cputemp"
                   "systray"
                   "clock"

@@ -21,34 +21,9 @@ in
     ../../platforms/linux/host
   ];
 
-  networking = {
-    hosts = {
-      "10.19.21.14" = [
-        "dns-01"
-        "dns-01.forestroot.elexpedition.com"
-      ];
-      "10.19.21.18" = [
-        "cintra"
-        "cintra.forestroot.elexpedition.com"
-      ];
-      "10.19.21.22" = [
-        "fondor"
-        "fondor.forestroot.elexpedition.com"
-      ];
-      "10.19.21.24" = [
-        "ferrix"
-        "ferrix.forestroot.elexpedition.com"
-      ];
-      "10.19.21.30" = [
-        "fob"
-        "fob.forestroot.elexpedition.com"
-      ];
-      "10.19.21.31" = [
-        "sathub"
-        "sathub.forestroot.elexpedition.com"
-      ];
-    };
-    domain = lib.mkIf (config.hostSpec ? domain) config.hostSpec.domain;
+  networking = lib.mkIf (config.hostSpec.networking ? domain) {
+    domain = lib.mkDefault config.hostSpec.networking.domain;
+    search = lib.mkDefault [ config.hostSpec.networking.domain ];
   };
 
   nixpkgs.overlays = [ outputs.overlays.default ];
@@ -69,8 +44,8 @@ in
         members = [ user ];
         gid = 1000;
       };
-      dialout = {};
-      plugdev = {};
+      dialout = { };
+      plugdev = { };
     };
 
     users.${user} = {
