@@ -28,6 +28,7 @@ let
       "curiosity"
       "cutiepie"
       "dns-01"
+      "dns-02"
       "erid"
       "ferrix"
       "hubble"

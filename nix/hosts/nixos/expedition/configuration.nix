@@ -131,6 +131,7 @@ in
       address = [ "10.255.254.10/32" ];
       dns = [
         "10.19.21.9"
+        "10.19.21.6"
       ];
       listenPort = wg_port;
       privateKeyFile = wg_privkey;
