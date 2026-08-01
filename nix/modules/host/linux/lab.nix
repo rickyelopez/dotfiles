@@ -183,7 +183,10 @@ in
     services.rpcbind.enable = true;
 
     networking = {
-      nameservers = [ "10.19.21.9" ];
+      nameservers = [
+        "10.19.21.9"
+        "10.19.21.6"
+      ];
 
       domain = labDomain;
 

@@ -27,7 +27,10 @@
   networking.firewall.allowedTCPPorts = [ ];
   networking.firewall.allowedUDPPorts = [ ];
   networking = {
-    nameservers = [ "10.19.21.9" ];
+    nameservers = [
+      "10.19.21.9"
+      "10.19.21.6"
+    ];
     search = [ "forestroot.elexpedition.com" ];
   };
 }
