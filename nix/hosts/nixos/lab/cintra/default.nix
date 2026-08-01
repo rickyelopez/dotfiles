@@ -2,6 +2,7 @@
   host,
   inputs,
   config,
+  lib,
   ...
 }:
 {
@@ -22,7 +23,7 @@
   };
 
   disko.devices.disk = {
-    disk0 = import ../../../disks/layouts/nixos-ext4.nix {
+    disk0 = import (lib.custom.relativeToRoot "disks/layouts/nixos-ext4.nix") {
       device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0";
       withSwap = true;
       swapSizeGigabytes = 4;

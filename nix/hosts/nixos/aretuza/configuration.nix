@@ -10,7 +10,7 @@
   ];
 
   disko.devices.disk = {
-    disk0 = import ../../../disks/layouts/nixos-luks-btrfs.nix {
+    disk0 = import (lib.custom.relativeToRoot "disks/layouts/nixos-luks-btrfs.nix") {
       device = "/dev/disk/by-id/nvme-CT1000P2SSD8_2139E5D674DF";
       withSwap = true;
       swapSizeGigabytes = 64;

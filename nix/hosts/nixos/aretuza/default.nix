@@ -1,10 +1,10 @@
-{ host, ... }:
+{ host, lib, ... }:
 {
   imports = [
     ./configuration.nix
     ./hardware-configuration.nix
 
-    ../../common/optional/gaming.nix
+    (lib.custom.relativeToRoot "hosts/common/optional/gaming.nix")
   ];
 
   hostSpec = {
