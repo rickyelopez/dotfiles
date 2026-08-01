@@ -1,72 +1,61 @@
 {
   host,
   inputs,
-  pkgs,
+  lib,
   ...
 }:
 {
   imports = [
     inputs.disko.nixosModules.disko
+    ./hardware-configuration.nix
   ];
 
   hostSpec = {
     username = "nonroot";
     hostname = host;
-    isServer = true;
-    isHeadless = true;
     networking = {
       addresses = {
-        ipv4 = "10.19.21.24";
+        ipv4 = "10.19.21.61";
       };
     };
+    isServer = true;
+    isHeadless = true;
   };
 
   disko.devices.disk = {
-    disk0 = import ../../../disks/layouts/nixos-ext4.nix {
-      device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0";
+    disk0 = import (lib.custom.relativeToRoot "disks/layouts/nixos-ext4.nix") {
+      device = "/dev/disk/by-id/nvme-eui.e8238fa6bf530001001b448b4162e99a";
       withSwap = true;
       swapSizeGigabytes = 4;
     };
   };
 
   my = {
-    lab = {
-      enable = true;
-      proxmox-guest = true;
-    };
+    lab.enable = true;
     ssh.enable = true;
     virtualisation.docker.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    iptables
-    nftables
-  ];
-
   networking = {
-    firewall = {
-      enable = true;
-      logReversePathDrops = true;
-    };
-
     interfaces = {
-      ens19 = {
+      enP8p1s0 = {
         ipv4 = {
           addresses = [
             {
-              address = "10.19.99.24";
+              address = "10.19.21.61";
               prefixLength = 24;
             }
           ];
         };
-      };
-
-      ens20 = {
-        ipv4 = {
+        ipv6 = {
           addresses = [
             {
-              address = "10.19.50.24";
-              prefixLength = 24;
+              address = "fd00:750::61";
+              prefixLength = 64;
+            }
+            {
+              address = "fe80::61";
+              prefixLength = 64;
             }
           ];
         };
@@ -74,6 +63,6 @@
     };
   };
 
-  nixpkgs.hostPlatform = "x86_64-linux";
+  nixpkgs.hostPlatform = "aarch64-linux";
   system.stateVersion = "24.11";
 }

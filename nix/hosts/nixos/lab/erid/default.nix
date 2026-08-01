@@ -1,4 +1,9 @@
-{ host, inputs, ... }:
+{
+  host,
+  inputs,
+  lib,
+  ...
+}:
 {
   imports = [
     inputs.disko.nixosModules.disko
@@ -11,13 +16,13 @@
     isHeadless = true;
     networking = {
       addresses = {
-        ipv4 = "10.19.21.42";
+        ipv4 = "10.19.21.36";
       };
     };
   };
 
   disko.devices.disk = {
-    disk0 = import ../../../disks/layouts/nixos-ext4.nix {
+    disk0 = import (lib.custom.relativeToRoot "disks/layouts/nixos-ext4.nix") {
       device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0";
       withSwap = true;
       swapSizeGigabytes = 8;
@@ -28,6 +33,10 @@
     lab = {
       enable = true;
       proxmox-guest = true;
+    };
+    nvidia = {
+      enable = true;
+      runtime.enable = true;
     };
     ssh.enable = true;
     virtualisation.docker.enable = true;

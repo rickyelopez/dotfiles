@@ -4,6 +4,7 @@
   host,
   config,
   lib,
+  isLab,
   ...
 }:
 let
@@ -17,8 +18,8 @@ in
     inputs.home-manager.nixosModules.home-manager
     inputs.sops-nix.nixosModules.sops
 
-    ../nixos/${host}
     ../../platforms/linux/host
+    (if isLab then ../nixos/lab/${host} else ../nixos/${host})
   ];
 
   networking = lib.mkIf (config.hostSpec.networking ? domain) {

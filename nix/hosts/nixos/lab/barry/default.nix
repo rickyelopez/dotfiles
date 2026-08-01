@@ -1,4 +1,9 @@
-{ inputs, host, ... }:
+{
+  inputs,
+  host,
+  lib,
+  ...
+}:
 {
   imports = [
     inputs.disko.nixosModules.disko
@@ -18,7 +23,7 @@
   };
 
   disko.devices.disk = {
-    disk0 = import ../../../disks/layouts/nixos-ext4.nix {
+    disk0 = import (lib.custom.relativeToRoot "disks/layouts/nixos-ext4.nix") {
       device = "/dev/disk/by-id/nvme-eui.0025385281b29033";
       withSwap = true;
       swapSizeGigabytes = 4;

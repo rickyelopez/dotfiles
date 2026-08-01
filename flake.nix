@@ -81,28 +81,35 @@
 
       # nixos configurations for each host
       # hosts are defined in ./nix/hosts/nixos
-      nixosConfigurations = builtins.listToAttrs (
-        map (host: {
-          name = host;
-          value = nixpkgs.lib.nixosSystem {
-            specialArgs = {
-              inherit
-                inputs
-                outputs
-                host
-                lib
-                ;
-              isDarwin = false;
-            };
-            modules = [
-              ./nix/common.nix
-              ./nix/modules/host
-              ./nix/hosts/common
-              ./nix/hosts/common/nixos.nix
-            ];
-          };
-        }) (builtins.attrNames (builtins.readDir ./nix/hosts/nixos))
-      );
+      nixosConfigurations =
+        builtins.mapAttrs
+          (
+            host: settings:
+            nixpkgs.lib.nixosSystem {
+              specialArgs = {
+                inherit
+                  inputs
+                  outputs
+                  host
+                  lib
+                  ;
+                isDarwin = false;
+                isLab = settings.lab;
+              };
+              modules = [
+                ./nix/common.nix
+                ./nix/modules/host
+                ./nix/hosts/common
+                ./nix/hosts/common/nixos.nix
+              ];
+            }
+          )
+          (
+            (builtins.mapAttrs (name: value: { lab = false; }) (
+              lib.filterAttrs (name: _type: name != "lab") (builtins.readDir ./nix/hosts/nixos)
+            ))
+            // (builtins.mapAttrs (name: value: { lab = true; }) (builtins.readDir ./nix/hosts/nixos/lab))
+          );
 
       # nix-darwin configurations for each host
       # hosts are defined in ./nix/hosts/darwin
