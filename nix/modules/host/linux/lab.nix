@@ -7,15 +7,85 @@
 let
   cfg = config.my.lab;
   labDomain = "forestroot.elexpedition.com";
-  lastOctet = builtins.elemAt (lib.splitString "." config.hostSpec.networking.addresses.ipv4) 3;
 in
 {
-  options.my.lab = {
-    enable = lib.mkEnableOption "host lab module.";
-    proxmox-guest = lib.mkEnableOption "proxmox guest";
+  options.my.lab = lib.mkOption {
+    type = lib.types.submodule {
+      options = {
+        enable = lib.mkEnableOption "host lab module.";
+
+        proxmox-guest = lib.mkEnableOption "proxmox guest";
+
+        networking = lib.mkOption {
+          type = lib.types.submodule {
+            options = {
+              id = lib.mkOption {
+                description = "Last octet of IPv4 addresses (if enabled) as well as last word of IPv6 addresses (if enabled) for each interface";
+                type = lib.types.int;
+              };
+
+              defaultInterface = lib.mkOption {
+                description = "Interface to use for IPv4 and IPv6 default gateway";
+                type = lib.types.str;
+                default = if cfg.proxmox-guest then "ens18" else "";
+              };
+
+              interfaces = lib.mkOption {
+                type = lib.types.attrsOf (
+                  lib.types.submodule {
+                    options = {
+                      ipv4Prefix = lib.mkOption {
+                        description = "First three octets of IPv4 address to be defined for this interface";
+                        type = lib.types.str;
+                      };
+
+                      ipv6Prefix = lib.mkOption {
+                        description = "Prefix to use for IPv6 address for this interface. 'id' will be used for the last 16 bits.";
+                        type = lib.types.str;
+                      };
+                    };
+                  }
+                );
+
+                default =
+                  if cfg.proxmox-guest then
+                    {
+                      ens18 = {
+                        ipv4Prefix = "10.19.21";
+                        ipv6Prefix = "fd00:750";
+                      };
+                      ens19 = {
+                        ipv4Prefix = "10.19.99";
+                        ipv6Prefix = "fd00:750:99";
+                      };
+                      ens20 = {
+                        ipv4Prefix = "10.19.50";
+                        ipv6Prefix = "fd00:750:50";
+                      };
+                    }
+                  else
+                    { };
+              };
+            };
+          };
+        };
+      };
+    };
   };
 
   config = lib.mkIf cfg.enable {
+
+    hostSpec = {
+      username = "nonroot";
+      isServer = true;
+      isHeadless = true;
+    };
+
+    my = {
+      ssh.enable = true;
+      virtualisation.docker.enable = true;
+    };
+
     users = {
       groups = {
         media = {
@@ -113,46 +183,52 @@ in
     services.rpcbind.enable = true;
 
     networking = {
-      defaultGateway = {
-        address = "10.19.21.1";
-        interface = "ens18";
-      };
-
-      defaultGateway6 = {
-        address = "fd00:750::1";
-        interface = "ens18";
-      };
-
       nameservers = [ "10.19.21.9" ];
 
       domain = labDomain;
 
       search = [ labDomain ];
 
-      interfaces = lib.mkIf cfg.proxmox-guest {
-        ens18 = {
-          ipv4 = {
-            addresses = [
-              {
-                address = config.hostSpec.networking.addresses.ipv4;
-                prefixLength = 24;
-              }
-            ];
+      defaultGateway =
+        lib.mkIf
+          (
+            cfg.networking ? defaultInterface
+            && cfg.networking.interfaces.${cfg.networking.defaultInterface} ? ipv4Prefix
+          )
+          {
+            address = cfg.networking.interfaces.${cfg.networking.defaultInterface}.ipv4Prefix + ".1";
+            interface = cfg.networking.defaultInterface;
           };
-          ipv6 = {
-            addresses = [
-              {
-                address = "fd00:750::${lastOctet}";
-                prefixLength = 64;
-              }
-              {
-                address = "fe80::${lastOctet}";
-                prefixLength = 64;
-              }
-            ];
+
+      defaultGateway6 =
+        lib.mkIf
+          (
+            cfg.networking ? defaultInterface
+            && cfg.networking.interfaces.${cfg.networking.defaultInterface} ? ipv6Prefix
+          )
+          {
+            address = cfg.networking.interfaces.${cfg.networking.defaultInterface}.ipv6Prefix + "::1";
+            interface = cfg.networking.defaultInterface;
           };
+
+      interfaces = builtins.mapAttrs (interface: config: {
+        ipv4 = lib.mkIf (config ? ipv4Prefix) {
+          addresses = [
+            {
+              address = config.ipv4Prefix + ".${toString cfg.networking.id}";
+              prefixLength = 24;
+            }
+          ];
         };
-      };
+        ipv6 = lib.mkIf (config ? ipv6Prefix) {
+          addresses = [
+            {
+              address = config.ipv6Prefix + "::${toString cfg.networking.id}";
+              prefixLength = 64;
+            }
+          ];
+        };
+      }) cfg.networking.interfaces;
     };
   };
 }

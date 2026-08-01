@@ -1,5 +1,4 @@
 {
-  host,
   inputs,
   pkgs,
   lib,
@@ -9,18 +8,6 @@
   imports = [
     inputs.disko.nixosModules.disko
   ];
-
-  hostSpec = {
-    username = "nonroot";
-    hostname = host;
-    isServer = true;
-    isHeadless = true;
-    networking = {
-      addresses = {
-        ipv4 = "10.19.21.24";
-      };
-    };
-  };
 
   disko.devices.disk = {
     disk0 = import (lib.custom.relativeToRoot "disks/layouts/nixos-ext4.nix") {
@@ -34,9 +21,10 @@
     lab = {
       enable = true;
       proxmox-guest = true;
+      networking = {
+        id = 24;
+      };
     };
-    ssh.enable = true;
-    virtualisation.docker.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
@@ -48,30 +36,6 @@
     firewall = {
       enable = true;
       logReversePathDrops = true;
-    };
-
-    interfaces = {
-      ens19 = {
-        ipv4 = {
-          addresses = [
-            {
-              address = "10.19.99.24";
-              prefixLength = 24;
-            }
-          ];
-        };
-      };
-
-      ens20 = {
-        ipv4 = {
-          addresses = [
-            {
-              address = "10.19.50.24";
-              prefixLength = 24;
-            }
-          ];
-        };
-      };
     };
   };
 
