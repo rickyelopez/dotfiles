@@ -1,5 +1,4 @@
 {
-  host,
   inputs,
   lib,
   ...
@@ -10,18 +9,6 @@
     ./hardware-configuration.nix
   ];
 
-  hostSpec = {
-    username = "nonroot";
-    hostname = host;
-    networking = {
-      addresses = {
-        ipv4 = "10.19.21.61";
-      };
-    };
-    isServer = true;
-    isHeadless = true;
-  };
-
   disko.devices.disk = {
     disk0 = import (lib.custom.relativeToRoot "disks/layouts/nixos-ext4.nix") {
       device = "/dev/disk/by-id/nvme-eui.e8238fa6bf530001001b448b4162e99a";
@@ -31,33 +18,16 @@
   };
 
   my = {
-    lab.enable = true;
-    ssh.enable = true;
-    virtualisation.docker.enable = true;
-  };
-
-  networking = {
-    interfaces = {
-      enP8p1s0 = {
-        ipv4 = {
-          addresses = [
-            {
-              address = "10.19.21.61";
-              prefixLength = 24;
-            }
-          ];
-        };
-        ipv6 = {
-          addresses = [
-            {
-              address = "fd00:750::61";
-              prefixLength = 64;
-            }
-            {
-              address = "fe80::61";
-              prefixLength = 64;
-            }
-          ];
+    lab = {
+      enable = true;
+      networking = {
+        id = 61;
+        defaultInterface = "enP8p1s0";
+        interfaces = {
+          enP8p1s0 = {
+            ipv4Prefix = "10.19.21";
+            ipv6Prefix = "fd00:750";
+          };
         };
       };
     };

@@ -22,6 +22,8 @@ in
     (if isLab then ../nixos/lab/${host} else ../nixos/${host})
   ];
 
+  hostSpec.hostname = host;
+
   networking = lib.mkIf (config.hostSpec.networking ? domain) {
     domain = lib.mkDefault config.hostSpec.networking.domain;
     search = lib.mkDefault [ config.hostSpec.networking.domain ];

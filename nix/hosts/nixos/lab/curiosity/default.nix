@@ -1,5 +1,4 @@
 {
-  host,
   inputs,
   lib,
   ...
@@ -8,18 +7,6 @@
   imports = [
     inputs.disko.nixosModules.disko
   ];
-
-  hostSpec = {
-    username = "nonroot";
-    hostname = host;
-    isServer = true;
-    isHeadless = true;
-    networking = {
-      addresses = {
-        ipv4 = "10.19.21.41";
-      };
-    };
-  };
 
   disko.devices.disk = {
     disk0 = import (lib.custom.relativeToRoot "disks/layouts/nixos-ext4.nix") {
@@ -53,6 +40,7 @@
     lab = {
       enable = true;
       proxmox-guest = true;
+      networking.id = 41;
     };
     nvidia = {
       enable = true;
@@ -60,8 +48,6 @@
       open = false;
       runtime.enable = true;
     };
-    ssh.enable = true;
-    virtualisation.docker.enable = true;
   };
 
   nixpkgs.hostPlatform = "x86_64-linux";
