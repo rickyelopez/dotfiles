@@ -1,0 +1,29 @@
+{
+  inputs,
+  lib,
+  ...
+}:
+{
+  imports = [
+    inputs.disko.nixosModules.disko
+  ];
+
+  disko.devices.disk = {
+    disk0 = import (lib.custom.relativeToRoot "disks/layouts/nixos-ext4.nix") {
+      device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0";
+      withSwap = true;
+      swapSizeGigabytes = 8;
+    };
+  };
+
+  my = {
+    lab = {
+      enable = true;
+      proxmox-guest = true;
+      networking.id = 14;
+    };
+  };
+
+  nixpkgs.hostPlatform = "x86_64-linux";
+  system.stateVersion = "24.11";
+}
