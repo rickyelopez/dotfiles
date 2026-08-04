@@ -34,7 +34,6 @@ in
 
     taps = [
       "homebrew/services"
-      "pantsbuild/tap"
     ];
 
     brews = [
@@ -46,7 +45,6 @@ in
       "brave-browser"
       "foxitreader"
       "hammerspoon"
-      "pants"
     ];
 
     masApps = { };
