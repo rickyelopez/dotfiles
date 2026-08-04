@@ -1,5 +1,5 @@
 return {
-  cmd = { "nixd", "--inlay-hints", "--semantic-tokens" },
+  cmd = { "nixd" },
   filetypes = { "nix" },
   root_markers = { "flake.nix", "git" },
   settings = {
