@@ -1,4 +1,5 @@
 {
+  hostSpec,
   config,
   lib,
   pkgs,
@@ -16,7 +17,7 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
-      home.packages = with pkgs; [ ];
+      home.packages = with pkgs; [ ] ++ lib.optionals (!hostSpec.isHeadless) [ slack ];
 
       programs.zsh = {
         shellAliases = {
