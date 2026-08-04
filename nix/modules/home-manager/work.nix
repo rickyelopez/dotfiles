@@ -21,7 +21,7 @@ in
 
       programs.zsh = {
         shellAliases = {
-          zipcdb = "ninja -C out all_apps -t compdb | jq \'[ .[] | select(.command | contains(\"bad_toolchain\")|not) ]\' > compile_commands.json";
+          zipcdb = ''ninja -C out all_apps -t compdb | jq "[ .[] | select(.command | contains(\"bad_toolchain\")|not) ]" > compile_commands.json'';
         };
         initContent = /* bash */ ''
           function devc() {
