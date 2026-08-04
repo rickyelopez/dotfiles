@@ -18,7 +18,6 @@ in
         # general
         gb = "git branch";
         gbc = "git branch --show-current";
-        gbd = "confirm_branch \"delete branch \'%s\'\" && git branch -D || \"Cancelled\"";
         gbg = "git branch | grep -E";
         gbn = "git checkout -b";
         gcl = "git diff --name-only --diff-filter=U";
@@ -47,9 +46,6 @@ in
 
         # pushing
         gp = "git push";
-        gpf = "confirm_branch \"force-push to \'%s\'\" && git push -f || echo \"Cancelled\"";
-        gpu = "confirm_branch \"push branch \'%s\' to origin\" && git push -u origin \"$(gbc)\" || echo \"Cancelled\"";
-        gpuf = "confirm_branch \"force push branch \'%s\' to origin\" && git push -u origin \"$(gbc)\" -f || echo \"Cancelled\"";
       };
     };
 
@@ -109,54 +105,109 @@ in
         };
       };
 
-      zsh.initContent = lib.mkOrder 1000 /* bash */ ''
+      zsh.siteFunctions = {
         # Request confirmation for an action before proceeding
         # Expects a format string as an argument. '%s' in the format string will be
         # replaced with the branch name
-        confirm_branch() {
-        local branch
-        local confirm
+        confirm_branch = /* bash */ ''
+          local msg=$1
+          local branch=''${2:-}
 
-        if ! branch="$(gbc)"; then
-        return 1
-        fi
+          if [ -n "$branch" ]; then
+            msg=$(printf "$msg" "$branch")
+          fi
 
-        local msg
-        msg=$(printf "$1" "$branch")
+          if [ -n "$ZSH_VERSION" ]; then
+            read "?You are about to $msg. Continue? (y/n) " response
+          else
+            read -p "You are about to $msg. Continue? (y/n) " response
+          fi
 
-        if [ -n "$ZSH_VERSION" ]; then
-        read "?You are about to $msg. Continue? (y/n) " confirm
-        else
-        read -p "You are about to $msg. Continue? (y/n) " confirm
-        fi
+          if [[ $response =~ ^[yY]$ ]] || [[ $response =~ ^[yY][eE][sS]$ ]]; then
+            return 0
+          fi
 
-        if [[ $confirm =~ ^[yY]$ ]] || [[ $confirm =~ ^[yY][eE][sS]$ ]]; then
-        return 0
-        fi
+          return 1
+        '';
 
-        return 1
-        }
+        # git push force
+        gpf = /* bash */ ''
+          local branch="''${1:-$(gbc)}"
+          if ! confirm_branch "force-push to $branch"; then
+            echo "Cancelled" && return 1
+          fi
+          git push -f $branch
+        '';
 
-        # delete branch(es??) matching grepped pattern
-        gbdg() { gbd "$(gbg "$@")"; }
+        # git push origin
+        gpu = /* bash */ ''
+          local branch="''${1:-$(gbc)}"
+          if ! confirm_branch "push branch $branch to origin"; then
+            echo "Cancelled" && return 1
+          fi
+          git push -u origin $branch
+        '';
+
+        # git push origin force
+        gpuf = /* bash */ ''
+          local branch="''${1:-$(gbc)}"
+          if ! confirm_branch "force push branch $branch to origin"; then
+            echo "Cancelled" && return 1
+          fi
+          git push -f -u origin $branch
+        '';
+
+        # git branch delete
+        gbd = /* bash */ ''
+          local branch="''${1:-$(gbc)}"
+          if ! confirm_branch "delete branch $branch"; then
+            echo "Cancelled!" && return 1
+          fi
+          git branch -D $branch
+        '';
+
+        # delete branch matching grepped pattern
+        gbdg = /* bash */ ''
+          local branch
+          local results
+
+          if ! branch="$(gbg "$@")"; then
+            echo "Failed to grep for branch"
+            return 1
+          fi
+
+          if ! results=$(cat "$branch" | wc -l); then
+            echo "Failed to count number of matched branches"
+            return 1
+          fi
+
+          if [[ "$results" != 1 ]]; then
+            printf "More than one branch matched!\n%s\n" "$branch"
+            return 1
+          fi
+
+          gbd "$branch";
+        '';
 
         # fetch branch from origin
-        gfo() {
-        branch=$1
-        shift
-        git fetch --prune origin "$branch":"$branch" "$@"
-        }
+        gfo = /* bash */ ''
+          branch=$1
+          shift
+          git fetch --prune origin "$branch":"$branch" "$@"
+        '';
 
         # checkout branch matching grepped pattern
-        gcog() {
-        local branch=$1
-        shift
-        gco $(gbg "$branch") "$@"
-        }
+        gcog = /* bash */ ''
+          local branch=$1
+          shift
+          gco $(gbg "$branch") "$@"
+        '';
 
         # fetch and checkout branch
-        gfco() { gfo "$1" && gco "$1"; }
-      '';
+        gfco = /* bash */ ''
+          gfo "$1" && gco "$1";
+        '';
+      };
     };
   };
 }
