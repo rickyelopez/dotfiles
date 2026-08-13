@@ -1,11 +1,9 @@
 return {
   "saghen/blink.cmp",
   -- optional: provides snippets for the snippet source
-  dependencies = { { "L3MON4D3/LuaSnip", version = "v2.*" } },
+  dependencies = { "saghen/blink.lib", "L3MON4D3/LuaSnip" },
 
-  -- use a release tag to download pre-built binaries
-  version = "1.*",
-  -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+  -- build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
   -- build = 'cargo build --release',
   -- If you use nix, you can build from source using latest nightly rust with:
   -- build = 'nix run .#build-plugin',
@@ -26,6 +24,15 @@ return {
     --
     -- See :h blink-cmp-config-keymap for defining your own keymap
     keymap = { preset = "default" },
+
+    completion = {
+      keyword = { range = "full" },
+      menu = {
+        draw = {
+          columns = { { "kind_icon" }, { "label", "label_description", gap = 1 }, { "source_name" } },
+        },
+      },
+    },
 
     cmdline = {
       keymap = { preset = "inherit" },
@@ -64,7 +71,14 @@ return {
     -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
     --
     -- See the fuzzy documentation for more information
-    fuzzy = { implementation = "prefer_rust_with_warning" },
+    fuzzy = {
+      implementation = "prefer_rust",
+      sorts = {
+        "score", -- Primary sort: by fuzzy matching score
+        "sort_text", -- Secondary sort: by sortText field if scores are equal
+        "label", -- Tertiary sort: by label if still tied
+      },
+    },
   },
   opts_extend = { "sources.default" },
 }
