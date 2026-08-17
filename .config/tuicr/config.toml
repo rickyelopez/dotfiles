@@ -1,0 +1,29 @@
+theme = "catppuccin-mocha"
+diff_view = "side-by-side"      # or "unified"
+ignore_whitespace = false       # ignore all whitespace in local VCS diffs
+appearance = "system"           # or "dark" / "light"
+mouse = true
+leader = ";"                    # configurable prefix for leader shortcuts
+comment_vim = true              # vim modal editing in the review comment box
+relative_line_numbers = false   # show rendered-row distances in the diff gutter
+review_watch_interval_ms = 1000 # set to 0 to disable persisted-review polling
+
+[[comment_types]]
+id = "issue"
+color = "red"
+definition = "must fix before merge"
+
+[[comment_types]]
+id = "note"
+color = "green"
+definition = "question, concern, etc."
+
+[[comment_types]]
+id = "nit"
+color = "cyan"
+definition = "fix if another push is required"
+
+[[comment_types]]
+id = "suggestion"
+color = "yellow"
+definition = "another way to solve the problem which may or may not be better"
