@@ -42,9 +42,10 @@
       ];
 
       file = config.lib.file.mkDotfilesSymlinks [
+        ".config/clangd/config.yaml"
         ".config/lazygit/config.yml"
         ".config/stylua"
-        ".config/clangd/config.yaml"
+        ".config/tuicr/config.toml"
       ];
     };
 
