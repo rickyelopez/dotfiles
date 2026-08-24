@@ -23,9 +23,12 @@ in
     home = {
       file =
         config.lib.file.mkDotfilesSymlinks [
+          ".config/hypr/.luarc.json"
+          ".config/hypr/binds.lua"
+          ".config/hypr/config.lua"
           ".config/hypr/hyprlock.conf"
           ".config/hypr/scripts"
-          ".config/hypr/windowrules.conf"
+          ".config/hypr/windowrules.lua"
           ".config/uwsm/env"
           ".config/xdg-desktop-portal"
         ]
@@ -97,253 +100,71 @@ in
 
     wayland.windowManager.hyprland = {
       enable = true;
-      configType = "hyprlang"; # TODO: switch to lua
+      configType = "lua";
       systemd.enable = false;
       package = null;
       portalPackage = null;
+      extraConfig = ''
+        require("config")
+        require("binds")
+        require("windowrules")
+      '';
       settings = {
-        "$mainMod" = "SUPER";
-        "$terminal" = lib.getExe pkgs.ghostty;
-        "$fileManager" = lib.getExe pkgs.thunar;
-        "$screenshot" =
-          ''${lib.getExe pkgs.grim} -g "$(${lib.getExe pkgs.slurp})" - | ${lib.getExe pkgs.swappy} -f -'';
-
-        monitor =
-          (map (
-            m:
-            "${m.name},${
-              if m.enabled then
-                "${toString m.width}x${toString m.height}@${toString m.refreshRate}"
-                + ",${toString m.x}x${toString m.y},1"
-                + ",transform,${toString m.transform}"
-                + ",vrr,${toString m.vrr}"
-              else
-                "disable"
-            }"
-          ) my.monitors)
-          ++ [ ",preferred,auto,1" ];
-
-        workspace = (
-          map (m: "${m.workspace}, monitor:${m.name}, default:true, persistent:true") (
-            builtins.filter (m: m ? "workspace") my.monitors
-          )
+        monitor = (
+          map (m: {
+            disabled = !m.enabled;
+            output = m.name;
+            mode = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
+            position = "${toString m.x}x${toString m.y}";
+            scale = 1;
+            transform = 0;
+            vrr = m.vrr;
+          }) my.monitors
         );
 
-        input = {
-          accel_profile = "flat";
-          follow_mouse = 1;
-          kb_layout = "us";
-          kb_options = "ctrl:nocaps,fkeys:basic_13-24";
-          natural_scroll = false;
-          numlock_by_default = true;
-          repeat_delay = 175;
-          repeat_rate = 35;
-          sensitivity = 0.3;
-          touchpad = {
-            clickfinger_behavior = true;
-            disable_while_typing = false;
-            scroll_factor = 0.3;
+        workspace_rule = (
+          map (m: {
+            workspace = m.workspace;
+            monitor = m.name;
+            default = true;
+            persistent = true;
+          }) (builtins.filter (m: m ? "workspace") my.monitors)
+        );
+
+        config = {
+          plugin = {
+            csgo_vulkan_fix = {
+              fix_mouse = true;
+            };
           };
         };
 
-        cursor = {
-          no_hardware_cursors = true;
-        };
-
-        general = {
-          allow_tearing = true;
-          border_size = 1;
-          "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-          "col.inactive_border" = "rgba(595959aa)";
-          gaps_in = 2;
-          gaps_out = 2;
-          layout = "dwindle";
-        };
-
-        decoration = {
-          blur = {
-            enabled = false;
-            new_optimizations = true;
-            passes = 1;
-            size = 3;
-          };
-          rounding = 5;
-        };
-
-        animations = {
-          enabled = true;
-          bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
-
-          animation = [
-            "windows    , 1   , 7  , myBezier"
-            "windowsOut , 1   , 7  , default , popin 80%"
-            "border     , 1   , 10 , default"
-            "borderangle, 1   , 8  , default"
-            "fade       , 1   , 7  , default"
-            "workspaces , 1   , 6  , default"
-          ];
-        };
-
-        dwindle = {
-          # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-          preserve_split = true; # you probably want this
-        };
-
-        master = {
-          # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
-          new_status = "master";
-        };
-
-        gesture = [
-          "3, horizontal, workspace"
-        ];
-
-        gestures = {
-          workspace_swipe_invert = false;
-        };
-
-        misc = {
-          disable_hyprland_logo = true;
-          disable_splash_rendering = true;
-        };
-
-        exec-once = [
-          # "dbus-update-activation-environment --systemd --all"
-          "systemctl --user start hyprpolkitagent"
-          "uwsm app -- hyprpanel" # The top bar
-        ];
-
-        source = "/home/${hostSpec.username}/.config/hypr/windowrules.conf";
-
-        bind = [
-          # hyprland stuff
-          "$mainMod, Q, killactive,"
-          # "$mainMod, M, uwsm stop,"
-          "$mainMod, V, togglefloating,"
-          "$mainMod, P, pseudo," # dwindle
-          "$mainMod, E, layoutmsg, togglesplit" # dwindle
-          "$mainMod, F, fullscreen"
-
-          # general shortcuts
-          "$mainMod, RETURN, exec, uwsm-app -- $terminal" # terminal emulator
-          "$mainMod, S     , exec, uwsm-app -- $screenshot" # screenshot
-          "$mainMod, L     , exec, uwsm-app -- hyprlock" # lockscreen
-          "ALT_L   , SPACE , exec, rofi -combi -show" # rofi
-          "ALT_L   , E     , exec, uwsm-app -- $fileManager" # file manager
-
-          "$mainMod      , G    , togglegroup"
-          "ALT_L         , tab  , changegroupactive"
-          "$mainMod      , grave, togglespecialworkspace"
-          "$mainMod SHIFT, grave, movetoworkspace, special"
-
-          # Move focus with mainMod + arrow keys
-          "$mainMod, h, movefocus, l"
-          "$mainMod, j, movefocus, d"
-          "$mainMod, k, movefocus, u"
-          "$mainMod, l, movefocus, r"
-
-          # Switch workspaces with mainMod + [0-9]
-          "$mainMod, 1, workspace, 1"
-          "$mainMod, 2, workspace, 2"
-          "$mainMod, 3, workspace, 3"
-          "$mainMod, 4, workspace, 4"
-          "$mainMod, 5, workspace, 5"
-          "$mainMod, 6, workspace, 6"
-          "$mainMod, 7, workspace, 7"
-          "$mainMod, 8, workspace, 8"
-          "$mainMod, 9, workspace, 9"
-          "$mainMod, 0, workspace, 10"
-
-          # Workspaces related
-          "$mainMod SHIFT, l  , workspace, e+1"
-          "$mainMod SHIFT, h  , workspace, e-1"
-          "$mainMod      , tab, workspace, m+1"
-          "$mainMod SHIFT, tab, workspace, m-1"
-
-          # Move active window to a workspace with mainMod + SHIFT + [0-9]
-          "$mainMod SHIFT, 1, movetoworkspace, 1"
-          "$mainMod SHIFT, 2, movetoworkspace, 2"
-          "$mainMod SHIFT, 3, movetoworkspace, 3"
-          "$mainMod SHIFT, 4, movetoworkspace, 4"
-          "$mainMod SHIFT, 5, movetoworkspace, 5"
-          "$mainMod SHIFT, 6, movetoworkspace, 6"
-          "$mainMod SHIFT, 7, movetoworkspace, 7"
-          "$mainMod SHIFT, 8, movetoworkspace, 8"
-          "$mainMod SHIFT, 9, movetoworkspace, 9"
-          "$mainMod SHIFT, 0, movetoworkspace, 10"
-
-          # Scroll through existing workspaces with mainMod + scroll
-          "$mainMod, mouse_down, workspace, e+1"
-          "$mainMod, mouse_up  , workspace, e-1"
-
-          # "$mainMod, UP, overview:toggle, all"
-
-          "$mainMod SHIFT, O, dpms, on"
-        ];
-
-        bindm = [
-          # Move/resize windows with mainMod + LMB/RMB and dragging
-          "$mainMod      , mouse:272, movewindow" # mainMod + click to move
-          "$mainMod      , mouse:273, resizewindow" # mainMod + right click to resize
-          "$mainMod SHIFT, mouse:272, resizewindow" # mainMod + Shift + click to resize
-        ];
-
-        binde =
+        "plugin.csgo_vulkan_fix.vkfix_app" =
           let
-            pamixer = lib.getExe pkgs.pamixer;
-            playerctl = lib.getExe pkgs.playerctl;
-            brightnessctl = lib.getExe pkgs.brightnessctl;
+            monitor = (builtins.elemAt (builtins.filter (m: m.primary) my.monitors) 0);
           in
-          [
-            "     , XF86AudioRaiseVolume, exec, ${pamixer} -i 5"
-            "     , XF86AudioLowerVolume, exec, ${pamixer} -d 5"
-            "SHIFT, XF86AudioRaiseVolume, exec, ${pamixer} --default-source -i 5"
-            "SHIFT, XF86AudioLowerVolume, exec, ${pamixer} --default-source -d 5"
-            "     , XF86AudioMute       , exec, ${pamixer} -t"
-            "SHIFT, XF86AudioMute       , exec, ${pamixer} --default-source -t"
-            "     , XF86AudioPlay       , exec, ${playerctl} play-pause"
-            "     , XF86AudioPrev       , exec, ${playerctl} previous"
-            "     , XF86AudioNext       , exec, ${playerctl} next"
-          ]
-          ++ lib.optionals hostSpec.isLaptop [
-            "     , XF86Calculator      , exec, qalculate-qt"
-
-            # keyboard brightness buttons
-            "     , XF86MonBrightnessUp  , exec, ${brightnessctl} set 5%+"
-            "     , XF86MonBrightnessDown, exec, ${brightnessctl} --min-value=1 set 5%-"
-            "SHIFT, XF86MonBrightnessUp  , exec, ${brightnessctl} set 1%+"
-            "SHIFT, XF86MonBrightnessDown, exec, ${brightnessctl} --min-value=1 set 1%-"
-            "     , Print , exec, $screenshot"
-            # "binde =      , F9 , exec, cmd"
-
-          ];
-
-        bindl =
-          [ ]
-          ++ lib.optionals hostSpec.isLaptop [
-            # lid switch lock + suspend
-            ", switch:on:Lid Switch, exec, systemctl suspend; pidof hyprlock || uwsm-app -- hyprlock --immediate"
-          ];
-
-        plugin = {
-          csgo-vulkan-fix = {
-            # res_w = 1920;
-            # res_h = 1200;
-            res_w = 2560;
-            res_h = 1440;
-
+          {
             # NOT a regex! This is a string and has to exactly match initial_class
-            class = "cs2";
-
-            # Whether to fix the mouse position. A select few apps might be wonky with this.
-            fix_mouse = true;
+            app = "cs2";
+            w = monitor.width;
+            h = monitor.height;
           };
-        };
 
+        #   animations = {
+        #     enabled = true;
+        #     bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
+
+        #     animation = [
+        #       "windows    , 1   , 7  , myBezier"
+        #       "windowsOut , 1   , 7  , default , popin 80%"
+        #       "border     , 1   , 10 , default"
+        #       "borderangle, 1   , 8  , default"
+        #       "fade       , 1   , 7  , default"
+        #       "workspaces , 1   , 6  , default"
+        #     ];
+        #   };
       };
-      extraConfig = " ";
       plugins = [
-        # inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
         inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.csgo-vulkan-fix
       ];
     };

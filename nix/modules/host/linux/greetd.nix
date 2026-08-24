@@ -8,14 +8,19 @@
 let
   cfg = config.my.greetd;
   hyprlandPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-  hyprlandConfig = pkgs.writeText "greetd-hyprland-config" ''
-    exec-once = ${config.services.displayManager.regreet.package}/bin/regreet -L trace; hyprctl dispatch exit
-    exec = systemctl --user import-environment
-    debug:disable_logs = false
-    misc {
-        disable_hyprland_logo = true
-        disable_splash_rendering = true
-    }
+  hyprlandConfig = pkgs.writeText "greetd-hyprland-config" /* lua */ ''
+    hl.on("hyprland.start", function()
+      hl.exec_cmd("systemctl --user import-environment")
+      hl.exec_cmd("${config.services.displayManager.regreet.package}/bin/regreet -L trace; hyprctl dispatch exit")
+    end)
+
+    hl.config({
+      debug = { disable_logs = false},
+      misc = {
+          disable_hyprland_logo = true,
+          disable_splash_rendering = true,
+      },
+    })
   '';
 in
 {
