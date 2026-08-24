@@ -27,13 +27,7 @@ in
     programs.seahorse.enable = true;
 
     services = {
-      displayManager.regreet = {
-        enable = true;
-        theme = {
-          package = pkgs.tokyonight-gtk-theme;
-          name = "Tokyonight-Dark";
-        };
-      };
+      displayManager.regreet.enable = true;
       gnome.gnome-keyring.enable = true;
       greetd = {
         enable = true;

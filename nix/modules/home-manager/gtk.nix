@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   config,
   hostSpec,
@@ -15,15 +14,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home = {
-      pointerCursor = {
-        enable = true;
-        gtk.enable = true;
-        package = pkgs.bibata-cursors;
-        name = "Bibata-Modern-Classic";
-        size = 24;
-      };
-    };
     gtk = {
       enable = true;
       gtk3 = {
@@ -34,12 +24,6 @@ in
         extraConfig = {
           gtk-application-prefer-dark-theme = 1;
         };
-      };
-      gtk4.theme = config.gtk.theme;
-      iconTheme.name = "Tokyonight-Light";
-      theme = {
-        # package = pkgs.tokyonight-gtk-theme; # FIXME: pick a new theme
-        name = "Tokyonight-Dark";
       };
     };
   };
