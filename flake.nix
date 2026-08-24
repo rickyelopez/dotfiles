@@ -60,6 +60,11 @@
       url = "github:anduril/jetpack-nixos/master"; # Add this line
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
