@@ -92,7 +92,8 @@ in
         };
 
         "digital.twisted.noTunes" = {
-          replacement = "${pkgs.feishin}/Applications/Feishin.app";
+          # replacement = "${pkgs.feishin}/Applications/Feishin.app";
+          replacement = "https://lms.elxpd.com/";
         };
       };
 
