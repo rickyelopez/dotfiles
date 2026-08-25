@@ -60,6 +60,7 @@
     ghostty.enable = true;
     remote-open.enable = true;
     sops.enable = true;
+    stylix.enable = true;
     work = {
       enable = true;
       secrets.enable = true;
