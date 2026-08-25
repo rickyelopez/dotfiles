@@ -34,7 +34,6 @@ in
       ripgrep
       rsync
       tcpdump
-      tmux
       unzip
       watch
       wget
@@ -42,7 +41,6 @@ in
     ];
 
     file = config.lib.file.mkDotfilesSymlinks [
-      ".config/tmux"
       ".config/uncrustify.cfg"
     ];
   };
@@ -56,6 +54,7 @@ in
   my = {
     fx.enable = true;
     git.enable = true;
+    tmux.enable = true;
     yazi.enable = true;
   };
 }
