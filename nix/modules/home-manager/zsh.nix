@@ -150,13 +150,6 @@ in
         ];
 
         programs.zsh = {
-          antidote = {
-            enable = true;
-            plugins = [
-              "tinted-theming/tinted-shell"
-            ];
-          };
-
           autosuggestion.enable = true;
 
           initContent = lib.mkMerge [
