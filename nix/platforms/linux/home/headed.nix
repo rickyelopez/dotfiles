@@ -11,7 +11,6 @@
       [
         brave
         gedit
-        ghostty
         ksnip
         imv
         pamixer
@@ -27,6 +26,10 @@
   services = {
     ssh-agent.enable = true;
     nextcloud-client.enable = true;
+  };
+
+  my = {
+    ghostty.enable = true;
   };
 
   xdg.desktopEntries = {

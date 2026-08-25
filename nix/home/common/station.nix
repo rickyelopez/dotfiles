@@ -42,7 +42,6 @@
       ];
 
       file = config.lib.file.mkDotfilesSymlinks [
-        ".config/ghostty"
         ".config/lazygit/config.yml"
         ".config/stylua"
         ".config/clangd/config.yaml"
