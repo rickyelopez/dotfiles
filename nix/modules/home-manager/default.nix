@@ -10,8 +10,7 @@ in
 {
   imports = lib.custom.scanPaths ./.;
 
-  # I think this is the cleanest way to do this given that I need to support both
-  # standalone hm and hm baked into nixos or nix-darwin
+  # for anything I want to be able to just modify directly without having to rebuild
   config.lib.file.mkDotfilesSymlinks =
     paths:
     builtins.listToAttrs (
