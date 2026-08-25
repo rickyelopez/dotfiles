@@ -7,7 +7,6 @@
       ccache
       cmake
       gdal
-      ghostty-bin
       iproute2mac
       k9s
       karabiner-elements
@@ -58,6 +57,7 @@
   my = {
     bazel.enable = true;
     docker.enable = true;
+    ghostty.enable = true;
     remote-open.enable = true;
     sops.enable = true;
     work = {
