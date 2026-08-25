@@ -26,6 +26,11 @@ in
       default = false;
       description = "Enable zprofiling";
     };
+    tintedShell = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable tinted-shell zsh plugin";
+    };
   };
 
   config = lib.mkIf cfg.enable (
@@ -51,6 +56,13 @@ in
 
         programs.zsh = {
           enable = true;
+
+          antidote = lib.mkIf cfg.tintedShell {
+            enable = true;
+            plugins = [
+              "tinted-theming/tinted-shell"
+            ];
+          };
 
           history = {
             append = true;

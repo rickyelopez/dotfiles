@@ -20,5 +20,9 @@
     docker.enable = true;
     sops.enable = true;
     ssh.enable = true;
+    stylix.enable = true;
+    zsh = {
+      tintedShell = true;
+    };
   };
 }

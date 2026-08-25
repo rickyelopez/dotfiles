@@ -16,6 +16,7 @@
   my = {
     virtualisation.docker.enable = true;
     sops.enable = true;
+    stylix.enable = true;
   };
 
   nixpkgs.hostPlatform = "x86_64-linux";
