@@ -11,6 +11,10 @@
     isWork = true;
   };
 
+  my = {
+    stylix.enable = true;
+  };
+
   nixpkgs.hostPlatform = "aarch64-darwin";
   system.stateVersion = 4;
 }

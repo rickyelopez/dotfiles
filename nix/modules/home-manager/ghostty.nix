@@ -19,10 +19,10 @@ in
 
   };
 
-  config =
-    lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enable (
+    {
       home.file = {
-        ".config/ghostty/extra" = {
+        ".config/ghostty/extra.conf" = {
           source = config.lib.file.mkOutOfStoreSymlink "${hostSpec.home}/dotfiles/.config/ghostty/config";
         };
       };
@@ -46,16 +46,17 @@ in
           clipboard-paste-protection = true;
 
           app-notifications = "no-clipboard-copy";
-          config-file = "extra";
+          config-file = "~/.config/ghostty/extra.conf";
         };
       };
     }
     // (
-      if options ? stylix then
+      if (options ? stylix) then
         {
           stylix.targets.ghostty.fonts.enable = false;
         }
       else
         { }
-    );
+    )
+  );
 }
