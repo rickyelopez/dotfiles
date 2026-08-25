@@ -66,21 +66,23 @@ in
               fi
             '')
 
-            (lib.mkIf cfg.zprof (lib.mkOrder 505 /* bash */ ''
-              zmodload zsh/datetime
-              typeset -gA __zsh_profile_start_times
+            (lib.mkIf cfg.zprof (
+              lib.mkOrder 505 /* bash */ ''
+                zmodload zsh/datetime
+                typeset -gA __zsh_profile_start_times
 
-              function __zsh_profile_start() {
-                __zsh_profile_start_times[$1]=$EPOCHREALTIME
-              }
+                function __zsh_profile_start() {
+                  __zsh_profile_start_times[$1]=$EPOCHREALTIME
+                }
 
-              function __zsh_profile_end() {
-                local start=$__zsh_profile_start_times[$1]
-                [[ -z "$start" ]] && return
-                printf 'zsh startup: %6.2f ms  %s\n' $(( (EPOCHREALTIME - start) * 1000 )) "$1" >&2
-                unset "__zsh_profile_start_times[$1]"
-              }
-            ''))
+                function __zsh_profile_end() {
+                  local start=$__zsh_profile_start_times[$1]
+                  [[ -z "$start" ]] && return
+                  printf 'zsh startup: %6.2f ms  %s\n' $(( (EPOCHREALTIME - start) * 1000 )) "$1" >&2
+                  unset "__zsh_profile_start_times[$1]"
+                }
+              ''
+            ))
 
             (lib.mkOrder 525 /* bash */ ''
               # Home Manager adds each profile's stock zsh functions tree to
@@ -111,6 +113,34 @@ in
               [ -f "$HOME/dotfiles_priv/.privrc" ] && source "$HOME/dotfiles_priv/.privrc"
               [ -f "$HOME/dotfiles_priv/.vars" ] && source "$HOME/dotfiles_priv/.vars"
               [ -f "$HOME/dotfiles_priv/.aliases" ] && source "$HOME/dotfiles_priv/.aliases"
+            '')
+
+            # these are already added by oh-my-zsh, add them manually if oh-my-zsh is not enabled
+            (lib.mkIf (!config.programs.zsh.oh-my-zsh.enable) /* bash */ ''
+              # [Shift-Tab] - move through the completion menu backwards
+              if [[ -n "$${terminfo[kcbt]}" ]]; then
+                bindkey -M emacs "$${terminfo[kcbt]}" reverse-menu-complete
+                bindkey -M viins "$${terminfo[kcbt]}" reverse-menu-complete
+                bindkey -M vicmd "$${terminfo[kcbt]}" reverse-menu-complete
+              fi
+
+              # [Ctrl-Delete] - delete whole forward-word
+              bindkey -M emacs '^[[3;5~' kill-word
+              bindkey -M viins '^[[3;5~' kill-word
+              bindkey -M vicmd '^[[3;5~' kill-word
+
+              # [Ctrl-RightArrow] - move forward one word
+              bindkey -M emacs '^[[1;5C' forward-word
+              bindkey -M viins '^[[1;5C' forward-word
+              bindkey -M vicmd '^[[1;5C' forward-word
+
+              # [Ctrl-LeftArrow] - move backward one word
+              bindkey -M emacs '^[[1;5D' backward-word
+              bindkey -M viins '^[[1;5D' backward-word
+              bindkey -M vicmd '^[[1;5D' backward-word
+
+              # [Alt-M] file rename magick
+              bindkey "^[m" copy-prev-shell-word
             '')
           ];
 
@@ -201,7 +231,6 @@ in
 
           oh-my-zsh = {
             enable = true;
-            extraConfig = /* bash */ "";
             plugins = [ "rust" ];
           };
         };
