@@ -11,8 +11,8 @@ mkYaziPlugin {
   src = fetchFromGitHub {
     owner = "hankertrix";
     repo = "augment-command.yazi";
-    rev = "04cda986fcf9e682373e95c1c7d7dd60eeff36cc";
-    hash = "sha256-LA5rKynrzsHiQvb0WzrJWmOPxutlRljJWKLXMMe1IAo=";
+    rev = "dd2d6cf07f81cef543e37883352e30b91634ec86";
+    hash = "sha256-sB2t3Gg+WdPG6OE8pD6VovD+x9nN21Jn8XydZZdTqCg=";
   };
 
   meta = {
