@@ -7,11 +7,12 @@
 }:
 let
   cfg = config.my.greetd;
+  regreetPackage = config.services.displayManager.regreet.package;
   hyprlandPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
   hyprlandConfig = pkgs.writeText "greetd-hyprland-config" /* lua */ ''
     hl.on("hyprland.start", function()
-      hl.exec_cmd("systemctl --user import-environment")
-      hl.exec_cmd("${config.services.displayManager.regreet.package}/bin/regreet -L trace; hyprctl dispatch exit")
+      -- hl.exec_cmd("systemctl --user import-environment")
+      hl.exec_cmd("${regreetPackage}/bin/regreet -L trace; hyprctl dispatch 'hl.dsp.exit()'")
     end)
 
     hl.config({
@@ -38,7 +39,7 @@ in
         enable = true;
         settings = {
           default_session = {
-            command = "${hyprlandPackage}/bin/start-hyprland -- --config ${hyprlandConfig}";
+            command = "dbus-run-session ${hyprlandPackage}/bin/start-hyprland -- --config ${hyprlandConfig}";
           };
         };
       };
