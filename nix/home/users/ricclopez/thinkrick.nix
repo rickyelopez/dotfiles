@@ -1,5 +1,5 @@
 {
-  config,
+  inputs,
   pkgs,
   ...
 }:
@@ -12,6 +12,7 @@
 
   imports = [
     ../../../platforms/linux/home
+    inputs.stylix.homeModules.stylix
   ];
 
   my = {
@@ -22,6 +23,7 @@
       enable = true;
       addKeys = false;
     };
+    stylix.enable = true;
     work = {
       enable = true;
       secrets.enable = true;
