@@ -1,6 +1,8 @@
 {
+  hostSpec,
   config,
   options,
+  pkgs,
   lib,
   ...
 }:
@@ -20,9 +22,21 @@ in
   config =
     if options ? stylix then
       (lib.mkIf cfg.enable {
-        stylix.targets = {
-          neovim.enable = false;
-        };
+        stylix = {
+          targets = {
+            neovim.enable = false;
+          };
+        }
+        // (
+          if (hostSpec.isStandaloneHm) then
+            {
+              enable = true;
+              polarity = "dark";
+              base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-moon.yaml";
+            }
+          else
+            { }
+        );
       })
     else
       { };
