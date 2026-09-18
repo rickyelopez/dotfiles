@@ -54,7 +54,7 @@
             let
               user = config.hostSpec.username;
             in
-            if pkgs.stdenv.isLinux then "/home/${user}" else "/Users/${user}";
+            if pkgs.stdenv.hostPlatform.isLinux then "/home/${user}" else "/Users/${user}";
         };
 
         gpu = lib.mkOption {
