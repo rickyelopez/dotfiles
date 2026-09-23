@@ -5,7 +5,6 @@
       bluesnooze
       caffeine
       ccache
-      cmake
       gdal
       iproute2mac
       k9s

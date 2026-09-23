@@ -17,7 +17,6 @@
         pavucontrol
         playerctl
         qalculate-qt
-        # rustdesk
         vlc
       ]
       ++ lib.optionals (!hostSpec.isWork) [ rustdesk-flutter ];

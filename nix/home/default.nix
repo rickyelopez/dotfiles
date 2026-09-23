@@ -1,60 +1,20 @@
 {
-  pkgs,
-  config,
   hostSpec,
+  lib,
   ...
 }:
 let
   user = hostSpec.username;
-  home = hostSpec.home;
 in
 {
   imports = [
     ./users/${user}/${hostSpec.hostname}.nix
-    ./common/station.nix
+    (lib.custom.relativeToRoot "platforms/common/home")
   ];
 
   home = {
-    stateVersion = "24.05"; # don't change
-
     username = user;
-    homeDirectory = home;
-
-    packages = with pkgs; [
-      bat
-      bash
-      bitwise
-      fd
-      fzf
-      fx
-      htop
-      jq
-      lsof
-      nixd
-      ripgrep
-      rsync
-      tcpdump
-      unzip
-      watch
-      wget
-      yq
-    ];
-
-    file = config.lib.file.mkDotfilesSymlinks [
-      ".config/uncrustify.cfg"
-    ];
-  };
-
-  programs = {
-    # Let Home Manager install and manage itself.
-    home-manager.enable = true;
-    fzf.enable = true;
-  };
-
-  my = {
-    fx.enable = true;
-    git.enable = true;
-    tmux.enable = true;
-    yazi.enable = true;
+    homeDirectory = hostSpec.home;
+    stateVersion = "24.05"; # don't change
   };
 }

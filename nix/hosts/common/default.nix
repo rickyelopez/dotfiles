@@ -48,7 +48,7 @@ in
       my = config.my;
     };
     users.${user} = lib.custom.relativeToRoot "home/";
-    sharedModules = map lib.custom.relativeToRoot [ "modules/home-manager" ];
+    sharedModules = [ (lib.custom.relativeToRoot "modules/home-manager") ];
   };
 
   my = {
