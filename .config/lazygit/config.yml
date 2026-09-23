@@ -61,6 +61,7 @@ gui:
     'terminal': '#912033'
   nerdFontsVersion: '3'
 git:
+  autoDetectExternalChanges: false
   overrideGpg: true
   autoFetch: false
   pagers:
@@ -70,6 +71,10 @@ git:
   parseEmoji: true
   log:
     order: default
+  mainBranches:
+    - develop
+    - main
+    - master
 keybinding:
   branches:
     fastForward: <disabled>
@@ -88,3 +93,4 @@ os:
     else
       printf "\033]52;c;$(printf {{text}} | base64 -w 0)\a" > /dev/tty
     fi
+confirmOnQuit: true
