@@ -25,7 +25,7 @@ in
         };
         initContent = /* bash */ ''
           function devc() {
-            bazel run //tools/ide:devcontainer -- "$@" '/home/vscode/data/bin/start.sh'
+            AWS_PAGER="" bazel run //tools/ide:devcontainer -- "$@" '/home/vscode/data/bin/start.sh'
           }
         '';
       };
