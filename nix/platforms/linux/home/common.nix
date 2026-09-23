@@ -7,7 +7,7 @@
       inotify-tools
       killall
       nfs-utils
-      nodejs_26
+      nodejs-slim_26
       pciutils
       pipx
       trash-cli
