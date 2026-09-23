@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   home = {
     packages = with pkgs; [
@@ -11,8 +11,7 @@
   };
 
   imports = [
-    ../../../platforms/linux/home
-    ../../common/optional/gaming.nix
+    (lib.custom.relativeToRoot "home/common/optional/gaming.nix")
   ];
 
   my = {

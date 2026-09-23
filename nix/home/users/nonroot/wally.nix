@@ -1,9 +1,5 @@
 { pkgs, ... }:
 {
-  imports = [
-    ../../../platforms/linux/home
-  ];
-
   home = {
     packages = with pkgs; [
       python314

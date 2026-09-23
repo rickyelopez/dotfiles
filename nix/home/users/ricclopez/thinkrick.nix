@@ -11,7 +11,6 @@
   };
 
   imports = [
-    ../../../platforms/linux/home
     inputs.stylix.homeModules.stylix
   ];
 
