@@ -25,7 +25,7 @@ in
     stylix = {
       enable = true;
       polarity = "dark";
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-moon.yaml";
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-storm.yaml";
 
       fonts = {
         serif = {
