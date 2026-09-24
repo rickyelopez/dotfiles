@@ -44,7 +44,6 @@ in
       "bitwarden"
       "brave-browser"
       "foxitreader"
-      "hammerspoon"
     ];
 
     masApps = { };
