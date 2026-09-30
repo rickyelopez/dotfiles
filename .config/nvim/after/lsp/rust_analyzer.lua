@@ -1,3 +1,5 @@
+require("rust_feature_overrides").setup()
+
 local function get_mode()
   return vim.g.rust_analyzer_start_mode or "mux"
 end
