@@ -7,7 +7,13 @@
   home = {
     packages = with pkgs; [
       protobuf
+      ghostty.terminfo
     ];
+
+    file = {
+      ".terminfo/g/ghostty".source = "${pkgs.ghostty.terminfo}/share/terminfo/g/ghostty";
+      ".terminfo/x/xterm-ghostty".source = "${pkgs.ghostty.terminfo}/share/terminfo/x/xterm-ghostty";
+    };
   };
 
   imports = [
