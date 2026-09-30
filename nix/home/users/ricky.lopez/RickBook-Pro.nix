@@ -47,6 +47,7 @@
     remote-open.enable = true;
     sops.enable = true;
     stylix.enable = true;
+    vicinae.enable = true;
     work = {
       enable = true;
       secrets.enable = true;
