@@ -86,6 +86,7 @@ require("plugins")
 require("utils").setup()
 require("binds")
 require("lsp")
+require("project_config").setup()
 
 require("server").start()
 
