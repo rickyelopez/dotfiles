@@ -42,6 +42,7 @@
       ninja
       nixd
       nixfmt
+      nodejs-slim_26
       python314
       ripgrep
       rsync
