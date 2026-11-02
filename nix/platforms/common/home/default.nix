@@ -7,6 +7,7 @@
 {
   imports =
     [ ]
+    ++ (if (!hostSpec.isHeadless) then [ ./headed.nix ] else [ ])
     ++ (if (!hostSpec.isDarwin) then [ ../../linux/home ] else [ ])
     ++ (if (!hostSpec.isServer) then [ ./station.nix ] else [ ]);
 
