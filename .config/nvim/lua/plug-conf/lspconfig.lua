@@ -45,10 +45,4 @@ return {
       debounce_hours = 5, -- at least 5 hours between attempts to install/update
     },
   },
-  {
-    "MysticalDevil/inlay-hints.nvim",
-    event = "LspAttach",
-    dependencies = { "neovim/nvim-lspconfig" },
-    config = true,
-  },
 }
