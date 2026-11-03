@@ -24,6 +24,7 @@
     bazel.enable = true;
     docker.enable = true;
     remote-open.client.enable = true;
+    rex.enable = true;
     sops = {
       enable = true;
       addKeys = false;
