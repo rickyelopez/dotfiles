@@ -74,17 +74,17 @@ in
             }
             {
               on = "p";
-              run = "plugin augment-command -- paste";
+              run = "plugin augment-command.paste";
               desc = "Paste (smart)";
             }
             {
               on = "P";
-              run = "plugin augment-command -- paste --force";
+              run = "plugin augment-command.paste -- --force";
               desc = "Paste yanked files (smart) (overwrite if the destination exists)";
             }
             {
               on = "a";
-              run = "plugin augment-command -- create";
+              run = "plugin augment-command.create";
               desc = "Create a file or directory";
             }
             {
@@ -92,7 +92,7 @@ in
                 "d"
                 "d"
               ];
-              run = "plugin augment-command -- remove";
+              run = "plugin augment-command.remove";
               desc = "Trash selected files";
             }
             {
@@ -100,13 +100,13 @@ in
                 "d"
                 "D"
               ];
-              run = "plugin augment-command -- remove --permanently";
+              run = "plugin augment-command.remove -- --permanently";
               desc = "Permanently delete selected files";
             }
           ]
           ++ map (num: {
             on = "${toString num}";
-            run = "plugin augment-command -- tab_switch ${toString (num - 1)}";
+            run = "plugin augment-command.tab_switch -- ${toString (num - 1)}";
             desc = "Switch to tab ${toString num}";
           }) (lib.range 1 9);
         };
@@ -262,18 +262,18 @@ in
         # use this cmd to open yazi and cd into whatever directory it is in when it exits
         # taken from https://yazi-rs.github.io/docs/quick-start/
         if command -v yazi &>/dev/null; then
-        ycd() {
-        local tmp
-        tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+          ycd() {
+            local tmp
+            tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
 
-        yazi "$@" --cwd-file="$tmp"
+            yazi "$@" --cwd-file="$tmp"
 
-        if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-        builtin cd -- "$cwd" || return 1
-        fi
+            if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+              builtin cd -- "$cwd" || return 1
+            fi
 
-        rm -f -- "$tmp"
-        }
+            rm -f -- "$tmp"
+          }
         fi
       '';
     };
