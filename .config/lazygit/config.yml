@@ -1,64 +1,67 @@
 customCommands:
-  - key: 'c'
-    context: 'remotes'
-    description: 'Prune remote branches'
-    loadingText: 'Pruning'
-    command: 'git remote prune {{.SelectedRemote.Name}}'
+  - key: c
+    context: remotes
+    description: Prune remote branches
+    loadingText: Pruning
+    command: git remote prune {{.SelectedRemote.Name}}
     output: log
-  - key: 'D'
-    context: 'localBranches'
-    description: 'Delete branch from remote'
-    loadingText: 'Deleting'
+  - key: D
+    context: localBranches
+    description: Delete branch from remote
+    loadingText: Deleting
     prompts:
-      - type: "input"
-        key: 'Remote'
-        title: 'Which origin to delete from:'
-        initialValue: 'origin'
+      - type: input
+        key: Remote
+        title: |
+          Which origin to delete from:
+        initialValue: origin
         suggestions:
-          preset: 'remotes'
-      - type: 'confirm'
-        body: 'Are you sure you want to delete branch "{{.SelectedLocalBranch.Name}}" from remote "{{.Form.Remote}}"? This action cannot be reverted.'
-    command: 'git push -u {{.Form.Remote}} :{{.SelectedLocalBranch.Name}}'
+          preset: remotes
+      - type: confirm
+        body: Are you sure you want to delete branch "{{.SelectedLocalBranch.Name}}" from remote "{{.Form.Remote}}"? This action cannot be reverted.
+    command: git push -u {{.Form.Remote}} :{{.SelectedLocalBranch.Name}}
     output: log
-  - key: 'D'
-    context: 'remoteBranches'
-    description: 'Delete branch from remote'
-    loadingText: 'Deleting'
+  - key: D
+    context: remoteBranches
+    description: Delete branch from remote
+    loadingText: Deleting
     prompts:
-      - type: 'confirm'
-        body: 'Are you sure you want to delete branch "{{.SelectedRemoteBranch.Name}}" from remote "{{.SelectedRemote.Name}}"? This action cannot be reverted.'
-    command: 'git push -u {{.SelectedRemote.Name}} :{{.SelectedRemoteBranch.Name}}'
+      - type: confirm
+        body: Are you sure you want to delete branch "{{.SelectedRemoteBranch.Name}}" from remote "{{.SelectedRemote.Name}}"? This action cannot be reverted.
+    command: git push -u {{.SelectedRemote.Name}} :{{.SelectedRemoteBranch.Name}}
     output: log
-  - key: 'f'
-    context: 'localBranches'
-    description: 'Fetch (or pull) the currently selected branch from its upstream'
-    loadingText: 'Fetching'
-    command: 'git {{if eq .CheckedOutBranch.Name .SelectedLocalBranch.Name}} pull --rebase {{else}} fetch {{end}} origin {{.SelectedLocalBranch.Name}}:{{.SelectedLocalBranch.Name}}'
+  - key: f
+    context: localBranches
+    description: Fetch (or pull) the currently selected branch from its upstream
+    loadingText: Fetching
+    command: git {{if eq .CheckedOutBranch.Name .SelectedLocalBranch.Name}} pull --rebase {{else}} fetch {{end}} origin {{.SelectedLocalBranch.Name}}:{{.SelectedLocalBranch.Name}}
     output: log
-  - key: 'F'
-    context: 'localBranches'
-    description: 'Force fetch the currently selected branch from its upstream'
-    loadingText: 'Fetching'
+  - key: F
+    context: localBranches
+    description: Force fetch the currently selected branch from its upstream
+    loadingText: Fetching
     prompts:
-      - type: 'confirm'
-        body: 'Are you sure you want to force fetch branch {{.SelectedLocalBranch.Name}}'
-    command: '{{if not (eq .CheckedOutBranch.Name .SelectedLocalBranch.Name)}} git fetch origin {{.SelectedLocalBranch.Name}}:{{.SelectedLocalBranch.Name}} -f {{else}} echo "Cannot force fetch currently checked out branch. Use \"f\" instead" {{end}}'
+      - type: confirm
+        body: Are you sure you want to force fetch branch {{.SelectedLocalBranch.Name}}
+    command: |
+      {{if not (eq .CheckedOutBranch.Name .SelectedLocalBranch.Name)}} git fetch origin {{.SelectedLocalBranch.Name}}:{{.SelectedLocalBranch.Name}} -f {{else}} echo "Cannot force fetch currently checked out branch. Use \"f\" instead" {{end}}
     output: popup
-  - key: '<c-f>'
-    context: 'localBranches'
-    description: 'Fetch a remote branch into a local branch'
-    loadingText: 'Fetching'
+  - key: <c-f>
+    context: localBranches
+    description: Fetch a remote branch into a local branch
+    loadingText: Fetching
     prompts:
-      - type: 'input'
-        title: 'Branch name?'
-    command: 'git fetch origin {{index .PromptResponses 0}}:{{index .PromptResponses 0}}'
+      - type: input
+        title: Branch name?
+    command: git fetch origin {{index .PromptResponses 0}}:{{index .PromptResponses 0}}
     output: log
 gui:
-  branchColors:
-    'develop': '#fcc603'
-    'last-built': '#1a823e'
-    'terminal': '#912033'
-  nerdFontsVersion: '3'
+  nerdFontsVersion: 3
+  theme:
+    branchColorPatterns:
+      "^develop(/|$)": "#fcc603"
+      "^last-built(/|$)": "#1a823e"
+      "^terminal(/|$)": "#912033"
 git:
   autoDetectExternalChanges: false
   overrideGpg: true
@@ -86,9 +89,12 @@ keybinding:
   forwardDeleteWord: <alt+delete>
 os:
   # edit, editAtLine, openDirInEditor taken directly from https://github.com/jesseduffield/lazygit/blob/master/pkg/config/editor_presets.go#L58
-  edit: '[ -z "$NVIM" ] && (nvim -- {{filename}}) || (nvim --server "$NVIM" --remote-send "<C-\>" && nvim --server "$NVIM" --remote {{filename}})'
-  editAtLine: '[ -z "$NVIM" ] && (nvim +{{line}} -- {{filename}}) || (nvim --server "$NVIM" --remote-send "<C-\>" &&  nvim --server "$NVIM" --remote {{filename}} && nvim --server "$NVIM" --remote-send ":{{line}}<CR>")'
-  openDirInEditor: '[ -z "$NVIM" ] && (nvim -- {{dir}}) || (nvim --server "$NVIM" --remote-send "<C-\>" && nvim --server "$NVIM" --remote-tab {{dir}})'
+  edit: |
+    [ -z "$NVIM" ] && (nvim -- {{filename}}) || (nvim --server "$NVIM" --remote-send "<C-\>" && nvim --server "$NVIM" --remote {{filename}})
+  editAtLine: |
+    [ -z "$NVIM" ] && (nvim +{{line}} -- {{filename}}) || (nvim --server "$NVIM" --remote-send "<C-\>" &&  nvim --server "$NVIM" --remote {{filename}} && nvim --server "$NVIM" --remote-send ":{{line}}<CR>")
+  openDirInEditor: |
+    [ -z "$NVIM" ] && (nvim -- {{dir}}) || (nvim --server "$NVIM" --remote-send "<C-\>" && nvim --server "$NVIM" --remote-tab {{dir}})
   editInTerminal: false
   copyToClipboardCmd: |
     if [[ "$TERM" =~ ^(screen|tmux) ]]; then
