@@ -69,7 +69,7 @@ in
           };
 
           core = {
-            fsmonitor = true;
+            fsmonitor = false;
             untrackedCache = true;
           };
 
