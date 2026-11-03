@@ -39,7 +39,6 @@ customCommands:
     context: 'localBranches'
     description: 'Force fetch the currently selected branch from its upstream'
     loadingText: 'Fetching'
-    # stream: true
     prompts:
       - type: 'confirm'
         body: 'Are you sure you want to force fetch branch {{.SelectedLocalBranch.Name}}'
@@ -81,6 +80,10 @@ keybinding:
     forceCheckoutBranch: <disabled>
   files:
     toggleStagedAll: <disabled>
+  moveWordLeft: <alt+left>
+  moveWordRight: <alt+right>
+  backspaceWord: <alt+backspace>
+  forwardDeleteWord: <alt+delete>
 os:
   # edit, editAtLine, openDirInEditor taken directly from https://github.com/jesseduffield/lazygit/blob/master/pkg/config/editor_presets.go#L58
   edit: '[ -z "$NVIM" ] && (nvim -- {{filename}}) || (nvim --server "$NVIM" --remote-send "<C-\>" && nvim --server "$NVIM" --remote {{filename}})'
