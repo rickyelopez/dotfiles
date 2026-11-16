@@ -55,11 +55,12 @@ customCommands:
     command: 'git fetch origin {{index .PromptResponses 0}}:{{index .PromptResponses 0}}'
     output: log
 gui:
-  branchColors:
-    'develop': '#fcc603'
-    'last-built': '#1a823e'
-    'terminal': '#912033'
   nerdFontsVersion: '3'
+  theme:
+    branchColorPatterns:
+      '^develop(/|$)': '#fcc603'
+      '^last-built(/|$)': '#1a823e'
+      '^terminal(/|$)': '#912033'
 git:
   autoDetectExternalChanges: false
   overrideGpg: true
