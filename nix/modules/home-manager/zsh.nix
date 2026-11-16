@@ -73,7 +73,15 @@ in
           initContent = lib.mkMerge [
             (lib.mkOrder 500 /* bash */ ''
               # make ssh work in tmux across reconnections
+              # note that I used hostname here to account for situations where the home dir is
+              # shared across machines (which was a problem in a past life)
+              if [ -n "$REX_SESSION" ] && [ -S "$HOME/.ssh/ssh_auth_sock.$(hostname)" ]; then
+                export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock.$(hostname)
+              fi
               if [[ -n "$SSH_TTY" ]] && [[ -n "$SSH_AUTH_SOCK" ]]; then
+                if [ "$SSH_AUTH_SOCK" != "$HOME/.ssh/ssh_auth_sock.$(hostname)" ]; then
+                  ln -sf "$SSH_AUTH_SOCK" "$HOME/.ssh/ssh_auth_sock.$(hostname)"
+                fi
                 export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock.$(hostname)
               fi
             '')
